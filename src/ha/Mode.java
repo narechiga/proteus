@@ -1,6 +1,7 @@
-package hybridautomata;
+package ha;
 
-import dl.syntax;
+import dl.syntax.*;
+import java.util.*;
 
 class Mode {
 
@@ -15,7 +16,7 @@ class Mode {
 								List<Edge> incomingEdges, 
 								List<Edge> outgoingEdges ) {
 
-		if ( !invariant.isStatic ) {
+		if ( !invariant.isStatic() ) {
 			throw new RuntimeException("Cannot use dynamic invariant: "
 				+ invariant.toKeYmaeraString() );
 		}

@@ -1,4 +1,4 @@
-package hybridautomata;
+package ha;
 
 import dl.syntax.*;
 
@@ -7,7 +7,7 @@ class Edge {
 	protected dLFormula guard;
 	protected HybridProgram reset;
 
-	public Edge( dLFormula guard; HybridProgram reset ) {
+	public Edge( dLFormula guard, HybridProgram reset ) {
 
 		if (!guard.isStatic() ) {
 			throw new RuntimeException("Cannot use a dynamic guard: " +
