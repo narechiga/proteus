@@ -148,7 +148,7 @@ ifstatement:
 			System.err.println( e );
 		}
 	}
-	|IF logicalformula matlabprogram ELSE assignment END {
+	|IF logicalformula matlabprogram ELSE matlabprogram END {
 		try{
 			IfStatement is = new IfStatement( (dLFormula)$2, (MatlabProgram)$3 );
 			is.appendCase( new TrueFormula(), (AssignmentStatement)$5 );
