@@ -84,19 +84,19 @@ public class IfStatement extends Statement{
 		StringBuffer sb = new StringBuffer();
 		String result ;
 		if ( conditions.size() == 1 && programs.size() == 1 ){
-			sb.append("If "+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements());
+			sb.append("if "+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements());
 		}else if ( conditions.size() >= 1 && programs.size() == 2 ){
-			sb.append("If "+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements()+" Else "+programs.get(1).getStatements());
+			sb.append("if "+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements()+" else "+programs.get(1).getStatements());
 		}else { 
-			sb.append("If"+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements());
+			sb.append("if"+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements());
 			int i = 1;
 			while ( i <= programs.size()-1){
 				if( i == programs.size()-1 ){
-					sb.append(" Else "+conditions.get(i).toMathematicaString()+" "+programs.get(i).getStatements());
+					sb.append(" else "+conditions.get(i).toMathematicaString()+" "+programs.get(i).getStatements());
 					return sb;
 				}
 				
-				sb.append(" Else If"+conditions.get(i).toMathematicaString()+" "+programs.get(i).getStatements());
+				sb.append(" elseif"+conditions.get(i).toMathematicaString()+" "+programs.get(i).getStatements());
 				i++;
 			
 			}

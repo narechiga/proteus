@@ -1,4 +1,4 @@
-package proteus.dl.parser;
+package dl.parser;
 
 
 %%
@@ -28,7 +28,6 @@ package proteus.dl.parser;
 IdentifierName = [a-zA-Z_]+[a-z0-9A-Z_]*
 Number = [0-9]+ \.?[0-9]* | [0-9]+ \.?[0-9]* e [-+]?[0-9]+ | [0-9]+ \.?[0-9]* E [-+]?[0-9]+
 InequalityLiteral = < | > | <= | >= | \!=
-SchemaText = [^\{\}]+
 
 
 InputCharacter = [^\r\n]
@@ -41,10 +40,6 @@ DocumentationComment = "/**" {CommentContent} "*"+ "/"
 CommentContent       = ( [^*] | \*+ [^/*] )*
 /**/
 Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
-
-
-%state SCHEMAS
-%state COMMENTS
 
 %%
 <YYINITIAL> {
@@ -60,140 +55,6 @@ Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
 			System.out.println("Lexer @ " + yytext() );
 		}
 	}
-	
-	// Administrative
-	"\\external" { 
-		if ( debug ) {
-			System.out.println("Lexer: EXTERNAL");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		return EXTERNAL;				
-	}
-	"\\functions" { 
-		if ( debug ) {
-			System.out.println("Lexer: FUNCTIONS");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		return FUNCTIONS;
-	}
-	"\\problem" {
-		if ( debug ) {
-			System.out.println("Lexer: PROBLEM");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		return PROBLEM;
-	}
-	"\\annotations" {
-		if ( debug ) {
-			System.out.println("Lexer: ANNOTATION");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		return ANNOTATION;
-	}
-	"\\bounds" {
-		if ( debug ) {
-			System.out.println("Lexer: BOUNDS");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		return BOUNDS;
-	}
-		
-	
-	"\\schemaVariables" { 
-		if ( debug ) {
-			System.out.println("Lexer: SCHEMAVARIABLES");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		yybegin( SCHEMAS ); 
-		return SCHEMAVARIABLES;
-	}
-	"\\rules" { 
-		if ( debug ) {
-			System.out.println("Lexer: RULES");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		yybegin( SCHEMAS ); return RULES;
-	}
-	// EITool files
-	"\\statevariables" {
-		if ( debug ) {
-			System.out.println("Lexer: STATEVARIABLES");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		return STATEVARIABLES;
-	}
-	"\\initialset" {
-		if ( debug ) {
-			System.out.println("Lexer: INITIALSET");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		return INITIALSET;
-	}
-	"\\safeset" {
-		if ( debug ) {
-			System.out.println("Lexer: SAFESET");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		return SAFESET;
-	}
-	"\\eiparameterset" {
-		if ( debug ) {
-			System.out.println("Lexer: EIPARAMETERS");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		return EIPARAMETERS;
-	}
-	"\\envelope" {
-		if ( debug ) {
-			System.out.println("Lexer: ENVELOPE");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		return ENVELOPE;
-	}
-	"\\invariant" {
-		if ( debug ) {
-			System.out.println("Lexer: INVARIANT");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		return INVARIANT;
-	}
-	"\\controllaw" {
-		if ( debug ) {
-			System.out.println("Lexer: CONTROLLAW");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		return CONTROLLAW;
-	}
-	"\\controlparameters" {
-		if ( debug ) {
-			System.out.println("Lexer: CONTROLPARAMETERS");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		return CONTROLPARAMETERS;
-	}
-	"\\controltemplate" {
-		if ( debug ) {
-			System.out.println("Lexer: CONTROLTEMPLATE");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		return CONTROLTEMPLATE;
-	}
-	"\\objectivefunction" {
-		if ( debug ) {
-			System.out.println("Lexer: OBJECTIVEFUNCTION");
-			System.out.println("Lexer @ " + yytext() );
-		}
-		return OBJECTIVEFUNCTION;
-	}
-	"\\settings" {
-                if ( debug ) { 
-                        System.out.println("Lexer: SETTINGS");
-                        System.out.println("Lexer @ " + yytext() );
-                }
-                return SETTINGS;
-        }
-
-	
 	
 	"R" { 
 		if ( debug ) {
@@ -492,50 +353,4 @@ Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
 		return dLParser.YYERROR;
 	}
 }
-
-<SCHEMAS> {
-	"\{" { 
-		if ( openBraceCount == 0 ) {
-			openBraceCount = openBraceCount + 1;
-			if ( debug ) {
-				System.out.println("Lexer: OPENBRACE");
-			}
-			return OPENBRACE;
-		} else {
-			openBraceCount = openBraceCount + 1;
-			if ( debug ) {
-				System.out.println("Lexer: SCHEMATEXT");
-			}
-			return SCHEMATEXT;
-		}						
-
-	}
-
-	"\}" { 
-		openBraceCount = openBraceCount - 1; 
-		if ( openBraceCount == 0 ) {
-			if ( debug ) {
-				System.out.println("Lexer: CLOSEBRACE");
-			}
-			yybegin( YYINITIAL );
-			return CLOSEBRACE;			
-		} else {
-			if ( debug ) {
-				System.out.println("Lexer: SCHEMATEXT");
-			}
-			return SCHEMATEXT;
-		}
-	}
-
-	{SchemaText} { 
-		if ( debug ) {
-			System.out.println("Lexer: SCHEMATEXT");
-		}
-		return SCHEMATEXT;
-	}
-
-}
-
-
-
 
