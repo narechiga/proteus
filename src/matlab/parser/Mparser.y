@@ -151,7 +151,7 @@ ifstatement:
 	|IF logicalformula matlabprogram ELSE matlabprogram END {
 		try{
 			IfStatement is = new IfStatement( (dLFormula)$2, (MatlabProgram)$3 );
-			is.appendCase( new TrueFormula(), (AssignmentStatement)$5 );
+			is.appendCase( new TrueFormula(), (MatlabProgram)$5 );
 			$$ = is;	    
 		}catch( Exception e){
  			System.out.println("Exception in ifstatement:IF logicalformula matlabprogram ELSE matlabprogram END");

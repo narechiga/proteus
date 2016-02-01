@@ -1,6 +1,7 @@
 package ha;
 
-import dl.syntax.*;
+import dl.syntax.HybridProgram;
+import dl.syntax.dLFormula;
 
 class Edge {
 

@@ -81,23 +81,12 @@ public class MatlabProgram {
 	public List<Statement> getStatements() {
 		return statements;
 	}
-
-	
-	
 	
 //	public String toString(){
-//				IfStatement ifs = new IfStatement();
-//		String s = ifs.getProgramstoString();
-//		System.out.println("MATLAB PROGRAM TO STRING----" +s);
-//
-//		char[] c =  new char[s.length()];
-//		c = s.toCharArray();
-//		System.out.println(c.length);
-//		for (int i = 0; i <c.length; i++){
-//			System.out.println(c[i]);
-//		}
-//		return null;
+//		IfStatement ifs = new IfStatement();
+//		return ifs.toString();
 //	}
+
 	
 	
 }

@@ -1,8 +1,10 @@
 package ha;
 
-import interfaces.text.*;
-import dl.syntax.*;
-import java.util.*;
+import java.util.List;
+
+import dl.syntax.AndFormula;
+import dl.syntax.OrFormula;
+import dl.syntax.dLFormula;
 
 class HybridAutomaton {
 

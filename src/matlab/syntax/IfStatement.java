@@ -16,7 +16,8 @@ public class IfStatement extends Statement{
 	//private LinkedHashMap<dLFormula, MatlabProgram> lh = new LinkedHashMap<dLFormula, MatlabProgram>();
 	private List<dLFormula> conditions;
 	private List<MatlabProgram> programs;
-
+	
+	
 	public IfStatement () {
 		conditions = new ArrayList<>();
 		programs = new ArrayList<>();
@@ -62,9 +63,59 @@ public class IfStatement extends Statement{
 		return programs.get(0).toString();
 	}
 	
-	public String toString() {
-		return "To do";
-		// This guy should return the string as matlab would expect it
+//	public String toString() {		
+//		if ( conditions.size() == 1 && programs.size() == 1 ){
+//			result = "If "+ conditions.get(0).getArguments()+" "+programs.get(0).getStatements();
+//		}else if ( conditions.size() == 1 && programs.size() == 2 ){
+//			result = "If "+ conditions.get(0).getArguments()+" "+programs.get(0).getStatements()+"Else"+programs.get(1);
+//		}else{ 
+//			int i = 0;
+//			while ( i < programs.size()-2){
+//				result = "If "+ conditions.get(i).getArguments()+" "+programs.get(i).getStatements()+"Else If"+conditions.get(i).getArguments()+" "+programs.get(i);
+//			}
+//		}
+//		return result;
+//		
+//	}
+	
+	
+	public StringBuffer helperString(){
+		
+		StringBuffer sb = new StringBuffer();
+		String result ;
+		if ( conditions.size() == 1 && programs.size() == 1 ){
+			sb.append("If "+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements());
+		}else if ( conditions.size() >= 1 && programs.size() == 2 ){
+			sb.append("If "+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements()+" Else "+programs.get(1).getStatements());
+		}else { 
+			sb.append("If"+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements());
+			int i = 1;
+			while ( i <= programs.size()-1){
+				if( i == programs.size()-1 ){
+					sb.append(" Else "+conditions.get(i).toMathematicaString()+" "+programs.get(i).getStatements());
+					return sb;
+				}
+				
+				sb.append(" Else If"+conditions.get(i).toMathematicaString()+" "+programs.get(i).getStatements());
+				i++;
+			
+			}
+			
+		}	
+		return sb;
+		
 	}
+	
+	public String toMathematicaString(){
+		return this.toMathematicaString();
+	}
+	
+	
+	public String toString(){
+		
+			return helperString().toString();
+	}
+	
+	
 	
 }
