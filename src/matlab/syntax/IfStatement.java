@@ -63,6 +63,14 @@ public class IfStatement extends Statement{
 		return programs.get(0).toString();
 	}
 	
+	public void appendStatementToAllCases( Statement statement ) {
+		for ( MatlabProgram program : programs ) {
+			program.append( statement );
+		}
+	}
+	
+	
+	
 //	public String toString() {		
 //		if ( conditions.size() == 1 && programs.size() == 1 ){
 //			result = "If "+ conditions.get(0).getArguments()+" "+programs.get(0).getStatements();

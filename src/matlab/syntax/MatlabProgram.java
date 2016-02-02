@@ -76,6 +76,9 @@ public class MatlabProgram {
 		}
 	}
 	
+	public void append( Statement statement ) {
+		statements.add( statement );
+	}
 	
 
 	public List<Statement> getStatements() {
