@@ -34,6 +34,7 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import dl.syntax.RealVariable;
 import dl.syntax.Replacement;
 import dl.syntax.Term;
+import interfaces.text.TextOutput;
 import matlab.syntax.*;
 import matlab.syntax.Statement;
 
@@ -54,12 +55,12 @@ public class SubstitutionStage {
 	//  MatlabProgram mp = new MatlabProgram (" k1 = 5; k2 = 7*k1; if ( x > k1*6) y = k2*x; elseif (n==0) y = k1*x;else k2 = 100; end z = x^2 + k2*y^2;p=0;");
 		
 		MatlabProgram mp = new MatlabProgram (" k1 = 5; k2 = 7*k1; if ( x > k1*6) y = k2*x; else y = k1*x;k2 = 100; end z = x^2 + k2*y^2;p=0;");
-		System.out.println(mp.getStatements());
+		TextOutput.info(mp.getStatements().toString());
 		List<Statement> matlabStatements = mp.getStatements();
 		MatlabProgram appended = appendPostAssignment( matlabStatements );
-		System.out.println("processed Program is:"+ appended.getStatements());
+		TextOutput.info("processed Program is:"+ appended.getStatements());
 //		getInitialParameters(matlabStatements);
-//		System.out.println("parameters at	beginning"+initialAssignemntStatementStack);
+//		TextOutput.debut("parameters at	beginning"+initialAssignemntStatementStack);
 //		findAndReplace();
 	}
 	
@@ -72,7 +73,7 @@ public class SubstitutionStage {
 	
 	public static MatlabProgram appendPostAssignment( List<Statement> matlabStatements){
 			
-		System.out.println("In append...");
+		TextOutput.debug("In append...");
 			
 		Statement lastStatement = getPostIfStatement(matlabStatements);
 		int index = matlabStatements.size();
@@ -91,7 +92,7 @@ public class SubstitutionStage {
 		List<Statement> newStatements = new ArrayList<>();
 		newStatements.addAll( matlabStatements.subList(0, index));
 		//newStatements.add( ifStatement );
-		System.out.println("New Statements: "+newStatements);
+		TextOutput.debug("New Statements: "+newStatements.toString());
 		return new MatlabProgram( newStatements );
 }
 	
@@ -101,7 +102,7 @@ public class SubstitutionStage {
 		int i = 0;
 		while( i<size){
 			aS[i]=  assignmentStatementsStack.pop().toString();
-	//		System.out.println("Assignment statement "+aS);
+	//		TextOutput.debut("Assignment statement "+aS);
 			i++;
 		}
 		return aS;
@@ -111,11 +112,11 @@ public class SubstitutionStage {
 	public static String getUpdatedIFBlock(){
 		String[] assignmentsToAdd = getassignmentStatementsStack();
 		String result = assignmentsToAdd[0];
-		System.out.println("result"+result);
+		TextOutput.debug("result"+result);
 		for ( int i = 1; i<assignmentsToAdd.length; i++ ){
 			result = result + assignmentsToAdd[i];
 		}
-		System.out.println(result);
+		TextOutput.debug(result);
 		return result;
 	}
 	
@@ -143,7 +144,7 @@ public class SubstitutionStage {
 		while( m.find() ){
 			i++;
 		}
-		System.out.println("i" +i);	
+		TextOutput.debug("i" +i);	
 		int indexOfLast = i;
 		
 		// push all the if-else clauses into stack 
@@ -174,13 +175,13 @@ public class SubstitutionStage {
 	}
 	
 	public static void findAndReplace(){
-		System.out.println("Number of Pre-IF block assignments is: "+initialAssignemntStatementStack.size());
+		TextOutput.debug("Number of Pre-IF block assignments is: "+initialAssignemntStatementStack.size());
 		int index = 0;
 		
 		newMatlabProgram = new MatlabProgram( finalIfString.toLowerCase() );			//creating new Matlab program withupdated if else block
 		while( index < initialAssignemntStatementStack.size()){
 			Statement assignment = initialAssignemntStatementStack.elementAt(index);
-			System.out.println("findAndReplace assignment: "+assignment);
+			TextOutput.debug("findAndReplace assignment: "+assignment);
 			index++;
 			
 			replaceWithAssignment(assignment);
@@ -199,16 +200,16 @@ public class SubstitutionStage {
 		
 		
 		
-//		System.out.println( "Final updated IFBlock string"+ finalIfString);
+//		TextOutput.debut( "Final updated IFBlock string"+ finalIfString);
 		
 
 		
 //		List<Statement> subjectToAssignment = newMatlabProgram.getStatements();
 		
 		
-	//	System.out.println( "subjectToAssignment"+ subjectToAssignment);
+	//	TextOutput.debut( "subjectToAssignment"+ subjectToAssignment);
 	//	for ( int i = 0; i<subjectToAssignment.length(); i++){
-	//		System.out.println("Number of "+LHS+" present:"+subjectToAssignment.contains(LHS.toString()));
+	//		TextOutput.debut("Number of "+LHS+" present:"+subjectToAssignment.contains(LHS.toString()));
 	//	}
 		
 	}

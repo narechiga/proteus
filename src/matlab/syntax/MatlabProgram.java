@@ -19,7 +19,9 @@ public class MatlabProgram {
 	private List<Statement> statements;
 	
 		
-	public MatlabProgram(){}
+	public MatlabProgram(){
+		statements = new ArrayList<>();
+	}
 	
 	public MatlabProgram(List<Statement> list){
 		statements =  list;
@@ -27,14 +29,11 @@ public class MatlabProgram {
 	public MatlabProgram(MatlabProgram program, Statement statement){
 		statements = program.getStatements();
 		statements.add( statement );
-		
 	}
-	
 	
 	public MatlabProgram(MatlabProgram program, IfStatement ifStatement){
 		statements = program.getStatements();
 		statements.add( ifStatement );
-		
 	}
 	
 	public MatlabProgram(Statement statement) {
@@ -79,17 +78,18 @@ public class MatlabProgram {
 	public void append( Statement statement ) {
 		statements.add( statement );
 	}
-	
 
 	public List<Statement> getStatements() {
 		return statements;
 	}
-	
-//	public String toString(){
-//		IfStatement ifs = new IfStatement();
-//		return ifs.toString();
-//	}
 
+	public String toString() {
+		String returnString = "";
+		for ( Statement statement : getStatements() ) {
+			returnString += statement.toString();
+		}
+		return returnString;
+	}
 	
 	
 }
