@@ -42,9 +42,8 @@ public class SubstitutionStage {
 	//stack to store the Statements
 	static Stack<Statement> assignmentStatementsStack = new Stack<>();
 	static Stack<Statement> initialAssignemntStatementStack = new Stack<>();
-	static Stack<String> ifStatmentStack = new Stack<>();
 	static MatlabProgram newMatlabProgram ;
-	static String finalIfString;
+	static List<Statement> newStatements; 	//list to store the updated if-else block statements
 	
 	
 	//check for more than one assignment features at the end of if statement
@@ -58,15 +57,19 @@ public class SubstitutionStage {
 		List<Statement> matlabStatements = mp.getStatements();
 		MatlabProgram appended = appendPostAssignment( matlabStatements );
 		System.out.println("processed Program is:"+ appended.getStatements());
-//		getInitialParameters(matlabStatements);
-//		System.out.println("parameters at	beginning"+initialAssignemntStatementStack);
-//		findAndReplace();
+		getInitialParameters(matlabStatements);
+		findAndReplace();
 	}
 	
 	
 	public static Statement getPostIfStatement( List<Statement> matlabStatements ){
 		Statement lastStatement = matlabStatements.get(matlabStatements.size()-1);
 		return lastStatement;
+	}
+	
+	public static Statement getPreIfStatement( List<Statement> statement, int index ){
+		Statement preAssignmentStatement = statement.get(index);
+		return preAssignmentStatement;
 	}
 	
 	
@@ -88,9 +91,8 @@ public class SubstitutionStage {
 		while ( !assignmentStatementsStack.isEmpty() ) {
 			ifStatement.appendStatementToAllCases( assignmentStatementsStack.pop() );
 		}
-		List<Statement> newStatements = new ArrayList<>();
+		newStatements = new ArrayList<>();
 		newStatements.addAll( matlabStatements.subList(0, index));
-		//newStatements.add( ifStatement );
 		System.out.println("New Statements: "+newStatements);
 		return new MatlabProgram( newStatements );
 }
@@ -119,65 +121,26 @@ public class SubstitutionStage {
 		return result;
 	}
 	
-	public static String[] getIfStatementsStack(){
-
-		String[] ifs = new String[ifStatmentStack.size()];
-		int size = ifStatmentStack.size();
-		
-		int i = 0;
-		while( i<size){
-			ifs[i]=  ifStatmentStack.pop().toString();
-			i++;
-		}
-		return ifs;
-	} 
-	
-	//helper function to get if-else blocks
-	public static void getOccurance ( String findOccuranceOf, Statement givenStatement ){
-
-		String[] ifStatementArray = givenStatement.toString().split("Else");
-		
-		int i = 0;
-		Pattern p = Pattern.compile(findOccuranceOf);
-		Matcher m = p.matcher(givenStatement.toString());
-		while( m.find() ){
-			i++;
-		}
-		System.out.println("i" +i);	
-		int indexOfLast = i;
-		
-		// push all the if-else clauses into stack 
-		while( i>=0 ){
-			if ( i == indexOfLast && ifStatementArray[i].contains("True")){
-				String[] temp = ifStatementArray[i].split("True");
-				ifStatmentStack.push( "Else"+temp[1]);
-			}else if ( i == indexOfLast)				
-				ifStatmentStack.push( "Else "+ifStatementArray[i] );
-			else if ( i == 0)
-				ifStatmentStack.push( ifStatementArray[i] );
-			else 
-				ifStatmentStack.push( "Else"+ifStatementArray[i] );
-			i--;
-		}
-		
-	}
-			
-
 	//gets the parameters defined/initialized at the beginning; doesnot get any new parameters if defined in if clause or after if.
 	public static void getInitialParameters( List<Statement> matlabStatements ){
-		for( int i = 0; i<matlabStatements.size(); i++){
-			if( matlabStatements.get(i).toString().startsWith("If") == false){
-				initialAssignemntStatementStack.push(matlabStatements.get(i));
-			}else
-				return;
-		}	
+		Statement preAssignment = getPreIfStatement(matlabStatements, 0);
+		int index = 0;
+		
+		//store all the assignment statements PRE IFSTATEMENT
+		while( !(preAssignment instanceof IfStatement) ){
+			initialAssignemntStatementStack.push(preAssignment);
+			index++;
+			preAssignment = getPreIfStatement( matlabStatements, index);
+			
+		}
+		System.out.println( "pre assignment: "+initialAssignemntStatementStack );
 	}
 	
 	public static void findAndReplace(){
 		System.out.println("Number of Pre-IF block assignments is: "+initialAssignemntStatementStack.size());
 		int index = 0;
 		
-		newMatlabProgram = new MatlabProgram( finalIfString.toLowerCase() );			//creating new Matlab program withupdated if else block
+		newMatlabProgram = new MatlabProgram( initialAssignemntStatementStack );			//creating new Matlab program withupdated if else block
 		while( index < initialAssignemntStatementStack.size()){
 			Statement assignment = initialAssignemntStatementStack.elementAt(index);
 			System.out.println("findAndReplace assignment: "+assignment);
@@ -196,14 +159,20 @@ public class SubstitutionStage {
 		Term RHS = new Term();
 		RHS.setArgument(0, RHS);
 		Replacement replace = new Replacement(LHS, RHS);
+		Iterator<Statement> iterator = newStatements.iterator();
+	//	System.out.println("Found LHS "+ LHS);
+		while( iterator.hasNext() ){
+			Statement underInvestigation = iterator.next();
+			if( underInvestigation instanceof Statement && !underInvestigation.equals(assignment))
+			
+				System.out.println("Found LHS "+underInvestigation);
+//				underInvestigation.replaceAll(LHS.toString(), RHS.toString());
+//				System.out.println("output "+underInvestigation);
+//			}
+		}
 		
 		
-		
-//		System.out.println( "Final updated IFBlock string"+ finalIfString);
-		
-
-		
-//		List<Statement> subjectToAssignment = newMatlabProgram.getStatements();
+	
 		
 		
 	//	System.out.println( "subjectToAssignment"+ subjectToAssignment);
