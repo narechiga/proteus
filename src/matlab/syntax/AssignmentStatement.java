@@ -49,6 +49,6 @@ public class AssignmentStatement extends Statement {
 //	}
 	
 	public String toString(){
-		return LHSterm.toMathematicaString() + " " + getOperator() + " " + RHSterm.toMathematicaString();
+		return LHSterm.toMathematicaString() + " " + getOperator() + " " + RHSterm.toMathematicaString() + ";";
 	}
 }
