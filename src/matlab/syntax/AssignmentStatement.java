@@ -10,28 +10,25 @@ import dl.syntax.Term;
 import matlab.parser.AbstractMatlabParser;
 
 public class AssignmentStatement extends Statement {
-	Term RHSterm, LHSterm;
+	Term rhs, lhs;
 
 	
-	public AssignmentStatement(Term term1, Term term2) {
-		
-		LHSterm = term1;
-		term1 = term2;
-		RHSterm = term1;
-		
+	public AssignmentStatement(Term lhs, Term rhs) {
+		this.lhs = lhs;
+		this.rhs = rhs;
 	}
 	
 //	public Term getAssignmentStatement(){
-//		return RHSterm;
+//		return rhs;
 //	}
 //	
 //	public String toStringRHS(){
-//		return RHSterm.toKeYmaeraString();
+//		return rhs.toKeYmaeraString();
 //		
 //	}
 //	
 //	public String toStringLHS(){
-//		return LHSterm.toKeYmaeraString();
+//		return lhs.toKeYmaeraString();
 //		
 //	}
 	
@@ -45,10 +42,10 @@ public class AssignmentStatement extends Statement {
 	}
 	
 //	public String toRealString(){
-//		return RHSterm.todRealString();
+//		return rhs.todRealString();
 //	}
 	
 	public String toString(){
-		return LHSterm.toMathematicaString() + " " + getOperator() + " " + RHSterm.toMathematicaString() + ";";
+		return lhs.toMathematicaString() + " " + getOperator() + " " + rhs.toMathematicaString() + ";";
 	}
 }

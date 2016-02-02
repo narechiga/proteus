@@ -8,8 +8,8 @@ package matlab.syntax;
 
 import java.util.*;
 
-import dl.syntax.ComparisonFormula;
-import dl.syntax.dLFormula;
+import interfaces.text.*;
+import dl.syntax.*;
 
 public class IfStatement extends Statement{
 
@@ -87,41 +87,62 @@ public class IfStatement extends Statement{
 //	}
 	
 	
-	public StringBuffer helperString(){
-		
-		StringBuffer sb = new StringBuffer();
-		String result ;
-		if ( conditions.size() == 1 && programs.size() == 1 ){
-			sb.append("if "+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements());
-		}else if ( conditions.size() >= 1 && programs.size() == 2 ){
-			sb.append("if "+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements()+" else "+programs.get(1).getStatements());
-		}else { 
-			sb.append("if"+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements());
-			int i = 1;
-			while ( i <= programs.size()-1){
-				if( i == programs.size()-1 ){
-					sb.append(" else "+conditions.get(i).toMathematicaString()+" "+programs.get(i).getStatements());
-					return sb;
-				}
-				
-				sb.append(" elseif"+conditions.get(i).toMathematicaString()+" "+programs.get(i).getStatements());
-				i++;
-			
-			}
-			
-		}	
-		return sb;
-		
-	}
-	
-	public String toMathematicaString(){
-		return this.toMathematicaString();
-	}
-	
+	//public StringBuffer helperString(){
+	//	
+	//	StringBuffer sb = new StringBuffer();
+	//	String result ;
+	//	if ( conditions.size() == 1 && programs.size() == 1 ){
+	//		sb.append("if "+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements());
+	//	}else if ( conditions.size() >= 1 && programs.size() == 2 ){
+	//		sb.append("if "+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements()+" else "+programs.get(1).getStatements());
+	//	}else { 
+	//		sb.append("if"+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements());
+	//		int i = 1;
+	//		while ( i <= programs.size()-1){
+	//			if( i == programs.size()-1 ){
+	//				sb.append(" else "+conditions.get(i).toMathematicaString()+" "+programs.get(i).getStatements());
+	//				return sb;
+	//			}
+	//			
+	//			sb.append(" elseif"+conditions.get(i).toMathematicaString()+" "+programs.get(i).getStatements());
+	//			i++;
+	//		
+	//		}
+	//		
+	//	}	
+	//	return sb;
+	//	
+	//}
 	
 	public String toString(){
+
+		String returnString = "";
+
+		returnString = "if (" + conditions.get(0).toMathematicaString() + ")\n";
+		for ( Statement statement : programs.get(0).getStatements() ) {
+			returnString += "\t" + statement.toString() + "\n";
+		}
 		
-			return helperString().toString();
+		// Becomes true after we see an else clause
+		// helps to prevent extra clauses after the else
+		for ( dLFormula condition : conditions.subList(1, conditions.size() - 1) ) {
+
+			if ( condition instanceof TrueFormula ) {
+				returnString += "else\n";
+			} else {
+				returnString += "elseif (" + condition.toMathematicaString() +")\n";
+			}
+
+			for ( MatlabProgram program : programs ) {
+				returnString += program.toString();
+			}
+
+		}
+
+		returnString += "end";
+		return returnString;
+		
+		
 	}
 	
 	

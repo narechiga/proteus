@@ -29,6 +29,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.sun.beans.finder.FieldFinder;
+import com.sun.corba.se.spi.servicecontext.UnknownServiceContext;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 
 import dl.syntax.RealVariable;
@@ -164,7 +165,7 @@ public class SubstitutionStage {
 		while( iterator.hasNext() ){
 			Statement underInvestigation = iterator.next();
 			if( underInvestigation instanceof Statement && !underInvestigation.equals(assignment))
-			
+				
 				System.out.println("Found LHS "+underInvestigation);
 //				underInvestigation.replaceAll(LHS.toString(), RHS.toString());
 //				System.out.println("output "+underInvestigation);
