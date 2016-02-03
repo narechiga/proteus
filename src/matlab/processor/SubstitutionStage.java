@@ -36,7 +36,7 @@ import dl.syntax.RealVariable;
 import dl.syntax.Replacement;
 import dl.syntax.Term;
 import matlab.syntax.*;
-import matlab.syntax.Statement;
+import sun.text.normalizer.ReplaceableString;
 
 public class SubstitutionStage {
 	
@@ -154,19 +154,35 @@ public class SubstitutionStage {
 	
 	public static void replaceWithAssignment( Statement assignment ){
 		
-		
+		System.out.println("Found assignment "+ assignment );
 		String[] sides = assignment.toString().split( "=" );
 		RealVariable LHS = new RealVariable( sides[0] );
-		Term RHS = new Term();
-		RHS.setArgument(0, RHS);
-		Replacement replace = new Replacement(LHS, RHS);
+		RealVariable RHS = new RealVariable( sides[1] );
+		
+	
+		Replacement replace = new Replacement(LHS, (Term)RHS);
 		Iterator<Statement> iterator = newStatements.iterator();
-	//	System.out.println("Found LHS "+ LHS);
+	
 		while( iterator.hasNext() ){
-			Statement underInvestigation = iterator.next();
-			if( underInvestigation instanceof Statement && !underInvestigation.equals(assignment))
+			Statement s = iterator.next();
+			System.out.println("s "+s);
+			if ( s instanceof IfStatement) {
+				//type new_name = (type) s;
+				System.out.println("Instance of If");
+			}else if ( s instanceof AssignmentStatement && s.toString().contains(LHS.toString())){
+				AssignmentStatement assignStatement = (AssignmentStatement) s;
+		//		if ( assignStatement.getRHS().toString().contains(LHS.toString()) )
+			
+		//		if ( assignStatement.containsLHS( LHS, s )){
+					System.out.println("Instance of Assignment");
+					assignStatement.replaceVariable(replace, LHS , s);
+				}
+		//		System.out.println(assignStatement.replaceVariable(replace, LHS, RHS, assignStatement));
+		//	}
+			
+			
 				
-				System.out.println("Found LHS "+underInvestigation);
+	//			System.out.println("Found LHS "+underInvestigation);
 //				underInvestigation.replaceAll(LHS.toString(), RHS.toString());
 //				System.out.println("output "+underInvestigation);
 //			}

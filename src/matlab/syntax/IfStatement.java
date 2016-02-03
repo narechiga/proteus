@@ -11,7 +11,7 @@ import java.util.*;
 import interfaces.text.*;
 import dl.syntax.*;
 
-public class IfStatement extends Statement{
+public class IfStatement extends Statement {
 
 	//private LinkedHashMap<dLFormula, MatlabProgram> lh = new LinkedHashMap<dLFormula, MatlabProgram>();
 	private List<dLFormula> conditions;
@@ -69,7 +69,11 @@ public class IfStatement extends Statement{
 		}
 	}
 	
-	
+	public void replaceVariable( Replacement replace, RealVariable LHS, Statement statement){
+		if ( conditions.contains(LHS)){
+			System.out.println(" in IfStatemnet");
+		}
+	}
 	
 //	public String toString() {		
 //		if ( conditions.size() == 1 && programs.size() == 1 ){
