@@ -58,21 +58,21 @@ public class MatlabProgram {
 		
 		
 		statements = thisParser.parsedProgram.getStatements();
-		
-		
-//		for(Statement o : statements){
-//		    System.out.println(o.toString());
-//		}
-		
-//		Iterator<Statement> i = statements.iterator();
-//		
-//		while(i.hasNext()){
-//			System.out.println("MatlabProgram statements  "+i.next().toString());
-//		}
+
 		}catch(Exception e){
 			System.out.println("Exception caught in MatlabProgram: ");
 			System.out.println(e);
 		}
+	}
+	
+	public Statement peekFirstStatement() {
+		return statements.get(0);
+	}
+	
+	public Statement consumeFirstStatement() {
+		Statement result = statements.get(0);
+		statements.remove(0);
+		return result;
 	}
 	
 	public void append( Statement statement ) {
@@ -89,6 +89,11 @@ public class MatlabProgram {
 			returnString += statement.toString();
 		}
 		return returnString;
+	}
+
+	public String toMathematicaString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

@@ -11,7 +11,7 @@ import java.util.*;
 import interfaces.text.*;
 import dl.syntax.*;
 
-public class IfStatement extends Statement {
+public class IfStatement extends Statement implements Comparable {
 
 	//private LinkedHashMap<dLFormula, MatlabProgram> lh = new LinkedHashMap<dLFormula, MatlabProgram>();
 	private List<dLFormula> conditions;
@@ -31,6 +31,19 @@ public class IfStatement extends Statement {
 	//	System.out.println("condition in ifstatement"+getConditionstoString());
 	//	System.out.println("matlabprogram after ifstatement "+getProgramstoString());
 	
+	}
+	
+	public IfStatement( List<dLFormula> conditions, List<MatlabProgram> programs ) {
+		this.conditions = conditions;
+		this.programs = programs;
+	}
+	
+	public List<dLFormula> getConditions() {
+		return conditions;
+	}
+	
+	public List<MatlabProgram> getPrograms() {
+		return programs;
 	}
 	
 	public void appendCase( dLFormula condition, MatlabProgram program ) {
@@ -55,13 +68,21 @@ public class IfStatement extends Statement {
 		programs.add(0, program);
 	}
 	
-	public String getConditionstoString(){
-		return conditions.get(0).toString();
-	}
-	
-	public String getProgramstoString(){
-		return programs.get(0).toString();
-	}
+//	public String getConditionstoString(){
+//		return conditions.get(0).toString();
+//	}
+//	
+//	public String getProgramstoString(){
+//		return programs.get(0).toString();
+//	}
+//	
+//	public String getConditionstoMathematicaString(){
+//		return conditions.get(0).toMathematicaString();
+//	}
+//	
+//	public String getProgramstoMathematicaString(){
+//		return ( programs.get(0)).toMathematicaString();
+//	}
 	
 	public void appendStatementToAllCases( Statement statement ) {
 		for ( MatlabProgram program : programs ) {
@@ -69,11 +90,21 @@ public class IfStatement extends Statement {
 		}
 	}
 	
-	public void replaceVariable( Replacement replace, RealVariable LHS, Statement statement){
-		if ( conditions.contains(LHS)){
-			System.out.println(" in IfStatemnet");
-		}
-	}
+//	public void replace( Replacement replace ){
+//		System.out.println(" in IfStatement replaceVariable() replace getvalues"+replace.getValues()+" replace getVariables "+replace.getVariables()+"statement "+statement);
+//		String LHS = replace.getVariables().toString();
+//		String l = (String) LHS.substring(1, LHS.length()-2);
+//		System.out.println ( "statement.contains( l ) "+statement.contains( l )+" LHS "+l+" statement "+statement + "compareTo((Object)l) "+compareTo((Object)l));
+//		while( compareTo((Object)l) == 0 ){
+//			System.out.println( "in compareTo");
+//			
+//		}
+//			
+	
+		
+//	}
+	
+	
 	
 //	public String toString() {		
 //		if ( conditions.size() == 1 && programs.size() == 1 ){
@@ -148,6 +179,13 @@ public class IfStatement extends Statement {
 		
 		
 	}
+
+@Override
+public int compareTo(Object o) {
+	if ( conditions.toString().contains((CharSequence) o) )
+		return 0;
+	return -1;
+}
 	
 	
 	
