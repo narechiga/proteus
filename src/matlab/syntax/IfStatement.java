@@ -88,6 +88,7 @@ public class IfStatement extends Statement implements Comparable {
 		for ( MatlabProgram program : programs ) {
 			program.append( statement );
 		}
+		
 	}
 	
 //	public void replace( Replacement replace ){
@@ -160,21 +161,28 @@ public class IfStatement extends Statement implements Comparable {
 		
 		// Becomes true after we see an else clause
 		// helps to prevent extra clauses after the else
-		for ( dLFormula condition : conditions.subList(1, conditions.size() - 1) ) {
-
+		int counter = 0;
+		for ( dLFormula condition : conditions.subList(1, conditions.size() ) ) { //changed from conditions.size()-1 to conditions.size()
+			
 			if ( condition instanceof TrueFormula ) {
 				returnString += "else\n";
+				counter += 1;
+				returnString += programs.get(counter).toString();
+				returnString += "end";
 			} else {
 				returnString += "elseif (" + condition.toMathematicaString() +")\n";
+				counter += 1;
+				returnString += programs.get(counter).toString();
 			}
 
-			for ( MatlabProgram program : programs ) {
-				returnString += program.toString();
-			}
+		//	for ( MatlabProgram program : programs.subList(1, programs.size()) ) { //added .subList(1, programs.size()) toget programs for else part
+//			for ( int i = counter; i < conditions.size()-counter; i++){
+//				returnString += programs.get(i).toString();
+//			}
 
 		}
 
-		returnString += "end";
+//		returnString += "end";
 		return returnString;
 		
 		

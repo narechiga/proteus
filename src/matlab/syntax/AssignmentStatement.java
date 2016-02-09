@@ -18,10 +18,11 @@ import dl.syntax.dLStructure;
 import matlab.parser.AbstractMatlabParser;
 
 public class AssignmentStatement extends Statement {
-	Term rhs, lhs;
+	RealVariable lhs;
+	Term rhs;
 
 	
-	public AssignmentStatement(Term lhs, Term rhs) {
+	public AssignmentStatement(RealVariable lhs, Term rhs) {
 		this.lhs = lhs;
 		this.rhs = rhs;
 	}
@@ -56,7 +57,7 @@ public class AssignmentStatement extends Statement {
 		return "=";
 	}
 	
-	public Term getLHS(){
+	public RealVariable getLHS(){
 		return lhs;
 	}
 	

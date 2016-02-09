@@ -54,11 +54,10 @@ public class MatlabProgram {
 		Mlexer thisdLLexer = new Mlexer( thisReader );
 		Mparser thisParser = new Mparser( thisdLLexer );
   		thisParser.parse();
-		//statements = (List<Statement>) thisParser.parsedProgram;
-		
+	//	statements = (List<Statement>) thisParser.parsedProgram;
+	//	MatlabProgram m = thisParser.parsedProgram;
 		
 		statements = thisParser.parsedProgram.getStatements();
-
 		}catch(Exception e){
 			System.out.println("Exception caught in MatlabProgram: ");
 			System.out.println(e);
@@ -75,8 +74,22 @@ public class MatlabProgram {
 		return result;
 	}
 	
+	public Statement peekLastStatement() {
+		return statements.get(statements.size()-1);
+	}
+	
+	public Statement consumeLastStatement() {
+		Statement result = statements.get(statements.size()-1);
+		statements.remove(statements.size()-1);
+		return result;
+	}
+	
 	public void append( Statement statement ) {
 		statements.add( statement );
+	}
+	
+	public void append( List<Statement> statements ) {
+		this.statements.addAll( statements );
 	}
 
 	public List<Statement> getStatements() {
@@ -96,5 +109,5 @@ public class MatlabProgram {
 		return null;
 	}
 	
-	
+		
 }

@@ -204,9 +204,9 @@ elselist:
 ;
 
 assignment:
- 	term ASSIGN term SEMICOLON{
+ 	IDENTIFIER ASSIGN term SEMICOLON{
  		try{
- 			$$ = new AssignmentStatement( (Term)$1, (Term)$3 );
+ 			$$ = new AssignmentStatement( new RealVariable( (String)$1 ), (Term)$3 );
  			System.out.println("\nterm Assignment term SEMICOLON:"+((AssignmentStatement)$$).toString());
  			}catch ( Exception e ) {
 			System.err.println("Exception at location comparison:term ASSIGN term");

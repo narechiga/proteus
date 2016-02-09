@@ -536,7 +536,7 @@ public class Mparser extends AbstractMatlabParser
     /* "Mparser.y":207  */ /* lalr1.java:489  */
     {
  		try{
- 			yyval = new AssignmentStatement( (Term)((yystack.valueAt (4-(1)))), (Term)((yystack.valueAt (4-(3)))) );
+ 			yyval = new AssignmentStatement( new RealVariable( (String)((yystack.valueAt (4-(1)))) ), (Term)((yystack.valueAt (4-(3)))) );
  			System.out.println("\nterm Assignment term SEMICOLON:"+((AssignmentStatement)yyval).toString());
  			}catch ( Exception e ) {
 			System.err.println("Exception at location comparison:term ASSIGN term");
@@ -1077,23 +1077,23 @@ public class Mparser extends AbstractMatlabParser
     return yyvalue == yytable_ninf_;
   }
 
-  private static final short yypact_ninf_ = -16;
+  private static final byte yypact_ninf_ = -15;
   private static final byte yytable_ninf_ = -1;
 
   /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-  private static final short yypact_[] = yypact_init();
-  private static final short[] yypact_init()
+  private static final byte yypact_[] = yypact_init();
+  private static final byte[] yypact_init()
   {
-    return new short[]
+    return new byte[]
     {
-      82,   -16,   -16,   121,   121,   100,    18,    82,   -16,   -16,
-     -16,    93,   -16,   138,   100,   100,    56,   -16,   147,   -16,
-     -16,   121,   121,   121,   121,   121,   121,   -16,    48,   129,
-     -16,   100,   100,    45,   121,   121,     7,     7,    -4,    -4,
-      -4,   114,   -16,    20,    20,   100,   -16,    82,   -15,   154,
-     154,   -16,    56,     5,   100,   -16,    82,    82,   -16,    56,
-      71,    82,   -16
+       6,   -14,    71,    19,     6,   -15,   -15,   -15,    82,   -15,
+     -15,    82,    71,    71,     1,   -15,    54,   -15,   -15,    82,
+      73,   -15,    96,    90,   -15,    71,    71,     0,    82,    82,
+      82,    82,    82,    82,    82,    29,   -15,   -15,   -15,    -9,
+      -9,    71,   -15,     6,    89,     5,     5,    11,    11,    11,
+      99,    99,     1,     2,    71,   -15,     6,     6,   -15,     1,
+       7,     6,   -15
     };
   }
 
@@ -1105,12 +1105,12 @@ public class Mparser extends AbstractMatlabParser
   {
     return new byte[]
     {
-       0,    21,    22,     0,     0,     0,     0,     2,     3,     5,
-       6,     0,    29,     0,     0,     0,     0,    14,     0,     1,
-       4,     0,     0,     0,     0,     0,     0,    23,     0,     0,
-      18,     0,     0,     0,     0,     0,    24,    25,    26,    27,
-      28,     0,    15,    16,    17,     0,     7,     0,     0,    19,
-      20,    13,     0,     0,     0,     9,     0,    11,     8,     0,
+       0,     0,     0,     0,     2,     3,     5,     6,     0,    21,
+      22,     0,     0,     0,     0,    14,     0,     1,     4,     0,
+       0,    29,     0,     0,    18,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,    13,    15,    23,    16,
+      17,     0,     7,     0,     0,    24,    25,    26,    27,    28,
+      19,    20,     0,     0,     0,     9,     0,    11,     8,     0,
        0,    12,    10
     };
   }
@@ -1121,7 +1121,7 @@ public class Mparser extends AbstractMatlabParser
   {
     return new byte[]
     {
-     -16,   -16,   -12,    -7,   -16,   -16,   -16,    24,   -16,    -2
+     -15,   -15,   -13,    -4,   -15,   -15,   -15,   -10,   -15,    39
     };
   }
 
@@ -1131,7 +1131,7 @@ public class Mparser extends AbstractMatlabParser
   {
     return new byte[]
     {
-      -1,     6,     7,     8,     9,    48,    10,    16,    17,    11
+      -1,     3,     4,     5,     6,    44,     7,    14,    15,    16
     };
   }
 
@@ -1143,23 +1143,18 @@ public class Mparser extends AbstractMatlabParser
   {
     return new byte[]
     {
-      20,    12,    13,    18,    33,    25,    54,    55,     1,     2,
-      56,     3,    29,    18,    23,    24,    25,     4,    19,    36,
-      37,    38,    39,    40,    41,     0,    20,    58,     0,    18,
-      18,     5,    49,    50,     0,    53,    31,    32,    28,    30,
-      57,     0,     0,    18,    60,     0,    20,    61,     1,     2,
-      20,     3,    18,    20,    20,    43,    44,     4,     0,     1,
-       2,    42,     3,     0,    31,    32,    45,    46,     4,    52,
-      47,     5,    31,    32,     1,     2,     0,     3,    59,     0,
-       0,     0,     5,     4,     0,     1,     2,     0,     3,     0,
-       0,     0,     0,    62,     4,     0,     0,     5,    21,    22,
-      23,    24,    25,     1,     2,     0,     3,     0,     5,     0,
-       0,     0,    14,     0,     0,     0,    26,     0,    15,    21,
-      22,    23,    24,    25,     1,     2,     0,     3,    51,     0,
-       0,     0,     0,     4,    21,    22,    23,    24,    25,    34,
-      35,     0,    27,    21,    22,    23,    24,    25,     0,     0,
-       0,    27,    21,    22,    23,    24,    25,    34,    35,    21,
-      22,    23,    24,    25
+      18,    27,    22,    24,     1,     1,     1,    25,    26,     8,
+       1,     1,    30,    31,    32,    39,    40,    25,    26,    17,
+      32,    41,    42,    18,    58,    43,     2,     2,     2,    62,
+      53,    52,     2,     2,    28,    29,    30,    31,    32,    57,
+       0,     0,    38,    60,    59,     0,    61,    20,     0,    18,
+      21,    23,     0,    18,     0,     0,    18,    18,    35,    28,
+      29,    30,    31,    32,    33,    34,     0,    45,    46,    47,
+      48,    49,    50,    51,     9,    10,     0,    11,    28,    29,
+      30,    31,    32,    12,     0,     9,    10,    36,    11,    13,
+       0,     0,     0,     0,    19,    28,    29,    30,    31,    32,
+      33,    34,     0,    38,    28,    29,    30,    31,    32,    37,
+      54,    55,    25,    26,    56
     };
   }
 
@@ -1168,23 +1163,18 @@ private static final byte yycheck_[] = yycheck_init();
   {
     return new byte[]
     {
-       7,     3,     4,     5,    16,     9,    21,    22,     3,     4,
-      25,     6,    14,    15,     7,     8,     9,    12,     0,    21,
-      22,    23,    24,    25,    26,    -1,    33,    22,    -1,    31,
-      32,    26,    34,    35,    -1,    47,    16,    17,    14,    15,
-      52,    -1,    -1,    45,    56,    -1,    53,    59,     3,     4,
-      57,     6,    54,    60,    61,    31,    32,    12,    -1,     3,
-       4,    13,     6,    -1,    16,    17,    21,    22,    12,    45,
-      25,    26,    16,    17,     3,     4,    -1,     6,    54,    -1,
-      -1,    -1,    26,    12,    -1,     3,     4,    -1,     6,    -1,
-      -1,    -1,    -1,    22,    12,    -1,    -1,    26,     5,     6,
-       7,     8,     9,     3,     4,    -1,     6,    -1,    26,    -1,
-      -1,    -1,    12,    -1,    -1,    -1,    23,    -1,    18,     5,
-       6,     7,     8,     9,     3,     4,    -1,     6,    14,    -1,
-      -1,    -1,    -1,    12,     5,     6,     7,     8,     9,    10,
-      11,    -1,    13,     5,     6,     7,     8,     9,    -1,    -1,
-      -1,    13,     5,     6,     7,     8,     9,    10,    11,     5,
-       6,     7,     8,     9
+       4,    14,    12,    13,     4,     4,     4,    16,    17,    23,
+       4,     4,     7,     8,     9,    25,    26,    16,    17,     0,
+       9,    21,    22,    27,    22,    25,    26,    26,    26,    22,
+      43,    41,    26,    26,     5,     6,     7,     8,     9,    52,
+      -1,    -1,    13,    56,    54,    -1,    59,     8,    -1,    53,
+      11,    12,    -1,    57,    -1,    -1,    60,    61,    19,     5,
+       6,     7,     8,     9,    10,    11,    -1,    28,    29,    30,
+      31,    32,    33,    34,     3,     4,    -1,     6,     5,     6,
+       7,     8,     9,    12,    -1,     3,     4,    14,     6,    18,
+      -1,    -1,    -1,    -1,    12,     5,     6,     7,     8,     9,
+      10,    11,    -1,    13,     5,     6,     7,     8,     9,    13,
+      21,    22,    16,    17,    25
     };
   }
 
@@ -1195,12 +1185,12 @@ private static final byte yycheck_[] = yycheck_init();
   {
     return new byte[]
     {
-       0,     3,     4,     6,    12,    26,    28,    29,    30,    31,
-      33,    36,    36,    36,    12,    18,    34,    35,    36,     0,
-      30,     5,     6,     7,     8,     9,    23,    13,    34,    36,
-      34,    16,    17,    29,    10,    11,    36,    36,    36,    36,
-      36,    36,    13,    34,    34,    21,    22,    25,    32,    36,
-      36,    14,    34,    29,    21,    22,    25,    29,    22,    34,
+       0,     4,    26,    28,    29,    30,    31,    33,    23,     3,
+       4,     6,    12,    18,    34,    35,    36,     0,    30,    12,
+      36,    36,    34,    36,    34,    16,    17,    29,     5,     6,
+       7,     8,     9,    10,    11,    36,    14,    13,    13,    34,
+      34,    21,    22,    25,    32,    36,    36,    36,    36,    36,
+      36,    36,    34,    29,    21,    22,    25,    29,    22,    34,
       29,    29,    22
     };
   }
@@ -1336,10 +1326,10 @@ private static final byte yycheck_[] = yycheck_init();
       return yyundef_token_;
   }
 
-  private static final int yylast_ = 163;
+  private static final int yylast_ = 114;
   private static final int yynnts_ = 10;
   private static final int yyempty_ = -2;
-  private static final int yyfinal_ = 19;
+  private static final int yyfinal_ = 17;
   private static final int yyterror_ = 1;
   private static final int yyerrcode_ = 256;
   private static final int yyntokens_ = 27;
