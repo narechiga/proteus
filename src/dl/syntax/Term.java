@@ -46,13 +46,23 @@ public class Term extends GeneralizedTerm {
 
 	public Term replace( Replacement replacement ) {
 		ArrayList<Term> subTermsSubstituted = new ArrayList<Term>();
-		Iterator<Term> subTermIterator = getSubTerms().iterator();
-		while ( subTermIterator.hasNext() ) {
-			subTermsSubstituted.add( subTermIterator.next().replace( replacement ) );
+
+		for ( Term subTerm : getSubTerms() ) {
+			subTermsSubstituted.add( subTerm.replace( replacement ) );
 		}
 		
 		return new Term( getOperator().clone(), subTermsSubstituted );
 	}
+	
+//	public Term replace( Term replacement){
+//		ArrayList<Term> subTermsSubstituted = new ArrayList<Term>();
+//		Iterator<Term> subTermIterator = getSubTerms().iterator();
+//		while ( subTermIterator.hasNext() ) {
+//			subTermsSubstituted.add( subTermIterator.next().replace( replacement ) );
+//		}
+//		
+//		return new Term(getOperator().clone(),subTermsSubstituted );
+//	}
 
 // Clone method
 	public Term clone() {
