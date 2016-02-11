@@ -6,7 +6,7 @@ import dl.syntax.AndFormula;
 import dl.syntax.OrFormula;
 import dl.syntax.dLFormula;
 
-class HybridAutomaton {
+public class HybridAutomaton {
 
 	List<Mode> modes;
 	List<Edge> edges;

@@ -3,7 +3,7 @@ package ha;
 import dl.syntax.HybridProgram;
 import dl.syntax.dLFormula;
 
-class Edge {
+public class Edge {
 
 	protected dLFormula guard;
 	protected HybridProgram reset;
