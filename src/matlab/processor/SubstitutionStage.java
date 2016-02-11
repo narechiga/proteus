@@ -9,9 +9,10 @@
  * 1. breaks the if-else block into individual blocks with condition (if it exists) and assignments/logic in that block
  * 2. Checks for post if-else assignment 
  * 3. if any then stores them in order
- * 4. appends to each if-ele block individually
- * 5. gets any assignment statements at the beginning (before if-else blcok)
- * 
+ * 4. appends to each if-else block individually
+ * 5. gets any assignment statements at the beginning (before if-else block)
+ * 6. substitutes them throughout the code
+ * 7. final result is obtained with output variable as LHS.
  * 
  */
 
@@ -39,7 +40,7 @@ public class SubstitutionStage {
 	public static void main(String[] arg){
 
 		// uncomment below to check if-else if-else and more than one assignment statements at the end	
-		//	  MatlabProgram mp = new MatlabProgram (" k1 = 5; k2 = 7*k1; if ( x > k1*6) y = k2*x; elseif (n==0) y = k1*x;else k2 = 100; end z = x^2 + k2*y^2;p=0;");
+	//	  MatlabProgram mp = new MatlabProgram (" k1 = 5; k2 = 7*k1; if ( x > k1*6) y = k2*x; elseif (n==0) y = k1*x;else k2 = 100; end z = x^2 + k2*y^2;p=0;");
 		TextOutput.setDebug( true ); TextOutput.useColor( false );
 		MatlabProgram mp = new MatlabProgram (" k1 = 5; k2 = 7*k1; if ( x > k1*6) y = k2*x; else y = k1*x; k2 = 100; end p=43; z = x^2 + k2*y^2 + p;");
 		List<RealVariable> inputs = new ArrayList<>();
@@ -53,7 +54,7 @@ public class SubstitutionStage {
 
 		TextOutput.info(mp.toString());
 	}
-	//TODO: all terms in form of inputs and outputs; simplify the data structures
+	
 	public static MatlabProgram mergePostAssignments( MatlabProgram mp ) {
 	//	List<Statement> matlabStatements = mp.getStatements();
 		

@@ -187,7 +187,7 @@ public class IfStatement extends Statement implements Comparable {
 		
 		
 	}
-
+// TODO: Is this still being used?
 @Override
 public int compareTo(Object o) {
 	if ( conditions.toString().contains((CharSequence) o) )

@@ -4,7 +4,7 @@ import dl.syntax.*;
 
 import java.util.*;
 
-class Mode {
+public class Mode {
 
 	protected List<ExplicitODE> odes;
 	protected dLFormula invariant;
