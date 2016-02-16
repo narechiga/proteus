@@ -101,5 +101,13 @@ public class HybridAutomaton {
 			return "( " + formula.toKeYmaeraString() + " )";
 		}     
 	}
+	
+	public List<Mode> getModes(){
+		return modes;
+	}
+	
+	public List<Edge> getEdeges(){
+		return edges;
+	}
 
 }
