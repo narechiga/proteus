@@ -106,7 +106,7 @@ public class HybridAutomaton {
 		return modes;
 	}
 	
-	public List<Edge> getEdeges(){
+	public List<Edge> getEdges(){
 		return edges;
 	}
 

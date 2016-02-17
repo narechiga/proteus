@@ -21,6 +21,18 @@ public class SequenceProgram extends HybridProgram {
 		this.arguments.add( firstProgram );
 		this.arguments.add( secondProgram );
 	}
+	
+	//constructor for only one program - used in If clause
+	public SequenceProgram( HybridProgram firstProgram) {
+
+		this.operator = new Operator("sequence", true);
+
+		this.arguments = new ArrayList<dLStructure>();
+		this.arguments.add( firstProgram );
+		
+	}
+
+	
 
 	public HybridProgram getLHS() {
 		return (HybridProgram)(arguments.get(0));
@@ -83,6 +95,8 @@ public class SequenceProgram extends HybridProgram {
 	public boolean isPurelyDiscrete() {
 		return ( getFirstProgram().isPurelyDiscrete() && getSecondProgram().isPurelyDiscrete() );
 	}
+	
+	
 
 	public boolean isHybrid() {
 		if ( (!isPurelyContinuous()) && (!isPurelyDiscrete()) ) {

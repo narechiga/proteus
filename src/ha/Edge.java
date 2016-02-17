@@ -23,6 +23,15 @@ public class Edge {
 		this.reset = reset;
 	}
 
+	public Edge(boolean b, HybridProgram reset) {
+		if (!reset.isPurelyDiscrete() ) {
+			throw new RuntimeException("Cannot use a non-discrete reset: " +
+				reset.toKeYmaeraString() );
+		}
+
+		this.reset = reset;
+	}
+
 	public dLFormula getGuard() {
 		return guard;
 	}
