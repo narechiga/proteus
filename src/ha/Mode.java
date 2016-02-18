@@ -7,7 +7,7 @@ import java.util.*;
 public class Mode {
 
 	protected List<ExplicitODE> odes;
-	protected dLFormula invariant;
+	public dLFormula invariant;
 
 	protected List<Edge> incomingEdges;
 	protected List<Edge> outgoingEdges;
@@ -28,7 +28,13 @@ public class Mode {
 		this.outgoingEdges = outgoingEdges;
 	}
 
-// Plain old getters
+
+
+	public Mode() {
+	// TODO Auto-generated constructor stub
+}
+
+	// Plain old getters
 	public List<ExplicitODE> getODEs() {
 		return odes;
 	}

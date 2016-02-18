@@ -14,6 +14,7 @@ import ha.Mode;
 import interfaces.text.TextOutput;
 import matlab.processor.SubstitutionStage;
 import matlab.syntax.MatlabProgram;
+
 import translationtools.matlab2ha.Matlab2HybridAutomaton;
 
 public class SubstitutionTest {
@@ -56,6 +57,8 @@ public class SubstitutionTest {
 			System.out.println("Mode: Incoming Edge, reset: "+modes.get(0).getIncomingEdges().get(2).getReset().toKeYmaeraString());
 			System.out.println("Edges - getGuard: "+edges.get(2).getGuard().toKeYmaeraString());
 			System.out.println("Edges - getReset: "+edges.get(2).getReset().toKeYmaeraString());
-							
+			
+			
+			System.out.println("\nToString:  "+ha.toString(modes, edges));				
 	}
 }

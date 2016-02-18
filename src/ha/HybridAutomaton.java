@@ -109,5 +109,16 @@ public class HybridAutomaton {
 	public List<Edge> getEdges(){
 		return edges;
 	}
+	
+	public String toString( List<Mode> modes, List<Edge> edges){
+		StringBuffer string2dReach = new StringBuffer();
+		
+		string2dReach.append("{ mode 1;\n \ninvt: \n \t (");//
+		
+		System.out.println("Modes in HybridAutomaton:"+);
+		//TODO: trying to get invariant for the mode
+			
+		return string2dReach.toString();
+	}
 
 }

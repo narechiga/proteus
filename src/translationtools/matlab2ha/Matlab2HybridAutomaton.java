@@ -58,20 +58,9 @@ public class Matlab2HybridAutomaton {
 			
 		}
 		
-//		int index = 0;
-//		while ( index<guards.size() &&  index<resets.size())
-//		{
-//			System.out.println("HybridAutomaton Modes: "+guards.get(index)+""+resets.get(index));
-//			Edge thisEdge = new Edge(guards.get(index), resets.get(index));
-//			edges.add( thisEdge );
-//			index++;
-//		}
 		Mode mode = new Mode( new ArrayList<ExplicitODE>(), new TrueFormula(), edges, edges );
 		List<Mode> modes = new ArrayList<>(); 
 		modes.add( mode );
-		
-		
-		
 		
 		return new HybridAutomaton( modes, edges );
 	}
