@@ -1,10 +1,19 @@
 package ha;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.sun.beans.finder.FieldFinder;
 
 import dl.syntax.AndFormula;
+import dl.syntax.ExplicitODE;
+import dl.syntax.HybridProgram;
 import dl.syntax.OrFormula;
+import dl.syntax.RealVariable;
 import dl.syntax.dLFormula;
+import dl.syntax.dLStructure;
 
 public class HybridAutomaton {
 
@@ -110,15 +119,31 @@ public class HybridAutomaton {
 		return edges;
 	}
 	
-	public String toString( List<Mode> modes, List<Edge> edges){
+	public String toString( List<RealVariable> outputs ){
 		StringBuffer string2dReach = new StringBuffer();
+		StringBuffer newReset = new StringBuffer();
+		string2dReach.append("{ mode 1;\n \ninvt: \n \t (");
+		List<dLFormula> subInvariants = Mode.getInvariant().splitOnAnds();
+		for ( dLFormula formula : subInvariants ) {
+			string2dReach.append( formula + ");\n \n");
+		}
 		
-		string2dReach.append("{ mode 1;\n \ninvt: \n \t (");//
+		string2dReach.append("flow: \n \t TODO...\n \njump:");
+		int edgesSize = edges.size();
+				
+		int index = 0;
+		while( index < edgesSize ){
+			String tempReset = edges.get(index).getReset().toKeYmaeraString();
+			
+			//TODO:ask Nikos: "and" should precede only if there are two statements?
+			string2dReach.append("\n \t"+edges.get(index).getGuard().toKeYmaeraString()+" ==> @1 (and "+tempReset.replaceAll(":=","=").replaceAll(";"," ").replaceAll(outputs.get(0).toKeYmaeraString(),outputs.get(0).toKeYmaeraString()+"'"));
+			index++;
+		}
+				
+		System.out.println("Modes in HybridAutomaton:");
 		
-		System.out.println("Modes in HybridAutomaton:"+);
-		//TODO: trying to get invariant for the mode
 			
 		return string2dReach.toString();
 	}
-
+//TODO: 1. get the ' working on outputs, 2. flow:
 }

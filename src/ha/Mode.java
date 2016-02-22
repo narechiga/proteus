@@ -6,8 +6,8 @@ import java.util.*;
 
 public class Mode {
 
-	protected List<ExplicitODE> odes;
-	public dLFormula invariant;
+	protected static List<ExplicitODE> odes;
+	public static dLFormula invariant;
 
 	protected List<Edge> incomingEdges;
 	protected List<Edge> outgoingEdges;
@@ -26,19 +26,19 @@ public class Mode {
 		this.invariant = invariant;
 		this.incomingEdges = incomingEdges;
 		this.outgoingEdges = outgoingEdges;
+		
+		
 	}
 
 
 
-	public Mode() {
-	// TODO Auto-generated constructor stub
-}
+	
 
 	// Plain old getters
-	public List<ExplicitODE> getODEs() {
+	public static List<ExplicitODE> getODEs() {
 		return odes;
 	}
-	public dLFormula getInvariant() {
+	public static dLFormula getInvariant() {
 		return invariant;
 	}
 	public List<Edge> getIncomingEdges() {

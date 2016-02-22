@@ -59,6 +59,6 @@ public class SubstitutionTest {
 			System.out.println("Edges - getReset: "+edges.get(2).getReset().toKeYmaeraString());
 			
 			
-			System.out.println("\nToString:  "+ha.toString(modes, edges));				
+			System.out.println("toString()-->"+ha.toString( outputs ));				
 	}
 }
