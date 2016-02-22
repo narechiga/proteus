@@ -7,12 +7,13 @@ import java.util.List;
 
 import org.junit.Test;
 
+import dl.syntax.ExplicitODE;
 import dl.syntax.RealVariable;
 import ha.Edge;
 import ha.HybridAutomaton;
 import ha.Mode;
 import interfaces.text.TextOutput;
-import matlab.processor.SubstitutionStage;
+import matlab.processor.IfProcessor;
 import matlab.syntax.MatlabProgram;
 
 import translationtools.matlab2ha.Matlab2HybridAutomaton;
@@ -22,7 +23,7 @@ public class SubstitutionTest {
 	@Test
 	public void test() {
 		
-		SubstitutionStage substitution = new SubstitutionStage();
+		IfProcessor substitution = new IfProcessor();
 			// uncomment below to check if-else if-else and more than one assignment statements at the end	
 			  MatlabProgram mp = new MatlabProgram (" k1 = 5; k2 = 7*k1; if ( x > k1*6) y = k2*x; elseif (n==0) y = k1*x;else k2 = 100; end z = x^2 + k2*y^2;p=0;");
 			TextOutput.setDebug( true ); TextOutput.useColor( false );
@@ -39,7 +40,8 @@ public class SubstitutionTest {
 			TextOutput.info("Matlab program going to HybridAutomaton: "+mp.toString());			
 			System.out.println("=======================================================================");
 			Matlab2HybridAutomaton matlab2HybridAutomaton= new Matlab2HybridAutomaton();
-			HybridAutomaton ha = Matlab2HybridAutomaton.convert(mp);
+			List<ExplicitODE> odes = new ArrayList<>();
+			HybridAutomaton ha = Matlab2HybridAutomaton.convert(mp,odes);
 			List<Mode> modes = ha.getModes();
 			List<Edge> edges = ha.getEdges();
 			System.out.println("Edge Size "+ edges.size());
@@ -59,6 +61,6 @@ public class SubstitutionTest {
 			System.out.println("Edges - getReset: "+edges.get(2).getReset().toKeYmaeraString());
 			
 			
-			System.out.println("toString()-->"+ha.toString( outputs ));				
+			System.out.println(ha.toString( outputs ));				
 	}
 }

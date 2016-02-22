@@ -8,7 +8,7 @@ import dl.syntax.*;;
 
 public class Matlab2HybridAutomaton {
 
-	public static HybridAutomaton convert( MatlabProgram matlabProgram ) {
+	public static HybridAutomaton convert( MatlabProgram matlabProgram, List<ExplicitODE> odes ) {
 		int length = matlabProgram.getStatements().size();
 		List<dLFormula> guards = new ArrayList<>();
 		List<HybridProgram> resets = new ArrayList<>();
@@ -58,7 +58,7 @@ public class Matlab2HybridAutomaton {
 			
 		}
 		
-		Mode mode = new Mode( new ArrayList<ExplicitODE>(), new TrueFormula(), edges, edges );
+		Mode mode = new Mode( odes, new TrueFormula(), edges, edges );
 		List<Mode> modes = new ArrayList<>(); 
 		modes.add( mode );
 		

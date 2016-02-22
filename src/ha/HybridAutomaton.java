@@ -1,7 +1,10 @@
 package ha;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -121,29 +124,50 @@ public class HybridAutomaton {
 	
 	public String toString( List<RealVariable> outputs ){
 		StringBuffer string2dReach = new StringBuffer();
-		StringBuffer newReset = new StringBuffer();
 		string2dReach.append("{ mode 1;\n \ninvt: \n \t (");
 		List<dLFormula> subInvariants = Mode.getInvariant().splitOnAnds();
 		for ( dLFormula formula : subInvariants ) {
 			string2dReach.append( formula + ");\n \n");
 		}
 		
-		string2dReach.append("flow: \n \t TODO...\n \njump:");
+		string2dReach.append("flow: \n \t TODO...\n");
+		List<Mode> mode = this.getModes();
+		List<ExplicitODE> ODEs = mode.get(0).getODEs();
+		Iterator ODEsIterator = ODEs.iterator();
+		System.out.println(modes.get(0).odes);
+		while( ODEsIterator.hasNext() ){
+			ExplicitODE ODE = (ExplicitODE) ODEsIterator.next();
+			string2dReach.append("d/dt["+ODE.getLHS()+"] = "+ODE.getRHS()+";");
+		}
+		
+		
+		
+		
+		string2dReach.append("jump:");
+		int outputSize = outputs.size();
+		
 		int edgesSize = edges.size();
-				
+		String newResets = null;
 		int index = 0;
 		while( index < edgesSize ){
 			String tempReset = edges.get(index).getReset().toKeYmaeraString();
 			
+			
+			for ( int i = 0; i<outputSize; i++){
+				if(tempReset.contains(outputs.get(i).toString())){
+					newResets = tempReset.replaceAll(outputs.get(i).toString(),outputs.get(i).toString()+"'" ).replaceAll(":=","=").replaceAll(";"," ");
+					tempReset = newResets;
+				}
+			}
+			
 			//TODO:ask Nikos: "and" should precede only if there are two statements?
-			string2dReach.append("\n \t"+edges.get(index).getGuard().toKeYmaeraString()+" ==> @1 (and "+tempReset.replaceAll(":=","=").replaceAll(";"," ").replaceAll(outputs.get(0).toKeYmaeraString(),outputs.get(0).toKeYmaeraString()+"'"));
+		
+			string2dReach.append("\n \t"+edges.get(index).getGuard().toKeYmaeraString().replaceAll("true & "," ").replaceAll(" & true ", " ")+" ==> @1 (and "+newResets+";");
 			index++;
 		}
-				
-		System.out.println("Modes in HybridAutomaton:");
+		string2dReach.append("\n}");
 		
-			
 		return string2dReach.toString();
 	}
-//TODO: 1. get the ' working on outputs, 2. flow:
+
 }
