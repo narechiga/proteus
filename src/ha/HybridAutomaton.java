@@ -130,7 +130,7 @@ public class HybridAutomaton {
 			string2dReach.append( formula + ");\n \n");
 		}
 		
-		string2dReach.append("flow: \n \t TODO...\n");
+		string2dReach.append("flow: \n \t TODO...Integrate ODEs with matlab program in order to get the output\n");
 		List<Mode> mode = this.getModes();
 		List<ExplicitODE> ODEs = mode.get(0).getODEs();
 		Iterator ODEsIterator = ODEs.iterator();
