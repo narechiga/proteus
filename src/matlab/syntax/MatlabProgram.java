@@ -9,6 +9,7 @@ package matlab.syntax;
 import java.util.List;
 
 import dl.syntax.RealVariable;
+import interfaces.text.TextOutput;
 import matlab.parser.Mlexer;
 import matlab.parser.Mparser;
 import java.io.StringReader;
@@ -49,13 +50,14 @@ public class MatlabProgram {
 	}
 	public MatlabProgram( String string ) {
 		try{
-		StringReader thisReader = new StringReader( string );
-		System.out.println("String in Matlab "+string);
-		Mlexer thisdLLexer = new Mlexer( thisReader );
-		Mparser thisParser = new Mparser( thisdLLexer );
-  		thisParser.parse();
-	//	statements = (List<Statement>) thisParser.parsedProgram;
-	//	MatlabProgram m = thisParser.parsedProgram;
+			TextOutput.debug("Going to parse matlab program from string: " + string );
+			StringReader thisReader = new StringReader( string );
+			System.out.println("String in Matlab "+string);
+			Mlexer thisdLLexer = new Mlexer( thisReader );
+			Mparser thisParser = new Mparser( thisdLLexer );
+			thisParser.parse();
+			//	statements = (List<Statement>) thisParser.parsedProgram;
+			//	MatlabProgram m = thisParser.parsedProgram;
 		
 		statements = thisParser.parsedProgram.getStatements();
 		}catch(Exception e){
