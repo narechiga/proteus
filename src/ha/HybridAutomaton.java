@@ -130,20 +130,20 @@ public class HybridAutomaton {
 			string2dReach.append( formula + ");\n \n");
 		}
 		
-		string2dReach.append("flow: \n \t TODO...Integrate ODEs with matlab program in order to get the output\n");
+		string2dReach.append("flow: \n" ); 
 		List<Mode> mode = this.getModes();
 		List<ExplicitODE> ODEs = mode.get(0).getODEs();
 		Iterator ODEsIterator = ODEs.iterator();
 		System.out.println(modes.get(0).odes);
 		while( ODEsIterator.hasNext() ){
 			ExplicitODE ODE = (ExplicitODE) ODEsIterator.next();
-			string2dReach.append("d/dt["+ODE.getLHS()+"] = "+ODE.getRHS()+";");
+			string2dReach.append("d/dt["+ODE.getLHS()+"] = "+ODE.getRHS()+";\n");
 		}
 		
 		
 		
 		
-		string2dReach.append("jump:");
+		string2dReach.append("\njump:");
 		int outputSize = outputs.size();
 		
 		int edgesSize = edges.size();

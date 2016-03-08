@@ -19,12 +19,18 @@ public class Matlab2HybridAutomaton {
 			resets = getResets( ((IfStatement)(program.get(0))) );
 			System.out.println("size of guards: "+guards.size()+"\t Guards:"+guards+"\nSize of resets: "+resets.size()+"\t Resets: "+resets);
 		}else{
-			for ( int i = 0; i<length; i++){
-				guards = getGuards( ((IfStatement)(program.get(i))) );
-				resets = getResets( ((IfStatement)(program.get(i))) );
-				System.out.println("size of guards: "+guards.size()+" Guards:"+guards+" Size of resets: "+resets.size()+" Resets: "+resets);
+			throw new RuntimeException("HybridAutomaton.convert() requires guards and resets to be specified as an IfStatement");
+			//TODO: presuming if its not an IfStatement it would be Assignment statement, should we fetch the next program?
+//			for ( int i = 0; i<length; i++){
+//				guards = getGuards( ((IfStatement)(program.get(i))) );
+//				resets = getResets( ((IfStatement)(program.get(i))) );
+			//System.out.println("size of guards: "+guards.size()+" Guards:"+guards+" Size of resets: "+resets.size()+" Resets: "+resets);
+//		}
+//				TextOutput.debug("The class of program: "+program.get(0).getClass());
+//				convert ( program.get(1), odes);
+				
 			}
-		}
+		
 		
 //		System.out.println("size of guards: "+guards.size()+" Guards:"+guards+" Size of resets: "+resets.size()+" Resets: "+resets);
 //		System.out.println("guard[0] "+guards.get(0)+" guard[1] "+guards.get(1));
@@ -67,7 +73,7 @@ public class Matlab2HybridAutomaton {
 	
 	public static List<dLFormula> getGuards( IfStatement ifStatement ) {
 		// make an arraylist of conditions
-		List<dLFormula> conditions = ifStatement.getConditions();
+		List<dLFormula> conditions = (ifStatement).getConditions();
 		List<dLFormula> guardList = new ArrayList<>();
 		dLFormula thisGuard = null;
 		int index = 0;
