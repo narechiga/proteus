@@ -11,10 +11,12 @@ import java.util.List;
 
 import matlab.parser.AbstractMatlabParser;
 
-public class Statement extends MatlabProgram {
+public class Statement {
 
 	public Statement(){}
 
-	
+	public MatlabProgram toMatlabProgram() {
+		return new MatlabProgram( this );
+	}
 
 }

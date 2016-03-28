@@ -49,21 +49,19 @@ public class MatlabProgram {
 		System.out.println("Program: "+program[0]);
 	}
 	public MatlabProgram( String string ) {
-		try{
-			TextOutput.debug("Going to parse matlab program from string: " + string );
-			StringReader thisReader = new StringReader( string );
-			System.out.println("String in Matlab "+string);
-			Mlexer thisdLLexer = new Mlexer( thisReader );
-			Mparser thisParser = new Mparser( thisdLLexer );
-			thisParser.parse();
-			//	statements = (List<Statement>) thisParser.parsedProgram;
-			//	MatlabProgram m = thisParser.parsedProgram;
+		TextOutput.debug("Going to parse matlab program from string: " + string );
+		StringReader thisReader = new StringReader( string );
+		System.out.println("String in Matlab "+string);
+		Mlexer thisdLLexer = new Mlexer( thisReader );
+		Mparser thisParser = new Mparser( thisdLLexer );
 		
-			this.statements = thisParser.parsedProgram.getStatements();
-		}catch(Exception e){
-			System.out.println("Exception caught in MatlabProgram: ");
-			System.out.println(e);
+		try {
+			thisParser.parse();
+		} catch ( Exception e ) {
+			e.printStackTrace();
 		}
+		
+		this.statements = thisParser.parsedProgram.getStatements();
 	}
 	
 	public Statement peekFirstStatement() {

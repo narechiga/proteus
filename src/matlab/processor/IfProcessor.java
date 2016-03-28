@@ -44,26 +44,17 @@ public class IfProcessor {
 			e.printStackTrace();
 		}
 	}
-
-	//check for more than one assignment features at the end of if statement
-//	public static void main(String[] arg){
-//
-//		// uncomment below to check if-else if-else and more than one assignment statements at the end	
-//	//	  MatlabProgram mp = new MatlabProgram (" k1 = 5; k2 = 7*k1; if ( x > k1*6) y = k2*x; elseif (n==0) y = k1*x;else k2 = 100; end z = x^2 + k2*y^2;p=0;");
-//		TextOutput.setDebug( true ); TextOutput.useColor( false );
-//		MatlabProgram mp = new MatlabProgram (" k1 = 5; k2 = 7*k1; if ( x > k1*6) y = k2*x; else y = k1*x; k2 = 100; end p=43; z = x^2 + k2*y^2 + p;");
-//		List<RealVariable> inputs = new ArrayList<>();
-//		List<RealVariable> outputs = new ArrayList<>();
-//		inputs.add( new RealVariable("x"));
-//		
-//		//outputs.add(new RealVariable("y")); 
-//		outputs.add( new RealVariable ("z") );// outputs.add(new RealVariable("k2"));
-//		mp = mergePostAssignments( mp );
-//		mp = mergePreAssignments( mp, inputs, outputs );
-//
-//		TextOutput.info(mp.toString());
-//	}
 	
+	public static MatlabProgram process( MatlabProgram program, 
+											List<RealVariable> inputs,
+											List<RealVariable> outputs ) {
+		MatlabProgram processedProgram = mergePostAssignments( program );
+		processedProgram = mergePreAssignments( processedProgram, inputs, outputs );
+		
+		return processedProgram;
+	}
+
+
 	public static MatlabProgram mergePostAssignments( MatlabProgram mp ) {
 	//	List<Statement> matlabStatements = mp.getStatements();
 		
