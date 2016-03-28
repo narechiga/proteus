@@ -36,15 +36,6 @@ import matlab.syntax.*;
 
 public class IfProcessor {
 	
-	public static void pause() {
-		try {
-			Thread.sleep(6000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	public static MatlabProgram process( MatlabProgram program, 
 											List<RealVariable> inputs,
 											List<RealVariable> outputs ) {
@@ -53,7 +44,6 @@ public class IfProcessor {
 		
 		return processedProgram;
 	}
-
 
 	public static MatlabProgram mergePostAssignments( MatlabProgram mp ) {
 	//	List<Statement> matlabStatements = mp.getStatements();
