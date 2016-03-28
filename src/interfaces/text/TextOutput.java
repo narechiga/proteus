@@ -28,6 +28,18 @@ public class TextOutput {
 	protected static int lineNumber = 0;
 
 // Main, useful methods
+	public static void pause( int number ) {
+		try {
+			Thread.sleep( number );
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void pause() {
+		pause(7000);
+	}
+	
 	public static void say( String message ) {
 		String[] messages = message.split("\n");
 		
