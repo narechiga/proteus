@@ -64,10 +64,10 @@ public class AssignmentStatement extends Statement {
 	public Term getRHS(){
 		return rhs;
 	}
-	
-	public String toMathematicaString(){
-		return this.toMathematicaString();
-	}
+//	
+//	public String toMathematicaString(){
+//		return this.toMathematicaString();
+//	}
 	
 	public boolean containsLHS(Term t, Statement s){
 		Term temp = ((AssignmentStatement) s).getRHS();

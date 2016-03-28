@@ -11,7 +11,7 @@ import java.util.*;
 import interfaces.text.*;
 import dl.syntax.*;
 
-public class IfStatement extends Statement implements Comparable {
+public class IfStatement extends Statement {
 
 	//private LinkedHashMap<dLFormula, MatlabProgram> lh = new LinkedHashMap<dLFormula, MatlabProgram>();
 	private List<dLFormula> conditions;
@@ -44,6 +44,12 @@ public class IfStatement extends Statement implements Comparable {
 	
 	public List<MatlabProgram> getPrograms() {
 		return programs;
+	}
+	
+	public List<Statement> getStatements() {
+		List<Statement> statements = new ArrayList<>();
+		statements.add(this);
+		return statements;
 	}
 	
 	public void appendCase( dLFormula condition, MatlabProgram program ) {
@@ -154,7 +160,7 @@ public class IfStatement extends Statement implements Comparable {
 
 		String returnString = "";
 
-		returnString = "if (" + conditions.get(0).toMathematicaString() + ")\n";
+		returnString = "\nif (" + conditions.get(0).toMathematicaString() + ")\n";
 		for ( Statement statement : programs.get(0).getStatements() ) {
 			returnString += "\t" + statement.toString() + "\n";
 		}
@@ -187,13 +193,7 @@ public class IfStatement extends Statement implements Comparable {
 		
 		
 	}
-// TODO: Is this still being used?
-@Override
-public int compareTo(Object o) {
-	if ( conditions.toString().contains((CharSequence) o) )
-		return 0;
-	return -1;
-}
+
 	
 	
 	

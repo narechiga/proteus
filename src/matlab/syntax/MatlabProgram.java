@@ -21,25 +21,25 @@ public class MatlabProgram {
 	
 		
 	public MatlabProgram(){
-		statements = new ArrayList<>();
+		this.statements = new ArrayList<>();
 	}
 	
 	public MatlabProgram(List<Statement> list){
-		statements =  list;
+		this.statements =  list;
 	}
 	public MatlabProgram(MatlabProgram program, Statement statement){
-		statements = program.getStatements();
-		statements.add( statement );
+		this.statements = program.getStatements();
+		this.statements.add( statement );
 	}
 	
 	public MatlabProgram(MatlabProgram program, IfStatement ifStatement){
-		statements = program.getStatements();
-		statements.add( ifStatement );
+		this.statements = program.getStatements();
+		this.statements.add( ifStatement );
 	}
 	
 	public MatlabProgram(Statement statement) {
-		statements = new ArrayList<>();
-		statements.add( statement );
+		this.statements = new ArrayList<>();
+		this.statements.add( statement );
 	//	String s = statement.checkCondition(statement);
 		
 	//	System.out.println("matlabprogram statement constructor ");
@@ -59,7 +59,7 @@ public class MatlabProgram {
 			//	statements = (List<Statement>) thisParser.parsedProgram;
 			//	MatlabProgram m = thisParser.parsedProgram;
 		
-		statements = thisParser.parsedProgram.getStatements();
+			this.statements = thisParser.parsedProgram.getStatements();
 		}catch(Exception e){
 			System.out.println("Exception caught in MatlabProgram: ");
 			System.out.println(e);
@@ -67,27 +67,27 @@ public class MatlabProgram {
 	}
 	
 	public Statement peekFirstStatement() {
-		return statements.get(0);
+		return this.statements.get(0);
 	}
 	
 	public Statement consumeFirstStatement() {
-		Statement result = statements.get(0);
-		statements.remove(0);
+		Statement result = this.statements.get(0);
+		this.statements.remove(0);
 		return result;
 	}
 	
 	public Statement peekLastStatement() {
-		return statements.get(statements.size()-1);
+		return this.statements.get(this.statements.size()-1);
 	}
 	
 	public Statement consumeLastStatement() {
-		Statement result = statements.get(statements.size()-1);
-		statements.remove(statements.size()-1);
+		Statement result = statements.get(this.statements.size()-1);
+		this.statements.remove(this.statements.size()-1);
 		return result;
 	}
 	
 	public void append( Statement statement ) {
-		statements.add( statement );
+		this.statements.add( statement );
 	}
 	
 	public void append( List<Statement> statements ) {
@@ -95,7 +95,7 @@ public class MatlabProgram {
 	}
 
 	public List<Statement> getStatements() {
-		return statements;
+		return this.statements;
 	}
 
 	public String toString() {
@@ -106,10 +106,7 @@ public class MatlabProgram {
 		return returnString;
 	}
 
-	public String toMathematicaString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	
 

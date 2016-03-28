@@ -12,13 +12,16 @@ public class Matlab2HybridAutomaton {
 		int length = matlabProgram.getStatements().size();
 		List<dLFormula> guards = new ArrayList<>();
 		List<HybridProgram> resets = new ArrayList<>();
-		List<Statement> program = matlabProgram.getStatements();
+		List<Statement> statements = matlabProgram.getStatements();
 		
-		if( program.get(0) instanceof IfStatement ){
-			guards = getGuards( ((IfStatement)(program.get(0))) );
-			resets = getResets( ((IfStatement)(program.get(0))) );
+		TextOutput.debug("Program is: " + matlabProgram.toString() );
+
+		if( statements.get(0) instanceof IfStatement ){
+			guards = getGuards( ((IfStatement)(statements.get(0))) );
+			resets = getResets( ((IfStatement)(statements.get(0))) );
 			System.out.println("size of guards: "+guards.size()+"\t Guards:"+guards+"\nSize of resets: "+resets.size()+"\t Resets: "+resets);
 		}else{
+			System.out.println(statements.get(0).toString());
 			throw new RuntimeException("HybridAutomaton.convert() requires guards and resets to be specified as an IfStatement");
 			//TODO: presuming if its not an IfStatement it would be Assignment statement, should we fetch the next program?
 //			for ( int i = 0; i<length; i++){
@@ -26,7 +29,7 @@ public class Matlab2HybridAutomaton {
 //				resets = getResets( ((IfStatement)(program.get(i))) );
 			//System.out.println("size of guards: "+guards.size()+" Guards:"+guards+" Size of resets: "+resets.size()+" Resets: "+resets);
 //		}
-//				TextOutput.debug("The class of program: "+program.get(0).getClass());
+//				TextOutput.debug("The class of program: "+peekFirstStatement().getClass());
 //				convert ( program.get(1), odes);
 				
 			}
@@ -99,51 +102,45 @@ public class Matlab2HybridAutomaton {
 	
 	public static List<HybridProgram> getResets( Statement ifStatement ) {
 		List<MatlabProgram> programs = ((IfStatement) ifStatement).getPrograms();
-		
-		Iterator programsIterator =  programs.iterator();
-		while ( programsIterator.hasNext() )
-			System.out.println("Programs: "+programsIterator.next());
-		
+
 		List<HybridProgram> resetList = new ArrayList<>();
 		SequenceProgram thisHybridProgram = null ;
-		for ( MatlabProgram program : programs/*programlist*/ ) {
-			
+		for ( MatlabProgram program : programs ) {
+
 			TextOutput.info("Size of getstatements: "+program.getStatements().size()); 
 			TextOutput.info("Program---->"+program);
-			if ( program.getStatements().size() == 1){
+			if ( program.getStatements().size() == 1) {
 				List<Statement> p = program.getStatements();
-						
+
 				RealVariable LHS = ((AssignmentStatement) p.get(0)).getLHS();
 				Term RHS = ((AssignmentStatement)p.get(0)).getRHS();
 				ConcreteAssignmentProgram concreteHybridProgram = new ConcreteAssignmentProgram( LHS, RHS );
 				resetList.add(concreteHybridProgram);
-			}else if ( program.getStatements().size() == 2){
-				RealVariable LHS0 = (RealVariable)((AssignmentStatement)program.getStatements().get(0)).getLHS();
-				Term RHS0 = ((AssignmentStatement)program.getStatements().get(0)).getRHS();
-				ConcreteAssignmentProgram assignment1 = new ConcreteAssignmentProgram( LHS0, RHS0 );
-				RealVariable LHS1 = (RealVariable)((AssignmentStatement)program.getStatements().get(1)).getLHS();
-				Term RHS1 = ((AssignmentStatement)program.getStatements().get(1)).getRHS();
-				ConcreteAssignmentProgram assignment2 = new ConcreteAssignmentProgram( LHS1, RHS1 );
-				thisHybridProgram = new SequenceProgram(assignment1, assignment2);
-				resetList.add(thisHybridProgram);
-			}else{
-				List<Statement> resetsStatements = program.getStatements();
-				int index = 0;
-				while ( index < resetsStatements.size() ){
-					RealVariable LHS0 = (RealVariable)((AssignmentStatement)program.getStatements().get(index)).getLHS();
-					Term RHS0 = ((AssignmentStatement)program.getStatements().get(index)).getRHS();
-					ConcreteAssignmentProgram assignment1 = new ConcreteAssignmentProgram( LHS0, RHS0 );
-					index++;
-					RealVariable LHS1 = (RealVariable)((AssignmentStatement)program.getStatements().get(index)).getLHS();
-					Term RHS1 = ((AssignmentStatement)program.getStatements().get(index)).getRHS();
-					ConcreteAssignmentProgram assignment2 = new ConcreteAssignmentProgram( LHS1, RHS1 );
-					thisHybridProgram = new SequenceProgram(assignment1, assignment2);
-					index++;
-					resetList.add(thisHybridProgram);
+
+			} else {
+				boolean first = true;
+				boolean second = false;
+				ConcreteAssignmentProgram firstProgram = null;
+				SequenceProgram thisSequenceProgram = null;
+				for ( Statement statement : program.getStatements() ) {
+					RealVariable LHS = ((AssignmentStatement) statement).getLHS();
+					Term RHS = ((AssignmentStatement)statement).getRHS();
+					ConcreteAssignmentProgram concreteHybridProgram = new ConcreteAssignmentProgram( LHS, RHS );
+
+					if ( first ) {
+						firstProgram = concreteHybridProgram;
+						first = false; second = true;
+					} else if (second) {
+						thisSequenceProgram = new SequenceProgram( firstProgram, concreteHybridProgram );
+					} else {
+						thisSequenceProgram = new SequenceProgram( thisSequenceProgram, concreteHybridProgram );
+					}
+
 				}
+				resetList.add( thisSequenceProgram );
+
 			}
 		}
-
 		return resetList;
 	}
 
