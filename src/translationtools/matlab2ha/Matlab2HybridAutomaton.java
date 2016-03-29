@@ -7,8 +7,12 @@ import java.util.*;
 import dl.syntax.*;;
 
 public class Matlab2HybridAutomaton {
-
+	
 	public static HybridAutomaton convert( MatlabProgram matlabProgram, List<ExplicitODE> odes ) {
+		return convert( matlabProgram, new TrueFormula(), odes);
+	}
+	
+	public static HybridAutomaton convert( MatlabProgram matlabProgram, dLFormula timing, List<ExplicitODE> odes ) {
 		int length = matlabProgram.getStatements().size();
 		List<dLFormula> guards = new ArrayList<>();
 		List<HybridProgram> resets = new ArrayList<>();
@@ -20,6 +24,18 @@ public class Matlab2HybridAutomaton {
 			guards = getGuards( ((IfStatement)(statements.get(0))) );
 			resets = getResets( ((IfStatement)(statements.get(0))) );
 			System.out.println("size of guards: "+guards.size()+"\t Guards:"+guards+"\nSize of resets: "+resets.size()+"\t Resets: "+resets);
+			
+			if ( timing instanceof TrueFormula ) {
+				// No problem!
+			} else {
+				TextOutput.debug("Timing variable: "+timing);
+				TextOutput.pause(7000);
+				Set<RealVariable> timingVariables = timing.getFreeVariables();
+				for (RealVariable timingVariable : timingVariables ) {
+					resets.add( new ConcreteAssignmentProgram(timingVariable, new Real(0)) );
+				}
+			}
+			
 		}else{
 			System.out.println(statements.get(0).toString());
 			throw new RuntimeException("HybridAutomaton.convert() requires guards and resets to be specified as an IfStatement");
@@ -67,7 +83,7 @@ public class Matlab2HybridAutomaton {
 			
 		}
 		
-		Mode mode = new Mode( odes, new TrueFormula(), edges, edges );
+		Mode mode = new Mode( odes, timing, edges, edges );
 		List<Mode> modes = new ArrayList<>(); 
 		modes.add( mode );
 		
