@@ -75,13 +75,21 @@ public class MatlabProgram {
 	}
 	
 	public Statement peekLastStatement() {
-		return this.statements.get(this.statements.size()-1);
+		try {
+			return this.statements.get(this.statements.size()-1);
+		} catch ( ArrayIndexOutOfBoundsException e ) {
+			return null;
+		}
 	}
 	
 	public Statement consumeLastStatement() {
-		Statement result = statements.get(this.statements.size()-1);
-		this.statements.remove(this.statements.size()-1);
-		return result;
+		try {
+			Statement result = statements.get(this.statements.size()-1);
+			this.statements.remove(this.statements.size()-1);
+			return result;
+		} catch ( ArrayIndexOutOfBoundsException e ) {
+			return null;
+		}
 	}
 	
 	public void append( Statement statement ) {
@@ -99,7 +107,7 @@ public class MatlabProgram {
 	public String toString() {
 		String returnString = "";
 		for ( Statement statement : getStatements() ) {
-			returnString += statement.toString();
+			returnString += statement.toString() + "\n";
 		}
 		return returnString;
 	}

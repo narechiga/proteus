@@ -173,12 +173,18 @@ public class IfStatement extends Statement {
 			if ( condition instanceof TrueFormula ) {
 				returnString += "else\n";
 				counter += 1;
-				returnString += programs.get(counter).toString();
-				returnString += "end";
+				
+				for ( Statement statement : programs.get(counter).getStatements() ) {
+					returnString += "\t" + statement.toString() + "\n";
+				}
+				
+				returnString += "end\n";
 			} else {
 				returnString += "elseif (" + condition.toMathematicaString() +")\n";
 				counter += 1;
-				returnString += programs.get(counter).toString();
+				for ( Statement statement : programs.get(counter).getStatements() ) {
+					returnString += "\t" + statement.toString() + "\n";
+				}
 			}
 
 		//	for ( MatlabProgram program : programs.subList(1, programs.size()) ) { //added .subList(1, programs.size()) toget programs for else part

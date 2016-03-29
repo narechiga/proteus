@@ -36,11 +36,31 @@ import matlab.syntax.*;
 
 public class IfProcessor {
 	
-	public static MatlabProgram process( MatlabProgram program, 
+	public static MatlabProgram process( MatlabProgram initialProgram, 
 											List<RealVariable> inputs,
 											List<RealVariable> outputs ) {
-		MatlabProgram processedProgram = mergePostAssignments( program );
+		TextOutput.debug("Processing----------------------------------");
+		TextOutput.debug( initialProgram.toString() );
+		MatlabProgram processedProgram = mergePostAssignments( initialProgram );
 		processedProgram = mergePreAssignments( processedProgram, inputs, outputs );
+		
+		// Distribute into the subPrograms of the if-statement
+		Statement statement = processedProgram.getStatements().get(0);
+		if ( statement instanceof IfStatement ) {
+			IfStatement ifStatement = (IfStatement)statement;
+			List<MatlabProgram> programs = ifStatement.getPrograms();
+			
+			List<MatlabProgram> newPrograms = new ArrayList<>();
+			for ( MatlabProgram program : programs ) {
+				newPrograms.add( IfProcessor.mergePreAssignments( program , inputs, outputs) );
+			}
+			
+			IfStatement processedIfStatement = new IfStatement( ifStatement.getConditions(), newPrograms );
+			processedProgram = processedIfStatement.toMatlabProgram();
+			
+		} else {
+			throw new RuntimeException("Not an if statement!");
+		}
 		
 		return processedProgram;
 	}
@@ -49,20 +69,21 @@ public class IfProcessor {
 	//	List<Statement> matlabStatements = mp.getStatements();
 		
 		Stack<Statement> postAssignments = new Stack<>();
-		while ( !(mp.peekLastStatement() instanceof IfStatement ) ) {
+		while ( mp.peekLastStatement() != null &&
+				!(mp.peekLastStatement() instanceof IfStatement ) ) {
 			postAssignments.push( mp.consumeLastStatement() );
 		}
 		List<Statement> postAssignmentList = new ArrayList<>();
 		while ( !(postAssignments.isEmpty() )) {
 			postAssignmentList.add(postAssignments.pop());
 		}
-		
 			
 		IfStatement ifStatement = ((IfStatement)mp.consumeLastStatement());
 		for ( MatlabProgram ifCase : ifStatement.getPrograms() ) {
 			ifCase.append(postAssignmentList);
 		}
 		mp.append( ifStatement );
+
 		TextOutput.debug( "== Merged Post Assignments ==========================");
 		TextOutput.debug( mp.toString() );
 		TextOutput.debug("======================================================");
