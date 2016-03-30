@@ -15,25 +15,40 @@ public class Matlab2HybridAutomaton {
 	public static HybridAutomaton convert( MatlabProgram matlabProgram, dLFormula timing, List<ExplicitODE> odes ) {
 		int length = matlabProgram.getStatements().size();
 		List<dLFormula> guards = new ArrayList<>();
-		List<HybridProgram> resets = new ArrayList<>();
+		List<HybridProgram> untimedResets = new ArrayList<>();
 		List<Statement> statements = matlabProgram.getStatements();
+		List<HybridProgram> resets = new ArrayList<>();
 		
 		TextOutput.debug("Program is: " + matlabProgram.toString() );
+		TextOutput.debug("Timing formula is: " + timing.toKeYmaeraString() );
 
 		if( statements.get(0) instanceof IfStatement ){
 			guards = getGuards( ((IfStatement)(statements.get(0))) );
-			resets = getResets( ((IfStatement)(statements.get(0))) );
-			System.out.println("size of guards: "+guards.size()+"\t Guards:"+guards+"\nSize of resets: "+resets.size()+"\t Resets: "+resets);
+			untimedResets = getResets( ((IfStatement)(statements.get(0))) );
+			System.out.println("size of guards: "+guards.size()+"\t Guards:"+guards+"\nSize of resets: "+untimedResets.size()+"\t Resets: "+untimedResets);
+			
 			
 			if ( timing instanceof TrueFormula ) {
 				// No problem!
+				TextOutput.debug("timing was a true formula");
+				resets = untimedResets;
 			} else {
-				TextOutput.debug("Timing variable: "+timing);
-				TextOutput.pause(7000);
+				TextOutput.debug("Timing variable: "+timing.toKeYmaeraString());
 				Set<RealVariable> timingVariables = timing.getFreeVariables();
+				List<HybridProgram> timingResets = new ArrayList<>();
 				for (RealVariable timingVariable : timingVariables ) {
-					resets.add( new ConcreteAssignmentProgram(timingVariable, new Real(0)) );
+					HybridProgram newReset = new ConcreteAssignmentProgram(timingVariable, new Real(0));
+					TextOutput.debug("Adding reset: " + newReset.toKeYmaeraString());
+					timingResets.add( newReset );
 				}
+				HybridProgram timedReset = null;
+				for ( HybridProgram untimedReset : untimedResets ) {
+					for ( HybridProgram timingReset : timingResets ) {
+						timedReset = new SequenceProgram( timingReset, untimedReset );
+					}
+					resets.add( timedReset );
+				}
+				
 			}
 			
 		}else{
@@ -74,6 +89,7 @@ public class Matlab2HybridAutomaton {
 			}else{
 				dLFormula tempdl = (dLFormula)guardsIterator.next();
 				HybridProgram hp = (HybridProgram)resetsIterator.next();
+				TextOutput.debug("Adding reset: " + hp.toKeYmaeraString());
 				Edge thisEdge = new Edge(tempdl, hp);
 				edges.add( thisEdge );
 				System.out.println("Guard "+tempdl.toMathematicaString()+" reset: "+hp);

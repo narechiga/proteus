@@ -10,13 +10,8 @@ import java.util.regex.Pattern;
 
 import com.sun.beans.finder.FieldFinder;
 
-import dl.syntax.AndFormula;
-import dl.syntax.ExplicitODE;
-import dl.syntax.HybridProgram;
-import dl.syntax.OrFormula;
-import dl.syntax.RealVariable;
-import dl.syntax.dLFormula;
-import dl.syntax.dLStructure;
+import dl.syntax.*;
+import interfaces.text.TextOutput;
 
 public class HybridAutomaton {
 
@@ -93,7 +88,7 @@ public class HybridAutomaton {
 //
 //	}
 
-	protected String formula2dReach( dLFormula formula ) {
+	public static String formula2dReach( dLFormula formula ) {
 		if ( formula instanceof AndFormula ) {
 			AndFormula thisFormula = (AndFormula)formula;
 			return "(and " + formula2dReach( thisFormula.getLHS() )
@@ -114,6 +109,18 @@ public class HybridAutomaton {
 		}     
 	}
 	
+	public static String program2dReach( HybridProgram program ) {
+		String returnString = "";
+		if ( program instanceof SequenceProgram ) {
+			returnString = "(and " + program2dReach( ((SequenceProgram)program).getLHS() ) + " " + program2dReach( ((SequenceProgram)program).getRHS() ) + ")";
+		} else if ( program instanceof ConcreteAssignmentProgram ) {
+			returnString = program.toKeYmaeraString().replace(":=", "=");
+		} else {
+			throw new RuntimeException("Sorry, that program is not supported");
+		}
+		return returnString;
+	}
+	
 	public List<Mode> getModes(){
 		return modes;
 	}
@@ -127,7 +134,8 @@ public class HybridAutomaton {
 		string2dReach.append("{ mode 1;\n \ninvt: \n \t (");
 		List<dLFormula> subInvariants = Mode.getInvariant().splitOnAnds();
 		for ( dLFormula formula : subInvariants ) {
-			string2dReach.append( formula + ");\n \n");
+			TextOutput.debug("Appending invariant: " + formula.toKeYmaeraString());
+			string2dReach.append( formula.toKeYmaeraString() + ");\n \n");
 		}
 		
 		string2dReach.append("flow: \n" ); 
@@ -139,10 +147,7 @@ public class HybridAutomaton {
 			ExplicitODE ODE = (ExplicitODE) ODEsIterator.next();
 			string2dReach.append("d/dt["+ODE.getLHS()+"] = "+ODE.getRHS()+";\n");
 		}
-		
-		
-		
-		
+
 		string2dReach.append("\njump:");
 		int outputSize = outputs.size();
 		
@@ -159,10 +164,11 @@ public class HybridAutomaton {
 					tempReset = newResets;
 				}
 			}
-			
+			TextOutput.debug("Adding reset: " + newResets );
 			//TODO:ask Nikos: "and" should precede only if there are two statements?
-		
-			string2dReach.append("\n \t"+edges.get(index).getGuard().toKeYmaeraString().replaceAll("true & "," ").replaceAll(" & true ", " ")+" ==> @1 (and "+newResets+";");
+			
+			//string2dReach.append("\n \t"+edges.get(index).getGuard().toKeYmaeraString().replaceAll("true & "," ").replaceAll(" & true ", " ")+" ==> @1 (and "+newResets+";");
+			string2dReach.append("\n \t"+formula2dReach( edges.get(index).getGuard() )+" ==> @1 "+ program2dReach( edges.get(index).getReset() )+";");
 			index++;
 		}
 		string2dReach.append("\n}");
