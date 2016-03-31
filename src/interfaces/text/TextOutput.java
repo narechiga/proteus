@@ -22,7 +22,7 @@ public class TextOutput {
 	public static final String ANSI_WHITE = "\u001B[37m";
 	public static final String ANSI_BOLD = "\u001B[1m";
 
-	protected static boolean color = true;
+	protected static boolean color = false;
 	protected static boolean debug = false;
 	protected static PrintStream out = System.out;
 	protected static int lineNumber = 0;
