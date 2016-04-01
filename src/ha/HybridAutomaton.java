@@ -114,7 +114,7 @@ public class HybridAutomaton {
 		if ( program instanceof SequenceProgram ) {
 			returnString = "(and " + program2dReach( ((SequenceProgram)program).getLHS() ) + " " + program2dReach( ((SequenceProgram)program).getRHS() ) + ")";
 		} else if ( program instanceof ConcreteAssignmentProgram ) {
-			returnString = program.toKeYmaeraString().replace(":=", "=");
+			returnString = program.toKeYmaeraString().replace(" :=", "' =");
 		} else {
 			throw new RuntimeException("Sorry, that program is not supported");
 		}
@@ -165,7 +165,6 @@ public class HybridAutomaton {
 				}
 			}
 			TextOutput.debug("Adding reset: " + newResets );
-			//TODO:ask Nikos: "and" should precede only if there are two statements?
 			
 			//string2dReach.append("\n \t"+edges.get(index).getGuard().toKeYmaeraString().replaceAll("true & "," ").replaceAll(" & true ", " ")+" ==> @1 (and "+newResets+";");
 			string2dReach.append("\n \t"+formula2dReach( edges.get(index).getGuard() )+" ==> @1 "+ program2dReach( edges.get(index).getReset() )+";");
