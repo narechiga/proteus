@@ -440,7 +440,6 @@ public class Mparser extends AbstractMatlabParser
     /* "Mparser.y":141  */ /* lalr1.java:489  */
     {
 		try{
-			
 			System.out.println("\nIF logicalformula matlabprogram END");
 			yyval = new IfStatement( (dLFormula)((yystack.valueAt (4-(2)))), (MatlabProgram)((yystack.valueAt (4-(3)))) );		    
 		}catch( Exception e){
@@ -453,7 +452,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 8:
   if (yyn == 8)
-    /* "Mparser.y":151  */ /* lalr1.java:489  */
+    /* "Mparser.y":150  */ /* lalr1.java:489  */
     {
 		try{
 			IfStatement is = new IfStatement( (dLFormula)((yystack.valueAt (6-(2)))), (MatlabProgram)((yystack.valueAt (6-(3)))) );
@@ -469,11 +468,12 @@ public class Mparser extends AbstractMatlabParser
 
   case 9:
   if (yyn == 9)
-    /* "Mparser.y":161  */ /* lalr1.java:489  */
+    /* "Mparser.y":160  */ /* lalr1.java:489  */
     {
 		try{
 			IfStatement is = (IfStatement)((yystack.valueAt (5-(4))));
 			is.prependCase( (dLFormula)((yystack.valueAt (5-(2)))), (MatlabProgram)((yystack.valueAt (5-(3)))) );
+			System.out.println("IF logicalformula matlabprogram elselist END");
 			yyval = is;
 		}catch( Exception e){
  			System.out.println("Exception in ifstatement:IF logicalformula matlabprogram elselist END");
@@ -491,6 +491,7 @@ public class Mparser extends AbstractMatlabParser
 			IfStatement is = (IfStatement)((yystack.valueAt (7-(4))));
 			is.prependCase( (dLFormula)((yystack.valueAt (7-(2)))), (MatlabProgram)((yystack.valueAt (7-(3)))) );
 			is.appendCase( new TrueFormula(), (MatlabProgram)((yystack.valueAt (7-(6)))) );
+			System.out.println("IF logicalformula matlabprogram elselist ELSE matlabprogram END");
 			yyval = is;
 		}catch( Exception e){
  			System.out.println("Exception in ifstatement:IF logicalformula matlabprogram elselist ELSE matlabprogram END");
@@ -502,7 +503,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 11:
   if (yyn == 11)
-    /* "Mparser.y":185  */ /* lalr1.java:489  */
+    /* "Mparser.y":186  */ /* lalr1.java:489  */
     {
 		try{
 			yyval = new IfStatement( (dLFormula)((yystack.valueAt (3-(2)))), (MatlabProgram)((yystack.valueAt (3-(3)))) );		    
@@ -516,7 +517,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 12:
   if (yyn == 12)
-    /* "Mparser.y":193  */ /* lalr1.java:489  */
+    /* "Mparser.y":194  */ /* lalr1.java:489  */
     {
 		try{
 			IfStatement is = (IfStatement)((yystack.valueAt (4-(1))));
@@ -533,7 +534,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 13:
   if (yyn == 13)
-    /* "Mparser.y":207  */ /* lalr1.java:489  */
+    /* "Mparser.y":208  */ /* lalr1.java:489  */
     {
  		try{
  			yyval = new AssignmentStatement( new RealVariable( (String)((yystack.valueAt (4-(1)))) ), (Term)((yystack.valueAt (4-(3)))) );
@@ -548,7 +549,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 14:
   if (yyn == 14)
-    /* "Mparser.y":219  */ /* lalr1.java:489  */
+    /* "Mparser.y":220  */ /* lalr1.java:489  */
     {
 		//System.out.println("Comparision:");
 		yyval = (ComparisonFormula)((yystack.valueAt (1-(1)))); };
@@ -557,7 +558,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 15:
   if (yyn == 15)
-    /* "Mparser.y":222  */ /* lalr1.java:489  */
+    /* "Mparser.y":223  */ /* lalr1.java:489  */
     { 
 		//System.out.println("logicalformula:");
 		yyval = (dLFormula)((yystack.valueAt (3-(2)))); };
@@ -566,28 +567,28 @@ public class Mparser extends AbstractMatlabParser
 
   case 16:
   if (yyn == 16)
-    /* "Mparser.y":225  */ /* lalr1.java:489  */
+    /* "Mparser.y":226  */ /* lalr1.java:489  */
     {System.out.println("logicalformula AND:");yyval = new AndFormula( (dLFormula)((yystack.valueAt (3-(1)))), (dLFormula)((yystack.valueAt (3-(3))))); };
   break;
     
 
   case 17:
   if (yyn == 17)
-    /* "Mparser.y":226  */ /* lalr1.java:489  */
+    /* "Mparser.y":227  */ /* lalr1.java:489  */
     {yyval = new OrFormula( (dLFormula)((yystack.valueAt (3-(1)))), (dLFormula)((yystack.valueAt (3-(3))))); };
   break;
     
 
   case 18:
   if (yyn == 18)
-    /* "Mparser.y":227  */ /* lalr1.java:489  */
+    /* "Mparser.y":228  */ /* lalr1.java:489  */
     {yyval = new NotFormula( (dLFormula)((yystack.valueAt (2-(2)))));};
   break;
     
 
   case 19:
   if (yyn == 19)
-    /* "Mparser.y":231  */ /* lalr1.java:489  */
+    /* "Mparser.y":232  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ComparisonFormula( new Operator( (String)((yystack.valueAt (3-(2)))), 2, true ), (Term)((yystack.valueAt (3-(1)))), (Term)((yystack.valueAt (3-(3)))) ) ;
@@ -606,7 +607,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 20:
   if (yyn == 20)
-    /* "Mparser.y":244  */ /* lalr1.java:489  */
+    /* "Mparser.y":245  */ /* lalr1.java:489  */
     {
 		try {
 			yyval = new ComparisonFormula( new Operator( (String)((yystack.valueAt (3-(2)))), 2, true ), (Term)((yystack.valueAt (3-(1)))), (Term)((yystack.valueAt (3-(3)))) ) ;
@@ -623,7 +624,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 21:
   if (yyn == 21)
-    /* "Mparser.y":258  */ /* lalr1.java:489  */
+    /* "Mparser.y":259  */ /* lalr1.java:489  */
     { 
 		try { yyval = new Real( (String)((yystack.valueAt (1-(1)))) ); } catch ( Exception e ) { System.err.println("Exception at location term:NUMBER");
 			System.err.println( e );
@@ -634,7 +635,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 22:
   if (yyn == 22)
-    /* "Mparser.y":275  */ /* lalr1.java:489  */
+    /* "Mparser.y":276  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new RealVariable( (String)((yystack.valueAt (1-(1)))) );
@@ -648,7 +649,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 23:
   if (yyn == 23)
-    /* "Mparser.y":283  */ /* lalr1.java:489  */
+    /* "Mparser.y":284  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (Term)((yystack.valueAt (3-(2))));
@@ -662,7 +663,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 24:
   if (yyn == 24)
-    /* "Mparser.y":291  */ /* lalr1.java:489  */
+    /* "Mparser.y":292  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -680,7 +681,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 25:
   if (yyn == 25)
-    /* "Mparser.y":303  */ /* lalr1.java:489  */
+    /* "Mparser.y":304  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -698,7 +699,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 26:
   if (yyn == 26)
-    /* "Mparser.y":315  */ /* lalr1.java:489  */
+    /* "Mparser.y":316  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -716,7 +717,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 27:
   if (yyn == 27)
-    /* "Mparser.y":328  */ /* lalr1.java:489  */
+    /* "Mparser.y":329  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -734,7 +735,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 28:
   if (yyn == 28)
-    /* "Mparser.y":340  */ /* lalr1.java:489  */
+    /* "Mparser.y":341  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -752,7 +753,7 @@ public class Mparser extends AbstractMatlabParser
 
   case 29:
   if (yyn == 29)
-    /* "Mparser.y":352  */ /* lalr1.java:489  */
+    /* "Mparser.y":353  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -770,7 +771,7 @@ public class Mparser extends AbstractMatlabParser
     
 
 
-/* "Mparser.java":774  */ /* lalr1.java:489  */
+/* "Mparser.java":775  */ /* lalr1.java:489  */
         default: break;
       }
 
@@ -1254,9 +1255,9 @@ private static final byte yycheck_[] = yycheck_init();
   {
     return new short[]
     {
-       0,    67,    67,    90,   108,   120,   129,   141,   151,   161,
-     171,   185,   193,   207,   219,   222,   225,   226,   227,   231,
-     244,   258,   275,   283,   291,   303,   315,   328,   340,   352
+       0,    67,    67,    90,   108,   120,   129,   141,   150,   160,
+     171,   186,   194,   208,   220,   223,   226,   227,   228,   232,
+     245,   259,   276,   284,   292,   304,   316,   329,   341,   353
     };
   }
 
@@ -1341,7 +1342,7 @@ private static final byte yycheck_[] = yycheck_init();
 
 }
 
-/* "Mparser.y":373  */ /* lalr1.java:1070  */
+/* "Mparser.y":374  */ /* lalr1.java:1070  */
 
 
 

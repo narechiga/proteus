@@ -140,7 +140,6 @@ statement:
 ifstatement:
 	IF logicalformula matlabprogram END {
 		try{
-			
 			System.out.println("\nIF logicalformula matlabprogram END");
 			$$ = new IfStatement( (dLFormula)$2, (MatlabProgram)$3 );		    
 		}catch( Exception e){
@@ -162,6 +161,7 @@ ifstatement:
 		try{
 			IfStatement is = (IfStatement)$4;
 			is.prependCase( (dLFormula)$2, (MatlabProgram)$3 );
+			System.out.println("IF logicalformula matlabprogram elselist END");
 			$$ = is;
 		}catch( Exception e){
  			System.out.println("Exception in ifstatement:IF logicalformula matlabprogram elselist END");
@@ -173,6 +173,7 @@ ifstatement:
 			IfStatement is = (IfStatement)$4;
 			is.prependCase( (dLFormula)$2, (MatlabProgram)$3 );
 			is.appendCase( new TrueFormula(), (MatlabProgram)$6 );
+			System.out.println("IF logicalformula matlabprogram elselist ELSE matlabprogram END");
 			$$ = is;
 		}catch( Exception e){
  			System.out.println("Exception in ifstatement:IF logicalformula matlabprogram elselist ELSE matlabprogram END");
