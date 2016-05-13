@@ -2,7 +2,7 @@ package matlab.syntax;
 
 import dl.syntax.*;
 
-public class NoOp extends Statement {
+public class NoOp extends MatlabProgram {
 	
 	public NoOp() {
 		
