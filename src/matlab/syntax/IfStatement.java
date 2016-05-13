@@ -74,21 +74,6 @@ public class IfStatement extends Statement {
 		programs.add(0, program);
 	}
 	
-//	public String getConditionstoString(){
-//		return conditions.get(0).toString();
-//	}
-//	
-//	public String getProgramstoString(){
-//		return programs.get(0).toString();
-//	}
-//	
-//	public String getConditionstoMathematicaString(){
-//		return conditions.get(0).toMathematicaString();
-//	}
-//	
-//	public String getProgramstoMathematicaString(){
-//		return ( programs.get(0)).toMathematicaString();
-//	}
 	
 	public void appendStatementToAllCases( Statement statement ) {
 		for ( MatlabProgram program : programs ) {
@@ -97,64 +82,22 @@ public class IfStatement extends Statement {
 		
 	}
 	
-//	public void replace( Replacement replace ){
-//		System.out.println(" in IfStatement replaceVariable() replace getvalues"+replace.getValues()+" replace getVariables "+replace.getVariables()+"statement "+statement);
-//		String LHS = replace.getVariables().toString();
-//		String l = (String) LHS.substring(1, LHS.length()-2);
-//		System.out.println ( "statement.contains( l ) "+statement.contains( l )+" LHS "+l+" statement "+statement + "compareTo((Object)l) "+compareTo((Object)l));
-//		while( compareTo((Object)l) == 0 ){
-//			System.out.println( "in compareTo");
-//			
-//		}
-//			
-	
+	public IfStatement replace( Replacement replacement ) {
+		List<dLFormula> conditions = this.getConditions();
+		List<MatlabProgram> programs = this.getPrograms();
 		
-//	}
-	
-	
-	
-//	public String toString() {		
-//		if ( conditions.size() == 1 && programs.size() == 1 ){
-//			result = "If "+ conditions.get(0).getArguments()+" "+programs.get(0).getStatements();
-//		}else if ( conditions.size() == 1 && programs.size() == 2 ){
-//			result = "If "+ conditions.get(0).getArguments()+" "+programs.get(0).getStatements()+"Else"+programs.get(1);
-//		}else{ 
-//			int i = 0;
-//			while ( i < programs.size()-2){
-//				result = "If "+ conditions.get(i).getArguments()+" "+programs.get(i).getStatements()+"Else If"+conditions.get(i).getArguments()+" "+programs.get(i);
-//			}
-//		}
-//		return result;
-//		
-//	}
-	
-	
-	//public StringBuffer helperString(){
-	//	
-	//	StringBuffer sb = new StringBuffer();
-	//	String result ;
-	//	if ( conditions.size() == 1 && programs.size() == 1 ){
-	//		sb.append("if "+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements());
-	//	}else if ( conditions.size() >= 1 && programs.size() == 2 ){
-	//		sb.append("if "+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements()+" else "+programs.get(1).getStatements());
-	//	}else { 
-	//		sb.append("if"+ conditions.get(0).toMathematicaString()+" "+programs.get(0).getStatements());
-	//		int i = 1;
-	//		while ( i <= programs.size()-1){
-	//			if( i == programs.size()-1 ){
-	//				sb.append(" else "+conditions.get(i).toMathematicaString()+" "+programs.get(i).getStatements());
-	//				return sb;
-	//			}
-	//			
-	//			sb.append(" elseif"+conditions.get(i).toMathematicaString()+" "+programs.get(i).getStatements());
-	//			i++;
-	//		
-	//		}
-	//		
-	//	}	
-	//	return sb;
-	//	
-	//}
+		List<dLFormula> replacedConditions = new ArrayList<>();
+		List<MatlabProgram> replacedPrograms = new ArrayList<>();
+		
+		for ( dLFormula condition : conditions ) {
+			replacedConditions.add( condition.replace( replacement ));
+		}
+		for ( MatlabProgram program : programs ) {
+			replacedPrograms.add( program.replace( replacement) );
+		}
+		
+		return new IfStatement( replacedConditions, replacedPrograms );	
+	}
 	
 	public String toString(){
 

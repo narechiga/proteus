@@ -8,17 +8,15 @@ package matlab.syntax;
 
 import java.util.List;
 
-import dl.syntax.RealVariable;
+import dl.syntax.*;
 import interfaces.text.TextOutput;
-import matlab.parser.Mlexer;
-import matlab.parser.Mparser;
+import matlab.parser.*;
 import java.io.StringReader;
 import java.util.ArrayList;
 
 public class MatlabProgram {
 	
-	private List<Statement> statements;
-	
+	private List<Statement> statements;	
 		
 	public MatlabProgram(){
 		this.statements = new ArrayList<>();
@@ -44,10 +42,11 @@ public class MatlabProgram {
 		
 	//	System.out.println("matlabprogram statement constructor ");
 		}
-	public MatlabProgram( String string, Boolean t){
-		String[] program = string.split(";");
-		System.out.println("Program: "+program[0]);
-	}
+//	public MatlabProgram( String string, Boolean t){
+//		String[] program = string.split(";");
+//		System.out.println("Program: "+program[0]);
+//	}
+	
 	public MatlabProgram( String string ) {
 		TextOutput.debug("Going to parse matlab program from string: " + string );
 		StringReader thisReader = new StringReader( string );
@@ -62,6 +61,19 @@ public class MatlabProgram {
 		}
 		
 		this.statements = thisParser.parsedProgram.getStatements();
+	}
+	
+	public int getLength() {
+		return this.getStatements().size();
+	}
+	
+	public Statement getFirstStatement() {
+		return this.getStatements().get(0);
+	}
+	public MatlabProgram exceptFirstStatement() {		
+		List<Statement> statements = this.getStatements();
+		statements.remove( 0 );
+		return new MatlabProgram( statements );
 	}
 	
 	public Statement peekFirstStatement() {
@@ -92,8 +104,14 @@ public class MatlabProgram {
 		}
 	}
 	
-	public void append( Statement statement ) {
-		this.statements.add( statement );
+	public MatlabProgram append( Statement statement ) {
+		return new MatlabProgram( this, statement );
+	}
+	public MatlabProgram append( MatlabProgram program ) {
+		List<Statement> totalStatements = new ArrayList<>();
+		totalStatements.addAll( this.getStatements() );
+		totalStatements.addAll( program.getStatements() );
+		return new MatlabProgram( totalStatements );
 	}
 	
 	public void append( List<Statement> statements ) {
@@ -112,10 +130,36 @@ public class MatlabProgram {
 		return returnString;
 	}
 
-
-
+	public MatlabProgram replace( Replacement replacement ) {
+		List<Statement> statements = this.getStatements();
+		
+		MatlabProgram substitutedProgram = new MatlabProgram();
+		for ( Statement statement : statements ) {
+			substitutedProgram = substitutedProgram.append( statement.replace( replacement ));
+		}
+		
+		return substitutedProgram;
+	}
 	
-
+	public boolean isNoOp() {
+		if ( (this.getLength() == 1) && (this.getFirstStatement() instanceof NoOp ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean isAssignment() {
+		return ( this.getLength() == 1 ) && ( this.getFirstStatement() instanceof AssignmentStatement );
+	}
+	
+//	public AssignmentStatement asAssignment() {
+//		if ( this.isAssignment() ) {
+//			return ((AssignmentStatement)(this.getFirstStatement()));
+//		} else {
+//			throw new RuntimeException("Not an assignment statement!");
+//		}
+//	}
 	
 		
 }

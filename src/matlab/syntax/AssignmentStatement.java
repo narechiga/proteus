@@ -38,19 +38,9 @@ public class AssignmentStatement extends Statement {
 		return returnTerm;
 	}
 	
-//	public Term getAssignmentStatement(){
-//		return rhs;
-//	}
-//	
-//	public String toStringRHS(){
-//		return rhs.toKeYmaeraString();
-//		
-//	}
-//	
-//	public String toStringLHS(){
-//		return lhs.toKeYmaeraString();
-//		
-//	}
+	public AssignmentStatement replace( Replacement replacement ) {
+		return new AssignmentStatement( this.getLHS(), this.getRHS().replace( replacement ));
+	}
 	
 	//since we know we are in assignment, operator will return '='
 	public String getOperator(){
