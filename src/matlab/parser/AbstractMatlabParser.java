@@ -6,24 +6,15 @@
  */
 package matlab.parser;
 
-import java.util.*;
-import java.util.ArrayList;
-import java.util.List;
 
-import dl.semantics.Valuation;
-import dl.syntax.HybridProgram;
-import dl.syntax.RealVariable;
-import dl.syntax.Term;
-import dl.syntax.dLFormula;
-import dl.syntax.dLStructure;
-import matlab.syntax.MatlabProgram;
-import matlab.syntax.Statement;
 import matlab.syntax.*;
+
 
 public class AbstractMatlabParser {
 	 public MatlabProgram parsedProgram;
-	 
-	  
-	 
 	
+	 
+	 public static void main( String[] args ) {
+		//If you ever decide you need to do a unit test
+	 }
 }

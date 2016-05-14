@@ -9,39 +9,65 @@ public class SymbolicExecution {
 	public static MatlabProgram run( MatlabProgram program, List<RealVariable> outputs ) {
 		MatlabProgram result = null;
 
-		if ( program.isNoOp() ) {
+		if ( program instanceof NoOp ) {
 			
-			result = (new NoOp()).toMatlabProgram();
+			result = new NoOp();
 			
-		} else if ( program.isAssignment() ) {
+		} else if ( program instanceof MatlabAssignment ) {
 			
-			AssignmentStatement assignment = ((AssignmentStatement)program.getFirstStatement());
+			MatlabAssignment assignment = ((MatlabAssignment)program);
 		 	if( outputs.contains( assignment.getLHS() )) {
 		 		result = program;
 		 	} else {
-		 		result = (new NoOp()).toMatlabProgram();
+		 		result = new NoOp();
 		 	}
-		} else if ( program.isConditional() ) {
+		} else if ( program instanceof MatlabConditional ) {
 			
-			IfStatement conditional = ((IfStatement)(program.getFirstStatement()));
+			MatlabConditional conditional = (MatlabConditional)program;
 			List<dLFormula> conditions = conditional.getConditions();
 			List<MatlabProgram> subPrograms = conditional.getPrograms();
 			
 			List<MatlabProgram> executedPrograms = new ArrayList<>();
 			for ( MatlabProgram subProgram : subPrograms ) {
 				executedPrograms.add( run( subProgram, outputs ) );
-			}	
+			}
+			result = new MatlabConditional( conditions, executedPrograms );
 			
-		} else if ( program.getFirstStatement() instanceof AssignmentStatement ) {
+		} else if ( program instanceof MatlabSequence ) {
 			
-			RealVariable variable = ((AssignmentStatement)(program.getFirstStatement())).getLHS();
-			Term term = ((AssignmentStatement)(program.getFirstStatement())).getRHS();
+			MatlabSequence sequence = (MatlabSequence)program;
 			
-			result = new MatlabProgram( program.getFirstStatement().replace( new Replacement(variable, term) ) );
-			result = result.append( program.exceptFirstStatement().replace( new Replacement(variable, term) ) );
+			if ( sequence.getFirstProgram() instanceof MatlabAssignment ) {
 
-		} else if ( program.getFirstStatement() instanceof IfStatement ) {
-			
+				MatlabAssignment assignment = (MatlabAssignment)(sequence.getFirstProgram());
+				RealVariable variable = assignment.getLHS();
+				Term term = assignment.getRHS();
+				Replacement replacement = new Replacement( variable, term );
+				
+				MatlabProgram firstPart = run( sequence.getFirstProgram(), outputs );
+				MatlabProgram secondPart = run( sequence.getSecondProgram().replace( replacement ), outputs);
+				
+				result = new MatlabSequence( firstPart, secondPart );
+
+			} else if ( sequence.getFirstProgram() instanceof MatlabConditional ) {
+				MatlabConditional conditional = (MatlabConditional)(sequence.getFirstProgram() );
+				List<dLFormula> conditions = conditional.getConditions();
+				List<MatlabProgram> subPrograms = conditional.getPrograms();
+				List<MatlabProgram> newPrograms = new ArrayList<>();
+				
+				for ( MatlabProgram subProgram : subPrograms ) {
+					MatlabSequence thisSequence = new MatlabSequence( subProgram, sequence.getSecondProgram() );
+					newPrograms.add( run(thisSequence, outputs) );
+				}
+				result = new MatlabConditional( conditions, newPrograms );
+				
+				
+			} else {
+				throw new RuntimeException("This should be unreachable; did you add a new type of program and forget to fully support it?");
+			}
+
+		} else {
+			throw new RuntimeException("This should be unreachable; did you add a new type of program and forget to fully support it?");
 		}
 
 		return result;

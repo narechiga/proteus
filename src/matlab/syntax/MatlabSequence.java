@@ -36,8 +36,17 @@ public class MatlabSequence extends MatlabProgram {
 		return secondProgram;
 	}
 	
-	public MatlabProgram replace( Replacement replacement ) {
+	public MatlabSequence replace( Replacement replacement ) {
 		return new MatlabSequence( firstProgram.replace(replacement), secondProgram.replace(replacement) );
+	}
+	
+	public List<MatlabProgram> asStatementList() {
+		List<MatlabProgram> statements = new ArrayList<>();
+		
+		statements.addAll( getFirstProgram().asStatementList() );
+		statements.addAll( getSecondProgram().asStatementList() );
+		
+		return statements;
 	}
 
 }

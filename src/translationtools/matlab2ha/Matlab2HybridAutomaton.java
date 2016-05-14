@@ -13,18 +13,18 @@ public class Matlab2HybridAutomaton {
 	}
 	
 	public static HybridAutomaton convert( MatlabProgram matlabProgram, dLFormula timing, List<ExplicitODE> odes ) {
-		int length = matlabProgram.getStatements().size();
+		int length = matlabProgram.asStatementList().size();
 		List<dLFormula> guards = new ArrayList<>();
 		List<HybridProgram> untimedResets = new ArrayList<>();
-		List<Statement> statements = matlabProgram.getStatements();
+		List<MatlabProgram> statements = matlabProgram.asStatementList();
 		List<HybridProgram> resets = new ArrayList<>();
 		
 		TextOutput.debug("Program is: " + matlabProgram.toString() );
 		TextOutput.debug("Timing formula is: " + timing.toKeYmaeraString() );
 
-		if( statements.get(0) instanceof IfStatement ){
-			guards = getGuards( ((IfStatement)(statements.get(0))) );
-			untimedResets = getResets( ((IfStatement)(statements.get(0))) );
+		if( statements.get(0) instanceof MatlabConditional ){
+			guards = getGuards( ((MatlabConditional)(statements.get(0))) );
+			untimedResets = getResets( ((MatlabConditional)(statements.get(0))) );
 			System.out.println("size of guards: "+guards.size()+"\t Guards:"+guards+"\nSize of resets: "+untimedResets.size()+"\t Resets: "+untimedResets);
 			
 			
@@ -53,11 +53,11 @@ public class Matlab2HybridAutomaton {
 			
 		}else{
 			System.out.println(statements.get(0).toString());
-			throw new RuntimeException("HybridAutomaton.convert() requires guards and resets to be specified as an IfStatement");
-			//TODO: presuming if its not an IfStatement it would be Assignment statement, should we fetch the next program?
+			throw new RuntimeException("HybridAutomaton.convert() requires guards and resets to be specified as an MatlabConditional");
+			//TODO: presuming if its not an MatlabConditional it would be Assignment statement, should we fetch the next program?
 //			for ( int i = 0; i<length; i++){
-//				guards = getGuards( ((IfStatement)(program.get(i))) );
-//				resets = getResets( ((IfStatement)(program.get(i))) );
+//				guards = getGuards( ((MatlabConditional)(program.get(i))) );
+//				resets = getResets( ((MatlabConditional)(program.get(i))) );
 			//System.out.println("size of guards: "+guards.size()+" Guards:"+guards+" Size of resets: "+resets.size()+" Resets: "+resets);
 //		}
 //				TextOutput.debug("The class of program: "+peekFirstStatement().getClass());
@@ -106,7 +106,7 @@ public class Matlab2HybridAutomaton {
 		return new HybridAutomaton( modes, edges );
 	}
 	
-	public static List<dLFormula> getGuards( IfStatement ifStatement ) {
+	public static List<dLFormula> getGuards( MatlabConditional ifStatement ) {
 		// make an arraylist of conditions
 		List<dLFormula> conditions = (ifStatement).getConditions();
 		List<dLFormula> guardList = new ArrayList<>();
@@ -132,20 +132,20 @@ public class Matlab2HybridAutomaton {
 		return guardList;
 	}
 	
-	public static List<HybridProgram> getResets( Statement ifStatement ) {
-		List<MatlabProgram> programs = ((IfStatement) ifStatement).getPrograms();
+	public static List<HybridProgram> getResets( MatlabProgram ifStatement ) {
+		List<MatlabProgram> programs = ((MatlabConditional) ifStatement).getPrograms();
 
 		List<HybridProgram> resetList = new ArrayList<>();
 		SequenceProgram thisHybridProgram = null ;
 		for ( MatlabProgram program : programs ) {
 
-			TextOutput.info("Size of getstatements: "+program.getStatements().size()); 
+			TextOutput.info("Size of getstatements: "+program.asStatementList().size()); 
 			TextOutput.info("Program---->"+program);
-			if ( program.getStatements().size() == 1) {
-				List<Statement> p = program.getStatements();
+			if ( program.asStatementList().size() == 1) {
+				List<MatlabProgram> p = program.asStatementList();
 
-				RealVariable LHS = ((AssignmentStatement) p.get(0)).getLHS();
-				Term RHS = ((AssignmentStatement)p.get(0)).getRHS();
+				RealVariable LHS = ((MatlabAssignment) p.get(0)).getLHS();
+				Term RHS = ((MatlabAssignment)p.get(0)).getRHS();
 				ConcreteAssignmentProgram concreteHybridProgram = new ConcreteAssignmentProgram( LHS, RHS );
 				resetList.add(concreteHybridProgram);
 
@@ -154,9 +154,9 @@ public class Matlab2HybridAutomaton {
 				boolean second = false;
 				ConcreteAssignmentProgram firstProgram = null;
 				SequenceProgram thisSequenceProgram = null;
-				for ( Statement statement : program.getStatements() ) {
-					RealVariable LHS = ((AssignmentStatement) statement).getLHS();
-					Term RHS = ((AssignmentStatement)statement).getRHS();
+				for ( MatlabProgram statement : program.asStatementList() ) {
+					RealVariable LHS = ((MatlabAssignment) statement).getLHS();
+					Term RHS = ((MatlabAssignment)statement).getRHS();
 					ConcreteAssignmentProgram concreteHybridProgram = new ConcreteAssignmentProgram( LHS, RHS );
 
 					if ( first ) {

@@ -1,12 +1,12 @@
 package matlab.parser;
 
-import matlab.parser.Mparser;
+import matlab.parser.MatlabParser;
 
 %%
 
 %public
-%class Mlexer
-%implements Mparser.Lexer
+%class MatlabLexer
+%implements MatlabParser.Lexer
 %int
 %unicode
 %line
@@ -247,7 +247,7 @@ Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
 	[^] { 
 		System.out.println("Lexer: I'm confused, throwing error");
 		System.out.println("Lexer @ " + yytext() );
-		return Mparser.YYERROR;
+		return MatlabParser.YYERROR;
 	}
 	
 	}

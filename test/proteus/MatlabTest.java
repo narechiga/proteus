@@ -16,8 +16,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import matlab.syntax.MatlabProgram;
-import matlab.syntax.Statement;
+import matlab.syntax.*;
 
 public class MatlabTest {
 
@@ -44,7 +43,7 @@ public class MatlabTest {
 	
 	public void testMatlab(){
 		String s = " Kp = 5; Kd =10; acceleration = ((Kp*distance) - (Kd*velocity) + (Ki*z)); znext = z + distance;if ( znext > 0 ) Kp = Kp - 2;else Kp = Kp + 2;end";
-		MatlabProgram mp = new MatlabProgram(s);
+		MatlabProgram mp = MatlabProgram.parse(s);
 //		List<Statement> st = mp.getStatements();
 		
 //		System.out.println("st.get(0)  "+st.get(0));

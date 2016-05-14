@@ -6,17 +6,39 @@
  */
 package matlab.syntax;
 
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 import dl.syntax.*;
-import interfaces.text.TextOutput;
 import matlab.parser.*;
-import java.io.StringReader;
-import java.util.ArrayList;
+
 
 public abstract class MatlabProgram {
 	
+	public abstract MatlabProgram replace( Replacement replacement );
 
+	public List<MatlabProgram> asStatementList() {
+		List<MatlabProgram> statements = new ArrayList<>();
+		statements.add( this );
+		return statements;
+	}
 	
+	public static MatlabProgram parse( String string ) {
+		StringReader stringReader = new StringReader( string );
+		MatlabLexer lexer = new MatlabLexer( stringReader );
+		MatlabParser parser = new MatlabParser( lexer );
 		
+		MatlabProgram parsedProgram = null;
+		try {
+			parser.parse();
+			parsedProgram = parser.parsedProgram;
+		} catch ( IOException e ) {
+			e.printStackTrace();
+		}
+		return parsedProgram;
+	}
+		
+	public static void main( String [] args ) {
+		parse("ans = 42;");
+	}
 }

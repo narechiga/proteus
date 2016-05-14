@@ -11,7 +11,7 @@
 %language "Java"
 %define package matlab.parser
 %define extends {AbstractMatlabParser}
-%define parser_class_name {Mparser}
+%define parser_class_name {MatlabParser}
 %define public
 
 /* Arithmetic */
@@ -60,12 +60,9 @@
 %nonassoc IF
 
 
-
-
 %%
 input: 
 	matlabprogram{
-//	AbstractMatlabParser parsedProgram = new AbstractMatlabParser();
 		try{
 			$$ = $1; 
 			this.parsedProgram = (MatlabProgram)$$;
@@ -79,104 +76,82 @@ input:
 	}
 	
 ;
-
-
-
-
-
 /*==================== Matlab Function Block ====================*/
-
 matlabprogram:
-	 statement{
+	 assignment{
 		try{
-			
-			$$ = new MatlabProgram((Statement)$1);
-			this.parsedProgram = (MatlabProgram)$$;
-			}catch( Exception e ){
-			System.out.println("Exception in matlabprogram:statement SEMICOLON");
-			System.err.println( e );
-		}		
-	}
-//	| statement SEMICOLON statement SEMICOLON{
-//		try{
-//			$$ = new MatlabProgram((Statement)$1,(Statement)$2);
-//			 }catch( Exception e){
-//			System.out.println("Exception in matlabprogram:statement statement");
-//			System.out.println(e);
-//		}	
-//	}
-	| matlabprogram statement{
-		try{
-			$$ = new MatlabProgram( (MatlabProgram)$1, (Statement)$2);
+				$$ = (MatlabAssignment)$1;
 			}catch ( Exception e){
-			System.out.println("Exception in matlabprogram:matlabprogram SEMICOLON statement SEMICOLON");
-			System.out.println(e);
+				System.out.println("Exception in matlabprogram:assignment");
+				System.out.println( e );
 		}
 	}
-	
-	
-;
-statement:
-	ifstatement{
+	| conditional{
 		try{
-		//System.out.println("in ifstatement block");
-			$$ = $1;		 
+				$$ = (MatlabConditional)$1;
 			}catch ( Exception e){
-			System.out.println("Exception in statement:ifstatement");
-			System.out.println( e );
+				System.out.println("Exception in matlabprogram:conditional");
+				System.out.println( e );
 		}
 	}
-	|assignment {
+	| assignment matlabprogram {
 		try{
-			//System.out.println("in Assignment..........");
-			$$ = (AssignmentStatement)$1;
+			$$ = new MatlabSequence( (MatlabAssignment)$1, (MatlabProgram)$2);
 			}catch ( Exception e){
-			System.out.println("Exception in statement:assignment");
-			System.out.println( e );
+				System.out.println("Exception in matlabprogram:matlabprogram assignment");
+				System.out.println(e);
+		}
+	}
+	| conditional matlabprogram {
+		try{
+			$$ = new MatlabSequence( (MatlabConditional)$1, (MatlabProgram)$2);
+			}catch ( Exception e){
+				System.out.println("Exception in matlabprogram:matlabprogram conditional");
+				System.out.println(e);
 		}
 	}
 ;
 
-ifstatement:
+conditional:
 	IF logicalformula matlabprogram END {
 		try{
 			System.out.println("\nIF logicalformula matlabprogram END");
-			$$ = new IfStatement( (dLFormula)$2, (MatlabProgram)$3 );		    
+			$$ = new MatlabConditional( (dLFormula)$2, (MatlabProgram)$3 );		    
 		}catch( Exception e){
- 			System.out.println("Exception in ifstatement:IF logicalformula matlabprogram END");
+ 			System.out.println("Exception in conditional:IF logicalformula matlabprogram END");
 			System.err.println( e );
 		}
 	}
 	|IF logicalformula matlabprogram ELSE matlabprogram END {
 		try{
-			IfStatement is = new IfStatement( (dLFormula)$2, (MatlabProgram)$3 );
-			is.appendCase( new TrueFormula(), (MatlabProgram)$5 );
+			MatlabConditional is = new MatlabConditional( (dLFormula)$2, (MatlabProgram)$3 );
+			is = is.appendCase( new TrueFormula(), (MatlabProgram)$5 );
 			$$ = is;	    
 		}catch( Exception e){
- 			System.out.println("Exception in ifstatement:IF logicalformula matlabprogram ELSE matlabprogram END");
+ 			System.out.println("Exception in conditional:IF logicalformula matlabprogram ELSE matlabprogram END");
 			System.err.println( e );
 		}
 	}
 	| IF logicalformula matlabprogram elselist END {
 		try{
-			IfStatement is = (IfStatement)$4;
+			MatlabConditional is = (MatlabConditional)$4;
 			is.prependCase( (dLFormula)$2, (MatlabProgram)$3 );
 			System.out.println("IF logicalformula matlabprogram elselist END");
 			$$ = is;
 		}catch( Exception e){
- 			System.out.println("Exception in ifstatement:IF logicalformula matlabprogram elselist END");
+ 			System.out.println("Exception in conditional:IF logicalformula matlabprogram elselist END");
 			System.err.println( e );
 		}
 	}
 	| IF logicalformula matlabprogram elselist ELSE matlabprogram END {
 		try{
-			IfStatement is = (IfStatement)$4;
-			is.prependCase( (dLFormula)$2, (MatlabProgram)$3 );
-			is.appendCase( new TrueFormula(), (MatlabProgram)$6 );
+			MatlabConditional is = (MatlabConditional)$4;
+			is = is.prependCase( (dLFormula)$2, (MatlabProgram)$3 );
+			is = is.appendCase( new TrueFormula(), (MatlabProgram)$6 );
 			System.out.println("IF logicalformula matlabprogram elselist ELSE matlabprogram END");
 			$$ = is;
 		}catch( Exception e){
- 			System.out.println("Exception in ifstatement:IF logicalformula matlabprogram elselist ELSE matlabprogram END");
+ 			System.out.println("Exception in conditional:IF logicalformula matlabprogram elselist ELSE matlabprogram END");
 			System.err.println( e );
 		}
 	}
@@ -185,7 +160,7 @@ ifstatement:
 elselist:
 	ELSEIF logicalformula matlabprogram {
 		try{
-			$$ = new IfStatement( (dLFormula)$2, (MatlabProgram)$3 );		    
+			$$ = new MatlabConditional( (dLFormula)$2, (MatlabProgram)$3 );		    
 		}catch( Exception e){
  			System.out.println("Exception in elselist:ELSEIF logicalformula matlabprogram");
 			System.err.println( e );
@@ -193,7 +168,7 @@ elselist:
 	}
 	| elselist ELSEIF logicalformula matlabprogram {
 		try{
-			IfStatement is = (IfStatement)$1;
+			MatlabConditional is = (MatlabConditional)$1;
 			is.appendCase( (dLFormula)$3, (MatlabProgram)$4 );
 			$$ = is;
 		}catch( Exception e){
@@ -207,21 +182,19 @@ elselist:
 assignment:
  	IDENTIFIER ASSIGN term SEMICOLON{
  		try{
- 			$$ = new AssignmentStatement( new RealVariable( (String)$1 ), (Term)$3 );
- 			System.out.println("\nterm Assignment term SEMICOLON:"+((AssignmentStatement)$$).toString());
+ 				$$ = new MatlabAssignment( new RealVariable( (String)$1 ), (Term)$3 );
+ 				System.out.println("\nterm Assignment term SEMICOLON:"+((MatlabAssignment)$$).toString());
  			}catch ( Exception e ) {
-			System.err.println("Exception at location comparison:term ASSIGN term");
-			System.err.println( e );
+				System.err.println("Exception at location comparison:term ASSIGN term");
+				System.err.println( e );
 		}
  	}
  ;
 
 logicalformula:
 	comparison {
-		//System.out.println("Comparision:");
 		$$ = (ComparisonFormula)$1; }
 	| LPAREN logicalformula RPAREN { 
-		//System.out.println("logicalformula:");
 		$$ = (dLFormula)$2; }
 	| logicalformula AND logicalformula {System.out.println("logicalformula AND:");$$ = new AndFormula( (dLFormula)$1, (dLFormula)$3); }
 	| logicalformula OR logicalformula {$$ = new OrFormula( (dLFormula)$1, (dLFormula)$3); }
@@ -233,10 +206,6 @@ comparison:
 		try {
 			$$ = new ComparisonFormula( new Operator( (String)$2, 2, true ), (Term)$1, (Term)$3 ) ;
 			System.out.println("\nterm INEQUALITY term"+$$.toString()+((dLStructure)$$).todRealString());
-			//System.out.println("LOGICALFORMULA-----"+((ComparisonFormula)$$).toMathematicaString());
-			//System.out.println("lhs-----"+((ComparisonFormula)$$).getLHS());
-			//System.out.println("rhs-----"+((ComparisonFormula)$$).getRHS());
-		//	System.out.println("getInequality-----"+((ComparisonFormula)$$).getInequality().toMathematicaString());
 		} catch ( Exception e ) {
 			System.err.println("Exception at location comparison:term INEQUALITY term");
 			System.err.println( e );
@@ -364,10 +333,6 @@ term:
 		}
 	}
 ;
-
-
-
-
 
 /*============================================================*/
 

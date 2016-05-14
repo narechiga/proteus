@@ -19,5 +19,8 @@ public class MatlabAssignment extends MatlabProgram {
 		return rhs;
 	}
 	
+	public MatlabAssignment replace( Replacement replacement ) {
+		return new MatlabAssignment( lhs, rhs.replace( replacement ));
+	}
 	
 }
