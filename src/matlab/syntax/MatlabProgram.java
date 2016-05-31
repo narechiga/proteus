@@ -37,6 +37,8 @@ public abstract class MatlabProgram {
 		}
 		return parsedProgram;
 	}
+	
+	public abstract String toString();
 		
 	public static void main( String [] args ) {
 		parse("ans = 42;");

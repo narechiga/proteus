@@ -23,4 +23,8 @@ public class MatlabAssignment extends MatlabProgram {
 		return new MatlabAssignment( lhs, rhs.replace( replacement ));
 	}
 	
+	public String toString() {
+		return lhs.toString() + " = " + rhs.toString() + ";";
+	}
+	
 }

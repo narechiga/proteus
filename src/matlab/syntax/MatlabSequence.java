@@ -48,5 +48,9 @@ public class MatlabSequence extends MatlabProgram {
 		
 		return statements;
 	}
+	
+	public String toString() {
+		return (firstProgram.toString() + "\n" + secondProgram.toString());
+	}
 
 }

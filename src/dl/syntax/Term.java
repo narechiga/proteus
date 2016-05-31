@@ -14,7 +14,7 @@ public class Term extends GeneralizedTerm {
 
 	public Term () {
 	}
-
+	
 	protected Term ( Operator operator, ArrayList<Term> subTerms ) {
 		this.operator = operator;
 		this.arguments = new ArrayList<dLStructure>();

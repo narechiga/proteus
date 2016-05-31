@@ -74,5 +74,25 @@ public class MatlabConditional extends MatlabProgram {
 		return new MatlabConditional( newConditions, newPrograms );
 	}
 	
+	public String toString() {
+		String returnString = "";
+		
+		String subProgramString = "";
+		for ( int i = 0; i < conditions.size(); i++ ) {
+			if ( i == 0 ) {
+				returnString = "if ( " + conditions.get(i).toString() + " ) \n";
+	
+			} else {
+				returnString += "elseif ( " + conditions.get(i).toString() + " ) \n";
+			}
+			
+			subProgramString = subPrograms.get(i).toString();
+			subProgramString = subProgramString.replace("\n", "\n\t");
+			returnString += subProgramString;
+		}
+		returnString += "end";
+		
+		return returnString;
+	}
 	
 }
