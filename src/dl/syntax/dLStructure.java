@@ -160,15 +160,7 @@ public abstract class dLStructure {
 		return thisParser.parsedStructure;
 	}
 	
-	public static Term parseTerm( String termString ) {
-		dLStructure termStructure = parseStructure( termString );
-		
-		if ( termStructure instanceof Term ) {
-			return (Term)termStructure;
-		} else {
-			throw new RuntimeException("No term found in: " + termString);
-		}
-	}
+
 
 
 // Extract assorted bits and pieces
