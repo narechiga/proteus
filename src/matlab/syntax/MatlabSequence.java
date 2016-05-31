@@ -50,7 +50,12 @@ public class MatlabSequence extends MatlabProgram {
 	}
 	
 	public String toString() {
-		return (firstProgram.toString() + "\n" + secondProgram.toString());
+		List<MatlabProgram> statements = this.asStatementList();
+		String returnString = "";
+		for ( MatlabProgram statement : statements ) {
+			returnString += "\n" + statement.toString() ;
+		}
+		return returnString;
 	}
 
 }
