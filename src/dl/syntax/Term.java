@@ -32,6 +32,15 @@ public class Term extends GeneralizedTerm {
 	//	return this.operator;
 	//}
 
+	public static Term parseTerm( String termString ) {
+		dLStructure termStructure = dLStructure.parseStructure( termString );
+		
+		if ( termStructure instanceof Term ) {
+			return (Term)termStructure;
+		} else {
+			throw new RuntimeException("No term found in: " + termString);
+		}
+	}
 
 // Substitution method
 	public Term substituteConcreteValuation( Valuation substitution ) {

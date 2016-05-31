@@ -2,6 +2,8 @@ package matlab.processor;
 
 import matlab.syntax.*;
 import dl.syntax.*;
+import interfaces.text.TextOutput;
+
 import java.util.*;
 
 public class SymbolicExecution {
@@ -73,6 +75,40 @@ public class SymbolicExecution {
 		return result;
 	}
 
+	public static boolean unitTest() {
+		TextOutput.setDebug(true);
+		TextOutput.useColor(false);
+		boolean pass = true;
+		
+		MatlabProgram program; MatlabProgram newProgram;
+		List<RealVariable> outputs = new ArrayList<>();
+		outputs.add( new RealVariable("y1"));
+		outputs.add( new RealVariable("y2"));
+		outputs.add( new RealVariable("y3"));
+		
+		// No-Op
+		program = new NoOp();
+		newProgram = run( program, outputs );
+		pass = pass && ( newProgram instanceof NoOp );
+		TextOutput.debug("No-op case: " + newProgram.toString() );
+		TextOutput.info("Test passed: " + pass );
+		
+		// Assignment to intermediate variable
+		program = new MatlabAssignment( new RealVariable("k1"), (Term)(dLStructure.parseStructure("3*y1 + 3*k2")) );
+		newProgram = run( program, outputs);
+		pass = pass && ( newProgram instanceof NoOp );
+		TextOutput.debug("Assignment to intermediate variable: " + newProgram.toString() );
+		TextOutput.info("Test pased: " + pass );
+		
+		// Assignment to output variable
+		program = new MatlabAssignment( new RealVariable("y2"), (Term)(dLStructure.parseStructure("3*y1 + 3*k2")));
+		
+		
+		return pass;
+		
+		
+	}
+	
 	public static void main( String [] args ) {
 		
 	}

@@ -145,15 +145,29 @@ public abstract class dLStructure {
 	}
 
 // Parse a dLStructure from a string
-	public static dLStructure parseStructure( String structureString ) throws Exception {
+	public static dLStructure parseStructure( String structureString ) {
 		// returns the dLStructure that exists in the string
 		StringReader thisReader = new StringReader( structureString );
 		dLLexer thisdLLexer = new dLLexer( thisReader );
 		dLParser thisParser = new dLParser( thisdLLexer );
 
-		thisParser.parse();
-
+		try {
+			thisParser.parse();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("Problem parsing: " + structureString );
+		}
 		return thisParser.parsedStructure;
+	}
+	
+	public static Term parseTerm( String termString ) {
+		dLStructure termStructure = parseStructure( termString );
+		
+		if ( termStructure instanceof Term ) {
+			return (Term)termStructure;
+		} else {
+			throw new RuntimeException("No term found in: " + termString);
+		}
 	}
 
 
