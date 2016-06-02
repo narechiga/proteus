@@ -135,7 +135,7 @@ conditional:
 	| IF logicalformula matlabprogram elselist END {
 		try{
 			MatlabConditional is = (MatlabConditional)$4;
-			is.prependCase( (dLFormula)$2, (MatlabProgram)$3 );
+			is = is.prependCase( (dLFormula)$2, (MatlabProgram)$3 );
 			System.out.println("IF logicalformula matlabprogram elselist END");
 			$$ = is;
 		}catch( Exception e){
@@ -169,7 +169,7 @@ elselist:
 	| elselist ELSEIF logicalformula matlabprogram {
 		try{
 			MatlabConditional is = (MatlabConditional)$1;
-			is.appendCase( (dLFormula)$3, (MatlabProgram)$4 );
+			is = is.appendCase( (dLFormula)$3, (MatlabProgram)$4 );
 			$$ = is;
 		}catch( Exception e){
  			System.out.println("Exception in elselist:elselist ELSEIF logicalformula matlabprogram");
