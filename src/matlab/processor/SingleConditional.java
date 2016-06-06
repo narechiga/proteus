@@ -6,7 +6,7 @@ import java.util.*;
 
 public class SingleConditional {
 	
-	public static MatlabConditional run( MatlabProgram program ) {
+	public static MatlabConditional conditionalize( MatlabProgram program ) {
 		MatlabConditional singleConditional = null;
 		
 		if ( isAssignmentBlock( program ) ) {

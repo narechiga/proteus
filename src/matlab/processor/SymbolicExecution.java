@@ -8,7 +8,7 @@ import java.util.*;
 
 public class SymbolicExecution {
 	
-	public static MatlabProgram run( MatlabProgram program, List<RealVariable> outputs ) {
+	public static MatlabProgram execute( MatlabProgram program, List<RealVariable> outputs ) {
 		MatlabProgram result = null;
 
 		if ( program instanceof NoOp ) {
@@ -31,7 +31,7 @@ public class SymbolicExecution {
 			
 			List<MatlabProgram> executedPrograms = new ArrayList<>();
 			for ( MatlabProgram subProgram : subPrograms ) {
-				executedPrograms.add( run( subProgram, outputs ) );
+				executedPrograms.add( execute( subProgram, outputs ) );
 			}
 			result = new MatlabConditional( conditions, executedPrograms );
 			
@@ -46,8 +46,8 @@ public class SymbolicExecution {
 				Term term = assignment.getRHS();
 				Replacement replacement = new Replacement( variable, term );
 				
-				MatlabProgram firstPart = run( sequence.getFirstProgram(), outputs );
-				MatlabProgram secondPart = run( sequence.getSecondProgram().replace( replacement ), outputs);
+				MatlabProgram firstPart = execute( sequence.getFirstProgram(), outputs );
+				MatlabProgram secondPart = execute( sequence.getSecondProgram().replace( replacement ), outputs);
 				
 				result = new MatlabSequence( firstPart, secondPart );
 
@@ -59,7 +59,7 @@ public class SymbolicExecution {
 				
 				for ( MatlabProgram subProgram : subPrograms ) {
 					MatlabSequence thisSequence = new MatlabSequence( subProgram, sequence.getSecondProgram() );
-					newPrograms.add( run(thisSequence, outputs) );
+					newPrograms.add( execute(thisSequence, outputs) );
 				}
 				result = new MatlabConditional( conditions, newPrograms );
 				
@@ -88,14 +88,14 @@ public class SymbolicExecution {
 		
 		// No-Op
 		program = new NoOp();
-		newProgram = run( program, outputs );
+		newProgram = execute( program, outputs );
 		pass = pass && ( newProgram instanceof NoOp );
 		TextOutput.debug("No-op case: " + newProgram.toString() );
 		TextOutput.info("Test passed: " + pass );
 		
 		// Assignment to intermediate variable
 		program = new MatlabAssignment( new RealVariable("k1"), (Term)(dLStructure.parseStructure("3*y1 + 3*k2")) );
-		newProgram = run( program, outputs);
+		newProgram = execute( program, outputs);
 		pass = pass && ( newProgram instanceof NoOp );
 		TextOutput.debug("Assignment to intermediate variable: " + newProgram.toString() );
 		TextOutput.info("Test pased: " + pass );
