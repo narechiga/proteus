@@ -87,7 +87,7 @@ public class MatlabConditional extends MatlabProgram {
 			}
 			
 			subProgramString = subPrograms.get(i).toString();
-			subProgramString = subProgramString.replace("\n", "\n\t");
+			//subProgramString = subProgramString.replace("\n", "\n\t");
 			returnString += subProgramString;
 		}
 		returnString += "end";

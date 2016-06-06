@@ -49,7 +49,8 @@ public class TextOutput {
 		}
 	}
 
-	public static void debug( String message ) {
+	public static void debug( Object messageObject ) {
+		String message = messageObject.toString();
 		String[] messages = message.split("\n");
 	
 		if ( debug ) {
@@ -119,6 +120,10 @@ public class TextOutput {
 
 	public static void useColor( boolean newColor ) {
 		color = newColor;
+	}
+	
+	public static void setColor ( boolean newColor ) {
+		useColor( newColor );
 	}
 
 	public static boolean isDebug() {

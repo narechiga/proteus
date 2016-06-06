@@ -106,7 +106,10 @@ public class Term extends GeneralizedTerm {
 		arguments.addAll( subTermList );
 	}
 
-
+	public String toString() {
+		return toKeYmaeraString();
+	}
+	
 	public String toKeYmaeraString() {
 
 		String returnString = "";
