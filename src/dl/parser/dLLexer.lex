@@ -17,8 +17,6 @@ import interfaces.text.*;
 	int openBraceCount = 0;
 	boolean debug = false;
 	public Object getLVal() {
-		TextOutput.setDebug(debug);
-		TextOutput.setColor(false);
 		//TextOutput.debug("YYTEXT is: " + yytext() );
 		return yytext();
 	}
