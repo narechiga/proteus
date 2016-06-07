@@ -404,7 +404,7 @@ public class dLParser extends AbstractdLParser
     /* "dLParser.y":112  */ /* lalr1.java:489  */
     { 
 		try {
-			//System.out.println("Found: dLformula"); 
+			//TextOutput.debug("Found: dLformula"); 
 			parsedStructure = (dLFormula)((yystack.valueAt (1-(1))));	
 		} catch ( Exception e ) {
 			System.err.println("Exception at location input:dLformula");
@@ -449,7 +449,7 @@ public class dLParser extends AbstractdLParser
     /* "dLParser.y":139  */ /* lalr1.java:489  */
     {
 		System.err.println("Parser: I'm confused, throwing error");
-		System.out.println( (String)((yystack.valueAt (1-(1)))) );
+		System.err.println( (String)((yystack.valueAt (1-(1)))) );
 		//System.exit(1);
 	};
   break;

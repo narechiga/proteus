@@ -111,7 +111,7 @@ input:
 	}
 	| dLformula { 
 		try {
-			//System.out.println("Found: dLformula"); 
+			//TextOutput.debug("Found: dLformula"); 
 			parsedStructure = (dLFormula)$1;	
 		} catch ( Exception e ) {
 			System.err.println("Exception at location input:dLformula");
@@ -138,7 +138,7 @@ input:
 	}
 	| error {
 		System.err.println("Parser: I'm confused, throwing error");
-		System.out.println( (String)$1 );
+		System.err.println( (String)$1 );
 		//System.exit(1);
 	}
 ;
