@@ -57,7 +57,7 @@ public class TextOutput {
 			if ( color ) {
 				for ( String m : messages ) {
 					printNumber();
-					printCyan("[Debug] " + m + "\n");
+					printCyan("[debug] " + m + "\n");
 				}
 			} else {
 				for ( String m : messages ) {
@@ -69,16 +69,17 @@ public class TextOutput {
 		}
 	}
 
-	public static void info( String message ) {
+	public static void info( Object messageObject ) {
+		String message = messageObject.toString();
 		String[] messages = message.split("\n");
 		if ( color ) {
 			for ( String m : messages ) {
 				printNumber();
-				printBoldGreen("[Info] " + m + "\n" );
+				printBoldGreen("[info] " + m.replace("\n", "") + "\n" );
 			}
 		} else {
 			for ( String m : messages ) {
-				printNumber(); out.println( m  + "\n");
+				printNumber(); out.println("[info] " + m.replace("\n", "")  + "\n");
 			}
 		}
 	}

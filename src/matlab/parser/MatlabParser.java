@@ -38,12 +38,13 @@ package matlab.parser;
 	import dl.syntax.*;
 	import dl.semantics.*;
 	import matlab.syntax.*;
+	import interfaces.text.*;
 
 	@SuppressWarnings({"unchecked"})
 
-/* "MatlabParser.java":45  */ /* lalr1.java:91  */
+/* "MatlabParser.java":46  */ /* lalr1.java:91  */
 
-/* "MatlabParser.java":47  */ /* lalr1.java:92  */
+/* "MatlabParser.java":48  */ /* lalr1.java:92  */
 
 /**
  * A Bison parser, automatically generated from <tt>MatlabParser.y</tt>.
@@ -358,13 +359,12 @@ public class MatlabParser extends AbstractMatlabParser
       {
           case 2:
   if (yyn == 2)
-    /* "MatlabParser.y":65  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":66  */ /* lalr1.java:489  */
     {
 		try{
 			yyval = ((yystack.valueAt (1-(1)))); 
 			this.parsedProgram = (MatlabProgram)yyval;
-			System.out.println();
-			System.out.println("Exiting matlabprogram block from Mparser...");
+			TextOutput.debug("Exiting matlabprogram block from Mparser...");
 		}catch ( Exception e){
 			System.err.println("Error in matlabfunction block");
 			System.err.println( e );
@@ -381,8 +381,8 @@ public class MatlabParser extends AbstractMatlabParser
 		try{
 				yyval = (MatlabAssignment)((yystack.valueAt (1-(1))));
 			}catch ( Exception e){
-				System.out.println("Exception in matlabprogram:assignment");
-				System.out.println( e );
+				System.err.println("Exception in matlabprogram:assignment");
+				System.err.println( e );
 		}
 	};
   break;
@@ -395,8 +395,8 @@ public class MatlabParser extends AbstractMatlabParser
 		try{
 				yyval = (MatlabConditional)((yystack.valueAt (1-(1))));
 			}catch ( Exception e){
-				System.out.println("Exception in matlabprogram:conditional");
-				System.out.println( e );
+				System.err.println("Exception in matlabprogram:conditional");
+				System.err.println( e );
 		}
 	};
   break;
@@ -409,8 +409,8 @@ public class MatlabParser extends AbstractMatlabParser
 		try{
 			yyval = new MatlabSequence( (MatlabAssignment)((yystack.valueAt (2-(1)))), (MatlabProgram)((yystack.valueAt (2-(2)))));
 			}catch ( Exception e){
-				System.out.println("Exception in matlabprogram:matlabprogram assignment");
-				System.out.println(e);
+				System.err.println("Exception in matlabprogram:matlabprogram assignment");
+				System.err.println(e);
 		}
 	};
   break;
@@ -423,8 +423,8 @@ public class MatlabParser extends AbstractMatlabParser
 		try{
 			yyval = new MatlabSequence( (MatlabConditional)((yystack.valueAt (2-(1)))), (MatlabProgram)((yystack.valueAt (2-(2)))));
 			}catch ( Exception e){
-				System.out.println("Exception in matlabprogram:matlabprogram conditional");
-				System.out.println(e);
+				System.err.println("Exception in matlabprogram:matlabprogram conditional");
+				System.err.println(e);
 		}
 	};
   break;
@@ -435,10 +435,10 @@ public class MatlabParser extends AbstractMatlabParser
     /* "MatlabParser.y":116  */ /* lalr1.java:489  */
     {
 		try{
-			System.out.println("\nIF logicalformula matlabprogram END");
+			TextOutput.debug("\nIF logicalformula matlabprogram END");
 			yyval = new MatlabConditional( (dLFormula)((yystack.valueAt (4-(2)))), (MatlabProgram)((yystack.valueAt (4-(3)))) );		    
 		}catch( Exception e){
- 			System.out.println("Exception in conditional:IF logicalformula matlabprogram END");
+ 			System.err.println("Exception in conditional:IF logicalformula matlabprogram END");
 			System.err.println( e );
 		}
 	};
@@ -454,7 +454,7 @@ public class MatlabParser extends AbstractMatlabParser
 			is = is.appendCase( new TrueFormula(), (MatlabProgram)((yystack.valueAt (6-(5)))) );
 			yyval = is;	    
 		}catch( Exception e){
- 			System.out.println("Exception in conditional:IF logicalformula matlabprogram ELSE matlabprogram END");
+ 			System.err.println("Exception in conditional:IF logicalformula matlabprogram ELSE matlabprogram END");
 			System.err.println( e );
 		}
 	};
@@ -468,10 +468,10 @@ public class MatlabParser extends AbstractMatlabParser
 		try{
 			MatlabConditional is = (MatlabConditional)((yystack.valueAt (5-(4))));
 			is = is.prependCase( (dLFormula)((yystack.valueAt (5-(2)))), (MatlabProgram)((yystack.valueAt (5-(3)))) );
-			System.out.println("IF logicalformula matlabprogram elselist END");
+			TextOutput.debug("IF logicalformula matlabprogram elselist END");
 			yyval = is;
 		}catch( Exception e){
- 			System.out.println("Exception in conditional:IF logicalformula matlabprogram elselist END");
+ 			System.err.println("Exception in conditional:IF logicalformula matlabprogram elselist END");
 			System.err.println( e );
 		}
 	};
@@ -486,10 +486,10 @@ public class MatlabParser extends AbstractMatlabParser
 			MatlabConditional is = (MatlabConditional)((yystack.valueAt (7-(4))));
 			is = is.prependCase( (dLFormula)((yystack.valueAt (7-(2)))), (MatlabProgram)((yystack.valueAt (7-(3)))) );
 			is = is.appendCase( new TrueFormula(), (MatlabProgram)((yystack.valueAt (7-(6)))) );
-			System.out.println("IF logicalformula matlabprogram elselist ELSE matlabprogram END");
+			TextOutput.debug("IF logicalformula matlabprogram elselist ELSE matlabprogram END");
 			yyval = is;
 		}catch( Exception e){
- 			System.out.println("Exception in conditional:IF logicalformula matlabprogram elselist ELSE matlabprogram END");
+ 			System.err.println("Exception in conditional:IF logicalformula matlabprogram elselist ELSE matlabprogram END");
 			System.err.println( e );
 		}
 	};
@@ -503,7 +503,7 @@ public class MatlabParser extends AbstractMatlabParser
 		try{
 			yyval = new MatlabConditional( (dLFormula)((yystack.valueAt (3-(2)))), (MatlabProgram)((yystack.valueAt (3-(3)))) );		    
 		}catch( Exception e){
- 			System.out.println("Exception in elselist:ELSEIF logicalformula matlabprogram");
+ 			System.err.println("Exception in elselist:ELSEIF logicalformula matlabprogram");
 			System.err.println( e );
 		}
 	};
@@ -519,7 +519,7 @@ public class MatlabParser extends AbstractMatlabParser
 			is = is.appendCase( (dLFormula)((yystack.valueAt (4-(3)))), (MatlabProgram)((yystack.valueAt (4-(4)))) );
 			yyval = is;
 		}catch( Exception e){
- 			System.out.println("Exception in elselist:elselist ELSEIF logicalformula matlabprogram");
+ 			System.err.println("Exception in elselist:elselist ELSEIF logicalformula matlabprogram");
 			System.err.println( e );
 		}
 		
@@ -533,7 +533,7 @@ public class MatlabParser extends AbstractMatlabParser
     {
  		try{
  				yyval = new MatlabAssignment( new RealVariable( (String)((yystack.valueAt (4-(1)))) ), (Term)((yystack.valueAt (4-(3)))) );
- 				System.out.println("\nterm Assignment term SEMICOLON:"+((MatlabAssignment)yyval).toString());
+ 				TextOutput.debug("\nterm Assignment term SEMICOLON:"+((MatlabAssignment)yyval).toString());
  			}catch ( Exception e ) {
 				System.err.println("Exception at location comparison:term ASSIGN term");
 				System.err.println( e );
@@ -561,7 +561,7 @@ public class MatlabParser extends AbstractMatlabParser
   case 16:
   if (yyn == 16)
     /* "MatlabParser.y":199  */ /* lalr1.java:489  */
-    {System.out.println("logicalformula AND:");yyval = new AndFormula( (dLFormula)((yystack.valueAt (3-(1)))), (dLFormula)((yystack.valueAt (3-(3))))); };
+    {TextOutput.debug("logicalformula AND:");yyval = new AndFormula( (dLFormula)((yystack.valueAt (3-(1)))), (dLFormula)((yystack.valueAt (3-(3))))); };
   break;
     
 
@@ -585,7 +585,7 @@ public class MatlabParser extends AbstractMatlabParser
     { 
 		try {
 			yyval = new ComparisonFormula( new Operator( (String)((yystack.valueAt (3-(2)))), 2, true ), (Term)((yystack.valueAt (3-(1)))), (Term)((yystack.valueAt (3-(3)))) ) ;
-			System.out.println("\nterm INEQUALITY term"+yyval.toString()+((dLStructure)yyval).todRealString());
+			TextOutput.debug("\nterm INEQUALITY term"+yyval.toString()+((dLStructure)yyval).todRealString());
 		} catch ( Exception e ) {
 			System.err.println("Exception at location comparison:term INEQUALITY term");
 			System.err.println( e );
@@ -600,8 +600,8 @@ public class MatlabParser extends AbstractMatlabParser
     {
 		try {
 			yyval = new ComparisonFormula( new Operator( (String)((yystack.valueAt (3-(2)))), 2, true ), (Term)((yystack.valueAt (3-(1)))), (Term)((yystack.valueAt (3-(3)))) ) ;
-		//	System.out.println("lhs-----"+((ComparisonFormula)$$).getLHS()+"rhs-----"+((ComparisonFormula)$$).getRHS());
-		//	System.out.println("getInequality-----"+((ComparisonFormula)$$).getInequality().toMathematicaString());
+		//	TextOutput.debug("lhs-----"+((ComparisonFormula)$$).getLHS()+"rhs-----"+((ComparisonFormula)$$).getRHS());
+		//	TextOutput.debug("getInequality-----"+((ComparisonFormula)$$).getInequality().toMathematicaString());
 			
 		} catch ( Exception e ) {
 			System.err.println("Exception at location comparison:term EQUALS term");
@@ -1242,7 +1242,7 @@ private static final byte yycheck_[] = yycheck_init();
   {
     return new short[]
     {
-       0,    65,    65,    81,    89,    97,   105,   116,   125,   135,
+       0,    66,    66,    81,    89,    97,   105,   116,   125,   135,
      146,   161,   169,   183,   195,   197,   199,   200,   201,   205,
      214,   228,   245,   253,   261,   273,   285,   298,   310,   322
     };

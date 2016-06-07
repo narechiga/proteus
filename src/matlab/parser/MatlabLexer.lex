@@ -1,6 +1,7 @@
 package matlab.parser;
 
 import matlab.parser.MatlabParser;
+import interfaces.text.*;
 
 %%
 
@@ -16,7 +17,9 @@ import matlab.parser.MatlabParser;
 	int openBraceCount = 0;
 	boolean debug = false;
 	public Object getLVal() {
-		//System.out.println("YYTEXT is: " + yytext() );
+		TextOutput.setDebug(false);
+		TextOutput.setColor(false);
+		//TextOutput.debug("YYTEXT is: " + yytext() );
 		return yytext();
 	}
 
@@ -46,14 +49,14 @@ Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
 <YYINITIAL> {
 	{WhiteSpace} { 
 		if ( debug ) {
-			System.out.println("Lexer: space");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: space");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 	}
 	{Comment} {
 		if ( debug ) {
-			System.out.println("Lexer: comment");	
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: comment");	
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 	}
 	
@@ -62,29 +65,29 @@ Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
 	// Punctuation
 	"(" { 
 		if ( debug ) {
-			System.out.println("Lexer: LPAREN");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: LPAREN");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return LPAREN;
 	}
 	"," { 
 		if ( debug ) {
-			System.out.println("Lexer: COMMA");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: COMMA");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return COMMA;
 	}
 	";" { 
 		if ( debug ) {
-			System.out.println("Lexer: SEMICOLON");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: SEMICOLON");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return SEMICOLON;
 	}
 	")" { 
 		if ( debug ) {
-			System.out.println("Lexer: RPAREN");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: RPAREN");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return RPAREN;
 	}
@@ -92,64 +95,64 @@ Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
 	// Basic arithmetic
 	"+" { 
 		if ( debug ) {
-			System.out.println("Lexer: PLUS");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: PLUS");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return PLUS;
 	}	
 	"*" { 
 		if ( debug ) {
-			System.out.println("Lexer: MULTIPLY");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: MULTIPLY");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return MULTIPLY;
 	}
 	"-" { 
 		if ( debug ) {
-			System.out.println("Lexer: MINUS");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: MINUS");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return MINUS;
 	}
 	"/" { 
 		if ( debug ) {
-			System.out.println("Lexer: DIVIDE");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: DIVIDE");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return DIVIDE;
 	}
 	"^" { 		
 		if ( debug ) {
-			System.out.println("Lexer: POWER");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: POWER");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return POWER;		
 	}
 	"=" { 
 		if ( debug ) {
-			System.out.println("Lexer: ASSIGN");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: ASSIGN");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return ASSIGN;
 	}
 	"==" { 
 		if ( debug ) {
-			System.out.println("Lexer: EQUALS");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: EQUALS");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return EQUALS;
 	}
 	{Number} { 
 		if ( debug ) {
-			System.out.println("Lexer: NUMBER");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: NUMBER");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return NUMBER;
 	}
 	{InequalityLiteral} { 
 		if ( debug ) {
-			System.out.println("Lexer: INEQUALITY");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: INEQUALITY");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return INEQUALITY;
 	}
@@ -159,94 +162,94 @@ Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
 	
 	"true" { 
 		if ( debug ) {
-			System.out.println("Lexer: TRUE");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: TRUE");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return TRUE;
 	}
 	"false" { 
 		if ( debug ) {
-			System.out.println("Lexer: FALSE");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: FALSE");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return FALSE;
 	}
 	
 	"\&" { 
 		if ( debug ) {
-			System.out.println("Lexer: AND");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: AND");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return AND;
 	}
 	"\&\&" { // For mathematica
 		if ( debug ) {
-			System.out.println("Lexer: AND");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: AND");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return AND;
 	}
 	"\|" { 
 		if ( debug ) {
-			System.out.println("Lexer: OR");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: OR");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return OR;
 	}
 	"\|\|" { // For mathematica
 		if ( debug ) {
-			System.out.println("Lexer: OR");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: OR");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return OR;
 	}
 	"~" { 
 		if ( debug ) {
-			System.out.println("Lexer: NOT");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: NOT");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return NOT;
 	}
 	"if" { 
 		if ( debug ) {
-			System.out.println("Lexer: IF");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: IF");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return IF;
 	}
 	"elseif"	{ 
 		if ( debug ) {
-			System.out.println("Lexer: ELSEIF");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: ELSEIF");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return ELSEIF;
 	}
 	"else" { 
 		if ( debug ) {
-			System.out.println("Lexer: ELSE");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: ELSE");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return ELSE;
 	}
 	"end" { 
 		if ( debug ) {
-			System.out.println("Lexer: END");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: END");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return END;
 	}
 	
 	{IdentifierName} { 
 		if ( debug ) {
-			System.out.println("Lexer: IDENTIFIER");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: IDENTIFIER");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return IDENTIFIER;
 	}
 		
 	[^] { 
-		System.out.println("Lexer: I'm confused, throwing error");
-		System.out.println("Lexer @ " + yytext() );
+		System.err.println("Lexer: I'm confused, throwing error");
+		System.err.println("Lexer @ " + yytext() );
 		return MatlabParser.YYERROR;
 	}
 	

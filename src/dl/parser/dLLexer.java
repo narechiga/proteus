@@ -2,6 +2,8 @@
 
 package dl.parser;
 
+import interfaces.text.*;
+
 
 
 /**
@@ -299,7 +301,9 @@ public class dLLexer implements dLParser.Lexer {
 	int openBraceCount = 0;
 	boolean debug = false;
 	public Object getLVal() {
-		//System.out.println("YYTEXT is: " + yytext() );
+		TextOutput.setDebug(debug);
+		TextOutput.setColor(false);
+		//TextOutput.debug("YYTEXT is: " + yytext() );
 		return yytext();
 	}
 
@@ -679,238 +683,238 @@ public class dLLexer implements dLParser.Lexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { System.out.println("Lexer: I'm confused, throwing error");
-		System.out.println("Lexer @ " + yytext() );
+            { TextOutput.debug("Lexer: I'm confused, throwing error");
+		TextOutput.debug("Lexer @ " + yytext() );
 		return dLParser.YYERROR;
             }
           case 41: break;
           case 2: 
             { if ( debug ) {
-			System.out.println("Lexer: IDENTIFIER");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: IDENTIFIER");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return IDENTIFIER;
             }
           case 42: break;
           case 3: 
             { if ( debug ) {
-			System.out.println("Lexer: NUMBER");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: NUMBER");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return NUMBER;
             }
           case 43: break;
           case 4: 
             { if ( debug ) {
-			System.out.println("Lexer: MINUS");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: MINUS");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return MINUS;
             }
           case 44: break;
           case 5: 
             { if ( debug ) {
-			System.out.println("Lexer: INEQUALITY");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: INEQUALITY");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return INEQUALITY;
             }
           case 45: break;
           case 6: 
             { if ( debug ) {
-			System.out.println("Lexer: EQUALS");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: EQUALS");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return EQUALS;
             }
           case 46: break;
           case 7: 
             { if ( debug ) {
-			System.out.println("Lexer: NOT");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: NOT");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return NOT;
             }
           case 47: break;
           case 8: 
             { if ( debug ) {
-			System.out.println("Lexer: space");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: space");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
             }
           case 48: break;
           case 9: 
             { if ( debug ) {
-			System.out.println("Lexer: SEMICOLON");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: SEMICOLON");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return SEMICOLON;
             }
           case 49: break;
           case 10: 
             { if ( debug ) {
-			System.out.println("Lexer: DIVIDE");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: DIVIDE");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return DIVIDE;
             }
           case 50: break;
           case 11: 
             { if ( debug ) {
-			System.out.println("Lexer: ASTERISK");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: ASTERISK");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return ASTERISK;
             }
           case 51: break;
           case 12: 
             { if ( debug ) {
-			System.out.println("Lexer: REALDECLARATION");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: REALDECLARATION");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return REALDECLARATION;
             }
           case 52: break;
           case 13: 
             { if ( debug ) {
-			System.out.println("Lexer: TEST");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: TEST");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return TEST;
             }
           case 53: break;
           case 14: 
             { if ( debug ) {
-			System.out.println("Lexer: PLUS");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: PLUS");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return PLUS;
             }
           case 54: break;
           case 15: 
             { if ( debug ) {
-			System.out.println("Lexer: OPENBRACE");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: OPENBRACE");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return OPENBRACE;
             }
           case 55: break;
           case 16: 
             { if ( debug ) {
-			System.out.println("Lexer: CLOSEBRACE");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: CLOSEBRACE");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return CLOSEBRACE;
             }
           case 56: break;
           case 17: 
             { if ( debug ) {
-			System.out.println("Lexer: PRIME");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: PRIME");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return PRIME;
             }
           case 57: break;
           case 18: 
             { if ( debug ) {
-			System.out.println("Lexer: LPAREN");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: LPAREN");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return LPAREN;
             }
           case 58: break;
           case 19: 
             { if ( debug ) {
-			System.out.println("Lexer: COMMA");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: COMMA");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return COMMA;
             }
           case 59: break;
           case 20: 
             { if ( debug ) {
-			System.out.println("Lexer: RPAREN");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: RPAREN");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return RPAREN;
             }
           case 60: break;
           case 21: 
             { if ( debug ) {
-			System.out.println("Lexer: POWER");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: POWER");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return POWER;
             }
           case 61: break;
           case 22: 
             { if ( debug ) {
-			System.out.println("Lexer: AND");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: AND");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return AND;
             }
           case 62: break;
           case 23: 
             { if ( debug ) {
-			System.out.println("Lexer: OR");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: OR");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return OR;
             }
           case 63: break;
           case 24: 
             { if ( debug ) {
-			System.out.println("Lexer: IMPLIES");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: IMPLIES");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return IMPLIES;
             }
           case 64: break;
           case 25: 
             { if ( debug ) {
-			System.out.println("Lexer: ASSIGN");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: ASSIGN");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return ASSIGN;
             }
           case 65: break;
           case 26: 
             { if ( debug ) {
-			System.out.println("Lexer: CUP");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: CUP");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return CUP;
             }
           case 66: break;
           case 27: 
             { if ( debug ) {
-			System.out.println("Lexer: OPENDIAMOND");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: OPENDIAMOND");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return OPENDIAMOND;
             }
           case 67: break;
           case 28: 
             { if ( debug ) {
-			System.out.println("Lexer: CLOSEDIAMOND");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: CLOSEDIAMOND");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return CLOSEDIAMOND;
             }
           case 68: break;
           case 29: 
             { if ( debug ) {
-			System.out.println("Lexer: OPENBOX");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: OPENBOX");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return OPENBOX;
             }
           case 69: break;
           case 30: 
             { if ( debug ) {
-			System.out.println("Lexer: CLOSEBOX");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: CLOSEBOX");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return CLOSEBOX;
             }
@@ -918,8 +922,8 @@ public class dLLexer implements dLParser.Lexer {
           case 31: 
             { // For mathematica
 		if ( debug ) {
-			System.out.println("Lexer: AND");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: AND");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return AND;
             }
@@ -927,31 +931,31 @@ public class dLLexer implements dLParser.Lexer {
           case 32: 
             { // For mathematica
 		if ( debug ) {
-			System.out.println("Lexer: OR");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: OR");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return OR;
             }
           case 72: break;
           case 33: 
             { if ( debug ) {
-			System.out.println("Lexer: IFF");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: IFF");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return IFF;
             }
           case 73: break;
           case 34: 
             { if ( debug ) {
-			System.out.println("Lexer: comment");	
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: comment");	
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
             }
           case 74: break;
           case 35: 
             { if ( debug ) {
-			System.out.println("Lexer: TRUE");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: TRUE");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return TRUE;
             }
@@ -959,16 +963,16 @@ public class dLLexer implements dLParser.Lexer {
           case 36: 
             { // for mathematica
 		if ( debug ) {
-			System.out.println("Lexer: TRUE");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: TRUE");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return TRUE;
             }
           case 76: break;
           case 37: 
             { if ( debug ) {
-			System.out.println("Lexer: FALSE");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: FALSE");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return FALSE;
             }
@@ -976,24 +980,24 @@ public class dLLexer implements dLParser.Lexer {
           case 38: 
             { // for mathematica
 		if ( debug ) {
-			System.out.println("Lexer: FALSE");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: FALSE");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return FALSE;
             }
           case 78: break;
           case 39: 
             { if ( debug ) {
-			System.out.println("Lexer: EXISTS");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: EXISTS");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return EXISTS;
             }
           case 79: break;
           case 40: 
             { if ( debug ) {
-			System.out.println("Lexer: FORALL");
-			System.out.println("Lexer @ " + yytext() );
+			TextOutput.debug("Lexer: FORALL");
+			TextOutput.debug("Lexer @ " + yytext() );
 		}
 		return FORALL;
             }
