@@ -105,27 +105,31 @@ public class MatlabParser extends AbstractMatlabParser
     /** Token number,to be returned by the scanner.  */
     static final int RIGHTBRACKET = 272;
     /** Token number,to be returned by the scanner.  */
-    static final int AND = 273;
+    static final int SPACE = 273;
     /** Token number,to be returned by the scanner.  */
-    static final int OR = 274;
+    static final int EMPTYLINE = 274;
     /** Token number,to be returned by the scanner.  */
-    static final int NOT = 275;
+    static final int AND = 275;
     /** Token number,to be returned by the scanner.  */
-    static final int TRUE = 276;
+    static final int OR = 276;
     /** Token number,to be returned by the scanner.  */
-    static final int FALSE = 277;
+    static final int NOT = 277;
     /** Token number,to be returned by the scanner.  */
-    static final int ELSEIF = 278;
+    static final int TRUE = 278;
     /** Token number,to be returned by the scanner.  */
-    static final int END = 279;
+    static final int FALSE = 279;
     /** Token number,to be returned by the scanner.  */
-    static final int ASSIGN = 280;
+    static final int ELSEIF = 280;
     /** Token number,to be returned by the scanner.  */
-    static final int NEGATIVE = 281;
+    static final int END = 281;
     /** Token number,to be returned by the scanner.  */
-    static final int ELSE = 282;
+    static final int ASSIGN = 282;
     /** Token number,to be returned by the scanner.  */
-    static final int IF = 283;
+    static final int NEGATIVE = 283;
+    /** Token number,to be returned by the scanner.  */
+    static final int ELSE = 284;
+    /** Token number,to be returned by the scanner.  */
+    static final int IF = 285;
 
 
     
@@ -363,7 +367,7 @@ public class MatlabParser extends AbstractMatlabParser
       {
           case 2:
   if (yyn == 2)
-    /* "MatlabParser.y":68  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":70  */ /* lalr1.java:489  */
     {
 		try{
 			yyval = ((yystack.valueAt (1-(1)))); 
@@ -380,7 +384,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 3:
   if (yyn == 3)
-    /* "MatlabParser.y":83  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":85  */ /* lalr1.java:489  */
     {
 		try{
 				yyval = (MatlabAssignment)((yystack.valueAt (1-(1))));
@@ -394,7 +398,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 4:
   if (yyn == 4)
-    /* "MatlabParser.y":91  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":93  */ /* lalr1.java:489  */
     {
 		try{
 				yyval = (MatlabConditional)((yystack.valueAt (1-(1))));
@@ -408,7 +412,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 5:
   if (yyn == 5)
-    /* "MatlabParser.y":99  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":101  */ /* lalr1.java:489  */
     {
 		try{
 			yyval = new MatlabSequence( (MatlabAssignment)((yystack.valueAt (2-(1)))), (MatlabProgram)((yystack.valueAt (2-(2)))));
@@ -422,7 +426,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 6:
   if (yyn == 6)
-    /* "MatlabParser.y":107  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":109  */ /* lalr1.java:489  */
     {
 		try{
 			yyval = new MatlabSequence( (MatlabConditional)((yystack.valueAt (2-(1)))), (MatlabProgram)((yystack.valueAt (2-(2)))));
@@ -436,7 +440,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 7:
   if (yyn == 7)
-    /* "MatlabParser.y":118  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":120  */ /* lalr1.java:489  */
     {
 		try{
 			TextOutput.debug("\nIF logicalformula matlabprogram END");
@@ -451,7 +455,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 8:
   if (yyn == 8)
-    /* "MatlabParser.y":127  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":129  */ /* lalr1.java:489  */
     {
 		try{
 			MatlabConditional is = new MatlabConditional( (dLFormula)((yystack.valueAt (6-(2)))), (MatlabProgram)((yystack.valueAt (6-(3)))) );
@@ -467,7 +471,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 9:
   if (yyn == 9)
-    /* "MatlabParser.y":137  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":139  */ /* lalr1.java:489  */
     {
 		try{
 			MatlabConditional is = (MatlabConditional)((yystack.valueAt (5-(4))));
@@ -484,7 +488,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 10:
   if (yyn == 10)
-    /* "MatlabParser.y":148  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":150  */ /* lalr1.java:489  */
     {
 		try{
 			MatlabConditional is = (MatlabConditional)((yystack.valueAt (7-(4))));
@@ -502,7 +506,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 11:
   if (yyn == 11)
-    /* "MatlabParser.y":163  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":165  */ /* lalr1.java:489  */
     {
 		try{
 			yyval = new MatlabConditional( (dLFormula)((yystack.valueAt (3-(2)))), (MatlabProgram)((yystack.valueAt (3-(3)))) );		    
@@ -516,7 +520,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 12:
   if (yyn == 12)
-    /* "MatlabParser.y":171  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":173  */ /* lalr1.java:489  */
     {
 		try{
 			MatlabConditional is = (MatlabConditional)((yystack.valueAt (4-(1))));
@@ -533,7 +537,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 13:
   if (yyn == 13)
-    /* "MatlabParser.y":185  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":187  */ /* lalr1.java:489  */
     {
  		try{
  				yyval = new MatlabAssignment( new RealVariable( (String)((yystack.valueAt (4-(1)))) ), (Term)((yystack.valueAt (4-(3)))) );
@@ -548,7 +552,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 14:
   if (yyn == 14)
-    /* "MatlabParser.y":197  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":199  */ /* lalr1.java:489  */
     {
 		yyval = (ComparisonFormula)((yystack.valueAt (1-(1)))); };
   break;
@@ -556,7 +560,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 15:
   if (yyn == 15)
-    /* "MatlabParser.y":199  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":201  */ /* lalr1.java:489  */
     { 
 		yyval = (dLFormula)((yystack.valueAt (3-(2)))); };
   break;
@@ -564,28 +568,28 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 16:
   if (yyn == 16)
-    /* "MatlabParser.y":201  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":203  */ /* lalr1.java:489  */
     {TextOutput.debug("logicalformula AND:");yyval = new AndFormula( (dLFormula)((yystack.valueAt (3-(1)))), (dLFormula)((yystack.valueAt (3-(3))))); };
   break;
     
 
   case 17:
   if (yyn == 17)
-    /* "MatlabParser.y":202  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":204  */ /* lalr1.java:489  */
     {yyval = new OrFormula( (dLFormula)((yystack.valueAt (3-(1)))), (dLFormula)((yystack.valueAt (3-(3))))); };
   break;
     
 
   case 18:
   if (yyn == 18)
-    /* "MatlabParser.y":203  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":205  */ /* lalr1.java:489  */
     {yyval = new NotFormula( (dLFormula)((yystack.valueAt (2-(2)))));};
   break;
     
 
   case 19:
   if (yyn == 19)
-    /* "MatlabParser.y":207  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":209  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ComparisonFormula( new Operator( (String)((yystack.valueAt (3-(2)))), 2, true ), (Term)((yystack.valueAt (3-(1)))), (Term)((yystack.valueAt (3-(3)))) ) ;
@@ -600,7 +604,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 20:
   if (yyn == 20)
-    /* "MatlabParser.y":216  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":218  */ /* lalr1.java:489  */
     {
 		try {
 			yyval = new ComparisonFormula( new Operator( (String)((yystack.valueAt (3-(2)))), 2, true ), (Term)((yystack.valueAt (3-(1)))), (Term)((yystack.valueAt (3-(3)))) ) ;
@@ -617,7 +621,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 21:
   if (yyn == 21)
-    /* "MatlabParser.y":230  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":232  */ /* lalr1.java:489  */
     { 
 		try { yyval = new Real( (String)((yystack.valueAt (1-(1)))) ); } catch ( Exception e ) { System.err.println("Exception at location term:NUMBER");
 			System.err.println( e );
@@ -628,7 +632,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 22:
   if (yyn == 22)
-    /* "MatlabParser.y":244  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":246  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new RealVariable( (String)((yystack.valueAt (1-(1)))) );
@@ -642,7 +646,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 23:
   if (yyn == 23)
-    /* "MatlabParser.y":252  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":254  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (Term)((yystack.valueAt (3-(2))));
@@ -656,7 +660,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 24:
   if (yyn == 24)
-    /* "MatlabParser.y":260  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":262  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -674,7 +678,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 25:
   if (yyn == 25)
-    /* "MatlabParser.y":272  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":274  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -692,7 +696,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 26:
   if (yyn == 26)
-    /* "MatlabParser.y":284  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":286  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -710,7 +714,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 27:
   if (yyn == 27)
-    /* "MatlabParser.y":297  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":299  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -728,7 +732,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 28:
   if (yyn == 28)
-    /* "MatlabParser.y":309  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":311  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -746,7 +750,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 29:
   if (yyn == 29)
-    /* "MatlabParser.y":321  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":323  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -765,7 +769,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 30:
   if (yyn == 30)
-    /* "MatlabParser.y":334  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":336  */ /* lalr1.java:489  */
     {
 		yyval = (MatrixTerm)((yystack.valueAt (1-(1))));
 	};
@@ -774,7 +778,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 31:
   if (yyn == 31)
-    /* "MatlabParser.y":339  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":341  */ /* lalr1.java:489  */
     {
 		yyval = (MatrixTerm)((yystack.valueAt (3-(2))));
 	};
@@ -783,7 +787,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 32:
   if (yyn == 32)
-    /* "MatlabParser.y":343  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":345  */ /* lalr1.java:489  */
     {
 			yyval = (MatrixTerm)((yystack.valueAt (1-(1))));
 		};
@@ -792,7 +796,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 33:
   if (yyn == 33)
-    /* "MatlabParser.y":345  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":347  */ /* lalr1.java:489  */
     {
 			MatrixTerm rows = (MatrixTerm)((yystack.valueAt (3-(1))));
 			rows.addAsRow( (MatrixTerm)((yystack.valueAt (3-(3)))) );
@@ -802,7 +806,7 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 34:
   if (yyn == 34)
-    /* "MatlabParser.y":350  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":352  */ /* lalr1.java:489  */
     {
 		List<dLStructure> row = new ArrayList<>();
 		row.add( (Term)((yystack.valueAt (1-(1)))) );
@@ -813,7 +817,20 @@ public class MatlabParser extends AbstractMatlabParser
 
   case 35:
   if (yyn == 35)
-    /* "MatlabParser.y":355  */ /* lalr1.java:489  */
+    /* "MatlabParser.y":357  */ /* lalr1.java:489  */
+    {
+		MatrixTerm rowMatrix = (MatrixTerm)((yystack.valueAt (3-(1))));
+		MatrixTerm elementMatrix = new MatrixTerm(1, 1);
+		elementMatrix.setElement(1, 1, (Term)((yystack.valueAt (3-(3)))));
+		rowMatrix.addAsColumn( elementMatrix );
+		yyval = rowMatrix; 
+	};
+  break;
+    
+
+  case 36:
+  if (yyn == 36)
+    /* "MatlabParser.y":364  */ /* lalr1.java:489  */
     {
 		MatrixTerm rowMatrix = (MatrixTerm)((yystack.valueAt (3-(1))));
 		MatrixTerm elementMatrix = new MatrixTerm(1, 1);
@@ -825,7 +842,7 @@ public class MatlabParser extends AbstractMatlabParser
     
 
 
-/* "MatlabParser.java":829  */ /* lalr1.java:489  */
+/* "MatlabParser.java":846  */ /* lalr1.java:489  */
         default: break;
       }
 
@@ -1132,7 +1149,7 @@ public class MatlabParser extends AbstractMatlabParser
     return yyvalue == yytable_ninf_;
   }
 
-  private static final byte yypact_ninf_ = -20;
+  private static final byte yypact_ninf_ = -14;
   private static final byte yytable_ninf_ = -1;
 
   /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
@@ -1142,14 +1159,14 @@ public class MatlabParser extends AbstractMatlabParser
   {
     return new byte[]
     {
-       1,   -19,     4,    23,   -20,     1,     1,    22,   -20,   -20,
-      22,     4,    22,     4,    -1,   -20,    83,   -20,   -20,   -20,
-     -20,    22,    42,   -20,    17,    74,    90,    46,    26,   -20,
-       4,     4,    35,    22,    22,    22,    22,    22,    22,    22,
-       6,   -20,   -20,   -20,    22,   -20,    22,    82,    82,     4,
-     -20,     1,    50,    24,    24,    28,    28,    28,    90,    90,
-      26,    90,    -1,    21,     4,   -20,     1,   -20,   -20,    -1,
-      30,   -20,   -20
+       7,   -13,    42,    25,   -14,     7,     7,    12,   -14,   -14,
+      12,    42,    12,    42,     6,   -14,    90,   -14,   -14,   -14,
+     -14,    12,    62,   -14,    -8,    72,    44,    58,    87,   -14,
+      42,    42,    -6,    12,    12,    12,    12,    12,    12,    12,
+      81,   -14,   -14,   -14,    12,   -14,    12,    12,    18,    18,
+      42,   -14,     7,    36,    84,    84,    35,    35,    35,    44,
+      44,    87,    44,    44,     6,    29,    42,   -14,     7,   -14,
+     -14,     6,    30,   -14,   -14
     };
   }
 
@@ -1165,10 +1182,10 @@ public class MatlabParser extends AbstractMatlabParser
        0,     0,     0,     0,     0,    14,     0,    30,     1,     6,
        5,     0,     0,    29,     0,     0,    34,     0,    32,    18,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,    13,    15,    23,     0,    31,     0,    16,    17,     0,
-       7,     0,     0,    24,    25,    26,    27,    28,    19,    20,
-      33,    35,     0,     0,     0,     9,     0,    11,     8,     0,
-       0,    12,    10
+       0,    13,    15,    23,     0,    31,     0,     0,    16,    17,
+       0,     7,     0,     0,    24,    25,    26,    27,    28,    19,
+      20,    33,    36,    35,     0,     0,     0,     9,     0,    11,
+       8,     0,     0,    12,    10
     };
   }
 
@@ -1178,8 +1195,8 @@ public class MatlabParser extends AbstractMatlabParser
   {
     return new byte[]
     {
-     -20,   -20,    -5,   -20,   -20,   -20,    -9,   -20,    32,   -20,
-     -20,     8
+     -14,   -14,    -5,   -14,   -14,   -14,    -9,   -14,    -4,   -14,
+     -14,    16
     };
   }
 
@@ -1189,7 +1206,7 @@ public class MatlabParser extends AbstractMatlabParser
   {
     return new byte[]
     {
-      -1,     3,     4,     5,    52,     6,    14,    15,    16,    17,
+      -1,     3,     4,     5,    53,     6,    14,    15,    16,    17,
       27,    28
     };
   }
@@ -1202,17 +1219,17 @@ public class MatlabParser extends AbstractMatlabParser
   {
     return new byte[]
     {
-      19,    20,    24,     1,    29,     1,     7,     8,     9,    32,
-      10,    33,    34,    35,    36,    37,    11,    30,    31,    43,
-      12,    47,    48,    18,    13,     8,     9,     2,    10,     2,
-      42,    35,    36,    37,    21,    30,    31,    37,    12,    22,
-      62,    46,    23,    25,    26,    68,    63,    33,    34,    35,
-      36,    37,    60,    40,    72,    69,    41,    67,    49,    50,
-      44,    70,    51,    45,    71,    53,    54,    55,    56,    57,
-      58,    59,     0,    64,    65,     0,    26,    66,    61,    33,
-      34,    35,    36,    37,    38,    39,     0,    43,    33,    34,
-      35,    36,    37,    38,    39,    33,    34,    35,    36,    37,
-      30,    31
+      19,    20,    24,    22,    29,    42,    23,    25,    26,    32,
+       1,     1,    30,    31,     7,     8,     9,    40,    10,    50,
+      51,    48,    49,    52,    21,    18,    30,    31,    12,    54,
+      55,    56,    57,    58,    59,    60,     2,     2,    30,    31,
+      26,    64,    62,    63,    37,     8,     9,    65,    10,    33,
+      34,    35,    36,    37,    11,    70,    74,    71,    12,    69,
+      61,    66,    67,    72,    13,    68,    73,    33,    34,    35,
+      36,    37,    44,     0,     0,    45,    41,    33,    34,    35,
+      36,    37,    38,    39,     0,    43,    33,    34,    35,    36,
+      37,    35,    36,    37,    43,    33,    34,    35,    36,    37,
+      38,    39,    46,     0,     0,    47
     };
   }
 
@@ -1221,17 +1238,17 @@ private static final byte yycheck_[] = yycheck_init();
   {
     return new byte[]
     {
-       5,     6,    11,     4,    13,     4,    25,     3,     4,    14,
-       6,     5,     6,     7,     8,     9,    12,    18,    19,    13,
-      16,    30,    31,     0,    20,     3,     4,    28,     6,    28,
-      13,     7,     8,     9,    12,    18,    19,     9,    16,     7,
-      49,    15,    10,    11,    12,    24,    51,     5,     6,     7,
-       8,     9,    44,    21,    24,    64,    14,    62,    23,    24,
-      14,    66,    27,    17,    69,    33,    34,    35,    36,    37,
-      38,    39,    -1,    23,    24,    -1,    44,    27,    46,     5,
-       6,     7,     8,     9,    10,    11,    -1,    13,     5,     6,
-       7,     8,     9,    10,    11,     5,     6,     7,     8,     9,
-      18,    19
+       5,     6,    11,     7,    13,    13,    10,    11,    12,    14,
+       4,     4,    20,    21,    27,     3,     4,    21,     6,    25,
+      26,    30,    31,    29,    12,     0,    20,    21,    16,    33,
+      34,    35,    36,    37,    38,    39,    30,    30,    20,    21,
+      44,    50,    46,    47,     9,     3,     4,    52,     6,     5,
+       6,     7,     8,     9,    12,    26,    26,    66,    16,    64,
+      44,    25,    26,    68,    22,    29,    71,     5,     6,     7,
+       8,     9,    14,    -1,    -1,    17,    14,     5,     6,     7,
+       8,     9,    10,    11,    -1,    13,     5,     6,     7,     8,
+       9,     7,     8,     9,    13,     5,     6,     7,     8,     9,
+      10,    11,    15,    -1,    -1,    18
     };
   }
 
@@ -1242,14 +1259,14 @@ private static final byte yycheck_[] = yycheck_init();
   {
     return new byte[]
     {
-       0,     4,    28,    30,    31,    32,    34,    25,     3,     4,
-       6,    12,    16,    20,    35,    36,    37,    38,     0,    31,
-      31,    12,    37,    37,    35,    37,    37,    39,    40,    35,
-      18,    19,    31,     5,     6,     7,     8,     9,    10,    11,
-      37,    14,    13,    13,    14,    17,    15,    35,    35,    23,
-      24,    27,    33,    37,    37,    37,    37,    37,    37,    37,
-      40,    37,    35,    31,    23,    24,    27,    31,    24,    35,
-      31,    31,    24
+       0,     4,    30,    32,    33,    34,    36,    27,     3,     4,
+       6,    12,    16,    22,    37,    38,    39,    40,     0,    33,
+      33,    12,    39,    39,    37,    39,    39,    41,    42,    37,
+      20,    21,    33,     5,     6,     7,     8,     9,    10,    11,
+      39,    14,    13,    13,    14,    17,    15,    18,    37,    37,
+      25,    26,    29,    35,    39,    39,    39,    39,    39,    39,
+      39,    42,    39,    39,    37,    33,    25,    26,    29,    33,
+      26,    37,    33,    33,    26
     };
   }
 
@@ -1259,10 +1276,10 @@ private static final byte yycheck_[] = yycheck_init();
   {
     return new byte[]
     {
-       0,    29,    30,    31,    31,    31,    31,    32,    32,    32,
-      32,    33,    33,    34,    35,    35,    35,    35,    35,    36,
-      36,    37,    37,    37,    37,    37,    37,    37,    37,    37,
-      37,    38,    39,    39,    40,    40
+       0,    31,    32,    33,    33,    33,    33,    34,    34,    34,
+      34,    35,    35,    36,    37,    37,    37,    37,    37,    38,
+      38,    39,    39,    39,    39,    39,    39,    39,    39,    39,
+      39,    40,    41,    41,    42,    42,    42
     };
   }
 
@@ -1275,7 +1292,7 @@ private static final byte yycheck_[] = yycheck_init();
        0,     2,     1,     1,     1,     2,     2,     4,     6,     5,
        7,     3,     4,     4,     1,     3,     3,     3,     2,     3,
        3,     1,     1,     3,     3,     3,     3,     3,     3,     2,
-       1,     3,     1,     3,     1,     3
+       1,     3,     1,     3,     1,     3,     3
     };
   }
 
@@ -1288,7 +1305,8 @@ private static final byte yycheck_[] = yycheck_init();
     {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-     275,   276,   277,   278,   279,   280,   281,   282,   283
+     275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
+     285
     };
   }
 
@@ -1301,11 +1319,11 @@ private static final byte yycheck_[] = yycheck_init();
     {
   "$end", "error", "$undefined", "NUMBER", "IDENTIFIER", "PLUS", "MINUS",
   "MULTIPLY", "DIVIDE", "POWER", "INEQUALITY", "EQUALS", "LPAREN",
-  "RPAREN", "SEMICOLON", "COMMA", "LEFTBRACKET", "RIGHTBRACKET", "AND",
-  "OR", "NOT", "TRUE", "FALSE", "ELSEIF", "END", "ASSIGN", "NEGATIVE",
-  "ELSE", "IF", "$accept", "input", "matlabprogram", "conditional",
-  "elselist", "assignment", "logicalformula", "comparison", "term",
-  "matrix", "rowlist", "row", null
+  "RPAREN", "SEMICOLON", "COMMA", "LEFTBRACKET", "RIGHTBRACKET", "SPACE",
+  "EMPTYLINE", "AND", "OR", "NOT", "TRUE", "FALSE", "ELSEIF", "END",
+  "ASSIGN", "NEGATIVE", "ELSE", "IF", "$accept", "input", "matlabprogram",
+  "conditional", "elselist", "assignment", "logicalformula", "comparison",
+  "term", "matrix", "rowlist", "row", null
     };
   }
 
@@ -1315,10 +1333,10 @@ private static final byte yycheck_[] = yycheck_init();
   {
     return new short[]
     {
-       0,    68,    68,    83,    91,    99,   107,   118,   127,   137,
-     148,   163,   171,   185,   197,   199,   201,   202,   203,   207,
-     216,   230,   244,   252,   260,   272,   284,   297,   309,   321,
-     334,   339,   343,   345,   350,   355
+       0,    70,    70,    85,    93,   101,   109,   120,   129,   139,
+     150,   165,   173,   187,   199,   201,   203,   204,   205,   209,
+     218,   232,   246,   254,   262,   274,   286,   299,   311,   323,
+     336,   341,   345,   347,   352,   357,   364
     };
   }
 
@@ -1376,7 +1394,7 @@ private static final byte yycheck_[] = yycheck_init();
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28
+      25,    26,    27,    28,    29,    30
     };
   }
 
@@ -1388,22 +1406,22 @@ private static final byte yycheck_[] = yycheck_init();
       return yyundef_token_;
   }
 
-  private static final int yylast_ = 101;
+  private static final int yylast_ = 105;
   private static final int yynnts_ = 12;
   private static final int yyempty_ = -2;
   private static final int yyfinal_ = 18;
   private static final int yyterror_ = 1;
   private static final int yyerrcode_ = 256;
-  private static final int yyntokens_ = 29;
+  private static final int yyntokens_ = 31;
 
-  private static final int yyuser_token_number_max_ = 283;
+  private static final int yyuser_token_number_max_ = 285;
   private static final int yyundef_token_ = 2;
 
 /* User implementation code.  */
 
 }
 
-/* "MatlabParser.y":365  */ /* lalr1.java:1070  */
+/* "MatlabParser.y":374  */ /* lalr1.java:1070  */
 
 
 

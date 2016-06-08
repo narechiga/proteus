@@ -33,6 +33,8 @@
 %token COMMA
 %token LEFTBRACKET
 %token RIGHTBRACKET
+%token SPACE
+%token EMPTYLINE
 
 /* First Order Logic */
 %token AND
@@ -351,6 +353,13 @@ row: term {
 		List<dLStructure> row = new ArrayList<>();
 		row.add( (Term)$1 );
 		$$ = new MatrixTerm( 1, row.size(), row);
+	}
+	| row SPACE term {
+		MatrixTerm rowMatrix = (MatrixTerm)$1;
+		MatrixTerm elementMatrix = new MatrixTerm(1, 1);
+		elementMatrix.setElement(1, 1, (Term)$3);
+		rowMatrix.addAsColumn( elementMatrix );
+		$$ = rowMatrix; 
 	}
 	| row COMMA term {
 		MatrixTerm rowMatrix = (MatrixTerm)$1;
