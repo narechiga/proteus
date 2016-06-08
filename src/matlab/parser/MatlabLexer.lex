@@ -34,13 +34,7 @@ InputCharacter = [^\r\n]
 LineTerminator = \r|\n|\r\n|\n;
 WhiteSpace     = {LineTerminator} | [ \t\f]
 
-TraditionalComment   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
-EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}
-DocumentationComment = "/**" {CommentContent} "*"+ "/"
-CommentContent       = ( [^*] | \*+ [^/*] )*
-/**/
-Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
-
+Comment = "%" {InputCharacter}* {LineTerminator}
 
 
 %%
