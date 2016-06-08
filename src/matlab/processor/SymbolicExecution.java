@@ -39,7 +39,10 @@ public class SymbolicExecution {
 			
 			MatlabSequence sequence = (MatlabSequence)program;
 			
-			if ( sequence.getFirstProgram() instanceof MatlabAssignment ) {
+			if ( sequence.getFirstProgram() instanceof NoOp ) {
+				result = execute( sequence.getSecondProgram(), outputs );
+				
+			} else if ( sequence.getFirstProgram() instanceof MatlabAssignment ) {
 
 				MatlabAssignment assignment = (MatlabAssignment)(sequence.getFirstProgram());
 				RealVariable variable = assignment.getLHS();
@@ -65,6 +68,9 @@ public class SymbolicExecution {
 				
 				
 			} else {
+				TextOutput.warning("Problematic program: " + program.toString() );
+				TextOutput.warning("Is of type: " + program.getClass() );
+				//TextOutput.warning("First program is of type: " + (((MatlabSequence)program).getFirstProgram()).getClass() );
 				throw new RuntimeException("This should be unreachable; did you add a new type of program and forget to fully support it?");
 			}
 

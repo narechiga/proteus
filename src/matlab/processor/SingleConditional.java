@@ -2,13 +2,14 @@ package matlab.processor;
 
 import matlab.syntax.*;
 import dl.syntax.*;
+import interfaces.text.TextOutput;
+
 import java.util.*;
 
 public class SingleConditional {
 	
 	public static MatlabConditional conditionalize( MatlabProgram program ) {
 		MatlabConditional singleConditional = null;
-		
 		if ( isAssignmentBlock( program ) ) {
 			
 			singleConditional = new MatlabConditional( new TrueFormula(), program );
@@ -22,6 +23,7 @@ public class SingleConditional {
 			singleConditional = processAssignmentBlockFollowedByConditional( program );
 			
 		} else {
+			TextOutput.warning("Unhandled program of type: " + program.getClass() );
 			throw new RuntimeException("This program structure is not supported!: " + program.toString() );
 		}
 		
