@@ -61,6 +61,20 @@ Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
 	
 	
 	// Punctuation
+	"[" {
+			if ( debug ) {
+			TextOutput.debug("Lexer: LEFTBRACKET");
+			TextOutput.debug("Lexer @ " + yytext() );
+		}
+		return LEFTBRACKET;
+	}
+	"]" {
+			if ( debug ) {
+			TextOutput.debug("Lexer: RIGHTBRACKET");
+			TextOutput.debug("Lexer @ " + yytext() );
+		}
+		return RIGHTBRACKET;
+	}
 	"(" { 
 		if ( debug ) {
 			TextOutput.debug("Lexer: LPAREN");

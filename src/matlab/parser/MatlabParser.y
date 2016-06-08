@@ -31,6 +31,8 @@
 %token RPAREN
 %token SEMICOLON
 %token COMMA
+%token LEFTBRACKET
+%token RIGHTBRACKET
 
 /* First Order Logic */
 %token AND
@@ -238,9 +240,6 @@ term:
 	//		System.err.println( e );
 	//	}
 //	}
-	//|  LPAREN term RPAREN 
-
-
 
 	| IDENTIFIER { 
 		try {
@@ -332,7 +331,34 @@ term:
 			System.err.println( e );
 		}
 	}
+	| matrix {
+		$$ = (MatrixTerm)$1;
+	}
 ;
+
+matrix: LEFTBRACKET rowlist RIGHTBRACKET {
+		$$ = (MatrixTerm)$2;
+	};
+
+rowlist: row {
+			$$ = (MatrixTerm)$1;
+		} | rowlist SEMICOLON row {
+			MatrixTerm rows = (MatrixTerm)$1;
+			rows.addAsRow( (MatrixTerm)$3 );
+		};
+
+row: term {
+		List<dLStructure> row = new ArrayList<>();
+		row.add( (Term)$1 );
+		$$ = new MatrixTerm( 1, row.size(), row);
+	}
+	| row COMMA term {
+		MatrixTerm rowMatrix = (MatrixTerm)$1;
+		MatrixTerm elementMatrix = new MatrixTerm(1, 1);
+		elementMatrix.setElement(1, 1, (Term)$3);
+		rowMatrix.addAsColumn( elementMatrix );
+		$$ = rowMatrix; 
+	};
 
 /*============================================================*/
 

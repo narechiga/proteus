@@ -18,6 +18,7 @@ public class MatrixTerm extends NonScalarTerm {
 	public MatrixTerm() {
 	}
 
+	
 	public MatrixTerm ( int rows, int columns ) {
 		numColumns = columns;
 		numRows = rows;
@@ -28,7 +29,7 @@ public class MatrixTerm extends NonScalarTerm {
 		fillWithZeros();
 	}
 
-	protected MatrixTerm ( int rows, int columns, List<dLStructure> matrix  ) {
+	public MatrixTerm ( int rows, int columns, List<dLStructure> matrix  ) {
 
 		arguments = new ArrayList<dLStructure>();
 
