@@ -37,11 +37,19 @@ public class SymbolicExecution {
 			
 		} else if ( program instanceof MatlabSequence ) {
 			
+			TextOutput.debug("Executing a sequence");
 			MatlabSequence sequence = (MatlabSequence)program;
 			
 			if ( sequence.getFirstProgram() instanceof NoOp ) {
 				result = execute( sequence.getSecondProgram(), outputs );
-				
+				TextOutput.debug("First program was no-op. result is: " + result.toString() );
+				TextOutput.debug("Second going in was of type: " + sequence.getSecondProgram().getClass() );
+				TextOutput.debug("Class is: " + result.getClass() );
+				if ( result instanceof MatlabSequence ) {
+					TextOutput.debug("First of result is of class: " + ((MatlabSequence)result).getFirstProgram().getClass() );
+					TextOutput.debug("Second of result is of class: " + ((MatlabSequence)result).getSecondProgram().getClass() );
+				}
+
 			} else if ( sequence.getFirstProgram() instanceof MatlabAssignment ) {
 
 				MatlabAssignment assignment = (MatlabAssignment)(sequence.getFirstProgram());
@@ -52,7 +60,13 @@ public class SymbolicExecution {
 				MatlabProgram firstPart = execute( sequence.getFirstProgram(), outputs );
 				MatlabProgram secondPart = execute( sequence.getSecondProgram().replace( replacement ), outputs);
 				
-				result = new MatlabSequence( firstPart, secondPart );
+				if ( firstPart instanceof NoOp ) {
+					result = secondPart;
+				} else if ( secondPart instanceof NoOp ){
+					result = firstPart;
+				} else {
+					result = new MatlabSequence( firstPart, secondPart );
+				}
 
 			} else if ( sequence.getFirstProgram() instanceof MatlabConditional ) {
 				MatlabConditional conditional = (MatlabConditional)(sequence.getFirstProgram() );
