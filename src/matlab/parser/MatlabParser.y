@@ -14,6 +14,7 @@
 %define extends {AbstractMatlabParser}
 %define parser_class_name {MatlabParser}
 %define public
+%define parse.error verbose
 
 /* Arithmetic */
 %token NUMBER
@@ -98,21 +99,39 @@ matlabprogram:
 				System.err.println( e );
 		}
 	}
-	| assignment matlabprogram {
+	| matrixassignment{
 		try{
-			$$ = new MatlabSequence( (MatlabAssignment)$1, (MatlabProgram)$2);
+				$$ = (MatlabMatrixAssignment)$1;
+			}catch ( Exception e){
+				System.err.println("Exception in matlabprogram:assignment");
+				System.err.println( e );
+		}
+	}
+	| matlabprogram assignment {
+		try{
+			$$ = new MatlabSequence( (MatlabProgram)$1, (MatlabAssignment)$2);
 			}catch ( Exception e){
 				System.err.println("Exception in matlabprogram:matlabprogram assignment");
 				System.err.println(e);
 		}
 	}
-	| conditional matlabprogram {
+	| matlabprogram conditional {
 		try{
-			$$ = new MatlabSequence( (MatlabConditional)$1, (MatlabProgram)$2);
+			$$ = new MatlabSequence( (MatlabProgram)$1, (MatlabConditional)$2);
 			}catch ( Exception e){
 				System.err.println("Exception in matlabprogram:matlabprogram conditional");
 				System.err.println(e);
 		}
+	}
+	| matlabprogram matrixassignment {
+		try{
+			TextOutput.debug("matlabprogram: matlabprogram matrixassignment");
+			$$ = new MatlabSequence( (MatlabProgram)$1, (MatlabMatrixAssignment)$2);
+			}catch ( Exception e){
+				System.err.println("Exception in matlabprogram:matlabprogram conditional");
+				System.err.println(e);
+		}
+
 	}
 ;
 
@@ -183,17 +202,29 @@ elselist:
 	}
 ;
 
+matrixassignment:
+ 	IDENTIFIER ASSIGN matrix SEMICOLON{
+ 		try{
+ 			$$ = new MatlabMatrixAssignment( new RealVariable( (String)$1 ), (MatrixTerm)$3 );
+ 			TextOutput.debug("IDENTIFIER assignment matrix SEMICOLON");
+ 		}catch ( Exception e ) {
+			System.err.println("Exception at location matrixassignment:identifier ASSIGN matrix");
+			e.printStackTrace();
+		}
+ 	}
+ ;
 assignment:
  	IDENTIFIER ASSIGN term SEMICOLON{
  		try{
  				$$ = new MatlabAssignment( new RealVariable( (String)$1 ), (Term)$3 );
  				TextOutput.debug("\nterm Assignment term SEMICOLON:"+((MatlabAssignment)$$).toString());
  			}catch ( Exception e ) {
-				System.err.println("Exception at location comparison:term ASSIGN term");
+				System.err.println("Exception at location comparison:IDENTIFIER ASSIGN term");
 				System.err.println( e );
 		}
  	}
  ;
+
 
 logicalformula:
 	comparison {
@@ -230,6 +261,7 @@ comparison:
 
 term:
 	NUMBER { 
+		TextOutput.debug("term: NUMBER");
 		try { $$ = new Real( (String)$1 ); } catch ( Exception e ) { System.err.println("Exception at location term:NUMBER");
 			System.err.println( e );
 		}
@@ -244,6 +276,7 @@ term:
 //	}
 
 	| IDENTIFIER { 
+		TextOutput.debug("term: IDENTIFIER");
 		try {
 			$$ = new RealVariable( (String)$1 );
 		} catch ( Exception e ) {
@@ -333,33 +366,25 @@ term:
 			System.err.println( e );
 		}
 	}
-	| matrix {
-		$$ = (MatrixTerm)$1;
-	}
 ;
 
 matrix: LEFTBRACKET rowlist RIGHTBRACKET {
+		TextOutput.debug("matrix: LEFTBRACKET rowlist RIGHTBRACKET");
 		$$ = (MatrixTerm)$2;
 	};
 
 rowlist: row {
-			$$ = (MatrixTerm)$1;
-		} | rowlist SEMICOLON row {
-			MatrixTerm rows = (MatrixTerm)$1;
-			rows.addAsRow( (MatrixTerm)$3 );
-		};
+		$$ = (MatrixTerm)$1;
+	} | rowlist SEMICOLON row {
+		MatrixTerm rows = (MatrixTerm)$1;
+		rows.addAsRow( (MatrixTerm)$3 );
+	};
 
 row: term {
+		TextOutput.debug("row: term");
 		List<dLStructure> row = new ArrayList<>();
 		row.add( (Term)$1 );
 		$$ = new MatrixTerm( 1, row.size(), row);
-	}
-	| row SPACE term {
-		MatrixTerm rowMatrix = (MatrixTerm)$1;
-		MatrixTerm elementMatrix = new MatrixTerm(1, 1);
-		elementMatrix.setElement(1, 1, (Term)$3);
-		rowMatrix.addAsColumn( elementMatrix );
-		$$ = rowMatrix; 
 	}
 	| row COMMA term {
 		MatrixTerm rowMatrix = (MatrixTerm)$1;

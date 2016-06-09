@@ -34,7 +34,7 @@ InputCharacter = [^\r\n]
 LineTerminator = \r|\n|\r\n|\n;
 WhiteSpace     = {LineTerminator} | [ \t\f]
 
-Comment = "%" {InputCharacter}* {LineTerminator}
+Comment = [%] {InputCharacter}* {LineTerminator}
 
 %state MATRIX
 EmptyLine = {LineTerminator} [ \t]* {LineTerminator}
@@ -46,8 +46,16 @@ EmptyLine = {LineTerminator} [ \t]* {LineTerminator}
 			TextOutput.debug("Lexer: LEFTBRACKET");
 			TextOutput.debug("Lexer @ " + yytext() );
 		}
-		yybegin(MATRIX);
+		//yybegin(MATRIX);
 		return LEFTBRACKET;
+	}
+	"]" {
+		if ( debug ) {
+			TextOutput.debug("Lexer: RIGHTBRACKET");
+			TextOutput.debug("Lexer @ " + yytext() );
+		}
+		//yybegin( YYINITIAL );
+		return RIGHTBRACKET;
 	}
 	{WhiteSpace} { 
 		if ( debug ) {
@@ -251,122 +259,122 @@ EmptyLine = {LineTerminator} [ \t]* {LineTerminator}
 	}	
 }
 
-<MATRIX> {
-	"]" {
-		if ( debug ) {
-			TextOutput.debug("Lexer: RIGHTBRACKET");
-			TextOutput.debug("Lexer @ " + yytext() );
-		}
-		yybegin( YYINITIAL );
-		return RIGHTBRACKET;
-	}
-	{Number} { 
-		if ( debug ) {
-			TextOutput.debug("Lexer: NUMBER");
-			TextOutput.debug("Lexer @ " + yytext() );
-		}
-		return NUMBER;
-	}
-	{EmptyLine} { // Used in 3-D matrices
-		if ( debug ) {
-			TextOutput.debug("Lexer: space");
-			TextOutput.debug("Lexer @ " + yytext() );
-		}
-		return EMPTYLINE;
-	}
-	{WhiteSpace} { //In MATRIX mode, spaces do count
-		if ( debug ) {
-			TextOutput.debug("Lexer: space");
-			TextOutput.debug("Lexer @ " + yytext() );
-		}
-		return SPACE; 
-	}
-	{Comment} {
-		if ( debug ) {
-			TextOutput.debug("Lexer: comment");	
-			TextOutput.debug("Lexer @ " + yytext() );
-		}
-	}
-	// Punctuation
-	"(" { 
-		if ( debug ) {
-			TextOutput.debug("Lexer: LPAREN");
-			TextOutput.debug("Lexer @ " + yytext() );
-		}
-		return LPAREN;
-	}
-	"," { 
-		if ( debug ) {
-			TextOutput.debug("Lexer: COMMA");
-			TextOutput.debug("Lexer @ " + yytext() );
-		}
-		return COMMA;
-	}
-	";" { 
-		if ( debug ) {
-			TextOutput.debug("Lexer: SEMICOLON");
-			TextOutput.debug("Lexer @ " + yytext() );
-		}
-		return SEMICOLON;
-	}
-	")" { 
-		if ( debug ) {
-			TextOutput.debug("Lexer: RPAREN");
-			TextOutput.debug("Lexer @ " + yytext() );
-		}
-		return RPAREN;
-	}
-	
-	// Basic arithmetic
-	"+" { 
-		if ( debug ) {
-			TextOutput.debug("Lexer: PLUS");
-			TextOutput.debug("Lexer @ " + yytext() );
-		}
-		return PLUS;
-	}	
-	"*" { 
-		if ( debug ) {
-			TextOutput.debug("Lexer: MULTIPLY");
-			TextOutput.debug("Lexer @ " + yytext() );
-		}
-		return MULTIPLY;
-	}
-	"-" { 
-		if ( debug ) {
-			TextOutput.debug("Lexer: MINUS");
-			TextOutput.debug("Lexer @ " + yytext() );
-		}
-		return MINUS;
-	}
-	"/" { 
-		if ( debug ) {
-			TextOutput.debug("Lexer: DIVIDE");
-			TextOutput.debug("Lexer @ " + yytext() );
-		}
-		return DIVIDE;
-	}
-	"^" { 		
-		if ( debug ) {
-			TextOutput.debug("Lexer: POWER");
-			TextOutput.debug("Lexer @ " + yytext() );
-		}
-		return POWER;		
-	}
-
-	{IdentifierName} { 
-		if ( debug ) {
-			TextOutput.debug("Lexer: IDENTIFIER");
-			TextOutput.debug("Lexer @ " + yytext() );
-		}
-		return IDENTIFIER;
-	}
-
-	[^] { 
-		System.err.println("(In MATRIX state) Lexer: I'm confused, throwing error");
-		System.err.println("Lexer @ " + yytext() );
-		return MatlabParser.YYERROR;
-	}	
-		
-}
+//<MATRIX> {
+//	"]" {
+//		if ( debug ) {
+//			TextOutput.debug("Lexer: RIGHTBRACKET");
+//			TextOutput.debug("Lexer @ " + yytext() );
+//		}
+//		yybegin( YYINITIAL );
+//		return RIGHTBRACKET;
+//	}
+//	{Number} { 
+//		if ( debug ) {
+//			TextOutput.debug("Lexer: NUMBER");
+//			TextOutput.debug("Lexer @ " + yytext() );
+//		}
+//		return NUMBER;
+//	}
+//	{EmptyLine} { // Used in 3-D matrices
+//		if ( debug ) {
+//			TextOutput.debug("Lexer: space");
+//			TextOutput.debug("Lexer @ " + yytext() );
+//		}
+//		return EMPTYLINE;
+//	}
+//	//{WhiteSpace} { //In MATRIX mode, spaces do count
+//	//	if ( debug ) {
+//	//		TextOutput.debug("Lexer: space");
+//	//		TextOutput.debug("Lexer @ " + yytext() );
+//	//	}
+//	//	return SPACE; 
+//	//}
+//	{Comment} {
+//		if ( debug ) {
+//			TextOutput.debug("Lexer: comment");	
+//			TextOutput.debug("Lexer @ " + yytext() );
+//		}
+//	}
+//	// Punctuation
+//	"(" { 
+//		if ( debug ) {
+//			TextOutput.debug("Lexer: LPAREN");
+//			TextOutput.debug("Lexer @ " + yytext() );
+//		}
+//		return LPAREN;
+//	}
+//	"," { 
+//		if ( debug ) {
+//			TextOutput.debug("Lexer: COMMA");
+//			TextOutput.debug("Lexer @ " + yytext() );
+//		}
+//		return COMMA;
+//	}
+//	";" { 
+//		if ( debug ) {
+//			TextOutput.debug("Lexer: SEMICOLON");
+//			TextOutput.debug("Lexer @ " + yytext() );
+//		}
+//		return SEMICOLON;
+//	}
+//	")" { 
+//		if ( debug ) {
+//			TextOutput.debug("Lexer: RPAREN");
+//			TextOutput.debug("Lexer @ " + yytext() );
+//		}
+//		return RPAREN;
+//	}
+//	
+//	// Basic arithmetic
+//	"+" { 
+//		if ( debug ) {
+//			TextOutput.debug("Lexer: PLUS");
+//			TextOutput.debug("Lexer @ " + yytext() );
+//		}
+//		return PLUS;
+//	}	
+//	"*" { 
+//		if ( debug ) {
+//			TextOutput.debug("Lexer: MULTIPLY");
+//			TextOutput.debug("Lexer @ " + yytext() );
+//		}
+//		return MULTIPLY;
+//	}
+//	"-" { 
+//		if ( debug ) {
+//			TextOutput.debug("Lexer: MINUS");
+//			TextOutput.debug("Lexer @ " + yytext() );
+//		}
+//		return MINUS;
+//	}
+//	"/" { 
+//		if ( debug ) {
+//			TextOutput.debug("Lexer: DIVIDE");
+//			TextOutput.debug("Lexer @ " + yytext() );
+//		}
+//		return DIVIDE;
+//	}
+//	"^" { 		
+//		if ( debug ) {
+//			TextOutput.debug("Lexer: POWER");
+//			TextOutput.debug("Lexer @ " + yytext() );
+//		}
+//		return POWER;		
+//	}
+//
+//	{IdentifierName} { 
+//		if ( debug ) {
+//			TextOutput.debug("Lexer: IDENTIFIER");
+//			TextOutput.debug("Lexer @ " + yytext() );
+//		}
+//		return IDENTIFIER;
+//	}
+//
+//	[^] { 
+//		System.err.println("(In MATRIX state) Lexer: I'm confused, throwing error");
+//		System.err.println("Lexer @ " + yytext() );
+//		return MatlabParser.YYERROR;
+//	}	
+//		
+//}
 
