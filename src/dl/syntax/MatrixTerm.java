@@ -7,6 +7,8 @@
 package dl.syntax;
 
 import dl.semantics.*;
+import interfaces.text.TextOutput;
+
 import java.util.*;
 
 public class MatrixTerm extends NonScalarTerm {
@@ -227,7 +229,7 @@ public class MatrixTerm extends NonScalarTerm {
 		MatrixTerm newMatrix = new MatrixTerm( numColumns, numRows );
 
 		for ( int i = 1; i < numRows + 1; i++ ) {
-			for ( int j = 1; j < numColumns; j++ ) {
+			for ( int j = 1; j < numColumns + 1; j++ ) {
 				newMatrix.setElement( j, i, this.getElement(i, j) );
 			}
 		}
@@ -258,9 +260,13 @@ public class MatrixTerm extends NonScalarTerm {
 			throw new RuntimeException("Matrix dimenstion mismatch when adding in column form");
 
 		} else {
+			//TextOutput.debug("Adding as column: " + anotherMatrix );
 			MatrixTerm thisTranspose = this.transpose();
+			//TextOutput.debug("This transpose is: " + thisTranspose );
 			MatrixTerm anotherTranspose = anotherMatrix.transpose();
+			//TextOutput.debug("Added matrix transpose is: " + anotherTranspose );
 			thisTranspose = thisTranspose.addAsRow( anotherTranspose );
+			//TextOutput.debug("Result transpose is: " + thisTranspose );
 
 			return thisTranspose.transpose();
 		}

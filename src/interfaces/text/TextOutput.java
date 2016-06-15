@@ -40,6 +40,15 @@ public class TextOutput {
 		pause(7000);
 	}
 	
+	public static void print( String message ) {
+		String[] messages = message.split("\n");
+		
+		for ( String m : messages ) {
+			printNumber();
+			out.print( m );
+		}
+	}
+	
 	public static void say( String message ) {
 		String[] messages = message.split("\n");
 		

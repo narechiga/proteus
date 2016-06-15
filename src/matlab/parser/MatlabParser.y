@@ -132,8 +132,8 @@ matlabprogram:
 				System.err.println(e);
 		}
 
-	}
-;
+	};
+
 
 conditional:
 	IF logicalformula matlabprogram END {
@@ -203,7 +203,15 @@ elselist:
 ;
 
 matrixassignment:
- 	IDENTIFIER ASSIGN matrix SEMICOLON{
+	IDENTIFIER ASSIGN matrix3D SEMICOLON{
+                try{
+                        TextOutput.debug("IDENTIFIER assignment matrix3D SEMICOLON");
+                        $$ = new MatlabMatrixAssignment( new RealVariable( (String)$1 ), (MatrixTerm3D)$3 );
+                }catch ( Exception e ) {
+                        System.err.println("Exception at location matrixassignment:identifier ASSIGN matrix");
+                        e.printStackTrace();
+                }
+ 	} | IDENTIFIER ASSIGN matrix SEMICOLON{
  		try{
  			$$ = new MatlabMatrixAssignment( new RealVariable( (String)$1 ), (MatrixTerm)$3 );
  			TextOutput.debug("IDENTIFIER assignment matrix SEMICOLON");
@@ -211,8 +219,9 @@ matrixassignment:
 			System.err.println("Exception at location matrixassignment:identifier ASSIGN matrix");
 			e.printStackTrace();
 		}
- 	}
- ;
+
+ };
+
 assignment:
  	IDENTIFIER ASSIGN term SEMICOLON{
  		try{
@@ -370,27 +379,63 @@ term:
 
 matrix: LEFTBRACKET rowlist RIGHTBRACKET {
 		TextOutput.debug("matrix: LEFTBRACKET rowlist RIGHTBRACKET");
+		TextOutput.debug("Matrix is: " + (MatrixTerm)$2 );
 		$$ = (MatrixTerm)$2;
 	};
 
+matrix3D: LEFTBRACKET matrixlist RIGHTBRACKET {
+	   		TextOutput.debug("matrix3D: LEFTBRACKET matrixlist RIGHTBRACKET ");
+	 	        TextOutput.debug(" Matrix is: " + (MatrixTerm3D)$2 );
+	   		$$=(MatrixTerm3D) $2;
+
+	};
+
+matrixlist: rowlist SEMICOLON EMPTYLINE rowlist {
+		TextOutput.debug("matrixlist: rowlist SEMICOLON EMPTYLINE rowlist ");
+		List<MatrixTerm> list = new ArrayList<>();
+		list.add((MatrixTerm) $1);
+		list.add( (MatrixTerm) $4 );
+            	$$ = new MatrixTerm3D( list ); 
+		TextOutput.debug("New 3D matrix is " + (MatrixTerm3D)$$ );
+		} | matrixlist EMPTYLINE rowlist {
+		TextOutput.debug("matrixlist: matrixlist EMPTYLINE rowlist");
+		MatrixTerm3D matlist = (( MatrixTerm3D) $1);
+                matlist.addAlongZ((MatrixTerm) $3);
+		$$= matlist;
+		
+		};
 rowlist: row {
+		TextOutput.debug("rowlist: row");
+		TextOutput.debug("Row is: " + (MatrixTerm)$1);
 		$$ = (MatrixTerm)$1;
 	} | rowlist SEMICOLON row {
+		TextOutput.debug("rowlist: rowlist SEMICOLON row");
+		TextOutput.debug("New row is: " + (MatrixTerm)$3 );
 		MatrixTerm rows = (MatrixTerm)$1;
-		rows.addAsRow( (MatrixTerm)$3 );
+		rows = rows.addAsRow( (MatrixTerm)$3 );
+		TextOutput.debug("New matrix is: " + rows );
+		$$ = rows;
+	  
 	};
+
+
 
 row: term {
 		TextOutput.debug("row: term");
+		TextOutput.debug("Term in row was: " + (Term)$1 );
 		List<dLStructure> row = new ArrayList<>();
 		row.add( (Term)$1 );
 		$$ = new MatrixTerm( 1, row.size(), row);
 	}
 	| row COMMA term {
+		TextOutput.debug("row: term");
+		TextOutput.debug("new term is: " + (Term)$3 );
 		MatrixTerm rowMatrix = (MatrixTerm)$1;
 		MatrixTerm elementMatrix = new MatrixTerm(1, 1);
 		elementMatrix.setElement(1, 1, (Term)$3);
-		rowMatrix.addAsColumn( elementMatrix );
+		TextOutput.debug("New element matrix is: " + elementMatrix );
+		rowMatrix = rowMatrix.addAsColumn( elementMatrix );
+		TextOutput.debug("New row is: " + rowMatrix );
 		$$ = rowMatrix; 
 	};
 

@@ -5,9 +5,9 @@ import dl.syntax.*;
 
 public class MatlabMatrixAssignment extends MatlabProgram {
 	private final RealVariable lhs;
-	private final MatrixTerm rhs;
+	private final GeneralizedTerm rhs;
 	
-	public MatlabMatrixAssignment( RealVariable lhs, MatrixTerm rhs ) {
+	public MatlabMatrixAssignment( RealVariable lhs, GeneralizedTerm rhs ) {
 		this.lhs = lhs;
 		this.rhs = rhs;
 	}
