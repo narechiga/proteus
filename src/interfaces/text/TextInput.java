@@ -30,6 +30,7 @@ public class TextInput {
 			   = new BufferedReader(new FileReader(file));
 			while((temp =(in.readLine()))!=null)
 			{
+				temp=temp.replace("...", "");
 				returnString+=temp + "\n";
 			}
 			
