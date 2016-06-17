@@ -6,6 +6,8 @@
  */
 package matlab.syntax;
 
+import interfaces.text.TextInput;
+
 import java.io.*;
 import java.util.*;
 
@@ -21,6 +23,15 @@ public abstract class MatlabProgram {
 		List<MatlabProgram> statements = new ArrayList<>();
 		statements.add( this );
 		return statements;
+	}
+	
+	public static MatlabProgram parseFile ( String filename ) {
+		return parseFile( new File( filename ));
+	}
+	
+	public static MatlabProgram parseFile ( File file ) {
+		String programString = TextInput.file2String( file );
+		return parse( programString );
 	}
 	
 	public static MatlabProgram parse( String string ) {

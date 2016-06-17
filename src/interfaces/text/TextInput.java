@@ -11,15 +11,22 @@ public class TextInput {
 	
 	public static String prompt( String promptString  ) {
 		TextOutput.print(promptString + " >> ");
-		Scanner input = new Scanner( System.in ); // resource leak warning is ok, don't want to close System.in
-		
+		BufferedReader in = new BufferedReader( new InputStreamReader( System.in ) );
 		String returnString = "";
-		if ( input.hasNext() ) {
-			returnString += input.next();
+		try {
+			returnString = in.readLine();
+			
+			
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		
-		TextOutput.debug("echo: " + returnString );
 		return returnString;
+
+	}
+	
+	public static String file2String ( String filename ) {
+		return file2String( new File( filename ));
 	}
 	
 	public static String file2String( File file ) {

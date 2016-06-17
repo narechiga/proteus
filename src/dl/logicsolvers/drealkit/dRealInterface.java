@@ -8,6 +8,8 @@
 package dl.logicsolvers.drealkit;
 
 //import proteus.logicsolvers.abstractions.*;
+import interfaces.text.TextOutput;
+
 import java.util.*;
 
 import dl.semantics.*;
@@ -70,8 +72,10 @@ public class dRealInterface extends LogicSolverInterface {
 		ArrayList<dLFormula> theseFormulas = negatedFormula.splitOnAnds();
 
 		// Try to find a counterexample
-		LogicSolverResult subResult = findInstance( filename, theseFormulas, comment );
-		
+		//LogicSolverResult subResult = findInstance( filename, theseFormulas, comment );
+		LogicSolverResult subResult = findInstance( theseFormulas);
+
+		System.out.println(subResult);
 		// We queried the negation, so invert the result
 		LogicSolverResult result;
 		if ( subResult.satisfiability.equals("unsat") ) {
@@ -92,7 +96,8 @@ public class dRealInterface extends LogicSolverInterface {
 	public LogicSolverResult findInstance( String filename, List<dLFormula> theseFormulas, String comment )
 					throws Exception {
 		File queryFile = writeQueryFile( filename, theseFormulas, comment );
-		//System.out.println("Running query on file: " + filename);
+		System.out.println("Running query on file: " + filename);
+		System.out.println(runQuery(queryFile));
 		return runQuery( queryFile );
 	}
 
@@ -141,30 +146,39 @@ public class dRealInterface extends LogicSolverInterface {
 	protected LogicSolverResult runQuery( File queryFile ) throws Exception {
 		LogicSolverResult result = null;
 
-		String precisionArgument = "--precision=" + precision;
-		ProcessBuilder queryPB = new ProcessBuilder("dReal", "--model", 
-								precisionArgument, queryFile.getAbsolutePath() );
+		String precisionArgument = "--precision " + precision;
+//		ProcessBuilder queryPB = new ProcessBuilder("dReal", "--model", 
+//								precisionArgument, queryFile.getAbsolutePath() );
+		ProcessBuilder queryPB = new ProcessBuilder("dReal", "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
+		TextOutput.debug( "Commmand is: " + queryPB.command() );
 		queryPB.redirectErrorStream( true );
 		Process queryProcess = queryPB.start();
 		BufferedReader dRealSays = new BufferedReader( new InputStreamReader(queryProcess.getInputStream()) );
 
 		String line;
-		if ( (line = dRealSays.readLine()) != null ) {
-			if ( line.equals("unsat")) {
+		String totalOutput = "";
+		while ( (line = dRealSays.readLine()) != null ) {
+			totalOutput += line;
+			TextOutput.debug( line );
+			if ( line.contains("unsat")) {
 				result = new LogicSolverResult( "unsat", "notvalid", new Valuation() );
-			} else if ( line.equals("sat") ) {
+			} else if ( line.contains("delta-sat") ) {
 				Valuation cex = extractModel( new File( queryFile.getAbsolutePath() + ".model") );
 				result = new LogicSolverResult( "delta-sat", "unknown", cex );
 			} else if ( line.equals("unknown") ) {
 				result = new LogicSolverResult( "unknown", "unknown", new Valuation() );
-			} else {
-				throw new Exception( line );
 			}
-		} else {
-			throw new Exception("dReal returned no output!");
+//			} else {
+//				throw new Exception( line );
+//			}
+		}// else {
+//			throw new Exception("dReal returned no output!");
+//		}
+		TextOutput.debug("Solver result is: ");
+		TextOutput.debug( result.toString() );
+		if ( result == null ) {
+			throw new RuntimeException("dReal returned unexpected output:" + totalOutput );
 		}
-		//System.out.println("Solver result is: ");
-		//System.out.println( result.toString() );
 
 		//queryFile.delete();
 		return result;
@@ -218,13 +232,14 @@ public class dRealInterface extends LogicSolverInterface {
 			//System.out.println("lower bound: " + lowerBound );
 			//System.out.println("upper bound: " + upperBound );
 
-			if ( lowerBound.equals("-inf") && upperBound.equals("inf") ) {
+			if ( (lowerBound.equals("-inf") && upperBound.equals("inf")) ||
+					((lowerBound.equals("-INFTY") && upperBound.equals("INFTY")) ) ) {
 				model.put(variable, new Real(42));
 
-			} else if ( lowerBound.equals("-inf") ) {
+			} else if ( lowerBound.equals("-inf") || upperBound.equals("-INFTY") ) {
 				model.put(variable, new Real( upperBound ));
 
-			} else if ( upperBound.equals("inf") ) {
+			} else if ( upperBound.equals("inf") || upperBound.equals("+INFTY") ) {
 				model.put( variable, new Real( lowerBound ));
 
 			} else {
