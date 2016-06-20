@@ -6,6 +6,7 @@
  */
 package dl.logicsolvers.abstractions;
 
+import interfaces.text.*;
 import java.util.*;
 //import java.io.*;
 
@@ -100,6 +101,7 @@ public abstract class LogicSolverInterface {
 
 // Convenient alias for checkvalidity
 	public LogicSolverResult checkValidity ( dLFormula thisFormula ) throws Exception {
+		TextOutput.debug("Entering checkValidity ( dLformula )");
 	    String comment = generateCheckValidityComment( thisFormula );
 	    String filename = decorateFilename( "checkValidity" );
 

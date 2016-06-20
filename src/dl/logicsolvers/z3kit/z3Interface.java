@@ -1,11 +1,11 @@
 /**
+ * @author Sumanth Dathathri
  * @author Nikos Arechiga
- * @author Anuradha Vakil
  * Toyota InfoTechnology Center, USA
  * 465 N Bernardo Ave, Mountain View, CA 94043
  */
 
-package dl.logicsolvers.drealkit;
+package dl.logicsolvers.z3kit;
 
 //import proteus.logicsolvers.abstractions.*;
 import interfaces.text.TextOutput;
@@ -21,54 +21,27 @@ import dl.logicsolvers.abstractions.LogicSolverInterface;
 import dl.logicsolvers.abstractions.LogicSolverResult;
 
 
-public class dRealInterface extends LogicSolverInterface {
+public class z3Interface extends LogicSolverInterface {
 
-	// COLORS! OMG COLORS!
-	public final String ANSI_RESET = "\u001B[0m";
-	public final String ANSI_BLACK = "\u001B[30m";
-	public final String ANSI_RED = "\u001B[31m";
-	public final String ANSI_GREEN = "\u001B[32m";
-	public final String ANSI_YELLOW = "\u001B[33m";
-	public final String ANSI_BLUE = "\u001B[34m";
-	public final String ANSI_PURPLE = "\u001B[35m";
-	public final String ANSI_CYAN = "\u001B[36m";
-	public final String ANSI_WHITE = "\u001B[37m";
-	public final String ANSI_BOLD = "\u001B[1m";
-
-	public double precision = 0.00001;
 	public boolean debug = false;
 
 	public void setPrecision( double precision ) {
-		this.precision = precision;
 	}
 
 //Constructors
-	// Constructor with specified precision
-	public dRealInterface( double precision ) {
-		this.precision = precision;
-		
-		// Generate the workspace
-		File drealworkspacedir = new File("drealworkspace");
-                if (!drealworkspacedir.exists()) {
-                        drealworkspacedir.mkdir();
-                }
-	}
-
 	// Constructor with default precision
-	public dRealInterface() {
-		this.precision = 0.00001;
+	public z3Interface() {
 
 		// Generate the workspace
-		File drealworkspacedir = new File("drealworkspace");
-                if (!drealworkspacedir.exists()) {
-                        drealworkspacedir.mkdir();
+		File z3workspacedir = new File("z3workspace");
+                if (!z3workspacedir.exists()) {
+                        z3workspacedir.mkdir();
                 }
 	}
 
 // "checkValidity" family of methods -- try to find a counterexample
 	public LogicSolverResult checkValidity( String filename, dLFormula thisFormula, String comment ) throws Exception {
 		TextOutput.debug("Entering checkValidity( string, dlformula, string) ");
-		
 		dLFormula negatedFormula = thisFormula.negate();
 		ArrayList<dLFormula> theseFormulas = negatedFormula.splitOnAnds();
 
@@ -82,9 +55,9 @@ public class dRealInterface extends LogicSolverInterface {
 		if ( subResult.satisfiability.equals("unsat") ) {
 			result = new LogicSolverResult("sat", "valid", new Valuation() );
 			TextOutput.debug("Your formula is valid");
-		} else if ( subResult.satisfiability.equals("delta-sat") ) { 
+		} else if ( subResult.satisfiability.equals("sat") ) { 
 			// The valuation is then a counterexample
-			// but with dReal we can't be sure
+			// but with z3 we can't be sure
 			result = new LogicSolverResult("unknown", "unknown", subResult.valuation );
 		} else {
 			//gibberish, I guess
@@ -144,26 +117,30 @@ public class dRealInterface extends LogicSolverInterface {
 	}
 	
 
-// Runs dReal on a query file, written by some other function The point of this function is to allow code reuse of 
-// the piece that actually invokes dReal
+// Runs z3 on a query file, written by some other function The point of this function is to allow code reuse of 
+// the piece that actually invokes z3
 	protected LogicSolverResult runQuery( File queryFile ) throws Exception {
 		TextOutput.debug("Entering runQuery( File )");
 		LogicSolverResult result = null;
 
-		String precisionArgument = "--precision " + precision;
-//		ProcessBuilder queryPB = new ProcessBuilder("dReal", "--model", 
+		//String precisionArgument = "--precision " + precision;
+//		ProcessBuilder queryPB = new ProcessBuilder("z3", "--model", 
 //								precisionArgument, queryFile.getAbsolutePath() );
-		ProcessBuilder queryPB = new ProcessBuilder("dReal", "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
+		ProcessBuilder queryPB = new ProcessBuilder("z3", queryFile.getAbsolutePath() );
 		TextOutput.debug( "Commmand is: " + queryPB.command() );
 		queryPB.redirectErrorStream( true );
 		Process queryProcess = queryPB.start();
-		BufferedReader dRealSays = new BufferedReader( new InputStreamReader(queryProcess.getInputStream()) );
+		BufferedReader z3Says = new BufferedReader( new InputStreamReader(queryProcess.getInputStream()) );
 
 		String line;
 		String totalOutput = "";
-		while ( (line = dRealSays.readLine()) != null ) {
+		while ( (line = z3Says.readLine()) != null ) {
 			totalOutput += line;
+			if ( line.contains("unsat")) {
+				
+			}
 			//TextOutput.debug( line );
+			/*
 			if ( line.contains("unsat")) {
 				result = new LogicSolverResult( "unsat", "notvalid", new Valuation() );
 			} else if ( line.contains("delta-sat") ) {
@@ -172,117 +149,44 @@ public class dRealInterface extends LogicSolverInterface {
 			} else if ( line.equals("unknown") ) {
 				result = new LogicSolverResult( "unknown", "unknown", new Valuation() );
 			}
+			*/
 //			} else {
 //				throw new Exception( line );
 //			}
 		}// else {
-//			throw new Exception("dReal returned no output!");
+//			throw new Exception("z3 returned no output!");
 //		}
 		//TextOutput.debug("Solver result is: ");
 		//TextOutput.debug( result.toString() );
 		if ( result == null ) {
-			throw new RuntimeException("dReal returned unexpected output:" + totalOutput );
+			throw new RuntimeException("z3 returned unexpected output:" + totalOutput );
 		}
 
 		//queryFile.delete();
 		return result;
 	}
 
-// Extracts a counterexample from a *.model file produced after running dReal
-	protected Valuation extractModel( File modelFile ) throws Exception {
-		//TextOutput.debug("Extracting CEX...");
-		Valuation model = new Valuation();
-
-		// Wait for file to exist. Yeah, somehow this is a problem sometimes
-		//while ( (!modelFile.exists()) || (modelFile.length() == 0) ) {
-		//	TextOutput.debug("Waiting for CEX file to exist...");
-		//	TextOutput.debug("(yeah, sometimes this happens, somehow)");
-		//	try {
-                //                    Thread.sleep(3000);                 //1000 milliseconds is one second.
-                //        } catch(InterruptedException ex) {
-                //                    Thread.currentThread().interrupt();
-                //        }
-		//}
-		
-		TextOutput.debug("Pausing to let dReal finish writing out the CEX file...: " + modelFile.toString() );
-		try {
-                              Thread.sleep(100);                 //1000 milliseconds is one second.
-                } catch(InterruptedException ex) {
-                              Thread.currentThread().interrupt();
-                }
-			
-
-		Scanner modelReader = new Scanner( modelFile );
-
-		modelReader.nextLine();
-		//TextOutput.debug("Discarding preamble: " + modelReader.readLine() );
-		String line;
-		while( modelReader.hasNextLine() ) {
-			line = modelReader.nextLine();
-
-			if (!( line.contains(",")) ) {
-				//TextOutput.debug("Skipping strange line: " + line);
-				continue;
-			}
-
-			
-			//TextOutput.debug("CEX line is: " + line);
-			line = line.trim();
-			String[] tokens = line.split("\\s+");
-
-			RealVariable variable = new RealVariable( tokens[0] );
-			String lowerBound = tokens[2].replace("[","").replace(",","").replace("(","").replace(";","");
-			String upperBound = tokens[3].replace("]","").replace(")","").replace(";","");
-			//TextOutput.debug("lower bound: " + lowerBound );
-			//TextOutput.debug("upper bound: " + upperBound );
-
-			if ( (lowerBound.equals("-inf") && upperBound.equals("inf")) ||
-					((lowerBound.equals("-INFTY") && upperBound.equals("INFTY")) ) ) {
-				model.put(variable, new Real(42));
-
-			} else if ( lowerBound.equals("-inf") || upperBound.equals("-INFTY") ) {
-				model.put(variable, new Real( upperBound ));
-
-			} else if ( upperBound.equals("inf") || upperBound.equals("+INFTY") ) {
-				model.put( variable, new Real( lowerBound ));
-
-			} else {
-				model.put( variable, new Real( (Double.parseDouble(upperBound) 
-									+ Double.parseDouble(lowerBound))/2 ));
-
-			}
-		}
-
-		//TextOutput.debug("CEX Model is: " + model.toString() );
-		//TextOutput.debug("Existence: " + modelFile.exists() );
-		//System.exit(1);
-
-		//modelFile.delete();
-		
-		modelReader.close();
-
-		return model;
-	}
-//
+// Extracts a counterexample from a *.model file produced after running z3
+	
 	public String decorateFilename( String base ) {
 		double randomID = Math.round(Math.random());
 		Date date = new Date();
-		return "drealworkspace/" + base + + date.getTime() + "." + randomID + ".smt2";
+		return "z3workspace/" + base + + date.getTime() + "." + randomID + ".smt2";
 	}
 
 //
 	public String generateFilename() {
 		double randomID = Math.round(Math.random());
 		Date date = new Date();
-		return "drealworkspace/query." + date.getTime() + "." + randomID + ".smt2";
+		return "z3workspace/query." + date.getTime() + "." + randomID + ".smt2";
 	}
 
 // Writes a query file for a logical formula.  Note that it does not negate the formula, it just writes out
 // a satisfiability query for the formula that it is given
 	protected File writeQueryFile( String filename, List<dLFormula> theseFormulas, String comment ) 
 			throws Exception {
-		String queryString = "(set-logic QF_NRA)\n\n";
-
+		//String queryString = "(set-logic QF_NRA)\n\n";
+		String queryString="";
 		
 		// First extract the list of all the variables that occur in any of the formulas
 		Iterator<dLFormula> formulaIterator = theseFormulas.iterator();
@@ -296,14 +200,8 @@ public class dRealInterface extends LogicSolverInterface {
 		//RealVariable thisVariable;
 		Iterator<RealVariable> variableIterator = variables.iterator();
 		while ( variableIterator.hasNext() ) {
-			queryString = queryString + "(declare-fun " + variableIterator.next() + " () Real )\n";
+			queryString = queryString + "(declare-const " + variableIterator.next() + "  Real )\n";
 		}
-		//if ( variables.isEmpty() ) {
-		//	RealVariable x = new RealVariable("x");
-		//	queryString = queryString + "(declare-fun " + x.todRealString() + " () Real )\n";
-		//}
-
-
 
 		// Assert each formula
 		formulaIterator = theseFormulas.iterator();
@@ -325,7 +223,7 @@ public class dRealInterface extends LogicSolverInterface {
 		}
 
 		// Print the little thing that needs to go at the end
-		queryString = queryString + "\n(check-sat)\n(exit)\n";
+		queryString = queryString + "\n(check-sat)\n (get-model)\n";
 
 		// Now generate the actual file
 		PrintWriter queryFile = new PrintWriter( filename );
