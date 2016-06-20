@@ -48,8 +48,6 @@ public class z3Interface extends LogicSolverInterface {
 		// Try to find a counterexample
 		//LogicSolverResult subResult = findInstance( filename, theseFormulas, comment );
 		LogicSolverResult subResult = findInstance( theseFormulas);
-
-		//TextOutput.debug(subResult);
 		// We queried the negation, so invert the result
 		LogicSolverResult result;
 		if ( subResult.satisfiability.equals("unsat") ) {
@@ -57,8 +55,7 @@ public class z3Interface extends LogicSolverInterface {
 			TextOutput.debug("Your formula is valid");
 		} else if ( subResult.satisfiability.equals("sat") ) { 
 			// The valuation is then a counterexample
-			// but with z3 we can't be sure
-			result = new LogicSolverResult("unknown", "unknown", subResult.valuation );
+			result = new LogicSolverResult("unknown", "invalid", subResult.valuation );
 		} else {
 			//gibberish, I guess
 			result = new LogicSolverResult("unknown", "unknown", new Valuation() );
@@ -123,9 +120,6 @@ public class z3Interface extends LogicSolverInterface {
 		TextOutput.debug("Entering runQuery( File )");
 		LogicSolverResult result = null;
 
-		//String precisionArgument = "--precision " + precision;
-//		ProcessBuilder queryPB = new ProcessBuilder("z3", "--model", 
-//								precisionArgument, queryFile.getAbsolutePath() );
 		ProcessBuilder queryPB = new ProcessBuilder("z3", queryFile.getAbsolutePath() );
 		TextOutput.debug( "Commmand is: " + queryPB.command() );
 		queryPB.redirectErrorStream( true );
@@ -136,37 +130,85 @@ public class z3Interface extends LogicSolverInterface {
 		String totalOutput = "";
 		while ( (line = z3Says.readLine()) != null ) {
 			totalOutput += line;
-			if ( line.contains("unsat")) {
-				
-			}
-			//TextOutput.debug( line );
-			/*
+			
 			if ( line.contains("unsat")) {
 				result = new LogicSolverResult( "unsat", "notvalid", new Valuation() );
-			} else if ( line.contains("delta-sat") ) {
-				Valuation cex = extractModel( new File( queryFile.getAbsolutePath() + ".model") );
-				result = new LogicSolverResult( "delta-sat", "unknown", cex );
-			} else if ( line.equals("unknown") ) {
+			} else if ( line.contains("sat") ) {
+				while ( (line = z3Says.readLine()) != null ) {
+					totalOutput += line;
+				}
+				Valuation cex = extractModel( totalOutput );
+				result = new LogicSolverResult( "sat", "unknown", cex );
+			} else {
 				result = new LogicSolverResult( "unknown", "unknown", new Valuation() );
+				throw new RuntimeException("z3 returned unexpected output:" + totalOutput );
 			}
-			*/
-//			} else {
-//				throw new Exception( line );
-//			}
-		}// else {
-//			throw new Exception("z3 returned no output!");
-//		}
-		//TextOutput.debug("Solver result is: ");
-		//TextOutput.debug( result.toString() );
-		if ( result == null ) {
-			throw new RuntimeException("z3 returned unexpected output:" + totalOutput );
-		}
+			break;
 
+		}
+		
 		//queryFile.delete();
 		return result;
 	}
 
 // Extracts a counterexample from a *.model file produced after running z3
+	public Valuation extractModel( String z3Says ) {
+		Valuation cex = new Valuation();
+		Scanner stringstore=new Scanner(z3Says).useDelimiter(" ");
+		
+		while(stringstore.hasNext()){
+			//TextOutput.info(stringstore.next());
+			if(stringstore.hasNext("\\(define-fun")){
+				stringstore.next();
+				RealVariable variable=new RealVariable(stringstore.next());
+				stringstore.next();
+				stringstore.next();
+				stringstore.next();
+				stringstore.next();
+				stringstore.next();
+				String tempreal="("+stringstore.next();
+				if(!(tempreal.contains(")")))
+				{
+					tempreal=tempreal+stringstore.next();
+				}
+				else
+				{
+				
+				}
+				tempreal=tempreal.replace("(","");
+				tempreal=tempreal.replace(")","");
+				TextOutput.info(tempreal);
+				Real real=new Real(Double.parseDouble(tempreal));
+				cex.put( variable, real );
+
+				
+			}
+			else {
+				stringstore.next();
+
+			}
+			}
+		
+		stringstore.close();
+		/*
+		Scanner stringstoredummy=new Scanner(z3Says).useDelimiter(" ");
+		while(stringstoredummy.hasNext()){
+			TextOutput.info(stringstoredummy.next());
+		}
+	/*
+		
+
+/*
+		while ( ) {
+			
+			RealVariable variable = ;
+			Real real = ;
+			cex.put( variable, real );
+			
+		}
+		*/
+		return cex;
+	}
 	
 	public String decorateFilename( String base ) {
 		double randomID = Math.round(Math.random());
@@ -223,7 +265,7 @@ public class z3Interface extends LogicSolverInterface {
 		}
 
 		// Print the little thing that needs to go at the end
-		queryString = queryString + "\n(check-sat)\n (get-model)\n";
+		queryString = queryString + "\n(check-sat)\n (set-option :pp.decimal true) \n (get-model)\n";
 
 		// Now generate the actual file
 		PrintWriter queryFile = new PrintWriter( filename );
