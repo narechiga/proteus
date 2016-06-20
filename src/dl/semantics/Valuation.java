@@ -6,8 +6,11 @@
  */
 package dl.semantics;
 
+import java.io.StringReader;
 import java.util.*;
 
+import dl.parser.dLLexer;
+import dl.parser.dLParser;
 import dl.syntax.*;
 
 public class Valuation {
@@ -27,7 +30,20 @@ public class Valuation {
 		valuation.put( variable, number );
 	}
 
+	public static Valuation parseValuation( String string ) {
+		StringReader thisReader = new StringReader( string );
+		dLLexer thisdLLexer = new dLLexer( thisReader );
+		dLParser thisParser = new dLParser( thisdLLexer );
 
+		try {
+			thisParser.parse();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("Problem parsing: " + string );
+		}
+		return thisParser.valuation;
+	}
+	
 	public Set<RealVariable> keySet() {
 		return valuation.keySet();
 	}

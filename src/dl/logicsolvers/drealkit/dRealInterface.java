@@ -67,6 +67,7 @@ public class dRealInterface extends LogicSolverInterface {
 
 // "checkValidity" family of methods -- try to find a counterexample
 	public LogicSolverResult checkValidity( String filename, dLFormula thisFormula, String comment ) throws Exception {
+		TextOutput.debug("Entering checkValidity( string, dlformula, string) ");
 		
 		dLFormula negatedFormula = thisFormula.negate();
 		ArrayList<dLFormula> theseFormulas = negatedFormula.splitOnAnds();
@@ -75,11 +76,12 @@ public class dRealInterface extends LogicSolverInterface {
 		//LogicSolverResult subResult = findInstance( filename, theseFormulas, comment );
 		LogicSolverResult subResult = findInstance( theseFormulas);
 
-		System.out.println(subResult);
+		//TextOutput.debug(subResult);
 		// We queried the negation, so invert the result
 		LogicSolverResult result;
 		if ( subResult.satisfiability.equals("unsat") ) {
 			result = new LogicSolverResult("sat", "valid", new Valuation() );
+			TextOutput.debug("Your formula is valid");
 		} else if ( subResult.satisfiability.equals("delta-sat") ) { 
 			// The valuation is then a counterexample
 			// but with dReal we can't be sure
@@ -88,16 +90,17 @@ public class dRealInterface extends LogicSolverInterface {
 			//gibberish, I guess
 			result = new LogicSolverResult("unknown", "unknown", new Valuation() );
 		}
-		
+		TextOutput.debug("Returning.");
 		return result;
 	}
 
 // "FindInstance" family of methods
 	public LogicSolverResult findInstance( String filename, List<dLFormula> theseFormulas, String comment )
 					throws Exception {
+		TextOutput.debug("Entering findInstance( String, dLformula, String )");
 		File queryFile = writeQueryFile( filename, theseFormulas, comment );
-		System.out.println("Running query on file: " + filename);
-		System.out.println(runQuery(queryFile));
+		TextOutput.debug("Running query on file: " + filename);
+		//TextOutput.debug(runQuery(queryFile));
 		return runQuery( queryFile );
 	}
 
@@ -144,6 +147,7 @@ public class dRealInterface extends LogicSolverInterface {
 // Runs dReal on a query file, written by some other function The point of this function is to allow code reuse of 
 // the piece that actually invokes dReal
 	protected LogicSolverResult runQuery( File queryFile ) throws Exception {
+		TextOutput.debug("Entering runQuery( File )");
 		LogicSolverResult result = null;
 
 		String precisionArgument = "--precision " + precision;
@@ -159,7 +163,7 @@ public class dRealInterface extends LogicSolverInterface {
 		String totalOutput = "";
 		while ( (line = dRealSays.readLine()) != null ) {
 			totalOutput += line;
-			TextOutput.debug( line );
+			//TextOutput.debug( line );
 			if ( line.contains("unsat")) {
 				result = new LogicSolverResult( "unsat", "notvalid", new Valuation() );
 			} else if ( line.contains("delta-sat") ) {
@@ -174,8 +178,8 @@ public class dRealInterface extends LogicSolverInterface {
 		}// else {
 //			throw new Exception("dReal returned no output!");
 //		}
-		TextOutput.debug("Solver result is: ");
-		TextOutput.debug( result.toString() );
+		//TextOutput.debug("Solver result is: ");
+		//TextOutput.debug( result.toString() );
 		if ( result == null ) {
 			throw new RuntimeException("dReal returned unexpected output:" + totalOutput );
 		}
@@ -186,13 +190,13 @@ public class dRealInterface extends LogicSolverInterface {
 
 // Extracts a counterexample from a *.model file produced after running dReal
 	protected Valuation extractModel( File modelFile ) throws Exception {
-		//System.out.println("Extracting CEX...");
+		//TextOutput.debug("Extracting CEX...");
 		Valuation model = new Valuation();
 
 		// Wait for file to exist. Yeah, somehow this is a problem sometimes
 		//while ( (!modelFile.exists()) || (modelFile.length() == 0) ) {
-		//	System.out.println("Waiting for CEX file to exist...");
-		//	System.out.println("(yeah, sometimes this happens, somehow)");
+		//	TextOutput.debug("Waiting for CEX file to exist...");
+		//	TextOutput.debug("(yeah, sometimes this happens, somehow)");
 		//	try {
                 //                    Thread.sleep(3000);                 //1000 milliseconds is one second.
                 //        } catch(InterruptedException ex) {
@@ -200,7 +204,7 @@ public class dRealInterface extends LogicSolverInterface {
                 //        }
 		//}
 		
-		System.out.println("Pausing to let dReal finish writing out the CEX file...: " + modelFile.toString() );
+		TextOutput.debug("Pausing to let dReal finish writing out the CEX file...: " + modelFile.toString() );
 		try {
                               Thread.sleep(100);                 //1000 milliseconds is one second.
                 } catch(InterruptedException ex) {
@@ -211,26 +215,26 @@ public class dRealInterface extends LogicSolverInterface {
 		Scanner modelReader = new Scanner( modelFile );
 
 		modelReader.nextLine();
-		//System.out.println("Discarding preamble: " + modelReader.readLine() );
+		//TextOutput.debug("Discarding preamble: " + modelReader.readLine() );
 		String line;
 		while( modelReader.hasNextLine() ) {
 			line = modelReader.nextLine();
 
 			if (!( line.contains(",")) ) {
-				//System.out.println("Skipping strange line: " + line);
+				//TextOutput.debug("Skipping strange line: " + line);
 				continue;
 			}
 
 			
-			//System.out.println("CEX line is: " + line);
+			//TextOutput.debug("CEX line is: " + line);
 			line = line.trim();
 			String[] tokens = line.split("\\s+");
 
 			RealVariable variable = new RealVariable( tokens[0] );
 			String lowerBound = tokens[2].replace("[","").replace(",","").replace("(","").replace(";","");
 			String upperBound = tokens[3].replace("]","").replace(")","").replace(";","");
-			//System.out.println("lower bound: " + lowerBound );
-			//System.out.println("upper bound: " + upperBound );
+			//TextOutput.debug("lower bound: " + lowerBound );
+			//TextOutput.debug("upper bound: " + upperBound );
 
 			if ( (lowerBound.equals("-inf") && upperBound.equals("inf")) ||
 					((lowerBound.equals("-INFTY") && upperBound.equals("INFTY")) ) ) {
@@ -249,8 +253,8 @@ public class dRealInterface extends LogicSolverInterface {
 			}
 		}
 
-		//System.out.println("CEX Model is: " + model.toString() );
-		//System.out.println("Existence: " + modelFile.exists() );
+		//TextOutput.debug("CEX Model is: " + model.toString() );
+		//TextOutput.debug("Existence: " + modelFile.exists() );
 		//System.exit(1);
 
 		//modelFile.delete();
@@ -308,9 +312,9 @@ public class dRealInterface extends LogicSolverInterface {
 			thisFormula = formulaIterator.next();
 			if( debug ) {
 				if ( thisFormula == null ) {
-					System.out.println("Got a null formula!");
+					TextOutput.debug("Got a null formula!");
 				} else {
-					System.out.println("Currently printing out formula: " 
+					TextOutput.debug("Currently printing out formula: " 
 						+ thisFormula.toMathematicaString() );
 				}
 			}
@@ -329,7 +333,7 @@ public class dRealInterface extends LogicSolverInterface {
 		queryFile.println( queryString );
 		queryFile.close();
 		if( debug ) {
-			System.out.println("Done writing file, writeQueryFile is returning");
+			TextOutput.debug("Done writing file, writeQueryFile is returning");
 		}
 		return new File( filename );
 
