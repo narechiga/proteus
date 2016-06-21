@@ -55,7 +55,7 @@ public class z3Interface extends LogicSolverInterface {
 			TextOutput.debug("Your formula is valid");
 		} else if ( subResult.satisfiability.equals("sat") ) { 
 			// The valuation is then a counterexample
-			result = new LogicSolverResult("unknown", "invalid", subResult.valuation );
+			result = new LogicSolverResult("unknown", "notvalid", subResult.valuation );
 		} else {
 			//gibberish, I guess
 			result = new LogicSolverResult("unknown", "unknown", new Valuation() );
