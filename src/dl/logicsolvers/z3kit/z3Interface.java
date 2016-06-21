@@ -177,6 +177,8 @@ public class z3Interface extends LogicSolverInterface {
 				}
 				tempreal=tempreal.replace("(","");
 				tempreal=tempreal.replace(")","");
+				tempreal=tempreal.replace("?","");
+
 				TextOutput.info(tempreal);
 				Real real=new Real(Double.parseDouble(tempreal));
 				cex.put( variable, real );
