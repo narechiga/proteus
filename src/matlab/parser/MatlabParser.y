@@ -275,15 +275,14 @@ term:
 			System.err.println( e );
 		}
 	}
-	//| IDENTIFIER LPAREN argumentlist RPAREN {
-	//	try {
-	//		$$ = new FunctionApplicationTerm( new Operator( (String)$1, ((ArrayList<Term>)$3).size(), false ), (ArrayList<Term>)$3 );
-	//	} catch ( Exception e ) {
-	//		System.err.println("Exception at location term:IDENTIFIER LPAREN argumentlist RPAREN");
-	//		System.err.println( e );
-	//	}
-//	}
-
+	| IDENTIFIER LPAREN argumentlist RPAREN {
+		try {
+			$$ = new FunctionApplicationTerm( new Operator( (String)$1, ((ArrayList<Term>)$3).size(), false ), (ArrayList<Term>)$3 );
+		} catch ( Exception e ) {
+			System.err.println("Exception at location term:IDENTIFIER LPAREN argumentlist RPAREN");
+			System.err.println( e );
+		}
+	}
 	| IDENTIFIER { 
 		TextOutput.debug("term: IDENTIFIER");
 		try {
@@ -372,6 +371,33 @@ term:
 			$$ = new SubtractionTerm( new Real(0), (Term)$2 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location term:MINUS term");
+			System.err.println( e );
+		}
+	}
+;
+
+argumentlist:
+	%empty {
+		$$ = null;
+	}
+	| term	{ 
+		try {
+			ArrayList<Term> args = new ArrayList<Term>();
+			args.add( (Term)$1 );
+			$$ = args;
+		} catch ( Exception e ) {
+			System.err.println("Exception at location argumentlist:term");
+			System.err.println( e );
+		}
+	}
+	| argumentlist COMMA term { 
+		try {
+			ArrayList<Term> args = new ArrayList<Term>();
+			args.addAll( (ArrayList<Term>)$1 );
+			args.add( (Term)$3 );
+			$$ = args;
+		} catch ( Exception e ) {
+			System.err.println("Exception at location argumentlist:argumentlist COMMA term");
 			System.err.println( e );
 		}
 	}
