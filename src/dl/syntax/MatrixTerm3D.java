@@ -44,9 +44,13 @@ public class MatrixTerm3D extends GeneralizedTerm {
 		
 		for ( MatrixTerm matrix : matrices ) {
 			returnString = returnString + matrix.toString();
+			returnString += "\n\n";
 		}
 		
 		return returnString;
 	}
 	
+	public String toKeYmaeraString() {
+		return toString();
+	}
 }
