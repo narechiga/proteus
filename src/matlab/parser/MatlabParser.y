@@ -417,18 +417,17 @@ matrix3D: LEFTBRACKET matrixlist RIGHTBRACKET {
 	};
 
 matrixlist: rowlist SEMICOLON EMPTYLINE rowlist {
-		TextOutput.debug("matrixlist: rowlist SEMICOLON EMPTYLINE rowlist ");
-		List<MatrixTerm> list = new ArrayList<>();
-		list.add((MatrixTerm) $1);
-		list.add( (MatrixTerm) $4 );
-            	$$ = new MatrixTerm3D( list ); 
-		TextOutput.debug("New 3D matrix is " + (MatrixTerm3D)$$ );
-		} | matrixlist EMPTYLINE rowlist {
-		TextOutput.debug("matrixlist: matrixlist EMPTYLINE rowlist");
-		MatrixTerm3D matlist = (( MatrixTerm3D) $1);
-                matlist.addAlongZ((MatrixTerm) $3);
-		$$= matlist;
-		
+			TextOutput.debug("matrixlist: rowlist SEMICOLON EMPTYLINE rowlist ");
+			List<MatrixTerm> list = new ArrayList<>();
+			list.add((MatrixTerm) $1);
+			list.add( (MatrixTerm) $4 );
+            		$$ = new MatrixTerm3D( list ); 
+			TextOutput.debug("New 3D matrix is " + (MatrixTerm3D)$$ );
+		} | rowlist SEMICOLON EMPTYLINE matrixlist {
+			TextOutput.debug("matrixlist: matrixlist EMPTYLINE rowlist");
+			MatrixTerm3D matlist = (( MatrixTerm3D) $4);
+                	matlist.prependAlongZ((MatrixTerm) $1);
+			$$= matlist;
 		};
 rowlist: row {
 		TextOutput.debug("rowlist: row");

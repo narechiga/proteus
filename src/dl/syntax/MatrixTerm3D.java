@@ -12,9 +12,9 @@ public class MatrixTerm3D extends GeneralizedTerm {
 		this.matrices= matrix;
 	}
 	
-	public MatrixTerm3D addAlongZ(MatrixTerm term)
+	public MatrixTerm3D prependAlongZ(MatrixTerm term)
 	{
-		this.matrices.add(term);
+		this.matrices.add(0, term);
 		
 		return new MatrixTerm3D(this.matrices); 
 		
