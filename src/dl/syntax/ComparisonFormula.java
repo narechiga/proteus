@@ -14,6 +14,14 @@ public class ComparisonFormula extends dLFormula {
 	boolean debug = false;
 
 // Constructors and field getters
+	public ComparisonFormula( String inequality, String lhs, String rhs ) {
+		this.operator = new Operator( inequality );
+		
+		arguments = new ArrayList<>();
+		arguments.add( Term.parseTerm( lhs ) );
+		arguments.add( Term.parseTerm(rhs));
+	}
+	
 	public ComparisonFormula ( Operator inequality, Term lhs, Term rhs ) {
 		operator = inequality; //
 

@@ -275,15 +275,14 @@ term:
 			System.err.println( e );
 		}
 	}
-	//| IDENTIFIER LPAREN argumentlist RPAREN {
-	//	try {
-	//		$$ = new FunctionApplicationTerm( new Operator( (String)$1, ((ArrayList<Term>)$3).size(), false ), (ArrayList<Term>)$3 );
-	//	} catch ( Exception e ) {
-	//		System.err.println("Exception at location term:IDENTIFIER LPAREN argumentlist RPAREN");
-	//		System.err.println( e );
-	//	}
-//	}
-
+	| IDENTIFIER LPAREN argumentlist RPAREN {
+		try {
+			$$ = new FunctionApplicationTerm( new Operator( (String)$1, ((ArrayList<Term>)$3).size(), false ), (ArrayList<Term>)$3 );
+		} catch ( Exception e ) {
+			System.err.println("Exception at location term:IDENTIFIER LPAREN argumentlist RPAREN");
+			System.err.println( e );
+		}
+	}
 	| IDENTIFIER { 
 		TextOutput.debug("term: IDENTIFIER");
 		try {
@@ -377,6 +376,33 @@ term:
 	}
 ;
 
+argumentlist:
+	%empty {
+		$$ = null;
+	}
+	| term	{ 
+		try {
+			ArrayList<Term> args = new ArrayList<Term>();
+			args.add( (Term)$1 );
+			$$ = args;
+		} catch ( Exception e ) {
+			System.err.println("Exception at location argumentlist:term");
+			System.err.println( e );
+		}
+	}
+	| argumentlist COMMA term { 
+		try {
+			ArrayList<Term> args = new ArrayList<Term>();
+			args.addAll( (ArrayList<Term>)$1 );
+			args.add( (Term)$3 );
+			$$ = args;
+		} catch ( Exception e ) {
+			System.err.println("Exception at location argumentlist:argumentlist COMMA term");
+			System.err.println( e );
+		}
+	}
+;
+
 matrix: LEFTBRACKET rowlist RIGHTBRACKET {
 		TextOutput.debug("matrix: LEFTBRACKET rowlist RIGHTBRACKET");
 		TextOutput.debug("Matrix is: " + (MatrixTerm)$2 );
@@ -391,18 +417,17 @@ matrix3D: LEFTBRACKET matrixlist RIGHTBRACKET {
 	};
 
 matrixlist: rowlist SEMICOLON EMPTYLINE rowlist {
-		TextOutput.debug("matrixlist: rowlist SEMICOLON EMPTYLINE rowlist ");
-		List<MatrixTerm> list = new ArrayList<>();
-		list.add((MatrixTerm) $1);
-		list.add( (MatrixTerm) $4 );
-            	$$ = new MatrixTerm3D( list ); 
-		TextOutput.debug("New 3D matrix is " + (MatrixTerm3D)$$ );
-		} | matrixlist EMPTYLINE rowlist {
-		TextOutput.debug("matrixlist: matrixlist EMPTYLINE rowlist");
-		MatrixTerm3D matlist = (( MatrixTerm3D) $1);
-                matlist.addAlongZ((MatrixTerm) $3);
-		$$= matlist;
-		
+			TextOutput.debug("matrixlist: rowlist SEMICOLON EMPTYLINE rowlist ");
+			List<MatrixTerm> list = new ArrayList<>();
+			list.add((MatrixTerm) $1);
+			list.add( (MatrixTerm) $4 );
+            		$$ = new MatrixTerm3D( list ); 
+			TextOutput.debug("New 3D matrix is " + (MatrixTerm3D)$$ );
+		} | rowlist SEMICOLON EMPTYLINE matrixlist {
+			TextOutput.debug("matrixlist: matrixlist EMPTYLINE rowlist");
+			MatrixTerm3D matlist = (( MatrixTerm3D) $4);
+                	matlist.prependAlongZ((MatrixTerm) $1);
+			$$= matlist;
 		};
 rowlist: row {
 		TextOutput.debug("rowlist: row");
