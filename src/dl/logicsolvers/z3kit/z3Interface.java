@@ -227,6 +227,7 @@ public class z3Interface extends LogicSolverInterface {
 // a satisfiability query for the formula that it is given
 	protected File writeQueryFile( String filename, List<dLFormula> theseFormulas, String comment ) 
 			throws Exception {
+		debug = false; TextOutput.setDebug( false );
 		//String queryString = "(set-logic QF_NRA)\n\n";
 		String queryString="";
 		
@@ -272,6 +273,7 @@ public class z3Interface extends LogicSolverInterface {
 		queryFile.println( timeStampComment( comment ) + "\n" );
 		queryFile.println( queryString );
 		queryFile.close();
+		
 		if( debug ) {
 			TextOutput.debug("Done writing file, writeQueryFile is returning");
 		}
