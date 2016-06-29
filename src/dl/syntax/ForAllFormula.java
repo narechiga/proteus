@@ -21,24 +21,25 @@ public class ForAllFormula extends dLFormula {
 		arguments.add( quantifiedFormula );
 	}
 
-	public ForAllFormula( List<RealVariable> variables, dLFormula formula ) {
+	//public ForAllFormula( List<RealVariable> variables, dLFormula formula ) {
 
-		ForAllFormula quantifiedFormula = null;
+	//	ForAllFormula quantifiedFormula = null;
 
-		if ( variables.isEmpty() ) {
-			if ( formula instanceof ForAllFormula ) {
-				quantifiedFormula = (ForAllFormula)formula;
-			} 
+	//	if ( variables.isEmpty() ) {
+	//		if ( formula instanceof ForAllFormula ) {
+	//			quantifiedFormula = (ForAllFormula)formula;
+	//		} 
 
-		} else {
-			RealVariable thisVariable = variables.remove(0);
-			quantifiedFormula = 
-				new ForAllFormula( thisVariable,
-						new ForAllFormula( variables, formula ) );
-		}
+	//	} else {
+	//		RealVariable thisVariable = variables.remove(0);
+	//		quantifiedFormula = 
+	//			new ForAllFormula( thisVariable,
+	//					new ForAllFormula( variables, formula ) );
+	//	}
 
-		//return quantifiedFormula;		
-	}
+	//	//return quantifiedFormula;		
+	//}
+
 
 	public RealVariable getVariable() {
 		return ((RealVariable)(arguments.get(0))).clone();

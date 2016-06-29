@@ -75,7 +75,7 @@ public abstract class dLFormula extends dLStructure {
                 return subFormulas;
         }           
 
-        public dLFormula universalClosure() {
+ public dLFormula universalClosure() {
         	return universalClosure( new ArrayList<RealVariable>( this.getFreeVariables() ) );
         	//dLFormula uC;
         	//if ( this.isClosedFormula() ) {
