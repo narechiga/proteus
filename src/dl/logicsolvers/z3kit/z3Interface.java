@@ -215,14 +215,18 @@ public class z3Interface extends LogicSolverInterface {
 	public String decorateFilename( String base ) {
 		double randomID = Math.round(Math.random());
 		Date date = new Date();
-		return "z3workspace/" + base + + date.getTime() + "." + randomID + ".smt2";
+		String formatted_date = date.toString();
+		formatted_date=formatted_date.replace(" ","_");
+		return "z3workspace/" + base +  formatted_date + "." + randomID + ".smt2";
 	}
 
 //
 	public String generateFilename() {
 		double randomID = Math.round(Math.random());
 		Date date = new Date();
-		return "z3workspace/query." + date.getTime() + "." + randomID + ".smt2";
+		String formatted_date = date.toString();
+		formatted_date=formatted_date.replace(" ","_");
+		return "z3workspace/query." + formatted_date + "." + randomID + ".smt2";
 	}
 
 // Writes a query file for a logical formula.  Note that it does not negate the formula, it just writes out
