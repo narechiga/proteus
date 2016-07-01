@@ -278,13 +278,14 @@ public abstract class dLStructure {
 
 // Export toString methods
 	public String toString() {
-		if ( (operator != null) && (arguments != null) ) {
-			return "(" + operator.toString() + " " + arguments.toString() + " )";
-		} else if ( (operator != null) && (arguments == null) ) {
-			return operator.toString();
-		} else {
-			return "(uninitialized structure)";
-		}
+		return toKeYmaeraString();
+		//if ( (operator != null) && (arguments != null) ) {
+		//	return "(" + operator.toString() + " " + arguments.toString() + " )";
+		//} else if ( (operator != null) && (arguments == null) ) {
+		//	return operator.toString();
+		//} else {
+		//	return "(uninitialized structure)";
+		//}
 	}
 
 	public String toKeYmaeraString() {

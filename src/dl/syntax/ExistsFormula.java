@@ -67,6 +67,10 @@ public class ExistsFormula extends dLFormula {
 		return "Exists[ " + getVariable().toMathematicaString() + ", " + getFormula().toMathematicaString() +" ]";
 	}
 
+	public String todRealString() {
+		return "(exists ((" + getVariable() + " Real)) (" + getFormula().todRealString() + "))";
+	}
+
 // Assorted convenience functions
 	public boolean isFirstOrder() {
 		return getFormula().isFirstOrder();

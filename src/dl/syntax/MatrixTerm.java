@@ -186,6 +186,9 @@ public class MatrixTerm extends NonScalarTerm {
 		return toMatlabString();
 	}
 
+	public String toKeYmaeraString() {
+		return toString();
+	}
 	
 // Convenience functions
 	public MatrixTerm clone() {
