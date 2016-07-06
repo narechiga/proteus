@@ -92,14 +92,16 @@ public abstract class dLFormula extends dLStructure {
 
 	public dLFormula universalClosure( ArrayList<RealVariable> qvars ) {
 		dLFormula uC = this.clone();
+		//Set<RealVariable> freeVariables = this.getFreeVariables();
 		for ( RealVariable var : qvars ) {
-			if ( this.getFreeVariables().contains( var ) ){
+			//if ( freeVariables.contains( var ) ){
 				uC = new ForAllFormula( var.clone(), uC );
-			}
+				//uC = new ForAllFormula( var.clone(), uC );
+			//}
 		}
 		return uC;
 	}
-
+	
 	public dLFormula existentialClosure( ArrayList<RealVariable> qvars ) {
 		dLFormula eC = this.clone();
 		for ( RealVariable var : qvars ) {

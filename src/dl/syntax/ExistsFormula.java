@@ -68,7 +68,7 @@ public class ExistsFormula extends dLFormula {
 	}
 
 	public String todRealString() {
-		return "(exists ((" + getVariable() + " Real)) (" + getFormula.todRealString() + "))";
+		return "(exists ((" + getVariable() + " Real)) (" + getFormula().todRealString() + "))";
 	}
 
 // Assorted convenience functions

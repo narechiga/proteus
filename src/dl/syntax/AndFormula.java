@@ -8,6 +8,8 @@ package dl.syntax;
 
 import dl.semantics.*;
 
+import interfaces.text.*;
+
 import java.util.*;
 
 
@@ -16,11 +18,16 @@ public class AndFormula extends dLFormula {
 
 // Constructors and field getters
 	public AndFormula ( dLFormula leftArgument, dLFormula rightArgument ) {
+		//TextOutput.debug("building an and!");
 		operator = new Operator("and", 2, true); //
+		//TextOutput.debug("1");
 
 		arguments = new ArrayList<dLStructure>();
+		//TextOutput.debug("2");
 		arguments.add( leftArgument );
+		//TextOutput.debug("3");
 		arguments.add( rightArgument );
+		//TextOutput.debug("and built!");
 	}
 
 	public dLFormula getLHS() {

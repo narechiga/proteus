@@ -85,8 +85,8 @@ public class ForAllFormula extends dLFormula {
 	}
 
 	public String todRealString() {
-		return "(forall ((" + getVariable() + " Real)) (" + getFormula().todRealString() + ") )";
-	}
+		 	return "(forall ((" + getVariable() + " Real)) " + getFormula().todRealString() + " )"; 
+		 }
 
 // Assorted convenience functions
 	public boolean isFirstOrder() {
