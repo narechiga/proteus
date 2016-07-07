@@ -20,7 +20,7 @@ public class Matlab2HybridAutomaton {
 		List<HybridProgram> resets = new ArrayList<>();
 		
 		TextOutput.debug("Program is: " + matlabProgram.toString() );
-		TextOutput.debug("Timing formula is: " + timing.toString() );
+		TextOutput.debug("Timing formula is: " + timing.toKeYmaeraString() );
 
 		if( statements.get(0) instanceof MatlabConditional ){
 			guards = getGuards( ((MatlabConditional)(statements.get(0))) );
@@ -33,12 +33,12 @@ public class Matlab2HybridAutomaton {
 				TextOutput.debug("timing was a true formula");
 				resets = untimedResets;
 			} else {
-				TextOutput.debug("Timing variable: "+timing.toString());
+				TextOutput.debug("Timing variable: "+timing.toKeYmaeraString());
 				Set<RealVariable> timingVariables = timing.getFreeVariables();
 				List<HybridProgram> timingResets = new ArrayList<>();
 				for (RealVariable timingVariable : timingVariables ) {
 					HybridProgram newReset = new ConcreteAssignmentProgram(timingVariable, new Real(0));
-					TextOutput.debug("Adding reset: " + newReset.toString());
+					TextOutput.debug("Adding reset: " + newReset.toKeYmaeraString());
 					timingResets.add( newReset );
 				}
 				HybridProgram timedReset = null;
@@ -89,10 +89,10 @@ public class Matlab2HybridAutomaton {
 			}else{
 				dLFormula tempdl = (dLFormula)guardsIterator.next();
 				HybridProgram hp = (HybridProgram)resetsIterator.next();
-				TextOutput.debug("Adding reset: " + hp.toString());
+				TextOutput.debug("Adding reset: " + hp.toKeYmaeraString());
 				Edge thisEdge = new Edge(tempdl, hp);
 				edges.add( thisEdge );
-				System.out.println("Guard "+tempdl.toString()+" reset: "+hp);
+				System.out.println("Guard "+tempdl.toMathematicaString()+" reset: "+hp);
 				
 			}
 			

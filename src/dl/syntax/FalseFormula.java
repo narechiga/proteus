@@ -16,15 +16,6 @@ public class FalseFormula extends dLFormula {
 // Constructor
 	public FalseFormula () {
 		this.operator = new Operator("false", 0); //
-
-		if ( cachingActive() ) {
-			try {
-			  string = generateString();
-			  prefixString = generateString();
-			} catch ( Exception e ) {
-				// we don't care
-			}
-		}
 	}
 
 // Substitution method
@@ -50,15 +41,15 @@ public class FalseFormula extends dLFormula {
 		}
 	}
 // String methods
-	public String generateString (){
+	public String toKeYmaeraString () {
 		return "false";
 	}
 
-	//public String toMathematicaString () {
-	//	return "False";
-	//}
+	public String toMathematicaString () {
+		return "False";
+	}
 	
-	public String toPrefixString () {
+	public String todRealString () {
 		return "false";
 	}
 

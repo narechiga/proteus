@@ -15,15 +15,6 @@ public class TrueFormula extends dLFormula {
 // Constructor
 	public TrueFormula () {
 		this.operator = new Operator("true", 0); //
-
-		if ( cachingActive() ) {
-			try {
-			  string = generateString();
-			  prefixString = generateString();
-			} catch ( Exception e ) {
-				// we don't care
-			}
-		}
 	}
 
 // Substitution method
@@ -50,7 +41,7 @@ public class TrueFormula extends dLFormula {
 	}
 
 // String methods
-	public String generateString () {
+	public String toKeYmaeraString () {
 		return "true";
 	}
 	
@@ -62,7 +53,7 @@ public class TrueFormula extends dLFormula {
 		return "True";
 	}
 
-	public String toPrefixString () {
+	public String todRealString () {
 		return "true";
 	}
 

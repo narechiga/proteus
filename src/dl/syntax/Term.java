@@ -19,30 +19,12 @@ public class Term extends GeneralizedTerm {
 		this.operator = operator;
 		this.arguments = new ArrayList<dLStructure>();
 		this.arguments.addAll( subTerms );
-
-		if ( cachingActive() ) {
-			try {
-			  string = generateString();
-			  prefixString = generateString();
-			} catch ( Exception e ) {
-				// we don't care
-			}
-		}
 	}
 
 	protected Term ( String operator, ArrayList<Term> subTerms ) {
 		this.operator = new Operator( operator );
 		this.arguments = new ArrayList<dLStructure>();
 		this.arguments.addAll( subTerms );
-
-		if ( cachingActive() ) {
-			try {
-			  string = generateString();
-			  prefixString = generateString();
-			} catch ( Exception e ) {
-				// we don't care
-			}
-		}
 	}
 
 	// Redundant, already provided by dLStructure
@@ -125,19 +107,19 @@ public class Term extends GeneralizedTerm {
 	}
 
 	public String toString() {
-		return toString();
+		return toKeYmaeraString();
 	}
 	
-	public String generateString() {
+	public String toKeYmaeraString() {
 
 		String returnString = "";
 
 		if ( operator.infix == false ) {
-			returnString = returnString + operator.toString() + "(";
+			returnString = returnString + operator.toKeYmaeraString() + "(";
 			if ( arguments != null ) {
 				Iterator<dLStructure> childIterator = arguments.iterator();
 				while ( childIterator.hasNext() ) {
-					returnString = returnString + " " + childIterator.next().toString();
+					returnString = returnString + " " + childIterator.next().toKeYmaeraString();
 				}
 			}
 			returnString = returnString + " )";
@@ -146,10 +128,10 @@ public class Term extends GeneralizedTerm {
 			if ( arguments != null ) {
 				Iterator<dLStructure> childIterator = arguments.iterator();
 				while ( childIterator.hasNext() ) {
-					returnString = returnString + childIterator.next().toString();
+					returnString = returnString + childIterator.next().toKeYmaeraString();
 
 					if ( childIterator.hasNext() ) {
-						returnString = returnString + " " + operator.toString() + " ";
+						returnString = returnString + " " + operator.toKeYmaeraString() + " ";
 					}
 				}
 			}
@@ -160,23 +142,23 @@ public class Term extends GeneralizedTerm {
 	}
 
 	public String toMathematicaString() {
-		return toString();
+		return toKeYmaeraString();
 	}
 
 	public String toMatlabString() {
-		return toString();
+		return toKeYmaeraString();
 	}
 
 	public String toManticoreString() {
-		return toString();
+		return toKeYmaeraString();
 	}
 
-	public String toPrefixString() {
-		String returnString = "(" + this.operator.toString() ;
+	public String todRealString() {
+		String returnString = "(" + this.operator.todRealString() ;
 
 		Iterator<Term> subTermIterator = getSubTerms().iterator();
 		while ( subTermIterator.hasNext() ) {
-			returnString = returnString + " " + subTermIterator.next().toPrefixString();
+			returnString = returnString + " " + subTermIterator.next().todRealString();
 		}
 		returnString = returnString + " )";
 

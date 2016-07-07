@@ -71,12 +71,12 @@ public class ExplicitODE extends dLStructure {
 		return toString();
 	}
 
-	public String generateString () {
+	public String toKeYmaeraString () {
 		String returnString = "";
 
 		returnString = returnString 
-				+ getLHS().toString() 
-				+ "' = " + getRHS().toString();
+				+ getLHS().toKeYmaeraString() 
+				+ "' = " + getRHS().toKeYmaeraString();
 
 		return returnString;
 	}

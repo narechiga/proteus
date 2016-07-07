@@ -77,12 +77,12 @@ public class SequenceProgram extends HybridProgram {
 	//	}
 	//}
 // String methods
-	public String generateString() {
-		return "( " + arguments.get(0).toString() + " ; " + arguments.get(1).toString() + " )";
+	public String toKeYmaeraString() {
+		return "( " + arguments.get(0).toKeYmaeraString() + " ; " + arguments.get(1).toKeYmaeraString() + " )";
 	}
 
 	public String toManticoreString() {
-		return "( " + arguments.get(0).toString() + " ; " + arguments.get(1).toString() + " )";
+		return "( " + arguments.get(0).toManticoreString() + " ; " + arguments.get(1).toManticoreString() + " )";
 	}
 
 

@@ -80,10 +80,10 @@ public class MatlabConditional extends MatlabProgram {
 		String subProgramString = "";
 		for ( int i = 0; i < conditions.size(); i++ ) {
 			if ( i == 0 ) {
-				returnString = "if ( " + conditions.get(i).toString() + " ) \n";
+				returnString = "if ( " + conditions.get(i).toKeYmaeraString() + " ) \n";
 	
 			} else {
-				returnString += "elseif ( " + conditions.get(i).toString() + " ) \n";
+				returnString += "elseif ( " + conditions.get(i).toKeYmaeraString() + " ) \n";
 			}
 			
 			subProgramString = subPrograms.get(i).toString();

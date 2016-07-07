@@ -47,12 +47,12 @@ public class RepetitionProgram extends HybridProgram {
 	//	}
 
 // String methods
-	public String generateString() {
-		return "(" + getProgram().toString() + "*)";
+	public String toKeYmaeraString() {
+		return "(" + getProgram().toKeYmaeraString() + "*)";
 	}
 
 	public String toManticoreString() {
-		return "(" + getProgram().toString() + "***)";
+		return "(" + getProgram().toManticoreString() + "***)";
 	}
 
 

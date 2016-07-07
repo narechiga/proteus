@@ -19,15 +19,6 @@ public class ImpliesFormula extends dLFormula {
 		arguments = new ArrayList<dLStructure>();
 		arguments.add( antecedent );
 		arguments.add( succedent );
-
-		if ( cachingActive() ) {
-			try {
-			  string = generateString();
-			  prefixString = generateString();
-			} catch ( Exception e ) {
-				// we don't care
-			}
-		}
 	}
 
 	public dLFormula getAntecedent() {
@@ -65,21 +56,21 @@ public class ImpliesFormula extends dLFormula {
 	}
 
 // String methods
-	public String generateString () {
-		return "(" + getAntecedent().toString() + " -> " + getSuccedent().toString() + ")";
+	public String toKeYmaeraString () {
+		return "(" + getAntecedent().toKeYmaeraString() + " -> " + getSuccedent().toKeYmaeraString() + ")";
 	}
 
-	//public String toMathematicaString () {
-	//	return "Implies[ " + getAntecedent().toMathematicaString() 
-	//			+ ", " + getSuccedent().toMathematicaString() + " ]";
-	//}
+	public String toMathematicaString () {
+		return "Implies[ " + getAntecedent().toMathematicaString() 
+				+ ", " + getSuccedent().toMathematicaString() + " ]";
+	}
 
-	//public String toManticoreString () {
-	//	return "(" + getAntecedent().toManticoreString() + " -> " + getSuccedent().toManticoreString() + ")";
-	//}
+	public String toManticoreString () {
+		return "(" + getAntecedent().toManticoreString() + " -> " + getSuccedent().toManticoreString() + ")";
+	}
 
-	public String generatePrefixString() {
-		return "(=> " + getAntecedent().toPrefixString() + " " + getSuccedent().toPrefixString() + ")\n";
+	public String todRealString() {
+		return "(=> " + getAntecedent().todRealString() + " " + getSuccedent().todRealString() + ")\n";
 		//OrFormula impliesAsOr = new OrFormula( getAntecedent().negate(), getSuccedent() );
 		//return impliesAsOr.todRealString();
 	}

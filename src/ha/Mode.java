@@ -19,7 +19,7 @@ public class Mode {
 
 		if ( !invariant.isStatic() ) {
 			throw new RuntimeException("Cannot use dynamic invariant: "
-				+ invariant.toString() );
+				+ invariant.toKeYmaeraString() );
 		}
 
 		this.odes = odes;

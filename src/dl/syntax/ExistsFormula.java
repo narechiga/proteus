@@ -19,15 +19,6 @@ public class ExistsFormula extends dLFormula {
 		arguments = new ArrayList<dLStructure>();
 		arguments.add( quantifiedVariable );
 		arguments.add( quantifiedFormula );
-
-		if ( cachingActive() ) {
-			try {
-			  string = generateString();
-			  prefixString = generateString();
-			} catch ( Exception e ) {
-				// we don't care
-			}
-		}
 	}
 
 	public RealVariable getVariable() {
@@ -64,20 +55,20 @@ public class ExistsFormula extends dLFormula {
 	}
 
 // String methods
-	public String generateString () {
-		return "(\\exists R " + getVariable().toString() + "; " + getFormula().toString() +" )";
+	public String toKeYmaeraString () {
+		return "(\\exists R " + getVariable().toKeYmaeraString() + "; " + getFormula().toKeYmaeraString() +" )";
 	}
 
-	//public String toManticoreString () {
-	//	return "(\\exists R " + getVariable().toManticoreString() + "; " + getFormula().toManticoreString() +" )";
-	//}
+	public String toManticoreString () {
+		return "(\\exists R " + getVariable().toManticoreString() + "; " + getFormula().toManticoreString() +" )";
+	}
 
-	//public String toMathematicaString () {
-	//	return "Exists[ " + getVariable().toMathematicaString() + ", " + getFormula().toMathematicaString() +" ]";
-	//}
+	public String toMathematicaString () {
+		return "Exists[ " + getVariable().toMathematicaString() + ", " + getFormula().toMathematicaString() +" ]";
+	}
 
-	public String generatePrefixString () {
-		return "(exists ((" + getVariable() + " Real)) (" + getFormula().toPrefixString() + "))";
+	public String todRealString() {
+		return "(exists ((" + getVariable() + " Real)) (" + getFormula().todRealString() + "))";
 	}
 
 // Assorted convenience functions

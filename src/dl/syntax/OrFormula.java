@@ -19,15 +19,6 @@ public class OrFormula extends dLFormula {
 		arguments = new ArrayList<dLStructure>();
 		arguments.add( leftArgument );
 		arguments.add( rightArgument );
-
-		if ( cachingActive() ) {
-			try {
-			  string = generateString();
-			  prefixString = generateString();
-			} catch ( Exception e ) {
-				// we don't care
-			}
-		}
 	}
 
 	public dLFormula getLHS() {
@@ -55,20 +46,20 @@ public class OrFormula extends dLFormula {
 	}
 
 // String methods
-	public String generateString () {
-		return "( " + getLHS().toString() + " | " + getRHS().toString() + " )";
+	public String toKeYmaeraString () {
+		return "( " + getLHS().toKeYmaeraString() + " | " + getRHS().toKeYmaeraString() + " )";
 	}
 
-	//public String toManticoreString () {
-	//	return "( " + getLHS().toManticoreString() + " | " + getRHS().toManticoreString() + " )";
-	//}
+	public String toManticoreString () {
+		return "( " + getLHS().toManticoreString() + " | " + getRHS().toManticoreString() + " )";
+	}
 
-	//public String toMathematicaString () {
-	//	return "( " + getLHS().toMathematicaString() + " || " + getRHS().toMathematicaString() + " )";
-	//}
+	public String toMathematicaString () {
+		return "( " + getLHS().toMathematicaString() + " || " + getRHS().toMathematicaString() + " )";
+	}
 
-	public String toPrefixString() {
-		return "(or " + getLHS().toPrefixString() + " " + getRHS().toPrefixString() + " )";
+	public String todRealString() {
+		return "(or " + getLHS().todRealString() + " " + getRHS().todRealString() + " )";
 	}
 
 // Assorted convenience functions

@@ -19,15 +19,6 @@ public class ForAllFormula extends dLFormula {
 		arguments = new ArrayList<dLStructure>();
 		arguments.add( quantifiedVariable );
 		arguments.add( quantifiedFormula );
-
-		if ( cachingActive() ) {
-			try {
-			  string = generateString();
-			  prefixString = generateString();
-			} catch ( Exception e ) {
-				// we don't care
-			}
-		}
 	}
 
 	//public ForAllFormula( List<RealVariable> variables, dLFormula formula ) {
@@ -81,20 +72,20 @@ public class ForAllFormula extends dLFormula {
 	}
 
 // String methods
-	public String generateString () {
-		return "(\\forall R " + getVariable().toString() + "; " + getFormula().toString() +" )";
+	public String toKeYmaeraString () {
+		return "(\\forall R " + getVariable().toKeYmaeraString() + "; " + getFormula().toKeYmaeraString() +" )";
 	}
 
-	//public String toManticoreString () {
-	//	return "(\\forall R " + getVariable().toManticoreString() + "; " + getFormula().toManticoreString() +" )";
-	//}
+	public String toManticoreString () {
+		return "(\\forall R " + getVariable().toManticoreString() + "; " + getFormula().toManticoreString() +" )";
+	}
 
-	//public String toMathematicaString () {
-	//	return "ForAll[ " + getVariable().toMathematicaString() + ", " + getFormula().toMathematicaString() +" ]";
-	//}
+	public String toMathematicaString () {
+		return "ForAll[ " + getVariable().toMathematicaString() + ", " + getFormula().toMathematicaString() +" ]";
+	}
 
-	public String generatePrefixString () {
-		 	return "(forall ((" + getVariable() + " Real)) " + getFormula().toPrefixString() + " )"; 
+	public String todRealString() {
+		 	return "(forall ((" + getVariable() + " Real)) " + getFormula().todRealString() + " )"; 
 		 }
 
 // Assorted convenience functions

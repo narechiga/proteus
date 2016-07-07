@@ -671,7 +671,7 @@ public class MatlabParser extends AbstractMatlabParser
     { 
 		try {
 			yyval = new ComparisonFormula( new Operator( (String)((yystack.valueAt (3-(2)))), 2, true ), (Term)((yystack.valueAt (3-(1)))), (Term)((yystack.valueAt (3-(3)))) ) ;
-			TextOutput.debug("\nterm INEQUALITY term"+yyval.toString()+((dLStructure)yyval).toPrefixString());
+			TextOutput.debug("\nterm INEQUALITY term"+yyval.toString()+((dLStructure)yyval).todRealString());
 		} catch ( Exception e ) {
 			System.err.println("Exception at location comparison:term INEQUALITY term");
 			System.err.println( e );

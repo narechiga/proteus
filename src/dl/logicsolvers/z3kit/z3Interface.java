@@ -81,7 +81,7 @@ public class z3Interface extends LogicSolverInterface {
 		int counter = 1;
 		while ( formulaIterator.hasNext() ) {
 			comment = comment + "\n;; Formula " + counter + ":\n";
-			comment = comment + ";; " + formulaIterator.next().toString();
+			comment = comment + ";; " + formulaIterator.next().toMathematicaString();
 			counter = counter + 1;
 		}
 
@@ -94,7 +94,7 @@ public class z3Interface extends LogicSolverInterface {
 		int counter = 1;
 		while ( formulaIterator.hasNext() ) {
 			comment = comment + ";; Formula " + counter + ":\n";
-			comment = comment + ";; " + formulaIterator.next().toString();
+			comment = comment + ";; " + formulaIterator.next().toMathematicaString();
 			counter = counter + 1;
 		}
 
@@ -260,12 +260,12 @@ public class z3Interface extends LogicSolverInterface {
 					TextOutput.debug("Got a null formula!");
 				} else {
 					TextOutput.debug("Currently printing out formula: " 
-						+ thisFormula.toString() );
+						+ thisFormula.toMathematicaString() );
 				}
 			}
 
-			queryString = queryString + "\n;; Formula is (" + thisFormula.toString() +")\n";
-			queryString = queryString + "(assert " + thisFormula.toPrefixString() + " )\n";
+			queryString = queryString + "\n;; Formula is (" + thisFormula.toMathematicaString() +")\n";
+			queryString = queryString + "(assert " + thisFormula.todRealString() + " )\n";
 
 		}
 

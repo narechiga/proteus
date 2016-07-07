@@ -115,11 +115,11 @@ public class UpdateRule {
 
 			if ( varIterator.hasNext() ) {
 				returnString = returnString + thisVariable 
-					+ " :=>> " +  getRule( thisVariable ).toString()
+					+ " :=>> " +  getRule( thisVariable ).toMathematicaString()
 					+ ", ";
 			} else {
 				returnString = returnString + thisVariable 
-					+ " :=>> " +  getRule( thisVariable ).toString();
+					+ " :=>> " +  getRule( thisVariable ).toMathematicaString();
 			}
 
 
@@ -130,7 +130,7 @@ public class UpdateRule {
 
 		Iterator<dLFormula> constraintIterator = additionalConstraints.iterator();
 		while ( constraintIterator.hasNext() ) {
-			returnString = returnString +  constraintIterator.next().toString() + "; ";
+			returnString = returnString +  constraintIterator.next().toMathematicaString() + "; ";
 		}
 		return returnString;
 	}

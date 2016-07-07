@@ -434,7 +434,7 @@ public class dLParser extends AbstractdLParser
     /* "dLParser.y":130  */ /* lalr1.java:489  */
     {
 		try {
-			yyval = ((Term)((yystack.valueAt (1-(1))))).toString();
+			yyval = ((Term)((yystack.valueAt (1-(1))))).toKeYmaeraString();
 			parsedStructure = (Term)((yystack.valueAt (1-(1))));
 		} catch ( Exception e ) {
 			System.err.println("Exception at location input:term");

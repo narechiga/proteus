@@ -47,13 +47,13 @@ public class TestProgram extends DiscreteProgram {
 	//}
 
 // String methods
-	public String generateString() {
-		return "(? " + getFormula().toString() + " )";
+	public String toKeYmaeraString() {
+		return "(? " + getFormula().toKeYmaeraString() + " )";
 	}
 
-//	public String toManticoreString() {
-//		return "(? " + getFormula().toManticoreString() + " )";
-//	}
+	public String toManticoreString() {
+		return "(? " + getFormula().toManticoreString() + " )";
+	}
 
 // Administrative
 	public boolean isPurelyDiscrete() {

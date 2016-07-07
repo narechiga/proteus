@@ -6,6 +6,7 @@
  */
 package dl.syntax;
 
+import dl.semantics.*;
 import dl.parser.*;
 
 import java.util.*;
@@ -16,10 +17,19 @@ public abstract class dLStructure {
 	public boolean debug = true;
 	public Operator operator;
 	public ArrayList<dLStructure> arguments;
-	
-	private static boolean caching = false;
-	String string = null; // when caching is active, this is not null
-	String prefixString = null; // when caching is active, this is not null
+
+        // COLORS! OMG COLORS!
+        public static final String ANSI_RESET = "\u001B[0m";
+        public static final String ANSI_BLACK = "\u001B[30m";
+        public static final String ANSI_RED = "\u001B[31m";
+        public static final String ANSI_GREEN = "\u001B[32m";
+        public static final String ANSI_YELLOW = "\u001B[33m";
+        public static final String ANSI_BLUE = "\u001B[34m";
+        public static final String ANSI_PURPLE = "\u001B[35m";
+        public static final String ANSI_CYAN = "\u001B[36m";
+        public static final String ANSI_WHITE = "\u001B[37m";
+        public static final String ANSI_BOLD = "\u001B[1m";
+
 
 // Constructors
 	public dLStructure() {
@@ -267,53 +277,36 @@ public abstract class dLStructure {
 
 
 // Export toString methods
-//	public String toString() {
-//		//if ( (operator != null) && (arguments != null) ) {
-//		//	return "(" + operator.toString() + " " + arguments.toString() + " )";
-//		//} else if ( (operator != null) && (arguments == null) ) {
-//		//	return operator.toString();
-//		//} else {
-//		//	return "(uninitialized structure)";
-//		//}
-//	}
-
-
-	//public String toMathematicaString() {
-	//	throw new RuntimeException("Mathematica string is undefined for this structure: " + this.getClass().toString() );
-	//}
-
-	//public String toManticoreString() {
-	//	throw new RuntimeException("Manticore string is undefined for this structure: " + this.getClass().toString() );
-	//}
-	
 	public String toString() {
-	  if ( cachingActive() ) {
-	    return string;
-	  } else {
-	    return generateString();
-	  }
+		return toKeYmaeraString();
+		//if ( (operator != null) && (arguments != null) ) {
+		//	return "(" + operator.toString() + " " + arguments.toString() + " )";
+		//} else if ( (operator != null) && (arguments == null) ) {
+		//	return operator.toString();
+		//} else {
+		//	return "(uninitialized structure)";
+		//}
 	}
 
-public String toPrefixString() {
-	  if ( cachingActive() ) {
-	    return prefixString;
-	  } else {
-	    return generatePrefixString();
-	  }
+	public String toKeYmaeraString() {
+		throw new RuntimeException("KeYmaera string is undefined for this structure: " + this.getClass().toString() );
 	}
 
-	public String generatePrefixString() {
-		throw new RuntimeException("Prefix string is undefined for this structure: " + this.getClass().toString() );
+	public String toMathematicaString() {
+		throw new RuntimeException("Mathematica string is undefined for this structure: " + this.getClass().toString() );
 	}
 
-	public String generateString() {
-		throw new RuntimeException("String is undefined for this structure: " + this.getClass().toString() );
+	public String toManticoreString() {
+		throw new RuntimeException("Manticore string is undefined for this structure: " + this.getClass().toString() );
 	}
 
-	//public String toMatlabString() {
-	//	throw new RuntimeException("Matlab string is undefined for this structure: " + this.getClass().toString() );
-	//}
-	
+	public String todRealString() {
+		throw new RuntimeException("dReal string is undefined for this structure: " + this.getClass().toString() );
+	}
+
+	public String toMatlabString() {
+		throw new RuntimeException("Matlab string is undefined for this structure: " + this.getClass().toString() );
+	}
 
 	public abstract dLStructure clone();
 
@@ -325,22 +318,5 @@ public String toPrefixString() {
 	public boolean isAVariable() {
 		return false;
 	}
-	
-    public static void setCaching( boolean newCaching ) {
-    	caching = newCaching;
-    }
-    
-    // Caching
-    public static void enableCaching() {
-    	setCaching(true);
-    }
-    
-    public static void disableCaching() {
-    	setCaching(false);
-    }
-    
-    public static boolean cachingActive() {
-    	return caching;
-    }
 
 }

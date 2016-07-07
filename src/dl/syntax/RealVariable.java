@@ -16,15 +16,6 @@ public class RealVariable extends Term {
 	public RealVariable ( String name ) {
 		operator = new Operator( name, 0 );
 		arguments = null;
-
-		if ( cachingActive() ) {
-			try {
-			  string = generateString();
-			  prefixString = generateString();
-			} catch ( Exception e ) {
-				// we don't care
-			}
-		}
 	}
 
 	public boolean isAVariable() {
@@ -66,20 +57,20 @@ public class RealVariable extends Term {
 	}
 
 // String methods
-	public String generateString() {
-		return operator.toString();
+	public String toKeYmaeraString() {
+		return operator.toKeYmaeraString();
 	}
 
-//	public String toManticoreString() {
-//		return operator.toManticoreString();
-//	}
-//
-//	public String toMathematicaString() {
-//		return operator.toMathematicaString();
-//	}
+	public String toManticoreString() {
+		return operator.toManticoreString();
+	}
 
-	public String toPrefixString() {
-		return operator.toString();
+	public String toMathematicaString() {
+		return operator.toMathematicaString();
+	}
+
+	public String todRealString() {
+		return operator.todRealString();
 	}
 
 // Clone

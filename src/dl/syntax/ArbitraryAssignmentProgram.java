@@ -39,13 +39,13 @@ public class ArbitraryAssignmentProgram extends DiscreteProgram {
 	}
 
 // String methods
-	public String generateString() {
-		return "( " + getLHS().toString() + " := * )";
+	public String toKeYmaeraString() {
+		return "( " + getLHS().toKeYmaeraString() + " := * )";
 	}
 	
-	//public String toManticoreString() {
-	//	return "( " + getLHS().toManticoreString() + " := ** )";
-	//}
+	public String toManticoreString() {
+		return "( " + getLHS().toManticoreString() + " := ** )";
+	}
 
 // Administrative
 	public boolean isPurelyDiscrete() {
