@@ -71,8 +71,8 @@ public class Real extends Term {
 	}
 
 // String methods
-	public String toKeYmaeraString() {
-		return this.operator.toKeYmaeraString();
+	public String toString() {
+		return this.operator.toString();
 	}
 
 	public String toManticoreString() {

@@ -55,8 +55,8 @@ public class ExistsFormula extends dLFormula {
 	}
 
 // String methods
-	public String toKeYmaeraString () {
-		return "(\\exists R " + getVariable().toKeYmaeraString() + "; " + getFormula().toKeYmaeraString() +" )";
+	public String toString () {
+		return "(\\exists R " + getVariable().toString() + "; " + getFormula().toString() +" )";
 	}
 
 	public String toManticoreString () {

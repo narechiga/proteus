@@ -129,7 +129,7 @@ input:
 	}
 	| term {
 		try {
-			$$ = ((Term)$1).toKeYmaeraString();
+			$$ = ((Term)$1).toString();
 			parsedStructure = (Term)$1;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location input:term");

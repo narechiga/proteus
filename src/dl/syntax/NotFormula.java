@@ -49,8 +49,8 @@ public class NotFormula extends dLFormula {
 	}
 
 // String methods
-	public String toKeYmaeraString () {
-		return "(! " + getFormula().toKeYmaeraString() + " )";
+	public String toString () {
+		return "(! " + getFormula().toString() + " )";
 	}
 
 	public String toManticoreString () {

@@ -67,9 +67,6 @@ public class Operator {
 		return operator;
 	}
 
-	public String toKeYmaeraString() {
-		return operator;
-	}
 
 	public String toManticoreString() {
 		return operator;

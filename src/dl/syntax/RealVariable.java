@@ -57,8 +57,8 @@ public class RealVariable extends Term {
 	}
 
 // String methods
-	public String toKeYmaeraString() {
-		return operator.toKeYmaeraString();
+	public String toString() {
+		return operator.toString();
 	}
 
 	public String toManticoreString() {

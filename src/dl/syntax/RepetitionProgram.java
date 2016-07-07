@@ -47,8 +47,8 @@ public class RepetitionProgram extends HybridProgram {
 	//	}
 
 // String methods
-	public String toKeYmaeraString() {
-		return "(" + getProgram().toKeYmaeraString() + "*)";
+	public String toString() {
+		return "(" + getProgram().toString() + "*)";
 	}
 
 	public String toManticoreString() {

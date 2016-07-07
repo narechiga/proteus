@@ -47,8 +47,8 @@ public class TestProgram extends DiscreteProgram {
 	//}
 
 // String methods
-	public String toKeYmaeraString() {
-		return "(? " + getFormula().toKeYmaeraString() + " )";
+	public String toString() {
+		return "(? " + getFormula().toString() + " )";
 	}
 
 	public String toManticoreString() {

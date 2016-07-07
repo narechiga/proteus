@@ -41,7 +41,7 @@ public class TrueFormula extends dLFormula {
 	}
 
 // String methods
-	public String toKeYmaeraString () {
+	public String toString () {
 		return "true";
 	}
 	

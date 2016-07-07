@@ -39,8 +39,8 @@ public class ArbitraryAssignmentProgram extends DiscreteProgram {
 	}
 
 // String methods
-	public String toKeYmaeraString() {
-		return "( " + getLHS().toKeYmaeraString() + " := * )";
+	public String toString() {
+		return "( " + getLHS().toString() + " := * )";
 	}
 	
 	public String toManticoreString() {

@@ -58,8 +58,8 @@ public class ChoiceProgram extends HybridProgram {
 	//}
 
 // String methods
-	public String toKeYmaeraString() {
-		return "( " + arguments.get(0).toKeYmaeraString() + " ++ " + arguments.get(1).toKeYmaeraString() + " )";
+	public String toString() {
+		return "( " + arguments.get(0).toString() + " ++ " + arguments.get(1).toString() + " )";
 	}
 
 	public String toManticoreString() {

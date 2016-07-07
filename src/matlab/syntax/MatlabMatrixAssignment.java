@@ -26,7 +26,7 @@ public class MatlabMatrixAssignment extends MatlabProgram {
 	}
 	
 	public String toString() {
-		return lhs.toKeYmaeraString() + " = " + rhs.toKeYmaeraString() + ";\n";
+		return lhs.toString() + " = " + rhs.toString() + ";\n";
 	}
 
 }

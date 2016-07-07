@@ -107,19 +107,15 @@ public class Term extends GeneralizedTerm {
 	}
 
 	public String toString() {
-		return toKeYmaeraString();
-	}
-	
-	public String toKeYmaeraString() {
 
 		String returnString = "";
 
 		if ( operator.infix == false ) {
-			returnString = returnString + operator.toKeYmaeraString() + "(";
+			returnString = returnString + operator.toString() + "(";
 			if ( arguments != null ) {
 				Iterator<dLStructure> childIterator = arguments.iterator();
 				while ( childIterator.hasNext() ) {
-					returnString = returnString + " " + childIterator.next().toKeYmaeraString();
+					returnString = returnString + " " + childIterator.next().toString();
 				}
 			}
 			returnString = returnString + " )";
@@ -128,10 +124,10 @@ public class Term extends GeneralizedTerm {
 			if ( arguments != null ) {
 				Iterator<dLStructure> childIterator = arguments.iterator();
 				while ( childIterator.hasNext() ) {
-					returnString = returnString + childIterator.next().toKeYmaeraString();
+					returnString = returnString + childIterator.next().toString();
 
 					if ( childIterator.hasNext() ) {
-						returnString = returnString + " " + operator.toKeYmaeraString() + " ";
+						returnString = returnString + " " + operator.toString() + " ";
 					}
 				}
 			}
@@ -142,15 +138,15 @@ public class Term extends GeneralizedTerm {
 	}
 
 	public String toMathematicaString() {
-		return toKeYmaeraString();
+		return toString();
 	}
 
 	public String toMatlabString() {
-		return toKeYmaeraString();
+		return toString();
 	}
 
 	public String toManticoreString() {
-		return toKeYmaeraString();
+		return toString();
 	}
 
 	public String todRealString() {

@@ -277,18 +277,8 @@ public abstract class dLStructure {
 
 
 // Export toString methods
-	public String toString() {
-		return toKeYmaeraString();
-		//if ( (operator != null) && (arguments != null) ) {
-		//	return "(" + operator.toString() + " " + arguments.toString() + " )";
-		//} else if ( (operator != null) && (arguments == null) ) {
-		//	return operator.toString();
-		//} else {
-		//	return "(uninitialized structure)";
-		//}
-	}
 
-	public String toKeYmaeraString() {
+	public String toString() {
 		throw new RuntimeException("KeYmaera string is undefined for this structure: " + this.getClass().toString() );
 	}
 

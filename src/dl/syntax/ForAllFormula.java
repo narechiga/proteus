@@ -72,8 +72,8 @@ public class ForAllFormula extends dLFormula {
 	}
 
 // String methods
-	public String toKeYmaeraString () {
-		return "(\\forall R " + getVariable().toKeYmaeraString() + "; " + getFormula().toKeYmaeraString() +" )";
+	public String toString () {
+		return "(\\forall R " + getVariable().toString() + "; " + getFormula().toString() +" )";
 	}
 
 	public String toManticoreString () {

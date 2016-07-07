@@ -48,6 +48,15 @@ public class TextOutput {
 			out.print( m );
 		}
 	}
+	public static void println( String message ) {
+		String[] messages = message.split("\n");
+		
+		for ( String m : messages ) {
+			printNumber();
+			out.print( m );
+			out.println();
+		}
+	}
 	
 	public static void say( String message ) {
 		String[] messages = message.split("\n");

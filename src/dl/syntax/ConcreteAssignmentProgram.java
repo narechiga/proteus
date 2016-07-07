@@ -60,8 +60,8 @@ public class ConcreteAssignmentProgram extends DiscreteProgram {
 	//}
 
 // String methods
-	public String toKeYmaeraString() {
-		return "( " + getLHS().toKeYmaeraString() + " := " + getRHS().toKeYmaeraString() +" )";
+	public String toString() {
+		return "( " + getLHS().toString() + " := " + getRHS().toString() +" )";
 	}
 
 	public String toManticoreString() {

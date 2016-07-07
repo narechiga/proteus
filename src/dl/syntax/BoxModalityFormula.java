@@ -55,8 +55,8 @@ public class BoxModalityFormula extends dLFormula {
 	}
 
 // String methods
-	public String toKeYmaeraString () {
-		return "\\[" + getProgram().toKeYmaeraString() +" \\]" + getFormula().toKeYmaeraString();
+	public String toString () {
+		return "\\[" + getProgram().toString() +" \\]" + getFormula().toString();
 	}
 	
 	public String toManticoreString () {

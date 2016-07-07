@@ -56,8 +56,8 @@ public class ImpliesFormula extends dLFormula {
 	}
 
 // String methods
-	public String toKeYmaeraString () {
-		return "(" + getAntecedent().toKeYmaeraString() + " -> " + getSuccedent().toKeYmaeraString() + ")";
+	public String toString () {
+		return "(" + getAntecedent().toString() + " -> " + getSuccedent().toString() + ")";
 	}
 
 	public String toMathematicaString () {

@@ -86,10 +86,10 @@ public class ComparisonFormula extends dLFormula {
 	}
 
 // String methods
-	public String toKeYmaeraString () {
-		return "( " + getLHS().toKeYmaeraString() 
-				+ " " + getInequality().toKeYmaeraString() + " "
-				+ getRHS().toKeYmaeraString() + " )";
+	public String toString () {
+		return "( " + getLHS().toString() 
+				+ " " + getInequality().toString() + " "
+				+ getRHS().toString() + " )";
 	}
 
 	public String toManticoreString () {
