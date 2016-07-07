@@ -17,7 +17,7 @@ public abstract class dLStructure {
 	public Operator operator;
 	public ArrayList<dLStructure> arguments;
 	
-	private static boolean caching = true;
+	private static boolean caching = false;
 	String string = null; // when caching is active, this is not null
 	String prefixString = null; // when caching is active, this is not null
 
