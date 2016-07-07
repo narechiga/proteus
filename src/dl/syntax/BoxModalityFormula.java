@@ -19,6 +19,15 @@ public class BoxModalityFormula extends dLFormula {
 		arguments = new ArrayList<dLStructure>();
 		arguments.add( program );
 		arguments.add( formula );
+
+		if ( cachingActive() ) {
+			try {
+			  string = generateString();
+			  prefixString = generateString();
+			} catch ( Exception e ) {
+				// we don't care
+			}
+		}
 	}
 
 	public HybridProgram getProgram() {
@@ -55,13 +64,13 @@ public class BoxModalityFormula extends dLFormula {
 	}
 
 // String methods
-	public String toKeYmaeraString () {
-		return "\\[" + getProgram().toKeYmaeraString() +" \\]" + getFormula().toKeYmaeraString();
+	public String generateString () {
+		return "\\[" + getProgram().toString() +" \\]" + getFormula().toString();
 	}
 	
-	public String toManticoreString () {
-		return "\\[" + getProgram().toManticoreString() +" \\]" + getFormula().toManticoreString();
-	}
+//	public String toManticoreString () {
+//		return "\\[" + getProgram().toManticoreString() +" \\]" + getFormula().toManticoreString();
+//	}
 
 
 // Assorted convenience functions

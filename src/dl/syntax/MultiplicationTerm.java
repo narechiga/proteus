@@ -177,7 +177,7 @@ public class MultiplicationTerm extends Term {
 
 		if ( multiplicationFullyDistributed( this ) ) {
 			returnTerm = this;
-			//System.out.println("Done with: " + this.toKeYmaeraString() );
+			//System.out.println("Done with: " + this.toString() );
 
 		} else if ( !multiplicationFullyDistributed( this.getLeftFactor() ) ) {
 			Term distributedLeft = getLeftFactor().distributeMultiplication();
@@ -204,7 +204,7 @@ public class MultiplicationTerm extends Term {
 									getRightFactor(),
 									getLeftFactor() );
 
-				//System.out.println("Rotated product is: " + rotatedTerm.toKeYmaeraString() );
+				//System.out.println("Rotated product is: " + rotatedTerm.toString() );
 
 				returnTerm = rotatedTerm.distributeMultiplication();
 

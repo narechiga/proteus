@@ -100,12 +100,12 @@ public class HybridAutomaton {
 			              + formula2dReach( thisFormula.getRHS() ) + " )";
 			
 		} else if ( formula.isPropositionalPrimitive() ) {
-			return "( " + formula.toKeYmaeraString() + " )"; 
+			return "( " + formula.toString() + " )"; 
 		
 		} else {
 			System.out.println("WARNING: This formula type might"
 		                    + "be unsoppurted by dReach");
-			return "( " + formula.toKeYmaeraString() + " )";
+			return "( " + formula.toString() + " )";
 		}     
 	}
 	
@@ -114,7 +114,7 @@ public class HybridAutomaton {
 		if ( program instanceof SequenceProgram ) {
 			returnString = "(and " + program2dReach( ((SequenceProgram)program).getLHS() ) + " " + program2dReach( ((SequenceProgram)program).getRHS() ) + ")";
 		} else if ( program instanceof ConcreteAssignmentProgram ) {
-			returnString = program.toKeYmaeraString().replace(" :=", "' =");
+			returnString = program.toString().replace(" :=", "' =");
 		} else {
 			throw new RuntimeException("Sorry, that program is not supported");
 		}
@@ -134,8 +134,8 @@ public class HybridAutomaton {
 		string2dReach.append("{ mode 1;\n \ninvt: \n \t (");
 		List<dLFormula> subInvariants = Mode.getInvariant().splitOnAnds();
 		for ( dLFormula formula : subInvariants ) {
-			TextOutput.debug("Appending invariant: " + formula.toKeYmaeraString());
-			string2dReach.append( formula.toKeYmaeraString() + ");\n \n");
+			TextOutput.debug("Appending invariant: " + formula.toString());
+			string2dReach.append( formula.toString() + ");\n \n");
 		}
 		
 		string2dReach.append("flow: \n" ); 
@@ -155,7 +155,7 @@ public class HybridAutomaton {
 		String newResets = null;
 		int index = 0;
 		while( index < edgesSize ){
-			String tempReset = edges.get(index).getReset().toKeYmaeraString();
+			String tempReset = edges.get(index).getReset().toString();
 			
 			
 			for ( int i = 0; i<outputSize; i++){

@@ -50,7 +50,7 @@ public class MatrixTerm3D extends GeneralizedTerm {
 		return returnString;
 	}
 	
-	public String toKeYmaeraString() {
+	public String generateString() {
 		return toString();
 	}
 }

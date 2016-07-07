@@ -62,7 +62,7 @@ public class Replacement {
 		return toMathematicaString();
 	}
 
-	public String todRealString() {
+	public String generatePrefixString() {
 		String returnString = "";
 
 		Set<RealVariable> variables = replacement.keySet();

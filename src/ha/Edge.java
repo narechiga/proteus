@@ -12,11 +12,11 @@ public class Edge {
 
 		if (!guard.isStatic() ) {
 			throw new RuntimeException("Cannot use a dynamic guard: " +
-				guard.toKeYmaeraString() );
+				guard.toString() );
 
 		} else if (!reset.isPurelyDiscrete() ) {
 			throw new RuntimeException("Cannot use a non-discrete reset: " +
-				reset.toKeYmaeraString() );
+				reset.toString() );
 		}
 
 		this.guard = guard;
@@ -26,7 +26,7 @@ public class Edge {
 	public Edge(boolean b, HybridProgram reset) {
 		if (!reset.isPurelyDiscrete() ) {
 			throw new RuntimeException("Cannot use a non-discrete reset: " +
-				reset.toKeYmaeraString() );
+				reset.toString() );
 		}
 
 		this.reset = reset;

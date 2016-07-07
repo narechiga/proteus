@@ -20,6 +20,15 @@ public class ComparisonFormula extends dLFormula {
 		arguments = new ArrayList<>();
 		arguments.add( Term.parseTerm( lhs ) );
 		arguments.add( Term.parseTerm(rhs));
+
+		if ( cachingActive() ) {
+			try {
+			  string = generateString();
+			  prefixString = generateString();
+			} catch ( Exception e ) {
+				// we don't care
+			}
+		}
 	}
 	
 	public ComparisonFormula ( Operator inequality, Term lhs, Term rhs ) {
@@ -28,6 +37,15 @@ public class ComparisonFormula extends dLFormula {
 		arguments = new ArrayList<dLStructure>();
 		arguments.add( lhs );
 		arguments.add( rhs );
+
+		if ( cachingActive() ) {
+			try {
+			  string = generateString();
+			  prefixString = generateString();
+			} catch ( Exception e ) {
+				// we don't care
+			}
+		}
 	}
 
 	public ComparisonFormula ( String inequality, Term lhs, Term rhs ) {
@@ -36,9 +54,27 @@ public class ComparisonFormula extends dLFormula {
 		arguments = new ArrayList<dLStructure>();
 		arguments.add( lhs );
 		arguments.add( rhs );
+
+		if ( cachingActive() ) {
+			try {
+			  string = generateString();
+			  prefixString = generateString();
+			} catch ( Exception e ) {
+				// we don't care
+			}
+		}
 	}
 
 	public ComparisonFormula() {
+
+		if ( cachingActive() ) {
+			try {
+			  string = generateString();
+			  prefixString = generateString();
+			} catch ( Exception e ) {
+				// we don't care
+			}
+		}
 	}
 
 	public Operator getInequality() {
@@ -66,7 +102,7 @@ public class ComparisonFormula extends dLFormula {
 						getLHS().substituteConcreteValuation( substitution ),
 						getRHS().substituteConcreteValuation( substitution ) );
 		if( debug ) {
-			System.out.println("Returning ComparisonFormula: " + substitutedFormula.toManticoreString() );
+			System.out.println("Returning ComparisonFormula: " + substitutedFormula.toString() );
 		}
 		return substitutedFormula;
 	}
@@ -86,29 +122,29 @@ public class ComparisonFormula extends dLFormula {
 	}
 
 // String methods
-	public String toKeYmaeraString () {
-		return "( " + getLHS().toKeYmaeraString() 
-				+ " " + getInequality().toKeYmaeraString() + " "
-				+ getRHS().toKeYmaeraString() + " )";
+	public String generateString () {
+		return "( " + getLHS().toString() 
+				+ " " + getInequality().toString() + " "
+				+ getRHS().toString() + " )";
 	}
 
-	public String toManticoreString () {
-		return "( " + getLHS().toManticoreString() + getInequality().toManticoreString() 
-				+ getRHS().toManticoreString() + " )";
-	}
+	//public String toManticoreString () {
+	//	return "( " + getLHS().toManticoreString() + getInequality().toManticoreString() 
+	//			+ getRHS().toManticoreString() + " )";
+	//}
 
-	public String toMathematicaString () {
-		if ( getInequality().equals( new Operator("=") ) ) {
-			return "( " + getLHS().toMathematicaString() + " == "
-					+ getRHS().toMathematicaString() + " )";
-		} else {
-			return "( " + getLHS().toMathematicaString() 
-					+ " " + getInequality().toMathematicaString() + " "
-					+ getRHS().toMathematicaString() + " )";
-		}
-	}
+	//public String toMathematicaString () {
+	//	if ( getInequality().equals( new Operator("=") ) ) {
+	//		return "( " + getLHS().toMathematicaString() + " == "
+	//				+ getRHS().toMathematicaString() + " )";
+	//	} else {
+	//		return "( " + getLHS().toMathematicaString() 
+	//				+ " " + getInequality().toMathematicaString() + " "
+	//				+ getRHS().toMathematicaString() + " )";
+	//	}
+	//}
 
-	public String todRealString () {
+	public String generatePrefixString () {
 		String returnString;
 
 		if ( operator.equals( new Operator("!=") )) {
@@ -123,11 +159,11 @@ public class ComparisonFormula extends dLFormula {
 								this.getRHS() );
 			OrFormula avoidPoint = new OrFormula( avoidLeft, avoidRight );
 
-			returnString = avoidPoint.todRealString();
+			returnString = avoidPoint.toPrefixString();
 		} else {
 			returnString =  "(" + this.getOperator().toString() 
-				+ " " +getLHS().todRealString()
-				+ " " +getRHS().todRealString() + ")";
+				+ " " +getLHS().toPrefixString()
+				+ " " +getRHS().toPrefixString() + ")";
 		}
 
 		return returnString;
@@ -200,8 +236,7 @@ public class ComparisonFormula extends dLFormula {
 														this.getRHS().clone() );
 
 		} else {
-			throw new UnknownInequalityException( ANSI_BOLD + ANSI_RED 
-																			+ operator.toString() + ANSI_RESET );
+			throw new UnknownInequalityException( operator.toString() );
 		}
 
 		return returnFormula;

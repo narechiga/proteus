@@ -19,6 +19,15 @@ public class IffFormula extends dLFormula {
 		arguments = new ArrayList<dLStructure>();
 		arguments.add( antecedent );
 		arguments.add( succedent );
+
+		if ( cachingActive() ) {
+			try {
+			  string = generateString();
+			  prefixString = generateString();
+			} catch ( Exception e ) {
+				// we don't care
+			}
+		}
 	}
 
 	public dLFormula getAntecedent() {
@@ -54,24 +63,24 @@ public class IffFormula extends dLFormula {
 	}
 
 // String methods
-	public String toKeYmaeraString () {
-		return "( " + getAntecedent().toKeYmaeraString() + " <-> " + getSuccedent().toKeYmaeraString() + " )";
+	public String generateString () {
+		return "( " + getAntecedent().toString() + " <-> " + getSuccedent().toString() + " )";
 	}
 
-	public String toManticoreString () {
-		return "( " + getAntecedent().toManticoreString() + " <-> " + getSuccedent().toManticoreString() + " )";
-	}
+	//public String toManticoreString () {
+	//	return "( " + getAntecedent().toManticoreString() + " <-> " + getSuccedent().toManticoreString() + " )";
+	//}
 
-	public String toMathematicaString () {
-		return "Equivalent[ " + getAntecedent().toMathematicaString() 
-				+ ", " + getSuccedent().toMathematicaString() + " ]";
-	}
+	//public String toMathematicaString () {
+	//	return "Equivalent[ " + getAntecedent().toMathematicaString() 
+	//			+ ", " + getSuccedent().toMathematicaString() + " ]";
+	//}
 
-	public String todRealString () {
+	public String generatePrefixString () {
 		AndFormula biimplies = new AndFormula( new ImpliesFormula( this.getAntecedent(), this.getSuccedent() ),
 							new ImpliesFormula( this.getSuccedent(), this.getAntecedent() ) ) ;
 		
-		return biimplies.todRealString();
+		return biimplies.toPrefixString();
 	}
 
 // Assorted convenience functions

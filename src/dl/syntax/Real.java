@@ -21,21 +21,57 @@ public class Real extends Term {
 	public Real ( String value ) {
 		operator = new Operator( value, 0 );
 		arguments = null;
+
+		if ( cachingActive() ) {
+			try {
+			  string = generateString();
+			  prefixString = generateString();
+			} catch ( Exception e ) {
+				// we don't care
+			}
+		}
 	}
 
 	public Real( Double value ) {
 		operator = new Operator( value.toString(), 0 );
 		arguments = null;
+
+		if ( cachingActive() ) {
+			try {
+			  string = generateString();
+			  prefixString = generateString();
+			} catch ( Exception e ) {
+				// we don't care
+			}
+		}
 	}
 	
 	public Real( Float value ) {
 		operator = new Operator( value.toString(), 0 );
 		arguments = null;
+
+		if ( cachingActive() ) {
+			try {
+			  string = generateString();
+			  prefixString = generateString();
+			} catch ( Exception e ) {
+				// we don't care
+			}
+		}
 	}
 
 	public Real( Integer value ) {
 		operator = new Operator( value.toString(), 0 );
 		arguments = null;
+
+		if ( cachingActive() ) {
+			try {
+			  string = generateString();
+			  prefixString = generateString();
+			} catch ( Exception e ) {
+				// we don't care
+			}
+		}
 	}
 
 // Convenience function
@@ -71,20 +107,20 @@ public class Real extends Term {
 	}
 
 // String methods
-	public String toKeYmaeraString() {
-		return this.operator.toKeYmaeraString();
+	public String generateString() {
+		return this.operator.toString();
 	}
 
-	public String toManticoreString() {
-		return this.operator.toManticoreString();
-	}
+//	public String toManticoreString() {
+//		return this.operator.toManticoreString();
+//	}
+//
+//	public String toMathematicaString() {
+//		return this.operator.toMathematicaString();
+//	}
 
-	public String toMathematicaString() {
-		return this.operator.toMathematicaString();
-	}
-
-	public String todRealString() {
-		return this.operator.todRealString();
+	public String toPrefixString() {
+		return this.operator.toString();
 	}
 
 // Clone

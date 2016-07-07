@@ -186,7 +186,7 @@ public class MatrixTerm extends NonScalarTerm {
 		return toMatlabString();
 	}
 
-	public String toKeYmaeraString() {
+	public String generateString() {
 		return toString();
 	}
 	

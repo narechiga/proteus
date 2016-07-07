@@ -60,20 +60,20 @@ public class ConcreteAssignmentProgram extends DiscreteProgram {
 	//}
 
 // String methods
-	public String toKeYmaeraString() {
-		return "( " + getLHS().toKeYmaeraString() + " := " + getRHS().toKeYmaeraString() +" )";
+	public String generateString() {
+		return "( " + getLHS().toString() + " := " + getRHS().toString() +" )";
 	}
 
-	public String toManticoreString() {
-		return "( " + getLHS().toManticoreString() + " := " + getRHS().toManticoreString() +" )";
-	}
+//	public String toManticoreString() {
+//		return "( " + getLHS().toManticoreString() + " := " + getRHS().toManticoreString() +" )";
+//	}
+//
+//	public String toMathematicaString() {
+//		return "( " + getLHS().toMathematicaString() + " = " + getRHS().toMathematicaString() +" )";
+//	}
 
-	public String toMathematicaString() {
-		return "( " + getLHS().toMathematicaString() + " = " + getRHS().toMathematicaString() +" )";
-	}
-
-	public String todRealString() {
-		return "(= " + getLHS().todRealString() + " " + getRHS().todRealString() +" )";
+	public String generatePrefixString() {
+		return "(= " + getLHS().toPrefixString() + " " + getRHS().toPrefixString() +" )";
 	}
 
 // Assorted convenience functions

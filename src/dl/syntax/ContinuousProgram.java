@@ -178,7 +178,7 @@ public class ContinuousProgram extends HybridProgram {
 	}
 
 // String operations
-	public String toKeYmaeraString() {
+	public String generateString() {
 		
 		String returnString = "{ ";
 
@@ -194,14 +194,14 @@ public class ContinuousProgram extends HybridProgram {
 				// then this is an ode, not the doe
 				thisODE = (ExplicitODE)thisArgument;
 				returnString = returnString 
-					+ thisODE.toKeYmaeraString() + ", ";
+					+ thisODE.toString() + ", ";
 
 			} else { //then this is the doe
 				returnString = returnString.substring(0, 
 						returnString.length() -2 );
 				returnString = returnString 
 						+ " & " 
-						+ getDOE().toKeYmaeraString();
+						+ getDOE().toString();
 			}
 		}
 		returnString = returnString + " }";
@@ -210,7 +210,7 @@ public class ContinuousProgram extends HybridProgram {
 	}
 
 	public String toManticoreString() {
-		return toKeYmaeraString();
+		return toString();
 	}
 
 
@@ -347,13 +347,13 @@ public class ContinuousProgram extends HybridProgram {
 			ContinuousProgram sampleProgram = (ContinuousProgram)(dLStructure.parseStructure( "{x' = -10*x + y, y' = 2*x - 11*y, t' = 1, s' = 2}" ));
 
 			for ( RealVariable thisTimer : sampleProgram.getTimers() ) {
-				System.out.println("Found timer variable: " + thisTimer.toKeYmaeraString() );
+				System.out.println("Found timer variable: " + thisTimer.toString() );
 			}
 			System.out.println("======================================================================");
 			System.out.println("Subsystem without timers is:");
 
 			ContinuousProgram exceptTimers = sampleProgram.removeTimers();
-			System.out.println( exceptTimers.toKeYmaeraString() );
+			System.out.println( exceptTimers.toString() );
 			System.out.println("Linearity: " + exceptTimers.isLinear() );
 
 			

@@ -32,6 +32,15 @@ public class OpenBallFormula extends BallFormula {
 		spawnArguments();
 		addArgument( new NormTerm( normTerms, 2 ) );
 		addArgument( radius );
+
+		if ( cachingActive() ) {
+			try {
+			  string = generateString();
+			  prefixString = generateString();
+			} catch ( Exception e ) {
+				// we don't care
+			}
+		}
 	}
 
 	//public OpenBallFormula( ArrayList<RealVariable> variables, Valuation center, Real radius ) {

@@ -28,6 +28,16 @@ public class AndFormula extends dLFormula {
 		//TextOutput.debug("3");
 		arguments.add( rightArgument );
 		//TextOutput.debug("and built!");
+
+		if ( cachingActive() ) {
+			try {
+			  string = generateString();
+			  prefixString = generateString();
+			} catch ( Exception e ) {
+				// we don't care
+			}
+		}
+
 	}
 
 	public dLFormula getLHS() {
@@ -43,7 +53,7 @@ public class AndFormula extends dLFormula {
 		AndFormula substitutedFormula =  new AndFormula( getLHS().substituteConcreteValuation( substitution ), 
 							getRHS().substituteConcreteValuation( substitution ) );
 		if( debug ) {
-			System.out.println("Returning AndFormula: " + substitutedFormula.toMathematicaString() );
+			System.out.println("Returning AndFormula: " + substitutedFormula.toString() );
 		}
 		return substitutedFormula;
 	}
@@ -61,20 +71,12 @@ public class AndFormula extends dLFormula {
 	}
 
 // String methods
-	public String toKeYmaeraString () {
-		return "( " + getLHS().toKeYmaeraString() + " & " + getRHS().toKeYmaeraString() + " )";
-	}
-
-	public String toManticoreString () {
-		return "( " + getLHS().toManticoreString() + " & " + getRHS().toManticoreString() + " )";
-	}
-
-	public String toMathematicaString () {
-		return "( " + getLHS().toMathematicaString() + " && " + getRHS().toMathematicaString() + " )";
+	public String generateString () {
+		return "( " + getLHS().toString() + " & " + getRHS().toString() + " )";
 	}
     
-	public String todRealString () {
-		return "(and " + getLHS().todRealString() + " " + getRHS().todRealString() + " )";
+	public String generatePrefixString () {
+		return "(and " + getLHS().toPrefixString() + " " + getRHS().toPrefixString() + " )";
 	}
 
 // Assorted convenience functions
