@@ -138,34 +138,34 @@ public class MatrixTerm extends NonScalarTerm {
 	}
 
 // String methods
-	public String toMatlabString() {
-		String matlabString = "[ ";
-
-		for ( int i = 1; i < getNumRows() + 1; i ++ ) {
-			for ( int j = 1; j < getNumColumns() + 1; j ++ ) {
-				matlabString = matlabString + getElement( i, j ).toMatlabString();
-
-				if ( j < getNumColumns() ) {
-					matlabString = matlabString + ", ";
-				}
-			}
-
-			if ( i < getNumRows() ) {
-				matlabString = matlabString + "; ";
-			}
-		}
-
-		matlabString = matlabString + " ]";
-
-		return matlabString;
-	}
+//	protected String toMatlabString() {
+//		String matlabString = "[ ";
+//
+//		for ( int i = 1; i < getNumRows() + 1; i ++ ) {
+//			for ( int j = 1; j < getNumColumns() + 1; j ++ ) {
+//				matlabString = matlabString + getElement( i, j ).toString();
+//
+//				if ( j < getNumColumns() ) {
+//					matlabString = matlabString + ", ";
+//				}
+//			}
+//
+//			if ( i < getNumRows() ) {
+//				matlabString = matlabString + "; ";
+//			}
+//		}
+//
+//		matlabString = matlabString + " ]";
+//
+//		return matlabString;
+//	}
 
 	public String toMatrixFormString() {
 		String matrixFormString = "[ ";
 
 		for ( int i = 1; i < getNumRows() + 1; i ++ ) {
 			for ( int j = 1; j < getNumColumns() + 1; j ++ ) {
-				matrixFormString = matrixFormString + getElement( i, j ).toMatlabString();
+				matrixFormString = matrixFormString + getElement( i, j ).toString();
 
 				if ( j < getNumColumns() ) {
 					matrixFormString = matrixFormString + ", ";
@@ -183,7 +183,8 @@ public class MatrixTerm extends NonScalarTerm {
 	}
 
 	public String toString() {
-		return toMatlabString();
+		//return toMatlabString();
+		return toMatrixFormString();
 	}
 
 	public String generateString() {
