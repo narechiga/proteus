@@ -89,7 +89,7 @@ public class NormTerm extends Term {
 //				return new NormTerm( subTerms, degree );
 //
 			} else {
-				throw new NormTermFormatException( thisTerm.toString() );
+				throw new NormTermFormatException( thisTerm.toMathematicaString() );
 			}
 
 		}
@@ -108,7 +108,7 @@ public class NormTerm extends Term {
 															new PowerTerm( term, new Real(degree) ) );
 
 		}
-		return intermediateTerm.toString();
+		return intermediateTerm.toMathematicaString();
 	}
 
 

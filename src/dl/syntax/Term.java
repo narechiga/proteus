@@ -13,14 +13,6 @@ import java.util.*;
 public class Term extends GeneralizedTerm {
 
 	public Term () {
-		if ( cachingActive() ) {
-			try {
-			  string = generateString();
-			  prefixString = generateString();
-			} catch ( Exception e ) {
-				// we don't care
-			}
-		}
 	}
 	
 	protected Term ( Operator operator, ArrayList<Term> subTerms ) {
@@ -167,17 +159,17 @@ public class Term extends GeneralizedTerm {
 		return returnString;
 	}
 
-//	public String toMathematicaString() {
-//		return toString();
-//	}
-//
-//	public String toMatlabString() {
-//		return toString();
-//	}
-//
-//	public String toManticoreString() {
-//		return toString();
-//	}
+	public String toMathematicaString() {
+		return toString();
+	}
+
+	public String toMatlabString() {
+		return toString();
+	}
+
+	public String toManticoreString() {
+		return toString();
+	}
 
 	public String toPrefixString() {
 		String returnString = "(" + this.operator.toString() ;
@@ -336,7 +328,7 @@ public class Term extends GeneralizedTerm {
 	public MatrixTerm extractLinearCoefficients( ArrayList<RealVariable> variables ) {
 
                 if ( !isLinearIn( variables ) ){
-                        throw new RuntimeException( "Term is not linear: " + this.toString() );
+                        throw new RuntimeException( "Term is not linear: " + this.toMathematicaString() );
                 }
 
                 ArrayList<Term> additiveTerms = this.splitSummands();
