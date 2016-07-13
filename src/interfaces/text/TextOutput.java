@@ -97,7 +97,7 @@ public class TextOutput {
 			}
 		} else {
 			for ( String m : messages ) {
-				printNumber(); out.println("[info] " + m.replace("\n", "")  + "\n");
+				printNumber(); out.print("[info] " + m.replace("\n", "")  + "\n");
 			}
 		}
 	}

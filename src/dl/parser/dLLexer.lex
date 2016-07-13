@@ -1,6 +1,7 @@
 package dl.parser;
 
 import interfaces.text.*;
+import dl.syntax.*;
 
 
 %%
@@ -22,7 +23,8 @@ import interfaces.text.*;
 	}
 
 	public void yyerror ( String S ) {
-		System.err.println( S );
+		//System.err.println( S );
+		throw new dLStructureFormatException( S );
 	}
 %}
 

@@ -154,8 +154,8 @@ public abstract class dLStructure {
 		try {
 			thisParser.parse();
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("Problem parsing: " + structureString );
+			//e.printStackTrace();
+			throw new dLStructureFormatException("Problem parsing: " + structureString );
 		}
 		return thisParser.parsedStructure;
 	}

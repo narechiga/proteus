@@ -448,16 +448,17 @@ public class dLParser extends AbstractdLParser
   if (yyn == 6)
     /* "dLParser.y":139  */ /* lalr1.java:489  */
     {
-		System.err.println("Parser: I'm confused, throwing error");
-		System.err.println( (String)((yystack.valueAt (1-(1)))) );
+		//System.err.println("Parser: I'm confused, throwing error");
+		//System.err.println( (String)$1 );
 		//System.exit(1);
+		throw new dLStructureFormatException( (String)((yystack.valueAt (1-(1)))) );
 	};
   break;
     
 
   case 8:
   if (yyn == 8)
-    /* "dLParser.y":150  */ /* lalr1.java:489  */
+    /* "dLParser.y":151  */ /* lalr1.java:489  */
     {
 		try {
 			if ( this.valuation == null ) {
@@ -478,7 +479,7 @@ public class dLParser extends AbstractdLParser
 
   case 9:
   if (yyn == 9)
-    /* "dLParser.y":165  */ /* lalr1.java:489  */
+    /* "dLParser.y":166  */ /* lalr1.java:489  */
     {
 		try {
 			if ( this.valuation == null ) {
@@ -499,7 +500,7 @@ public class dLParser extends AbstractdLParser
 
   case 10:
   if (yyn == 10)
-    /* "dLParser.y":180  */ /* lalr1.java:489  */
+    /* "dLParser.y":181  */ /* lalr1.java:489  */
     {
 		try{
 			if ( this.valuation == null ) {
@@ -517,7 +518,7 @@ public class dLParser extends AbstractdLParser
 
   case 11:
   if (yyn == 11)
-    /* "dLParser.y":192  */ /* lalr1.java:489  */
+    /* "dLParser.y":193  */ /* lalr1.java:489  */
     {
 		try{
 			if ( this.valuation == null ) {
@@ -535,7 +536,7 @@ public class dLParser extends AbstractdLParser
 
   case 12:
   if (yyn == 12)
-    /* "dLParser.y":209  */ /* lalr1.java:489  */
+    /* "dLParser.y":210  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new TrueFormula();
@@ -549,7 +550,7 @@ public class dLParser extends AbstractdLParser
 
   case 13:
   if (yyn == 13)
-    /* "dLParser.y":217  */ /* lalr1.java:489  */
+    /* "dLParser.y":218  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new FalseFormula();
@@ -563,7 +564,7 @@ public class dLParser extends AbstractdLParser
 
   case 14:
   if (yyn == 14)
-    /* "dLParser.y":225  */ /* lalr1.java:489  */
+    /* "dLParser.y":226  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (ComparisonFormula)((yystack.valueAt (1-(1))));
@@ -577,7 +578,7 @@ public class dLParser extends AbstractdLParser
 
   case 15:
   if (yyn == 15)
-    /* "dLParser.y":233  */ /* lalr1.java:489  */
+    /* "dLParser.y":234  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new AndFormula( (dLFormula)((yystack.valueAt (3-(1)))), (dLFormula)((yystack.valueAt (3-(3)))) );
@@ -591,7 +592,7 @@ public class dLParser extends AbstractdLParser
 
   case 16:
   if (yyn == 16)
-    /* "dLParser.y":241  */ /* lalr1.java:489  */
+    /* "dLParser.y":242  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new OrFormula( (dLFormula)((yystack.valueAt (3-(1)))), (dLFormula)((yystack.valueAt (3-(3)))) );
@@ -605,7 +606,7 @@ public class dLParser extends AbstractdLParser
 
   case 17:
   if (yyn == 17)
-    /* "dLParser.y":249  */ /* lalr1.java:489  */
+    /* "dLParser.y":250  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new NotFormula( (dLFormula)((yystack.valueAt (2-(2)))) );
@@ -619,7 +620,7 @@ public class dLParser extends AbstractdLParser
 
   case 18:
   if (yyn == 18)
-    /* "dLParser.y":257  */ /* lalr1.java:489  */
+    /* "dLParser.y":258  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (dLFormula)((yystack.valueAt (3-(2))));
@@ -633,7 +634,7 @@ public class dLParser extends AbstractdLParser
 
   case 19:
   if (yyn == 19)
-    /* "dLParser.y":265  */ /* lalr1.java:489  */
+    /* "dLParser.y":266  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ImpliesFormula( (dLFormula)((yystack.valueAt (3-(1)))), (dLFormula)((yystack.valueAt (3-(3)))) );
@@ -647,7 +648,7 @@ public class dLParser extends AbstractdLParser
 
   case 20:
   if (yyn == 20)
-    /* "dLParser.y":273  */ /* lalr1.java:489  */
+    /* "dLParser.y":274  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new IffFormula( (dLFormula)((yystack.valueAt (3-(1)))), (dLFormula)((yystack.valueAt (3-(3)))) );
@@ -661,7 +662,7 @@ public class dLParser extends AbstractdLParser
 
   case 21:
   if (yyn == 21)
-    /* "dLParser.y":291  */ /* lalr1.java:489  */
+    /* "dLParser.y":292  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ForAllFormula( new RealVariable( (String)((yystack.valueAt (4-(2))))), (dLFormula)((yystack.valueAt (4-(4)))) );
@@ -675,7 +676,7 @@ public class dLParser extends AbstractdLParser
 
   case 22:
   if (yyn == 22)
-    /* "dLParser.y":299  */ /* lalr1.java:489  */
+    /* "dLParser.y":300  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ExistsFormula( new RealVariable( (String)((yystack.valueAt (4-(2)))) ), (dLFormula)((yystack.valueAt (4-(4)))) );
@@ -689,7 +690,7 @@ public class dLParser extends AbstractdLParser
 
   case 23:
   if (yyn == 23)
-    /* "dLParser.y":307  */ /* lalr1.java:489  */
+    /* "dLParser.y":308  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new BoxModalityFormula( (HybridProgram)((yystack.valueAt (4-(2)))), (dLFormula)((yystack.valueAt (4-(4)))) );
@@ -703,7 +704,7 @@ public class dLParser extends AbstractdLParser
 
   case 24:
   if (yyn == 24)
-    /* "dLParser.y":315  */ /* lalr1.java:489  */
+    /* "dLParser.y":316  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new BoxModalityFormula( (HybridProgram)((yystack.valueAt (4-(2)))), (dLFormula)((yystack.valueAt (4-(4)))) );
@@ -717,7 +718,7 @@ public class dLParser extends AbstractdLParser
 
   case 25:
   if (yyn == 25)
-    /* "dLParser.y":349  */ /* lalr1.java:489  */
+    /* "dLParser.y":350  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (ContinuousProgram)((yystack.valueAt (1-(1))));
@@ -731,7 +732,7 @@ public class dLParser extends AbstractdLParser
 
   case 26:
   if (yyn == 26)
-    /* "dLParser.y":357  */ /* lalr1.java:489  */
+    /* "dLParser.y":358  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (TestProgram)((yystack.valueAt (1-(1))));
@@ -745,7 +746,7 @@ public class dLParser extends AbstractdLParser
 
   case 27:
   if (yyn == 27)
-    /* "dLParser.y":365  */ /* lalr1.java:489  */
+    /* "dLParser.y":366  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (ConcreteAssignmentProgram)((yystack.valueAt (1-(1))));
@@ -759,7 +760,7 @@ public class dLParser extends AbstractdLParser
 
   case 28:
   if (yyn == 28)
-    /* "dLParser.y":373  */ /* lalr1.java:489  */
+    /* "dLParser.y":374  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (ArbitraryAssignmentProgram)((yystack.valueAt (1-(1))));
@@ -773,7 +774,7 @@ public class dLParser extends AbstractdLParser
 
   case 29:
   if (yyn == 29)
-    /* "dLParser.y":381  */ /* lalr1.java:489  */
+    /* "dLParser.y":382  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new SequenceProgram( (HybridProgram)((yystack.valueAt (3-(1)))), (HybridProgram)((yystack.valueAt (3-(3)))) );
@@ -787,7 +788,7 @@ public class dLParser extends AbstractdLParser
 
   case 30:
   if (yyn == 30)
-    /* "dLParser.y":389  */ /* lalr1.java:489  */
+    /* "dLParser.y":390  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ChoiceProgram( (HybridProgram)((yystack.valueAt (3-(1)))), (HybridProgram)((yystack.valueAt (3-(3)))) );
@@ -801,7 +802,7 @@ public class dLParser extends AbstractdLParser
 
   case 31:
   if (yyn == 31)
-    /* "dLParser.y":397  */ /* lalr1.java:489  */
+    /* "dLParser.y":398  */ /* lalr1.java:489  */
     {
 		try {
 			yyval = new RepetitionProgram( (HybridProgram)((yystack.valueAt (2-(1)))) );
@@ -815,7 +816,7 @@ public class dLParser extends AbstractdLParser
 
   case 32:
   if (yyn == 32)
-    /* "dLParser.y":405  */ /* lalr1.java:489  */
+    /* "dLParser.y":406  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (HybridProgram)((yystack.valueAt (3-(2))));
@@ -829,7 +830,7 @@ public class dLParser extends AbstractdLParser
 
   case 33:
   if (yyn == 33)
-    /* "dLParser.y":416  */ /* lalr1.java:489  */
+    /* "dLParser.y":417  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ConcreteAssignmentProgram( new RealVariable( (String)((yystack.valueAt (3-(1)))) ), (Term)((yystack.valueAt (3-(3)))) );
@@ -843,7 +844,7 @@ public class dLParser extends AbstractdLParser
 
   case 34:
   if (yyn == 34)
-    /* "dLParser.y":427  */ /* lalr1.java:489  */
+    /* "dLParser.y":428  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ArbitraryAssignmentProgram( new RealVariable( (String)((yystack.valueAt (3-(1)))) ) );
@@ -857,7 +858,7 @@ public class dLParser extends AbstractdLParser
 
   case 35:
   if (yyn == 35)
-    /* "dLParser.y":438  */ /* lalr1.java:489  */
+    /* "dLParser.y":439  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new TestProgram( (dLStructure)((yystack.valueAt (2-(2)))) );
@@ -871,7 +872,7 @@ public class dLParser extends AbstractdLParser
 
   case 36:
   if (yyn == 36)
-    /* "dLParser.y":449  */ /* lalr1.java:489  */
+    /* "dLParser.y":450  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ContinuousProgram( (ArrayList<ExplicitODE>)((yystack.valueAt (3-(2)))) ); // Constructor appends "true" doe automaticaly
@@ -885,7 +886,7 @@ public class dLParser extends AbstractdLParser
 
   case 37:
   if (yyn == 37)
-    /* "dLParser.y":457  */ /* lalr1.java:489  */
+    /* "dLParser.y":458  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ContinuousProgram( (ArrayList<ExplicitODE>)((yystack.valueAt (5-(2)))), (dLFormula)((yystack.valueAt (5-(4)))) );
@@ -899,7 +900,7 @@ public class dLParser extends AbstractdLParser
 
   case 38:
   if (yyn == 38)
-    /* "dLParser.y":468  */ /* lalr1.java:489  */
+    /* "dLParser.y":469  */ /* lalr1.java:489  */
     { 
 		//$$ = (String)$1;
 		try {
@@ -919,7 +920,7 @@ public class dLParser extends AbstractdLParser
 
   case 39:
   if (yyn == 39)
-    /* "dLParser.y":482  */ /* lalr1.java:489  */
+    /* "dLParser.y":483  */ /* lalr1.java:489  */
     { 
 		//$$ = (String)$1 + ", " + (String)$3;
 		try {
@@ -938,7 +939,7 @@ public class dLParser extends AbstractdLParser
 
   case 40:
   if (yyn == 40)
-    /* "dLParser.y":497  */ /* lalr1.java:489  */
+    /* "dLParser.y":498  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ExplicitODE( new RealVariable( (String)((yystack.valueAt (4-(1)))) ), (Term)((yystack.valueAt (4-(4)))) );
@@ -953,7 +954,7 @@ public class dLParser extends AbstractdLParser
 
   case 41:
   if (yyn == 41)
-    /* "dLParser.y":511  */ /* lalr1.java:489  */
+    /* "dLParser.y":512  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ComparisonFormula( new Operator( (String)((yystack.valueAt (3-(2)))), 2, true ), (Term)((yystack.valueAt (3-(1)))), (Term)((yystack.valueAt (3-(3)))) ) ;
@@ -967,7 +968,7 @@ public class dLParser extends AbstractdLParser
 
   case 42:
   if (yyn == 42)
-    /* "dLParser.y":519  */ /* lalr1.java:489  */
+    /* "dLParser.y":520  */ /* lalr1.java:489  */
     {
 		try {
 			yyval = new ComparisonFormula( new Operator( (String)((yystack.valueAt (3-(2)))), 2, true ), (Term)((yystack.valueAt (3-(1)))), (Term)((yystack.valueAt (3-(3)))) ) ;
@@ -981,7 +982,7 @@ public class dLParser extends AbstractdLParser
 
   case 43:
   if (yyn == 43)
-    /* "dLParser.y":531  */ /* lalr1.java:489  */
+    /* "dLParser.y":532  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new Real( (String)((yystack.valueAt (1-(1)))) );
@@ -995,7 +996,7 @@ public class dLParser extends AbstractdLParser
 
   case 44:
   if (yyn == 44)
-    /* "dLParser.y":539  */ /* lalr1.java:489  */
+    /* "dLParser.y":540  */ /* lalr1.java:489  */
     {
 		try {
 			yyval = new FunctionApplicationTerm( new Operator( (String)((yystack.valueAt (4-(1)))), ((ArrayList<Term>)((yystack.valueAt (4-(3))))).size(), false ), (ArrayList<Term>)((yystack.valueAt (4-(3)))) );
@@ -1009,7 +1010,7 @@ public class dLParser extends AbstractdLParser
 
   case 45:
   if (yyn == 45)
-    /* "dLParser.y":547  */ /* lalr1.java:489  */
+    /* "dLParser.y":548  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new RealVariable( (String)((yystack.valueAt (1-(1)))) );
@@ -1023,7 +1024,7 @@ public class dLParser extends AbstractdLParser
 
   case 46:
   if (yyn == 46)
-    /* "dLParser.y":555  */ /* lalr1.java:489  */
+    /* "dLParser.y":556  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (Term)((yystack.valueAt (3-(2))));
@@ -1037,7 +1038,7 @@ public class dLParser extends AbstractdLParser
 
   case 47:
   if (yyn == 47)
-    /* "dLParser.y":563  */ /* lalr1.java:489  */
+    /* "dLParser.y":564  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1055,7 +1056,7 @@ public class dLParser extends AbstractdLParser
 
   case 48:
   if (yyn == 48)
-    /* "dLParser.y":575  */ /* lalr1.java:489  */
+    /* "dLParser.y":576  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1073,7 +1074,7 @@ public class dLParser extends AbstractdLParser
 
   case 49:
   if (yyn == 49)
-    /* "dLParser.y":587  */ /* lalr1.java:489  */
+    /* "dLParser.y":588  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1091,7 +1092,7 @@ public class dLParser extends AbstractdLParser
 
   case 50:
   if (yyn == 50)
-    /* "dLParser.y":599  */ /* lalr1.java:489  */
+    /* "dLParser.y":600  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1109,7 +1110,7 @@ public class dLParser extends AbstractdLParser
 
   case 51:
   if (yyn == 51)
-    /* "dLParser.y":611  */ /* lalr1.java:489  */
+    /* "dLParser.y":612  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1127,7 +1128,7 @@ public class dLParser extends AbstractdLParser
 
   case 52:
   if (yyn == 52)
-    /* "dLParser.y":623  */ /* lalr1.java:489  */
+    /* "dLParser.y":624  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1146,7 +1147,7 @@ public class dLParser extends AbstractdLParser
 
   case 53:
   if (yyn == 53)
-    /* "dLParser.y":639  */ /* lalr1.java:489  */
+    /* "dLParser.y":640  */ /* lalr1.java:489  */
     {
 		yyval = null;
 	};
@@ -1155,7 +1156,7 @@ public class dLParser extends AbstractdLParser
 
   case 54:
   if (yyn == 54)
-    /* "dLParser.y":642  */ /* lalr1.java:489  */
+    /* "dLParser.y":643  */ /* lalr1.java:489  */
     { 
 		try {
 			ArrayList<Term> args = new ArrayList<Term>();
@@ -1171,7 +1172,7 @@ public class dLParser extends AbstractdLParser
 
   case 55:
   if (yyn == 55)
-    /* "dLParser.y":652  */ /* lalr1.java:489  */
+    /* "dLParser.y":653  */ /* lalr1.java:489  */
     { 
 		try {
 			ArrayList<Term> args = new ArrayList<Term>();
@@ -1187,7 +1188,7 @@ public class dLParser extends AbstractdLParser
     
 
 
-/* "dLParser.java":1191  */ /* lalr1.java:489  */
+/* "dLParser.java":1192  */ /* lalr1.java:489  */
         default: break;
       }
 
@@ -1714,12 +1715,12 @@ private static final byte yycheck_[] = yycheck_init();
   {
     return new short[]
     {
-       0,   104,   104,   112,   121,   130,   139,   149,   150,   165,
-     180,   192,   209,   217,   225,   233,   241,   249,   257,   265,
-     273,   291,   299,   307,   315,   349,   357,   365,   373,   381,
-     389,   397,   405,   416,   427,   438,   449,   457,   468,   482,
-     497,   511,   519,   531,   539,   547,   555,   563,   575,   587,
-     599,   611,   623,   639,   642,   652
+       0,   104,   104,   112,   121,   130,   139,   150,   151,   166,
+     181,   193,   210,   218,   226,   234,   242,   250,   258,   266,
+     274,   292,   300,   308,   316,   350,   358,   366,   374,   382,
+     390,   398,   406,   417,   428,   439,   450,   458,   469,   483,
+     498,   512,   520,   532,   540,   548,   556,   564,   576,   588,
+     600,   612,   624,   640,   643,   653
     };
   }
 
@@ -1805,7 +1806,7 @@ private static final byte yycheck_[] = yycheck_init();
 
 }
 
-/* "dLParser.y":666  */ /* lalr1.java:1070  */
+/* "dLParser.y":667  */ /* lalr1.java:1070  */
 
 
 

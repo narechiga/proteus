@@ -137,9 +137,10 @@ input:
 		}
 	}
 	| error {
-		System.err.println("Parser: I'm confused, throwing error");
-		System.err.println( (String)$1 );
+		//System.err.println("Parser: I'm confused, throwing error");
+		//System.err.println( (String)$1 );
 		//System.exit(1);
+		throw new dLStructureFormatException( (String)$1 );
 	}
 ;
 
