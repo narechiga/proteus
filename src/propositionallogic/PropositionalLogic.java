@@ -1,9 +1,30 @@
 package propositionallogic;
 
-import interfaces.text.TextOutput;
+import dl.syntax.*;
+
+import interfaces.text.*;
 import propositionallogic.syntax.*;
+import java.util.*;
 
 public class PropositionalLogic {
+	
+//	public static dLFormula simplify ( dLFormula formula ) {
+//		if ( !formula.isStatic() ) {
+//			throw new RuntimeException("PropositionalLogic cannot simplify dynamic formulas.");
+//		}
+//		
+//		if ( formula.isPropositionalPrimitive() ) {
+//			return formula;
+//		}
+//		// We will replace propositional primitive dLFormulas with propositional variables
+//		// This hash map stores the mapping, so we can reconstruct the original formula later
+//		HashMap<Proposition,dLFormula> propositionalMapping = new HashMap<>();
+//		int propositionCounter = 0;
+//		
+//		
+//		
+//		
+//	}
 	
 	public static Proposition simplify ( Proposition proposition ) {
 		
