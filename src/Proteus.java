@@ -20,7 +20,7 @@ public class Proteus {
 	
 	public static String parseHandler( String input ) {
 		String returnString = "syntax-error";
-		boolean success = false;
+		//boolean success = false;
 		try {
 			Proposition structure = Proposition.parseProposition( input );
 			structure = PropositionalLogic.simplify( structure );

@@ -11,9 +11,7 @@ public class PrettyPrinter {
 	
 	public static String print( dLFormula formula ) {
 		String returnString = "";
-		if ( !(formula.isStatic()) ) {
-			return formula.toString();
-		}
+
 		if ( (formula instanceof TrueFormula)
 				|| (formula instanceof FalseFormula) ) {
 			return formula.toString();
@@ -47,6 +45,18 @@ public class PrettyPrinter {
 		} else if ( formula instanceof NotFormula ) {
 			NotFormula negation = (NotFormula)formula;
 			returnString = "!(" + print( negation.getFormula() );
+		} else if ( formula instanceof ImpliesFormula ) {
+			ImpliesFormula implication = (ImpliesFormula)formula;
+			returnString = "(" + print( implication.getLHS()) + ") -> (" + print( implication.getRHS() ) + ")";
+		} else if ( formula instanceof IffFormula ) {
+			IffFormula equivalence = (IffFormula)formula;
+			returnString = "(" + print( equivalence.getLHS() ) + ") <-> (" + print( equivalence.getRHS() ) + ")";
+		} else if ( formula instanceof ForAllFormula ) {
+			ForAllFormula universal = (ForAllFormula)formula;
+			returnString = "\\forall R " + universal.getVariable().toString() + " ; " + print( universal.getFormula() );
+		} else if ( formula instanceof ExistsFormula ) {
+			ExistsFormula existential = (ExistsFormula)formula;
+			returnString = "\\exists R " + existential.getVariable().toString() + " ; " + print( existential.getFormula() );
 		} else {
 			returnString = formula.toString();
 		}
