@@ -78,6 +78,14 @@ public class MultiplicationTerm extends Term {
 
 
 // Getters
+	public Term getLHS() {
+		return getLeftFactor();
+	}
+
+	public Term getRHS() {
+		return getRightFactor();
+	}
+
 	public Term getLeftFactor() {
 	       return (Term)getArgument( 0 );
 	}

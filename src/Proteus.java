@@ -1,3 +1,4 @@
+import dl.parser.PrettyPrinter;
 import dl.syntax.*;
 import interfaces.text.*;
 import propositionallogic.*;
@@ -31,7 +32,7 @@ public class Proteus {
 		
 		try {
 			dLStructure structure = dLStructure.parseStructure( input );
-			return (structure.getClass() + ": " + structure.toString());
+			return (structure.getClass() + ": " + PrettyPrinter.print((dLFormula)structure));//structure.toString() );
 		} catch ( Exception e ) {
 			TextOutput.info("Input does not contain a dLFormula: " + input);
 		}

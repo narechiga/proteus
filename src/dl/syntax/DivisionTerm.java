@@ -26,6 +26,14 @@ public class DivisionTerm extends Term {
 	//public Term getDivisor() {
 	//	return (Term)getArgument( 1 );
 	//}
+	
+	public Term getLHS() {
+		return getNumerator();
+	}
+
+	public Term getRHS() {
+		return getDenominator();
+	}
 
 	public Term getNumerator() {
 		return (Term)getArgument( 0 );
