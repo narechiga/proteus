@@ -38,7 +38,8 @@ public class ClosedBallFormula extends BallFormula {
 	// Just inherit the negation from ComparisonFormula (?)
 	//public ComparisonFormula negate() {
 	//	return new ComparisonFormula( ">", this.getLHS(), this.getRHS() );
-	//}
+	////}
+	//return ((dLFormula)getArgument(1));
 
 
 	//public ClosedBallFormula( ArrayList<RealVariable> variables, Valuation center, Real radius ) {

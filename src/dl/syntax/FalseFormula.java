@@ -45,9 +45,9 @@ public class FalseFormula extends dLFormula {
 		return "false";
 	}
 
-	public String toMathematicaString () {
-		return "False";
-	}
+	//public String toMathematicaString () {
+	//	return "False";
+	//}
 	
 	public String todRealString () {
 		return "false";

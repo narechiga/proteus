@@ -33,7 +33,7 @@ public class Proteus {
 			dLStructure structure = dLStructure.parseStructure( input );
 			return (structure.getClass() + ": " + structure.toString());
 		} catch ( Exception e ) {
-			TextOutput.info("Input does not contain a dLStructure: " + input);
+			TextOutput.info("Input does not contain a dLFormula: " + input);
 		}
 		
 		return returnString;

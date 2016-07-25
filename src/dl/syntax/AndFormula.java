@@ -31,11 +31,13 @@ public class AndFormula extends dLFormula {
 	}
 
 	public dLFormula getLHS() {
-		return ((dLFormula)(arguments.get(0))).clone();
+		//return ((dLFormula)(arguments.get(0))).clone();
+		return (dLFormula)(getArgument(0));
 	}
 
 	public dLFormula getRHS() {
-		return ((dLFormula)(arguments.get(1))).clone();
+		//return ((dLFormula)(arguments.get(1))).clone();
+		return (dLFormula)(getArgument(1));
 	}
 
 // Substitution method

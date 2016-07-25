@@ -46,20 +46,22 @@ public class ComparisonFormula extends dLFormula {
 	}
 
 	public Term getLHS() {
-		return ((Term)(arguments.get(0))).clone();
+		//return ((Term)(arguments.get(0))).clone();
+		return (Term)(getArgument(0));
 	}
 
 	public Term getRHS() {
-		return ((Term)(arguments.get(1))).clone();
+		//return ((Term)(arguments.get(1))).clone();
+		return (Term)(getArgument(1));
 	}
 
-	public void setInequality( Operator inequality ) {
-		operator = inequality;
-	}
-	
-	public void setInequality( String inequality ) {
-		operator = new Operator( inequality );
-	}
+	//public void setInequality( Operator inequality ) {
+	//	operator = inequality;
+	//}
+	//
+	//public void setInequality( String inequality ) {
+	//	operator = new Operator( inequality );
+	//}
 // Substitution method
 	public ComparisonFormula substituteConcreteValuation( Valuation substitution ) {
 		ComparisonFormula substitutedFormula  = new ComparisonFormula( getInequality().clone(),

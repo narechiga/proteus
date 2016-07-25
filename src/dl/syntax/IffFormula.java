@@ -22,11 +22,13 @@ public class IffFormula extends dLFormula {
 	}
 
 	public dLFormula getAntecedent() {
-		return ((dLFormula)(arguments.get(0))).clone();
+		//return ((dLFormula)(arguments.get(0))).clone();
+		return (dLFormula)(getArgument(0));
 	}
 
 	public dLFormula getSuccedent() {
-		return ((dLFormula)(arguments.get(1))).clone();
+		//return ((dLFormula)(arguments.get(1))).clone();
+		return (dLFormula)(getArgument(1));
 	}
 
 	public dLFormula getLHS() {

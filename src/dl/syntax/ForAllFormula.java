@@ -21,32 +21,14 @@ public class ForAllFormula extends dLFormula {
 		arguments.add( quantifiedFormula );
 	}
 
-	//public ForAllFormula( List<RealVariable> variables, dLFormula formula ) {
-
-	//	ForAllFormula quantifiedFormula = null;
-
-	//	if ( variables.isEmpty() ) {
-	//		if ( formula instanceof ForAllFormula ) {
-	//			quantifiedFormula = (ForAllFormula)formula;
-	//		} 
-
-	//	} else {
-	//		RealVariable thisVariable = variables.remove(0);
-	//		quantifiedFormula = 
-	//			new ForAllFormula( thisVariable,
-	//					new ForAllFormula( variables, formula ) );
-	//	}
-
-	//	//return quantifiedFormula;		
-	//}
-
-
 	public RealVariable getVariable() {
-		return ((RealVariable)(arguments.get(0))).clone();
+		//return ((RealVariable)(arguments.get(0))).clone();
+		return (RealVariable)(getArgument(0));
 	}
 
 	public dLFormula getFormula() {
-		return ((dLFormula)(arguments.get(1))).clone();
+		//return ((dLFormula)(arguments.get(1))).clone();
+		return (dLFormula)(getArgument(1));
 	}
 
 	public ForAllFormula substituteConcreteValuation( Valuation substitution ) {

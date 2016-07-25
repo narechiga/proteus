@@ -23,7 +23,8 @@ public class NotFormula extends dLFormula {
 	}
 
 	public dLFormula getFormula() {
-		return ((dLFormula)(arguments.get(0))).clone();
+		//return ((dLFormula)(arguments.get(0))).clone();
+		return (dLFormula)(getArgument(0));
 	}
 
 // Substition method

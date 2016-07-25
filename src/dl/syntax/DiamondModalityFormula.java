@@ -23,11 +23,13 @@ public class DiamondModalityFormula extends dLFormula {
 	}
 
 	public HybridProgram getProgram() {
-		return (HybridProgram)(arguments.get(0));
+		//return (HybridProgram)(arguments.get(0));
+		return (HybridProgram)(getArgument(0));
 	}
 
 	public dLFormula getFormula() {
-		return (dLFormula)(arguments.get(1));
+		//return (dLFormula)(arguments.get(1));
+		return (dLFormula)(getArgument(1));
 	}
 
 //	public getLHS() {

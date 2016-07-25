@@ -49,9 +49,9 @@ public class TrueFormula extends dLFormula {
 		return "true";
 	}
 
-	public String toMathematicaString () {
-		return "True";
-	}
+//	public String toMathematicaString () {
+//		return "True";
+//	}
 
 	public String todRealString () {
 		return "true";

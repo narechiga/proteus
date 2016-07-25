@@ -22,13 +22,15 @@ public class ImpliesFormula extends dLFormula {
 	}
 
 	public dLFormula getAntecedent() {
-		dLFormula antecedent = (dLFormula)(arguments.get(0));
-		return antecedent.clone();
+		//dLFormula antecedent = (dLFormula)(arguments.get(0));
+		//return antecedent.clone();
+		return (dLFormula)(getArgument(0));
 	}
 
 	public dLFormula getSuccedent() {
-		dLFormula succedent = (dLFormula)(arguments.get(1));
-		return succedent.clone();
+		//dLFormula succedent = (dLFormula)(arguments.get(1));
+		//return succedent.clone();
+		return (dLFormula)(getArgument(1));
 	}
 
 	public dLFormula getLHS() {

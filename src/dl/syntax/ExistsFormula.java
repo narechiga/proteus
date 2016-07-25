@@ -22,11 +22,13 @@ public class ExistsFormula extends dLFormula {
 	}
 
 	public RealVariable getVariable() {
-		return ((RealVariable)(arguments.get(0))).clone();
+		//return ((RealVariable)(arguments.get(0))).clone();
+		return (RealVariable)(getArgument(0));
 	}
 
 	public dLFormula getFormula() {
-		return ((dLFormula)(arguments.get(1))).clone();
+		//return ((dLFormula)(arguments.get(1))).clone();
+		return (dLFormula)(getArgument(1));
 	}
 // Substitution method
 	public ExistsFormula substituteConcreteValuation( Valuation substitution ) {
