@@ -61,13 +61,13 @@ public class ExistsFormula extends dLFormula {
 		return "(\\exists R " + getVariable().toString() + "; " + getFormula().toString() +" )";
 	}
 
-	public String toManticoreString () {
-		return "(\\exists R " + getVariable().toManticoreString() + "; " + getFormula().toManticoreString() +" )";
-	}
-
-	public String toMathematicaString () {
-		return "Exists[ " + getVariable().toMathematicaString() + ", " + getFormula().toMathematicaString() +" ]";
-	}
+//	public String toManticoreString () {
+//		return "(\\exists R " + getVariable().toManticoreString() + "; " + getFormula().toManticoreString() +" )";
+//	}
+//
+//	public String toMathematicaString () {
+//		return "Exists[ " + getVariable().toMathematicaString() + ", " + getFormula().toMathematicaString() +" ]";
+//	}
 
 	public String todRealString() {
 		return "(exists ((" + getVariable() + " Real)) (" + getFormula().todRealString() + "))";

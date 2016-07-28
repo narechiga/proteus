@@ -44,9 +44,9 @@ public class AndFormula extends dLFormula {
 	public AndFormula substituteConcreteValuation( Valuation substitution ) {
 		AndFormula substitutedFormula =  new AndFormula( getLHS().substituteConcreteValuation( substitution ), 
 							getRHS().substituteConcreteValuation( substitution ) );
-		if( debug ) {
-			System.out.println("Returning AndFormula: " + substitutedFormula.toMathematicaString() );
-		}
+//		if( debug ) {
+//			System.out.println("Returning AndFormula: " + substitutedFormula.toString() );
+//		}
 		return substitutedFormula;
 	}
 
@@ -67,13 +67,13 @@ public class AndFormula extends dLFormula {
 		return "( " + getLHS().toString() + " & " + getRHS().toString() + " )";
 	}
 
-	public String toManticoreString () {
-		return "( " + getLHS().toManticoreString() + " & " + getRHS().toManticoreString() + " )";
-	}
-
-	public String toMathematicaString () {
-		return "( " + getLHS().toMathematicaString() + " && " + getRHS().toMathematicaString() + " )";
-	}
+//	public String toManticoreString () {
+//		return "( " + getLHS().toManticoreString() + " & " + getRHS().toManticoreString() + " )";
+//	}
+//
+//	public String toMathematicaString () {
+//		return "( " + getLHS().toMathematicaString() + " && " + getRHS().toMathematicaString() + " )";
+//	}
     
 	public String todRealString () {
 		return "(and " + getLHS().todRealString() + " " + getRHS().todRealString() + " )";

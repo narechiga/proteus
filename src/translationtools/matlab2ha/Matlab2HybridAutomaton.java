@@ -4,6 +4,8 @@ import ha.*;
 import interfaces.text.TextOutput;
 import matlab.syntax.*;
 import java.util.*;
+
+import dl.parser.PrettyPrinter;
 import dl.syntax.*;;
 
 public class Matlab2HybridAutomaton {
@@ -92,7 +94,7 @@ public class Matlab2HybridAutomaton {
 				TextOutput.debug("Adding reset: " + hp.toString());
 				Edge thisEdge = new Edge(tempdl, hp);
 				edges.add( thisEdge );
-				System.out.println("Guard "+tempdl.toMathematicaString()+" reset: "+hp);
+				System.out.println("Guard "+PrettyPrinter.print(tempdl)+" reset: "+hp);
 				
 			}
 			

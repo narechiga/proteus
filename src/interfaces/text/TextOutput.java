@@ -40,7 +40,8 @@ public class TextOutput {
 		pause(7000);
 	}
 	
-	public static void print( String message ) {
+	public static void print( Object messageObject ) {
+		String message = messageObject.toString();
 		String[] messages = message.split("\n");
 		
 		for ( String m : messages ) {
@@ -48,7 +49,8 @@ public class TextOutput {
 			out.print( m );
 		}
 	}
-	public static void println( String message ) {
+	public static void println( Object messageObject ) {
+		String message = messageObject.toString();
 		String[] messages = message.split("\n");
 		
 		for ( String m : messages ) {
@@ -58,7 +60,8 @@ public class TextOutput {
 		}
 	}
 	
-	public static void say( String message ) {
+	public static void say( Object messageObject ) {
+		String message = messageObject.toString();
 		String[] messages = message.split("\n");
 		
 		for ( String m : messages ) {

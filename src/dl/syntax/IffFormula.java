@@ -60,14 +60,14 @@ public class IffFormula extends dLFormula {
 		return "( " + getAntecedent().toString() + " <-> " + getSuccedent().toString() + " )";
 	}
 
-	public String toManticoreString () {
-		return "( " + getAntecedent().toManticoreString() + " <-> " + getSuccedent().toManticoreString() + " )";
-	}
-
-	public String toMathematicaString () {
-		return "Equivalent[ " + getAntecedent().toMathematicaString() 
-				+ ", " + getSuccedent().toMathematicaString() + " ]";
-	}
+//	public String toManticoreString () {
+//		return "( " + getAntecedent().toManticoreString() + " <-> " + getSuccedent().toManticoreString() + " )";
+//	}
+//
+//	public String toMathematicaString () {
+//		return "Equivalent[ " + getAntecedent().toMathematicaString() 
+//				+ ", " + getSuccedent().toMathematicaString() + " ]";
+//	}
 
 	public String todRealString () {
 		AndFormula biimplies = new AndFormula( new ImpliesFormula( this.getAntecedent(), this.getSuccedent() ),

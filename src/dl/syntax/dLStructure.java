@@ -282,13 +282,13 @@ public abstract class dLStructure {
 		throw new RuntimeException("KeYmaera string is undefined for this structure: " + this.getClass().toString() );
 	}
 
-	public String toMathematicaString() {
-		throw new RuntimeException("Mathematica string is undefined for this structure: " + this.getClass().toString() );
-	}
-
-	public String toManticoreString() {
-		throw new RuntimeException("Manticore string is undefined for this structure: " + this.getClass().toString() );
-	}
+//	public String toMathematicaString() {
+//		throw new RuntimeException("Mathematica string is undefined for this structure: " + this.getClass().toString() );
+//	}
+//
+//	public String toManticoreString() {
+//		throw new RuntimeException("Manticore string is undefined for this structure: " + this.getClass().toString() );
+//	}
 
 	public String todRealString() {
 		throw new RuntimeException("dReal string is undefined for this structure: " + this.getClass().toString() );

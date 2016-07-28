@@ -51,9 +51,9 @@ public class RepetitionProgram extends HybridProgram {
 		return "(" + getProgram().toString() + "*)";
 	}
 
-	public String toManticoreString() {
-		return "(" + getProgram().toManticoreString() + "***)";
-	}
+//	public String toManticoreString() {
+//		return "(" + getProgram().toManticoreString() + "***)";
+//	}
 
 
 // Assorted convenience functions

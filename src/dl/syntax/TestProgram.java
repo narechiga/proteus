@@ -51,9 +51,9 @@ public class TestProgram extends DiscreteProgram {
 		return "(? " + getFormula().toString() + " )";
 	}
 
-	public String toManticoreString() {
-		return "(? " + getFormula().toManticoreString() + " )";
-	}
+//	public String toManticoreString() {
+//		return "(? " + getFormula().toManticoreString() + " )";
+//	}
 
 // Administrative
 	public boolean isPurelyDiscrete() {

@@ -61,9 +61,9 @@ public class BoxModalityFormula extends dLFormula {
 		return "\\[" + getProgram().toString() +" \\]" + getFormula().toString();
 	}
 	
-	public String toManticoreString () {
-		return "\\[" + getProgram().toManticoreString() +" \\]" + getFormula().toManticoreString();
-	}
+//	public String toManticoreString () {
+//		return "\\[" + getProgram().toManticoreString() +" \\]" + getFormula().toManticoreString();
+//	}
 
 
 // Assorted convenience functions

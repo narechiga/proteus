@@ -58,13 +58,13 @@ public class ForAllFormula extends dLFormula {
 		return "(\\forall R " + getVariable().toString() + "; " + getFormula().toString() +" )";
 	}
 
-	public String toManticoreString () {
-		return "(\\forall R " + getVariable().toManticoreString() + "; " + getFormula().toManticoreString() +" )";
-	}
-
-	public String toMathematicaString () {
-		return "ForAll[ " + getVariable().toMathematicaString() + ", " + getFormula().toMathematicaString() +" ]";
-	}
+//	public String toManticoreString () {
+//		return "(\\forall R " + getVariable().toManticoreString() + "; " + getFormula().toManticoreString() +" )";
+//	}
+//
+//	public String toMathematicaString () {
+//		return "ForAll[ " + getVariable().toMathematicaString() + ", " + getFormula().toMathematicaString() +" ]";
+//	}
 
 	public String todRealString() {
 		 	return "(forall ((" + getVariable() + " Real)) " + getFormula().todRealString() + " )"; 

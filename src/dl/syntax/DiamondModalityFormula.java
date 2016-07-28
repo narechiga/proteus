@@ -62,9 +62,9 @@ public class DiamondModalityFormula extends dLFormula {
 		return "\\<" + getProgram().toString() +" \\>" + getFormula().toString();
 	}
 
-	public String toManticoreString () {
-		return "\\<" + getProgram().toManticoreString() +" \\>" + getFormula().toManticoreString();
-	}
+//	public String toManticoreString () {
+//		return "\\<" + getProgram().toManticoreString() +" \\>" + getFormula().toManticoreString();
+//	}
 
 // Assorted convenience functions
 	public boolean isFirstOrder() {

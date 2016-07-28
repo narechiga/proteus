@@ -19,6 +19,7 @@ import java.io.*;
 
 import dl.logicsolvers.abstractions.LogicSolverInterface;
 import dl.logicsolvers.abstractions.LogicSolverResult;
+import dl.parser.PrettyPrinter;
 
 
 public class z3Interface extends LogicSolverInterface {
@@ -81,7 +82,7 @@ public class z3Interface extends LogicSolverInterface {
 		int counter = 1;
 		while ( formulaIterator.hasNext() ) {
 			comment = comment + "\n;; Formula " + counter + ":\n";
-			comment = comment + ";; " + formulaIterator.next().toMathematicaString();
+			comment = comment + ";; " + PrettyPrinter.print( formulaIterator.next() );
 			counter = counter + 1;
 		}
 
@@ -94,7 +95,7 @@ public class z3Interface extends LogicSolverInterface {
 		int counter = 1;
 		while ( formulaIterator.hasNext() ) {
 			comment = comment + ";; Formula " + counter + ":\n";
-			comment = comment + ";; " + formulaIterator.next().toMathematicaString();
+			comment = comment + ";; " + PrettyPrinter.print( formulaIterator.next() );
 			counter = counter + 1;
 		}
 
@@ -260,11 +261,11 @@ public class z3Interface extends LogicSolverInterface {
 					TextOutput.debug("Got a null formula!");
 				} else {
 					TextOutput.debug("Currently printing out formula: " 
-						+ thisFormula.toMathematicaString() );
+						+ PrettyPrinter.print( thisFormula ) );
 				}
 			}
 
-			queryString = queryString + "\n;; Formula is (" + thisFormula.toMathematicaString() +")\n";
+			queryString = queryString + "\n;; Formula is (" + PrettyPrinter.print( thisFormula ) +")\n";
 			queryString = queryString + "(assert " + thisFormula.todRealString() + " )\n";
 
 		}

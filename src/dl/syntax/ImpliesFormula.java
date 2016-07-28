@@ -62,14 +62,14 @@ public class ImpliesFormula extends dLFormula {
 		return "(" + getAntecedent().toString() + " -> " + getSuccedent().toString() + ")";
 	}
 
-	public String toMathematicaString () {
-		return "Implies[ " + getAntecedent().toMathematicaString() 
-				+ ", " + getSuccedent().toMathematicaString() + " ]";
-	}
-
-	public String toManticoreString () {
-		return "(" + getAntecedent().toManticoreString() + " -> " + getSuccedent().toManticoreString() + ")";
-	}
+//	public String toMathematicaString () {
+//		return "Implies[ " + getAntecedent().toMathematicaString() 
+//				+ ", " + getSuccedent().toMathematicaString() + " ]";
+//	}
+//
+//	public String toManticoreString () {
+//		return "(" + getAntecedent().toManticoreString() + " -> " + getSuccedent().toManticoreString() + ")";
+//	}
 
 	public String todRealString() {
 		return "(=> " + getAntecedent().todRealString() + " " + getSuccedent().todRealString() + ")\n";

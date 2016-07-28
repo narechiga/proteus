@@ -31,7 +31,7 @@ public class NotFormula extends dLFormula {
 	public NotFormula substituteConcreteValuation( Valuation substitution ) {
 		NotFormula substitutedFormula = new NotFormula( getFormula().substituteConcreteValuation( substitution ) );
 		if( debug ) {
-			System.out.println("Returning NotFormula: " + substitutedFormula.toMathematicaString() );
+			System.out.println("Returning NotFormula: " + substitutedFormula.toString() );
 		}
 		return substitutedFormula;
 	}
@@ -39,7 +39,7 @@ public class NotFormula extends dLFormula {
 	public NotFormula replace( Replacement replacement ) {
 		NotFormula substitutedFormula = new NotFormula( getFormula().replace( replacement ) );
 		if( debug ) {
-			System.out.println("Returning NotFormula: " + substitutedFormula.toMathematicaString() );
+			System.out.println("Returning NotFormula: " + substitutedFormula.toString() );
 		}
 		return substitutedFormula;
 	}
@@ -54,13 +54,13 @@ public class NotFormula extends dLFormula {
 		return "(! " + getFormula().toString() + " )";
 	}
 
-	public String toManticoreString () {
-		return "(! " + getFormula().toManticoreString() + " )";
-	}
-
-	public String toMathematicaString () {
-		return "Not[ " + getFormula().toMathematicaString() + " ]";
-	}
+//	public String toManticoreString () {
+//		return "(! " + getFormula().toManticoreString() + " )";
+//	}
+//
+//	public String toMathematicaString () {
+//		return "Not[ " + getFormula().toMathematicaString() + " ]";
+//	}
 
 	public String todRealString () {
 		return "(not " + getFormula().todRealString() + " )";

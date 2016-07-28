@@ -81,9 +81,9 @@ public class SequenceProgram extends HybridProgram {
 		return "( " + arguments.get(0).toString() + " ; " + arguments.get(1).toString() + " )";
 	}
 
-	public String toManticoreString() {
-		return "( " + arguments.get(0).toManticoreString() + " ; " + arguments.get(1).toManticoreString() + " )";
-	}
+//	public String toManticoreString() {
+//		return "( " + arguments.get(0).toManticoreString() + " ; " + arguments.get(1).toManticoreString() + " )";
+//	}
 
 
 
