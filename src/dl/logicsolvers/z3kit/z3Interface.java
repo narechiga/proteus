@@ -12,6 +12,7 @@ import interfaces.text.TextOutput;
 
 import java.util.*;
 
+import dl.parser.PrettyPrinter;
 import dl.semantics.*;
 import dl.syntax.*;
 
