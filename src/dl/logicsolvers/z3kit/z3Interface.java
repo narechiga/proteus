@@ -12,6 +12,7 @@ import interfaces.text.TextOutput;
 
 import java.util.*;
 
+import dl.parser.PrettyPrinter;
 import dl.semantics.*;
 import dl.syntax.*;
 
@@ -19,7 +20,7 @@ import java.io.*;
 
 import dl.logicsolvers.abstractions.LogicSolverInterface;
 import dl.logicsolvers.abstractions.LogicSolverResult;
-import dl.parser.PrettyPrinter;
+import java.util.UUID;
 
 
 public class z3Interface extends LogicSolverInterface {
@@ -48,7 +49,7 @@ public class z3Interface extends LogicSolverInterface {
 
 		// Try to find a counterexample
 		//LogicSolverResult subResult = findInstance( filename, theseFormulas, comment );
-		LogicSolverResult subResult = findInstance( theseFormulas);
+		LogicSolverResult subResult = findInstance( filename, theseFormulas, comment);
 		// We queried the negation, so invert the result
 		LogicSolverResult result;
 		if ( subResult.satisfiability.equals("unsat") ) {
@@ -216,6 +217,15 @@ public class z3Interface extends LogicSolverInterface {
 		Date date = new Date();
 		String formatted_date = date.toString();
 		formatted_date=formatted_date.replace(" ","_");
+		String filename= "z3workspace/" + base +UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + ".smt2";
+		return filename;
+	}
+	
+	public String decorateFilename( String base, String base_path ) {
+		double randomID = Math.round(Math.random());
+		Date date = new Date();
+		String formatted_date = date.toString();
+		formatted_date=formatted_date.replace(" ","_");
 		return "z3workspace/" + base +  formatted_date + "." + randomID + ".smt2";
 	}
 
@@ -225,7 +235,7 @@ public class z3Interface extends LogicSolverInterface {
 		Date date = new Date();
 		String formatted_date = date.toString();
 		formatted_date=formatted_date.replace(" ","_");
-		return "z3workspace/query." + formatted_date + "." + randomID + ".smt2";
+		return "z3workspace/query." + Math.random()+ "_" + formatted_date + "." + randomID + ".smt2";
 	}
 
 // Writes a query file for a logical formula.  Note that it does not negate the formula, it just writes out
@@ -287,5 +297,4 @@ public class z3Interface extends LogicSolverInterface {
 	}
 
 }
-
 

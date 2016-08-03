@@ -1,5 +1,6 @@
 package dl.parser;
 
+import matlab.syntax.MatlabProgram;
 import dl.syntax.*;
 
 public class PrettyPrinter {
@@ -64,6 +65,27 @@ public class PrettyPrinter {
 		return returnString;
 	}
 	
+		public static String printLatex(String str)
+		{
+			str= str.replace("!=", "\\neq");
+			str= str.replace("<=", "\\leq");
+			str= str.replace(">=", "\\geq");
+			str= str.replace("epsilon", "\\epsilon");
+			str= str.replace("delta", "\\delta");
+			str= str.replace("->", "\\rightarrow");
+			str= str.replace("&", "\\& ");
+			str= str.replace("_", "");
+			return str;
+			
+			
+		}
+		
+		public static String print(MatlabProgram program)
+		{
+		
+			return program.toString();
+		}
+		
 	public static String print( Term term ) {
 		String returnString = "";
 		

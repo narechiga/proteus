@@ -284,7 +284,7 @@ EmptyLine = {LineTerminator}[ \t\f]*{LineTerminator}
 			TextOutput.debug("Lexer @ " + yytext() );
 			TextOutput.debug("(In matrix mode)");
 		}
-		//return EMPTYLINE;
+		return EMPTYLINE;
 	}
 	{WhiteSpace} { //In MATRIX mode, spaces do count
 		if ( debug ) {
@@ -323,7 +323,7 @@ EmptyLine = {LineTerminator}[ \t\f]*{LineTerminator}
 			TextOutput.debug("Lexer @ " + yytext() );
 			TextOutput.debug("(In matrix mode)");
 		}
-		return COMMA;
+		return SEMICOLON;
 	}
 	")" { 
 		if ( debug ) {
