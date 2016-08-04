@@ -1,6 +1,7 @@
 /**
  * @author Nikos Arechiga
  * @author Anuradha Vakil
+ * @author Sumanth Dathathri
  * Toyota InfoTechnology Center, USA
  * 465 N Bernardo Ave, Mountain View, CA 94043
  */
@@ -107,6 +108,13 @@ public abstract class LogicSolverInterface {
 
 	    return checkValidity( filename, thisFormula, comment );
 	}
+	
+	public LogicSolverResult checkValidity ( String filename, dLFormula thisFormula ) throws Exception {
+		TextOutput.debug("Entering checkValidity ( dLformula )");
+	    String comment = generateCheckValidityComment( thisFormula );
+	    filename=decorateFilename(filename);
+	    return checkValidity( filename, thisFormula, comment );
+	}
 
 // Even more convenient use of checkValidity
 	public boolean isValid( dLFormula formula ) {
@@ -184,5 +192,4 @@ public abstract class LogicSolverInterface {
 
 
 }
-
 
