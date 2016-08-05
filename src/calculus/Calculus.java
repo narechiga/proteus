@@ -52,7 +52,7 @@ public class Calculus {
 			derivative = new AdditionTerm( leftSummand, rightSummand );
 			
 		} else if ( term instanceof PowerTerm ) {
-			throw new RuntimeException(":(");
+			derivative = differentiatePowerTerm( (PowerTerm)term, variable );
 			
 		} else if ( term instanceof FunctionApplicationTerm ) {
 			derivative = differentiateFunctionApplication( (FunctionApplicationTerm)term, variable );
@@ -61,6 +61,15 @@ public class Calculus {
 			throw new RuntimeException("I don't know how to calculate the derivative of this term: " + term);
 		}
 		return derivative;
+	}
+	
+	protected static Term differentiatePowerTerm( PowerTerm term, RealVariable variable ) {
+		Term derivative = null;
+//		if ( term.get() instanceof Real ) {
+//			derivative = new PowerTerm( term.getBase(), new SubtractionTerm)
+//		}
+		throw new RuntimeException(":(");
+		//return derivative;
 	}
 	
 	protected static Term differentiateFunctionApplication( FunctionApplicationTerm term, RealVariable variable ) {
