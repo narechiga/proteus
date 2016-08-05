@@ -13,6 +13,9 @@ import java.util.*;
 public class RealVariable extends Term {
 
 // Constructor
+	public RealVariable() {
+		
+	}
 	public RealVariable ( String name ) {
 		operator = new Operator( name, 0 );
 		arguments = null;
