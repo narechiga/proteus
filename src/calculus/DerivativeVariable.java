@@ -1,3 +1,9 @@
+/**
+ * @author Nikos Arechiga
+ * Toyota InfoTechnology Center, USA
+ * 465 N Bernardo Ave, Mountain View, CA 94043
+ */
+
 package calculus;
 
 import dl.syntax.*;

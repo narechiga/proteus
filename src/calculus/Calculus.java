@@ -1,3 +1,9 @@
+/**
+ * @author Nikos Arechiga
+ * Toyota InfoTechnology Center, USA
+ * 465 N Bernardo Ave, Mountain View, CA 94043
+ */
+
 package calculus;
 
 import dl.syntax.*;
@@ -50,6 +56,7 @@ public class Calculus {
 			
 		} else if ( term instanceof FunctionApplicationTerm ) {
 			derivative = differentiateFunctionApplication( (FunctionApplicationTerm)term, variable );
+			
 		} else {
 			throw new RuntimeException("I don't know how to calculate the derivative of this term: " + term);
 		}
@@ -69,7 +76,7 @@ public class Calculus {
 			derivative = new NegativeTerm( new MultiplicationTerm( chain1, chain2) );
 			
 		} else {
-			throw new RuntimeException("Unsupported function.");
+			throw new RuntimeException("Unsupported function: " + term.getOperator() );
 		}
 		return derivative;
 	}
