@@ -140,11 +140,17 @@ public class Matlab2HybridAutomaton {
 		List<HybridProgram> resetList = new ArrayList<>();
 		SequenceProgram thisHybridProgram = null ;
 		for ( MatlabProgram program : programs ) {
+			
+			if ( program instanceof NoOp ) {
+				continue;
+			}
 
 			TextOutput.info("Size of getstatements: "+program.asStatementList().size()); 
 			TextOutput.info("Program---->"+program);
 			if ( program.asStatementList().size() == 1) {
 				List<MatlabProgram> p = program.asStatementList();
+				
+
 
 				RealVariable LHS = ((MatlabAssignment) p.get(0)).getLHS();
 				Term RHS = ((MatlabAssignment)p.get(0)).getRHS();

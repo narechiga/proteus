@@ -24,7 +24,11 @@
 %token MULTIPLY
 %token DIVIDE
 %token POWER
-%token INEQUALITY
+%token GREATERTHAN
+%token GREATEROREQUAL
+%token LESSTHAN
+%token LESSOREQUAL
+%token NOTEQUAL
 %token EQUALS
 
 /* Punctuation */
@@ -56,7 +60,7 @@
 %right OR AND
 %left NOT
 
-%right INEQUALITY /* <, >, <=, >=, =, != */
+%right GREATERTHAN GREATEROREQUAL LESSTHAN LESSTHANOREQUAL NOTEQUAL EQUALS
 %left MINUS PLUS
 %left DIVIDE MULTIPLY
 %right POWER
@@ -246,12 +250,48 @@ logicalformula:
 ;
 
 comparison:
-	term INEQUALITY term { 
+	term GREATERTHAN term { 
 		try {
-			$$ = new ComparisonFormula( new Operator( (String)$2, 2, true ), (Term)$1, (Term)$3 ) ;
-			TextOutput.debug("\nterm INEQUALITY term"+$$.toString()+((dLStructure)$$).todRealString());
+			$$ = new ComparisonFormula( new Operator( ">", 2, true ), (Term)$1, (Term)$3 ) ;
+			TextOutput.debug("\nterm GREATERTHAN term"+$$.toString()+((dLStructure)$$).todRealString());
 		} catch ( Exception e ) {
-			System.err.println("Exception at location comparison:term INEQUALITY term");
+			System.err.println("Exception at location comparison:term GREATERTHAN term");
+			System.err.println( e );
+		}
+	}
+	| term GREATEROREQUAL term { 
+		try {
+			$$ = new ComparisonFormula( new Operator( ">=", 2, true ), (Term)$1, (Term)$3 ) ;
+			TextOutput.debug("\nterm GREATEROREQUAL term"+$$.toString()+((dLStructure)$$).todRealString());
+		} catch ( Exception e ) {
+			System.err.println("Exception at location comparison:term GREATEROREQUAL term");
+			System.err.println( e );
+		}
+	}
+	| term LESSTHAN term { 
+		try {
+			$$ = new ComparisonFormula( new Operator( "<", 2, true ), (Term)$1, (Term)$3 ) ;
+			TextOutput.debug("\nterm LESSTHAN term"+$$.toString()+((dLStructure)$$).todRealString());
+		} catch ( Exception e ) {
+			System.err.println("Exception at location comparison:term LESSTHAN term");
+			System.err.println( e );
+		}
+	}
+	| term LESSOREQUAL term { 
+		try {
+			$$ = new ComparisonFormula( new Operator( "<=", 2, true ), (Term)$1, (Term)$3 ) ;
+			TextOutput.debug("\nterm LESSOREQUAL term"+$$.toString()+((dLStructure)$$).todRealString());
+		} catch ( Exception e ) {
+			System.err.println("Exception at location comparison:term LESSOREQUAL term");
+			System.err.println( e );
+		}
+	}
+	| term NOTEQUAL term { 
+		try {
+			$$ = new ComparisonFormula( new Operator( "!=", 2, true ), (Term)$1, (Term)$3 ) ;
+			TextOutput.debug("\nterm NOTEQUAL term"+$$.toString()+((dLStructure)$$).todRealString());
+		} catch ( Exception e ) {
+			System.err.println("Exception at location comparison:term NOTEQUAL term");
 			System.err.println( e );
 		}
 	}

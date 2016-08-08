@@ -28,7 +28,6 @@ import interfaces.text.*;
 
 IdentifierName = [a-zA-Z_]+[a-z0-9A-Z_]*
 Number = [0-9]+ \.?[0-9]* | [0-9]+ \.?[0-9]* e [-+]?[0-9]+ | [0-9]+ \.?[0-9]* E [-+]?[0-9]+
-InequalityLiteral = < | > | <= | >= | \!=
 
 InputCharacter = [^\r\n]
 LineTerminator = \r|\n|\r\n|\n;
@@ -157,13 +156,56 @@ EmptyLine = {LineTerminator}[ \t\f]*{LineTerminator}
 		}
 		return NUMBER;
 	}
-	{InequalityLiteral} { 
+	//{InequalityLiteral} { 
+	//	if ( debug ) {
+	//		TextOutput.debug("Lexer: INEQUALITY");
+	//		TextOutput.debug("Lexer @ " + yytext() );
+	//	}
+	//	return INEQUALITY;
+	//}
+	"\!=" {
 		if ( debug ) {
-			TextOutput.debug("Lexer: INEQUALITY");
+			TextOutput.debug("Lexer: NOTEQUAL");
 			TextOutput.debug("Lexer @ " + yytext() );
 		}
-		return INEQUALITY;
+		return NOTEQUAL;
 	}
+	">=" {
+		if ( debug ) {
+			TextOutput.debug("Lexer: GREATEROREQUAL");
+			TextOutput.debug("Lexer @ " + yytext() );
+		}
+		return GREATEROREQUAL;
+	}
+	">" {
+		if ( debug ) {
+			TextOutput.debug("Lexer: GREATERTHAN");
+			TextOutput.debug("Lexer @ " + yytext() );
+		}
+		return GREATERTHAN;
+	}
+	//"&gt;" {// Yes, this disgusting syntax shows up in some versions of Simulink
+	//	if ( debug ) {
+	//		TextOutput.debug("Lexer: GREATERTHAN");
+	//		TextOutput.debug("Lexer @ " + yytext() );
+	//	}
+	//	return GREATERTHAN;
+	//}
+	"<=" {
+		if ( debug ) {
+			TextOutput.debug("Lexer: LESSOREQUAL");
+			TextOutput.debug("Lexer @ " + yytext() );
+		}
+		return LESSOREQUAL;
+	}
+	"<" {
+		if ( debug ) {
+			TextOutput.debug("Lexer: LESSTHAN");
+			TextOutput.debug("Lexer @ " + yytext() );
+		}
+		return LESSTHAN;
+	}
+
 	
 	// First order logic symbols	
 	"true" { 
