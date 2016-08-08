@@ -17,31 +17,31 @@ public class Operator {
 	public Operator () { }
 
 	public Operator ( String operator ) {
-		this.operator = operator;
+		this.operator = operator.trim();
 		this.arity = 2; //default
 		this.infix = false; //default is prefix
 	}
 
 	public Operator ( String operator, boolean infix ) {
-		this.operator = operator;
+		this.operator = operator.trim();
 		this.arity = 2;
 		this.infix = infix;
 	}
 
 	public Operator ( String operator, int arity ) {
-		this.operator = operator;
+		this.operator = operator.trim();
 		this.arity = arity;
 		this.infix = false;
 	}
 
 	public Operator ( String operator, int arity, boolean infix ) {
-		this.operator = operator;
+		this.operator = operator.trim();
 		this.arity = arity;
 		this.infix = infix;
 	}
 
 	public Operator ( String operator, boolean infix, int arity ) {
-		this.operator = operator;
+		this.operator = operator.trim();
 		this.arity = arity;
 		this.infix = infix;
 	}
