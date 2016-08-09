@@ -4,7 +4,8 @@ import dl.syntax.*;
 
 public class dL {
 	public static dLFormula simplify( dLFormula formula ) {
-		return null;
+		return formula;
+		
 	}
 
 }
