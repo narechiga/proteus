@@ -1,5 +1,7 @@
 package matlab.syntax;
 
+import java.util.*;
+
 import dl.syntax.*;
 
 public class MatlabAssignment extends MatlabProgram {
@@ -17,6 +19,12 @@ public class MatlabAssignment extends MatlabProgram {
 	
 	public Term getRHS() {
 		return rhs;
+	}
+	
+	public Set<RealVariable> getModifiedVariables() {
+		Set<RealVariable> variables = new HashSet<>();
+		variables.add(getLHS());
+		return variables;
 	}
 	
 	public MatlabAssignment replace( Replacement replacement ) {

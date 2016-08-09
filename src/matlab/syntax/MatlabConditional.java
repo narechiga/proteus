@@ -95,4 +95,13 @@ public class MatlabConditional extends MatlabProgram {
 		return returnString;
 	}
 	
+	public Set<RealVariable> getModifiedVariables() {
+		Set<RealVariable> variables = new HashSet<>();
+		for ( MatlabProgram program : getPrograms() ) {
+			variables.addAll( program.getModifiedVariables() );
+		}
+		return variables;
+		
+	}
+	
 }

@@ -19,6 +19,8 @@ public abstract class MatlabProgram {
 	
 	public abstract MatlabProgram replace( Replacement replacement );
 
+	public abstract Set<RealVariable> getModifiedVariables();
+	
 	public List<MatlabProgram> asStatementList() {
 		List<MatlabProgram> statements = new ArrayList<>();
 		statements.add( this );
@@ -50,6 +52,8 @@ public abstract class MatlabProgram {
 	}
 	
 	public abstract String toString();
+	
+	
 		
 	public static void main( String [] args ) {
 		parse("ans = 42;");
