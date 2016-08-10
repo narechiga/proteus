@@ -45,6 +45,12 @@ public abstract class dLFormula extends dLStructure {
 
 	public abstract dLFormula substituteConcreteValuation( Valuation substitution );
 	public abstract dLFormula replace( Replacement replacement );
+	public dLFormula replace( String variableName, String termString ) {
+		RealVariable variable = new RealVariable( variableName );
+		Term term = Term.parseTerm( termString );
+		Replacement r = new Replacement( variable, term );
+		return this.replace( r );
+	}
 
 	// Because it's super obnoxious to always be typing substituteConcreteValuation
 	public dLFormula plugIn( Valuation substitution ) {
