@@ -89,22 +89,24 @@ public class HybridAutomaton {
 //	}
 
 	public static String formula2dReach( dLFormula formula ) {
-		if ( formula instanceof AndFormula ) {
+		if ( formula == null ) {
+			return "";
+		} else if ( formula instanceof AndFormula ) {
 			AndFormula thisFormula = (AndFormula)formula;
 			return "(and " + formula2dReach( thisFormula.getLHS() )
-			                + formula2dReach( thisFormula.getRHS() ) + " )";
-			
+			+ formula2dReach( thisFormula.getRHS() ) + " )";
+
 		} else if ( formula instanceof OrFormula ) {
 			OrFormula thisFormula = (OrFormula)formula;
 			return "(or " + formula2dReach( thisFormula.getLHS() )
-			              + formula2dReach( thisFormula.getRHS() ) + " )";
-			
+			+ formula2dReach( thisFormula.getRHS() ) + " )";
+
 		} else if ( formula.isPropositionalPrimitive() ) {
 			return "( " + formula.toString() + " )"; 
-		
+
 		} else {
 			System.out.println("WARNING: This formula type might"
-		                    + "be unsoppurted by dReach");
+					+ "be unsoppurted by dReach");
 			return "( " + formula.toString() + " )";
 		}     
 	}
@@ -163,6 +165,9 @@ public class HybridAutomaton {
 					newResets = tempReset.replaceAll(outputs.get(i).toString(),outputs.get(i).toString()+"'" ).replaceAll(":=","=").replaceAll(";"," ");
 					tempReset = newResets;
 				}
+			}
+			if ( newResets == null ) {
+				index++; continue;
 			}
 			TextOutput.debug("Adding reset: " + newResets );
 			

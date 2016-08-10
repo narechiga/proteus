@@ -57,5 +57,12 @@ public class MatlabSequence extends MatlabProgram {
 		}
 		return returnString;
 	}
+	
+	public Set<RealVariable> getModifiedVariables() {
+		Set<RealVariable> variables = new HashSet<>();
+		variables.addAll( getFirstProgram().getModifiedVariables() );
+		variables.addAll( getSecondProgram().getModifiedVariables() );
+		return variables;
+	}
 
 }

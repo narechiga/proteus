@@ -10,7 +10,7 @@ import dl.semantics.*;
 import java.util.*;
 
 
-public class OrFormula extends dLFormula {
+public class OrFormula extends BinaryFormula {
 
 // Constructors and field getters
 	public OrFormula ( dLFormula leftArgument, dLFormula rightArgument ) {

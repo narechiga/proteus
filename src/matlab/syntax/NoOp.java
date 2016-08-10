@@ -1,6 +1,7 @@
 package matlab.syntax;
 
 import dl.syntax.*;
+import java.util.*;
 
 public class NoOp extends MatlabProgram {
 	
@@ -14,5 +15,9 @@ public class NoOp extends MatlabProgram {
 	
 	public NoOp replace( Replacement replacement ) {
 		return new NoOp();
+	}
+	
+	public Set<RealVariable> getModifiedVariables() {
+		return new HashSet<>();
 	}
 }

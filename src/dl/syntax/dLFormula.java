@@ -13,6 +13,10 @@ import java.util.*;
 
 public abstract class dLFormula extends dLStructure {
 
+	public static dLFormula parse( String formulaString ) {
+		return (dLFormula)(dLStructure.parseStructure(formulaString));
+	}
+	
 	public boolean isFirstOrder() {
 		return false;
 	}
@@ -118,11 +122,11 @@ public abstract class dLFormula extends dLStructure {
 		return eC;
 	}
 
-        public dLFormula existentialClosure() {
-        	return existentialClosure( new ArrayList<RealVariable>( this.getFreeVariables() ) );
-        	//dLFormula eC;
-        	//if ( this.isClosedFormula() ) {
-        	//	eC = this.clone();
+	public dLFormula existentialClosure() {
+		return existentialClosure( new ArrayList<RealVariable>( this.getFreeVariables() ) );
+		//dLFormula eC;
+		//if ( this.isClosedFormula() ) {
+		//	eC = this.clone();
 		//} else {
 		//	eC = this.clone();
 		//	Iterator<RealVariable> fVi = this.getFreeVariables().iterator();
@@ -132,6 +136,8 @@ public abstract class dLFormula extends dLStructure {
 		//}
 		//return eC;
 	}
+	
+	
 
 
 

@@ -13,7 +13,7 @@ import interfaces.text.*;
 import java.util.*;
 
 
-public class AndFormula extends dLFormula {
+public class AndFormula extends BinaryFormula {
 	boolean debug = false;
 
 // Constructors and field getters

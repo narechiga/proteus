@@ -10,7 +10,7 @@ import dl.semantics.*;
 import java.util.*;
 
 
-public class IffFormula extends dLFormula {
+public class IffFormula extends BinaryFormula {
 
 // Constructor and field getters
 	public IffFormula ( dLFormula antecedent, dLFormula succedent ) {

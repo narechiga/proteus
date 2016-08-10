@@ -10,7 +10,7 @@ import dl.semantics.*;
 import java.util.*;
 
 
-public class ImpliesFormula extends dLFormula {
+public class ImpliesFormula extends BinaryFormula {
 
 // Constructor and field getters
 	public ImpliesFormula ( dLFormula antecedent, dLFormula succedent ) {
