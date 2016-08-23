@@ -654,7 +654,7 @@ public class NNFdLParser extends AbstractNNFdLParser
     { 
 		try {
 			dLFormula lhs = (dLFormula)((yystack.valueAt (3-(1))));
-			dLFormula rhs = (dLFormula)((yystack.valueAt (3-(2))));
+			dLFormula rhs = (dLFormula)((yystack.valueAt (3-(3))));
 			// lhs -> rhs, which is (!lhs | rhs )
 			dLFormula conjunct1 = new OrFormula( lhs.negate(), rhs );
 			// rhs -> lhs, which is (lhs | !rhs )

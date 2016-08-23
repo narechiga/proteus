@@ -31,8 +31,9 @@ public class Proteus {
 		}
 		
 		try {
-			dLStructure structure = dLStructure.parseStructure( input );
-			return (structure.getClass() + ": " + PrettyPrinter.print((dLFormula)structure));//structure.toString() );
+			//dLStructure structure = dLStructure.parseStructure( input );
+			dLFormula formula = dLFormula.parseNNF( input );
+			return (formula.getClass() + ": " + PrettyPrinter.print(formula));//structure.toString() );
 		} catch ( Exception e ) {
 			TextOutput.info("Input does not contain a dLFormula: " + input);
 		}

@@ -273,7 +273,7 @@ dLformula:
 	| dLformula IFF dLformula { 
 		try {
 			dLFormula lhs = (dLFormula)$1;
-			dLFormula rhs = (dLFormula)$2;
+			dLFormula rhs = (dLFormula)$3;
 			// lhs -> rhs, which is (!lhs | rhs )
 			dLFormula conjunct1 = new OrFormula( lhs.negate(), rhs );
 			// rhs -> lhs, which is (lhs | !rhs )
