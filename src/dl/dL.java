@@ -92,4 +92,50 @@ public class dL {
 		}
 	}
 
+	public static dLFormula nnf( dLFormula formula ) {
+		dLFormula nnfFormula = formula;
+
+		if ( formula instanceof IffFormula ) {
+			IffFormula biimplication = (IffFormula)formula;
+			dLFormula lhs = nnf( biimplication.getLHS() );
+			dLFormula rhs = nnf( biimplication.getRHS() );
+			// lhs -> rhs equiv (!lhs | rhs)
+			OrFormula disjunct1 = new OrFormula( lhs.negate(), rhs );
+			// rhs -> lhs equiv (lhs | !rhs)
+			OrFormula disjunct2 = new OrFormula( lhs, rhs.negate() );
+			// conjunct
+			nnfFormula = new AndFormula( disjunct1, disjunct2 );
+			
+		} else if ( formula instanceof ImpliesFormula ) {
+			ImpliesFormula implication = (ImpliesFormula)formula;
+			nnfFormula = new OrFormula(
+					implication.getLHS().negate(),
+					nnf( implication.getRHS() )
+					);
+		} else if ( formula instanceof AndFormula ) {
+			AndFormula conjunction = (AndFormula)formula;
+			nnfFormula = new AndFormula( nnf( conjunction.getLHS() ),
+										nnf( conjunction.getRHS() ));
+		} else if ( formula instanceof OrFormula ) {
+			OrFormula disjunction = (OrFormula)formula;
+			nnfFormula = new OrFormula( nnf(disjunction.getLHS()), disjunction.getRHS() );
+			
+		} else if ( formula instanceof NotFormula ) {
+			NotFormula negation = (NotFormula)formula;
+			nnfFormula = negation.getFormula().negate();
+			
+		} else if ( formula instanceof ForAllFormula ) {
+			ForAllFormula universal = (ForAllFormula)formula;
+			nnfFormula = new ForAllFormula( universal.getVariable(), nnf(universal.getFormula()));
+			
+		} else if ( formula instanceof ExistsFormula ) {
+			ExistsFormula exists = (ExistsFormula)formula;
+			nnfFormula = new ExistsFormula( exists.getVariable(), nnf(exists.getFormula()));
+		}
+
+		return nnfFormula;
+	}
+
+
+	
 }

@@ -6,6 +6,8 @@
  */
 package dl.syntax;
 
+import dl.dL;
+import dl.parser.PrettyPrinter;
 import dl.semantics.*;
 
 import java.io.*;
@@ -15,6 +17,10 @@ public abstract class dLFormula extends dLStructure {
 
 	public static dLFormula parse( String formulaString ) {
 		return (dLFormula)(dLStructure.parseStructure(formulaString));
+	}
+	
+	public static dLFormula parseNNF( String formulaString ) {
+		return (dLFormula)(dLStructure.parseNNFStructure(formulaString));
 	}
 	
 	public boolean isFirstOrder() {
@@ -63,6 +69,15 @@ public abstract class dLFormula extends dLStructure {
 
 // Logic
 	public abstract dLFormula negate();
+	public dLFormula nnf() {
+		return dL.nnf( this );
+	}
+	public dLFormula simplify() {
+		return dL.simplify( this );
+	}
+	public String prettyPrint() {
+		return PrettyPrinter.print( this );
+	}
 
 	public boolean isClosedFormula() { // A formula is closed if it has no free variables
 		if ( this.getFreeVariables().isEmpty() ) {

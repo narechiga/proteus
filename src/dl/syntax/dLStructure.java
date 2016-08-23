@@ -8,6 +8,7 @@ package dl.syntax;
 
 import dl.semantics.*;
 import dl.parser.*;
+import dl.nnfParser.*;
 
 import java.util.*;
 import java.io.*;
@@ -159,6 +160,22 @@ public abstract class dLStructure {
 		}
 		return thisParser.parsedStructure;
 	}
+	
+	public static dLStructure parseNNFStructure( String structureString ) {
+		// returns the dLStructure that exists in the string
+		StringReader thisReader = new StringReader( structureString );
+		NNFdLLexer thisdLLexer = new NNFdLLexer( thisReader );
+		NNFdLParser thisParser = new NNFdLParser( thisdLLexer );
+
+		try {
+			thisParser.parse();
+		} catch (Exception e) {
+			//e.printStackTrace();
+			throw new dLStructureFormatException("Problem parsing: " + structureString );
+		}
+		return thisParser.parsedStructure;
+	}
+	
 	
 
 
