@@ -70,6 +70,26 @@ public abstract class LogicSolverInterface {
 		return multiSample( formulas, numSamples, resolution );
 
 	}
+	public ArrayList<Valuation> clusterSample(dLFormula formula,int numSamples, ArrayList<Double> radii ) throws Exception {
+		
+		ArrayList<Valuation> points = multiSample(formula,numSamples,radii.get(0));
+		for (int i=1;i<radii.size();i++)
+		{
+			points=cls_base(formula,points,numSamples,radii.get(i),radii.get(i-1));
+		}
+		return points;
+		
+
+	}
+	
+	public ArrayList<Valuation> cls_base(dLFormula formula, ArrayList<Valuation> center_points,int numSamples, double SR, double BR) throws Exception{
+		ArrayList<Valuation> points= new ArrayList<Valuation>();
+		for (int i=0;i<center_points.size();i++)
+		{
+			points.addAll(multiSample(new AndFormula(formula,createBallExclusionFormula(center_points.get(i),new Real(BR)).negate()),numSamples,SR));
+		}
+		return points;
+	}
 
 	public ArrayList<Valuation> multiSample( List<dLFormula> thisSet, int numberOfPoints, double suggestedRadius ) {
                 ArrayList<dLFormula> queryFormulas = new ArrayList<dLFormula>();
