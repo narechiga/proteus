@@ -1,10 +1,12 @@
 package propositionallogic.syntax;
 
-public class FalseProposition extends Proposition {
+public class FalseProposition implements Proposition {
 	
 	public FalseProposition() {
-		spawnArguments();
-		this.operator = "false";
 	}
 
+	public String toString() {
+		return "false";
+	}
+	
 }

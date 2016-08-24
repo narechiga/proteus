@@ -1,10 +1,12 @@
 package propositionallogic.syntax;
 
-public class TrueProposition extends Proposition {
+public class TrueProposition implements Proposition {
 	
 	public TrueProposition() {
-		spawnArguments();
-		this.operator = "true";
+	}
+	
+	public String toString() {
+		return "true";
 	}
 	
 

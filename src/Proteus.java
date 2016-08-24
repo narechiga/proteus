@@ -22,7 +22,7 @@ public class Proteus {
 		String returnString = "syntax-error";
 		//boolean success = false;
 		try {
-			Proposition structure = Proposition.parseProposition( input );
+			Proposition structure = PropositionalLogic.parseProposition( input );
 			structure = PropositionalLogic.simplify( structure );
 			return (structure.getClass() + ": " + structure.toString());
 		} catch ( Exception e ) {

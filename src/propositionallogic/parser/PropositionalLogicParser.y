@@ -20,7 +20,7 @@
 %token OPENBRACE
 %token CLOSEBRACE
 
-/* First Order Logic */
+/* Logic */
 %token AND
 %token OR
 %token NOT

@@ -3,7 +3,11 @@ package propositionallogic;
 import dl.syntax.*;
 
 import interfaces.text.*;
+import propositionallogic.parser.PropositionalLogicLexer;
+import propositionallogic.parser.PropositionalLogicParser;
 import propositionallogic.syntax.*;
+
+import java.io.StringReader;
 import java.util.*;
 
 public class PropositionalLogic {
@@ -25,6 +29,20 @@ public class PropositionalLogic {
 //		
 //		
 //	}
+	
+	public static Proposition parseProposition( String string ) {
+		StringReader thisReader = new StringReader( string );
+		PropositionalLogicLexer lexer = new PropositionalLogicLexer( thisReader );
+		PropositionalLogicParser parser = new PropositionalLogicParser( lexer );
+
+		try {
+			parser.parse();
+			Proposition proposition = parser.parsedProposition;
+			return proposition;
+		} catch ( Exception e ) {
+			throw new PropositionFormatException("Could not parse: " + string);
+		}
+	}
 	
 	public static Proposition simplify ( Proposition proposition ) {
 		
@@ -55,56 +73,56 @@ public class PropositionalLogic {
 	}
 
 	protected static Proposition simplifyBase( Proposition proposition ) {
-		if ( (proposition instanceof NotProposition) && (((NotProposition)proposition).getProposition() instanceof TrueProposition) ) {
+		if ( (proposition instanceof NotProposition) && (((NotProposition)proposition).getProposition() instanceof TrueFormula) ) {
 			// Negation of "true"
 			return new FalseProposition();
-		} else if ( (proposition instanceof NotProposition) && (((NotProposition)proposition).getProposition() instanceof FalseProposition) ) {
+		} else if ( (proposition instanceof NotProposition) && (((NotProposition)proposition).getProposition() instanceof FalseFormula) ) {
 			// Negation of "false"
 			return new TrueProposition();
 		} else if ( (proposition instanceof NotProposition) && (((NotProposition)proposition).getProposition() instanceof NotProposition) ) {
 			// Double negation
 			return ((NotProposition)((NotProposition)proposition).getProposition()).getProposition();
 		} else if ( (proposition instanceof AndProposition) && ( 
-					(((AndProposition)proposition).getLHS() instanceof FalseProposition)
-					|| (((AndProposition)proposition).getRHS() instanceof FalseProposition)) ) {
+					(((AndProposition)proposition).getLHS() instanceof FalseFormula)
+					|| (((AndProposition)proposition).getRHS() instanceof FalseFormula)) ) {
 			// Conjunction with false
 				return new FalseProposition();
-		} else if ( (proposition instanceof AndProposition) && (((AndProposition)proposition).getLHS() instanceof TrueProposition) ) {
+		} else if ( (proposition instanceof AndProposition) && (((AndProposition)proposition).getLHS() instanceof TrueFormula) ) {
 			// Conjunction with true on the left
 			return ((AndProposition)proposition).getRHS();
-		} else if ( (proposition instanceof AndProposition) && (((AndProposition)proposition).getRHS() instanceof TrueProposition) ) {
+		} else if ( (proposition instanceof AndProposition) && (((AndProposition)proposition).getRHS() instanceof TrueFormula) ) {
 			// Conjunction with true on the right
 			return ((AndProposition)proposition).getLHS();
 		} else if ( (proposition instanceof OrProposition) && ( 
-				(((OrProposition)proposition).getLHS() instanceof TrueProposition)
-				|| (((OrProposition)proposition).getRHS() instanceof TrueProposition)) ) {
+				(((OrProposition)proposition).getLHS() instanceof TrueFormula)
+				|| (((OrProposition)proposition).getRHS() instanceof TrueFormula)) ) {
 			// Disjunction with true
 			return new TrueProposition();
-		} else if ( (proposition instanceof OrProposition) && (((OrProposition)proposition).getLHS() instanceof FalseProposition) ) {
+		} else if ( (proposition instanceof OrProposition) && (((OrProposition)proposition).getLHS() instanceof FalseFormula) ) {
 			// Disjunction with false on the left
 			return ((OrProposition)proposition).getRHS();
-		} else if ( (proposition instanceof OrProposition) && (((OrProposition)proposition).getRHS() instanceof FalseProposition) ) {
+		} else if ( (proposition instanceof OrProposition) && (((OrProposition)proposition).getRHS() instanceof FalseFormula) ) {
 			// Disjunction with false on the right
 			return ((OrProposition)proposition).getLHS();
 		} else if ( (proposition instanceof ImpliesProposition) && (
-				(((ImpliesProposition)proposition).getLHS() instanceof FalseProposition )
-				|| (((ImpliesProposition)proposition).getRHS() instanceof TrueProposition )
+				(((ImpliesProposition)proposition).getLHS() instanceof FalseFormula )
+				|| (((ImpliesProposition)proposition).getRHS() instanceof TrueFormula )
 				)) {
 			return new TrueProposition();
-		} else if ( (proposition instanceof ImpliesProposition) && (((ImpliesProposition)proposition).getLHS() instanceof TrueProposition )) {
+		} else if ( (proposition instanceof ImpliesProposition) && (((ImpliesProposition)proposition).getLHS() instanceof TrueFormula )) {
 			return ((ImpliesProposition)proposition).getRHS();
-		} else if ( (proposition instanceof ImpliesProposition) && (((ImpliesProposition)proposition).getRHS() instanceof FalseProposition )) {
+		} else if ( (proposition instanceof ImpliesProposition) && (((ImpliesProposition)proposition).getRHS() instanceof FalseFormula )) {
 			return new NotProposition(((ImpliesProposition)proposition).getLHS());
-		} else if ( (proposition instanceof IffProposition) && (((IffProposition)proposition).getRHS() instanceof TrueProposition) ) {
+		} else if ( (proposition instanceof IffProposition) && (((IffProposition)proposition).getRHS() instanceof TrueFormula) ) {
 			return ((IffProposition)proposition).getLHS();
-		} else if ( (proposition instanceof IffProposition) && (((IffProposition)proposition).getLHS() instanceof TrueProposition) ) {
+		} else if ( (proposition instanceof IffProposition) && (((IffProposition)proposition).getLHS() instanceof TrueFormula) ) {
 			return ((IffProposition)proposition).getRHS();
-		} else if ( (proposition instanceof IffProposition) && (((IffProposition)proposition).getLHS() instanceof FalseProposition) 
-				&& (((IffProposition)proposition).getRHS() instanceof FalseProposition) ) {
+		} else if ( (proposition instanceof IffProposition) && (((IffProposition)proposition).getLHS() instanceof FalseFormula) 
+				&& (((IffProposition)proposition).getRHS() instanceof FalseFormula) ) {
 			return new TrueProposition();
-		} else if ( (proposition instanceof IffProposition) && (((IffProposition)proposition).getRHS() instanceof FalseProposition) ) {
+		} else if ( (proposition instanceof IffProposition) && (((IffProposition)proposition).getRHS() instanceof FalseFormula) ) {
 			return new NotProposition( ((IffProposition)proposition).getLHS() );
-		} else if ( (proposition instanceof IffProposition) && (((IffProposition)proposition).getLHS() instanceof FalseProposition) ) {
+		} else if ( (proposition instanceof IffProposition) && (((IffProposition)proposition).getLHS() instanceof FalseFormula) ) {
 			return new NotProposition( ((IffProposition)proposition).getRHS() );
 		} else {
 			return proposition;

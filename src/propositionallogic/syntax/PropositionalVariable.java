@@ -1,10 +1,14 @@
 package propositionallogic.syntax;
 
-public class PropositionalVariable extends Proposition {
+public class PropositionalVariable implements Proposition {
+	String label;
 	
 	public PropositionalVariable( String string ) {
-		spawnArguments();
-		this.operator = string;
+		label = string;
+	}
+	
+	public String toString() {
+		return label;
 	}
 
 }

@@ -1,15 +1,19 @@
 package propositionallogic.syntax;
 
-public class NotProposition extends Proposition {
+public class NotProposition implements Proposition {
+	
+	Proposition negatedProposition;
 	
 	public NotProposition( Proposition proposition ) {
-		spawnArguments();
-		this.operator = "!";
-		addArgument(proposition);
+		negatedProposition = proposition;
 	}
 	
 	public Proposition getProposition() {
-		return getArgument(0);
+		return negatedProposition;
+	}
+	
+	public String toString() {
+		return negatedProposition.toString();
 	}
 
 }
