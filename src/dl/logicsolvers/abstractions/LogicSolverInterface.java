@@ -70,19 +70,17 @@ public abstract class LogicSolverInterface {
 		return multiSample( formulas, numSamples, resolution );
 
 	}
-	public ArrayList<Valuation> clusterSample(dLFormula formula,int numSamples, ArrayList<Double> radii ) throws Exception {
+	public ArrayList<Valuation> clusterSample(dLFormula formula, int numSamples, ArrayList<Double> radii ) throws Exception {
 		
 		ArrayList<Valuation> points = multiSample(formula,numSamples,radii.get(0));
 		for (int i=1;i<radii.size();i++)
 		{
-			points=cls_base(formula,points,numSamples,radii.get(i),radii.get(i-1));
+			points=clusterSampleBase(formula,points,numSamples,radii.get(i),radii.get(i-1));
 		}
 		return points;
-		
-
 	}
 	
-	public ArrayList<Valuation> cls_base(dLFormula formula, ArrayList<Valuation> center_points,int numSamples, double SR, double BR) throws Exception{
+	protected ArrayList<Valuation> clusterSampleBase(dLFormula formula, ArrayList<Valuation> center_points,int numSamples, double SR, double BR) throws Exception{
 		ArrayList<Valuation> points= new ArrayList<Valuation>();
 		for (int i=0;i<center_points.size();i++)
 		{
@@ -179,36 +177,36 @@ public abstract class LogicSolverInterface {
 	}
 
 //**//
-        protected ComparisonFormula createBallExclusionFormula( Valuation center, Real radius ) throws Exception {
+	protected ComparisonFormula createBallExclusionFormula( Valuation center, Real radius ) throws Exception {
 
-                ComparisonFormula ballFormula;
+		ComparisonFormula ballFormula;
 
-                Set<RealVariable> variables = center.keySet();
-                Iterator<RealVariable> varIterator = variables.iterator();
+		Set<RealVariable> variables = center.keySet();
+		Iterator<RealVariable> varIterator = variables.iterator();
 
-                String ballString = "";
-                RealVariable thisVar;
-                while ( varIterator.hasNext() ) {
-                        thisVar = varIterator.next();
-                        if ( varIterator.hasNext() ) {
-                                ballString = ballString
-                                                + "( " +thisVar.toMathematicaString()
-                                                + " - " + center.get(thisVar).toMathematicaString()
-                                                +  " )^2 + ";
-                        } else {
-                                ballString = ballString
-                                                + "( " +thisVar.toMathematicaString()
-                                                + " - " + center.get(thisVar).toMathematicaString()
-                                                +  " )^2";
-                        }
-                }
+		String ballString = "";
+		RealVariable thisVar;
+		while ( varIterator.hasNext() ) {
+			thisVar = varIterator.next();
+			if ( varIterator.hasNext() ) {
+				ballString = ballString
+						+ "( " +thisVar.toMathematicaString()
+						+ " - " + center.get(thisVar).toMathematicaString()
+						+  " )^2 + ";
+			} else {
+				ballString = ballString
+						+ "( " +thisVar.toMathematicaString()
+						+ " - " + center.get(thisVar).toMathematicaString()
+						+  " )^2";
+			}
+		}
 
-                ballString = ballString + " > " + radius.toMathematicaString();
+		ballString = ballString + " > " + radius.toMathematicaString();
 
-                ballFormula = (ComparisonFormula)(dLStructure.parseStructure( ballString ));
+		ballFormula = (ComparisonFormula)(dLStructure.parseStructure( ballString ));
 
-                return ballFormula;
-        }
+		return ballFormula;
+	}
 
 
 }
