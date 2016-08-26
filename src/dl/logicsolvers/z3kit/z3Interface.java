@@ -213,7 +213,7 @@ public class z3Interface extends LogicSolverInterface {
 	}
 	
 	public String decorateFilename( String base ) {
-		createDirectory();
+		//createDirectory();
 		double randomID = Math.round(Math.random());
 		Date date = new Date();
 		String formatted_date = date.toString();
@@ -222,21 +222,21 @@ public class z3Interface extends LogicSolverInterface {
 		return filename;
 	}
 	
-	public void createDirectory()
-	{
-		File file = new File("z3workspace");
-		file.mkdirs();
-		file = new File("z3workspace/LUT_1");
-		file.mkdirs();
-		file = new File("z3workspace/LUT_2");
-		file.mkdirs();
-		file = new File("z3workspace/LUT_3");
-		file.mkdirs();
-		file = new File("z3workspace/LUT_1");
-		file.mkdirs();
-		file = new File("z3workspace/Full_model");
-		file.mkdirs();
-	}
+//	public void createDirectory()
+//	{
+//		File file = new File("z3workspace");
+//		file.mkdirs();
+//		file = new File("z3workspace/LUT_1");
+//		file.mkdirs();
+//		file = new File("z3workspace/LUT_2");
+//		file.mkdirs();
+//		file = new File("z3workspace/LUT_3");
+//		file.mkdirs();
+//		file = new File("z3workspace/LUT_1");
+//		file.mkdirs();
+//		file = new File("z3workspace/Full_model");
+//		file.mkdirs();
+//	}
 
 
 
@@ -276,8 +276,8 @@ public class z3Interface extends LogicSolverInterface {
 				if ( thisFormula == null ) {
 					TextOutput.debug("Got a null formula!");
 				} else {
-					TextOutput.debug("Currently printing out formula: " 
-						+ PrettyPrinter.print( thisFormula ) );
+					//TextOutput.debug("Currently printing out formula: " 
+					//	+ PrettyPrinter.print( thisFormula ) );
 				}
 			}
 
@@ -290,6 +290,8 @@ public class z3Interface extends LogicSolverInterface {
 		queryString = queryString + "\n(check-sat)\n (set-option :pp.decimal true) \n (get-model)\n";
 
 		// Now generate the actual file
+		File file = new File( filename );
+		file.getParentFile().mkdirs();
 		PrintWriter queryFile = new PrintWriter( filename );
 		queryFile.println( timeStampComment( comment ) + "\n" );
 		queryFile.println( queryString );
