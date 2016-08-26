@@ -135,6 +135,11 @@ public abstract class dLStructure {
 // equals
 	public boolean equals( Object otherObject ) {
 		if ( otherObject.getClass() == this.getClass() ) {
+			
+			if ( !(this.getOperator().equals( ((dLStructure)otherObject).getOperator()) )  ){
+				return false;
+			}
+			
 			List<dLStructure> theseArguments = getArguments();
 			List<dLStructure> thoseArguments = ((dLStructure)otherObject).getArguments();
 
@@ -317,6 +322,7 @@ public abstract class dLStructure {
 
 	public abstract dLStructure clone();
 
+
 // Convenience functions
 	public boolean isANumber() {
 		return false;
@@ -325,5 +331,7 @@ public abstract class dLStructure {
 	public boolean isAVariable() {
 		return false;
 	}
+	
+	
 
 }

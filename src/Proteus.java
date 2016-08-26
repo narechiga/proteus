@@ -1,6 +1,8 @@
 import dl.parser.PrettyPrinter;
 import dl.syntax.*;
 import interfaces.text.*;
+import dl.logicsolvers.z3kit.*;
+import dl.logicsolvers.abstractions.*;
 import propositionallogic.*;
 import propositionallogic.syntax.*;
 
@@ -10,8 +12,9 @@ public class Proteus {
 		while ( true ) {
 			try {
 				String userInput = TextInput.prompt();
-				TextOutput.println( parseHandler( userInput ));
-				
+				//TextOutput.println( parseHandler( userInput ));
+				LogicSolverInterface z3 = new z3Interface();
+				z3.checkValidity( dLFormula.parse( TextInput.file2String( userInput ) ) );
 			} catch ( Exception e ) {
 				e.printStackTrace();
 			}
@@ -39,7 +42,6 @@ public class Proteus {
 		}
 		
 		return returnString;
-		
 	}
 
 }
