@@ -12,7 +12,7 @@ public class PrettyPrinter {
 	
 	public static String print( dLFormula formula ) {
 		String returnString = "";
-
+		
 		if ( (formula instanceof TrueFormula)
 				|| (formula instanceof FalseFormula) ) {
 			return formula.toString();
