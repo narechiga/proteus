@@ -191,23 +191,21 @@ public abstract class LogicSolverInterface {
 			if ( varIterator.hasNext() ) {
 				ballString = ballString
 						+ "( " +thisVar.toMathematicaString()
-						+ " - " + center.get(thisVar).toMathematicaString()
+						+ " - " +  String.format("%.12f",center.get(thisVar).toDouble())
+						
 						+  " )^2 + ";
 			} else {
 				ballString = ballString
 						+ "( " +thisVar.toMathematicaString()
-						+ " - " + center.get(thisVar).toMathematicaString()
+						+ " - "  +  String.format("%.12f",center.get(thisVar).toDouble())
 						+  " )^2";
 			}
 		}
 
-		ballString = ballString + " > " + radius.toMathematicaString();
+		ballString = ballString + " > " + String.format("%.12f",radius.toDouble());
 
 		ballFormula = (ComparisonFormula)(dLStructure.parseStructure( ballString ));
 
 		return ballFormula;
 	}
-
-
 }
-
