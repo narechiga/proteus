@@ -131,7 +131,7 @@ public class TextOutput {
 				printNumber(); out.println( m  + "\n");
 			}
 		}
-		throw new RuntimeException( message );
+		//throw new RuntimeException( message );
 	}
 
 
