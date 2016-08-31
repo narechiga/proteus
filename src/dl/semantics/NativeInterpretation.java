@@ -91,12 +91,6 @@ public class NativeInterpretation implements Interpretation {
 			}
 		} else if ( thisTerm.operatorEquals( multiplication ) ) {
 			try {
-				System.out.println("Mulitplication term is: " + ((Term)thisTerm).toString() );
-				System.out.println("apparently bad element is: " + (Term)(thisTerm.arguments.get(0)));
-				System.out.println("apparently bad element is: " + (Term)(thisTerm.arguments.get(1)));
-
-
-
 				doubleResult = (evaluateTerm( (Term)(thisTerm.arguments.get(0)), valuation )).toDouble()
 						* (evaluateTerm( (Term)(thisTerm.arguments.get(1)), valuation )).toDouble();
 				result = new Real( doubleResult.toString() );
