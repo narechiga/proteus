@@ -21,7 +21,7 @@ public class Proteus {
 		
 		while ( true ) {
 			try {
-				String userInput = TextInput.prompt();
+				String userInput = TextInput.prompt("proteus");
 				Scanner input = new Scanner( userInput.trim() );			
 				if ( input.hasNext("findInstance")) {
 					input.skip("findInstance");
@@ -71,7 +71,7 @@ public class Proteus {
 	}
 	
 	public static String parseHandler( String input ) {
-		String returnString = "syntax-error";
+		String returnString = "syntax error";
 		//boolean success = false;
 		try {
 			Proposition structure = PropositionalLogic.parseProposition( input );
@@ -87,16 +87,25 @@ public class Proteus {
 			dLFormula formula = dLFormula.parseNNF( input );
 			returnString = (formula.getClass() + ": " + PrettyPrinter.print(formula));//structure.toString() );
 		} catch ( Exception e ) {
-			TextOutput.info("Input does not contain a dLFormula: " + input);
+			//TextOutput.info("Input does not contain a dLFormula: " + input);
 		}
 		
-		TextOutput.say(returnString);
+		if ( returnString.equals("syntax error")) {
+			TextOutput.error("Syntax error");
+		} else {
+			TextOutput.say( returnString );
+		}
+		
 		return returnString;
 	}
 
 	public static void findInstance( String formulaString ) {
 		try {
-			solver.findInstance( dLFormula.parse( formulaString ) );
+			LogicSolverResult result = solver.findInstance( dLFormula.parse( formulaString ) );
+			TextOutput.say( result.satisfiability );
+			if ( result.valuation != null ) {
+				TextOutput.say( result.valuation );
+			}
 		} catch ( Exception e ) {
 			e.printStackTrace();
 		}
@@ -105,7 +114,8 @@ public class Proteus {
 	public static void checkValidity( String formulaString ) {
 
 		try {
-			solver.checkValidity( dLFormula.parse( formulaString) );
+			LogicSolverResult result = solver.checkValidity( dLFormula.parse( formulaString) );
+			TextOutput.say(result.validity);
 		} catch ( Exception e ) {
 			e.printStackTrace();
 		}
