@@ -124,11 +124,11 @@ public class TextOutput {
 		if ( color ) {
 			for ( String m : messages ) {
 				printNumber();
-				printBoldRed("[Error] " + m  + "\n");
+				printBoldRed("[error] " + m  + "\n");
 			}
 		} else {
 			for ( String m : messages ) {
-				printNumber(); out.println( m  + "\n");
+				printNumber(); out.println("[error] " + m  + "\n");
 			}
 		}
 		//throw new RuntimeException( message );
