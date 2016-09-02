@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.List;
 //import java.io.*;
 
@@ -77,10 +78,11 @@ public abstract class LogicSolverInterface {
 
 	}
 	
-	public ArrayList<Valuation> clusterSample(dLFormula formula, int numSamples, ArrayList<Double> radii,int parallelize_flag ) throws Exception {
+	public ArrayList<Valuation> clusterSample(final dLFormula formula, final int numSamples, final ArrayList<Double> radii,int parallelize_flag ) throws Exception {
 
 
 		ArrayList<Valuation> points = multiSample(formula,numSamples,radii.get(0));
+		
 			for (int i=1;i<radii.size();i++)
 			{
 				points=clusterSampleBase(formula,points,numSamples,radii.get(i),radii.get(i-1),parallelize_flag);
@@ -90,10 +92,27 @@ public abstract class LogicSolverInterface {
 		return points;
 	}
 	
-	public ArrayList<Valuation> clusterSample(dLFormula formula, int numSamples, ArrayList<Double> radii,int parallelize_flag,long timeout ) throws Exception {
-		TextOutput.info("Timing life out");
+	public ArrayList<Valuation> clusterSample(final dLFormula formula, final int numSamples, final ArrayList<Double> radii,int parallelize_flag,long timeout ) throws Exception {
+		ArrayList<Valuation> points=new ArrayList<Valuation>();
+		ExecutorService executor=Executors.newFixedThreadPool(1);
+		Callable<ArrayList<Valuation>> task1 = new Callable<ArrayList<Valuation>>() {
+			public ArrayList<Valuation> call()
+			{
+				ArrayList<Valuation> points = multiSample(formula,numSamples,radii.get(0));
 
-		ArrayList<Valuation> points = multiSample(formula,numSamples,radii.get(0));
+				return points;
+
+			}
+		};
+		Future<ArrayList<Valuation>> future=executor.submit(task1);
+		try{
+			points = future.get(timeout,TimeUnit.SECONDS);
+		}
+		catch(TimeoutException e)
+		{
+			future.cancel(true);
+			TextOutput.info("thread cancelled");
+		}
 			for (int i=1;i<radii.size();i++)
 			{
 				points=clusterSampleBase(formula,points,numSamples,radii.get(i),radii.get(i-1),parallelize_flag,timeout);
@@ -170,8 +189,17 @@ public abstract class LogicSolverInterface {
 		
 		for (Future<ArrayList<Valuation>> future: futures)
 		{
+			try{
+
 			points.addAll(future.get(timeout,TimeUnit.SECONDS));
+			}
+			 catch (TimeoutException e) {
+		            future.cancel(true);
+					TextOutput.info("ya, timed out");
+		        }
 		}
+		executor.shutdown();
+
 		return points;
 	}
 
