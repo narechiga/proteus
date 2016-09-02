@@ -91,7 +91,7 @@ public abstract class LogicSolverInterface {
 	}
 	
 	public ArrayList<Valuation> clusterSample(dLFormula formula, int numSamples, ArrayList<Double> radii,int parallelize_flag,long timeout ) throws Exception {
-
+		TextOutput.info("Timing life out");
 
 		ArrayList<Valuation> points = multiSample(formula,numSamples,radii.get(0));
 			for (int i=1;i<radii.size();i++)
