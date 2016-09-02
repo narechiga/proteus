@@ -39,7 +39,7 @@ public abstract class LogicSolverInterface {
 	}
 
 	public LogicSolverResult findInstance( List<dLFormula> theseFormulas ) throws Exception {
-		String filename = generateFilename();
+		String filename = decorateFilename("findInstance");
 		String comment = generateFindInstanceComment( theseFormulas );
 
 		return findInstance( filename, theseFormulas, comment );
@@ -293,6 +293,14 @@ public abstract class LogicSolverInterface {
 	public abstract String commentLine( String comment );
 	public abstract String decorateFilename( String base );
 	public abstract String generateFilename();
+	public String decorateFilename( String workSpaceName, String base, String fileExtension ) {
+		double randomID = Math.round(Math.random());
+		Date date = new Date();
+		String formatted_date = date.toString();
+		formatted_date=formatted_date.replace(" ","_");
+		String filename= workSpaceName + "/" + base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + "." + fileExtension;
+		return filename;
+	}
 
 // Convenience functions for auto-commenting
 	protected abstract String generateFindInstanceComment( List<dLFormula> theseFormulas );
@@ -343,4 +351,8 @@ public abstract class LogicSolverInterface {
 
 		return ballFormula;
 	}
+	
+
 }
+
+
