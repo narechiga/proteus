@@ -39,7 +39,7 @@ public abstract class LogicSolverInterface {
 	}
 
 	public LogicSolverResult findInstance( List<dLFormula> theseFormulas ) throws Exception {
-		String filename = generateFilename();
+		String filename = decorateFilename("findInstance");
 		String comment = generateFindInstanceComment( theseFormulas );
 
 		return findInstance( filename, theseFormulas, comment );
@@ -90,6 +90,18 @@ public abstract class LogicSolverInterface {
 		return points;
 	}
 	
+	public ArrayList<Valuation> clusterSample(dLFormula formula, int numSamples, ArrayList<Double> radii,int parallelize_flag,long timeout ) throws Exception {
+		TextOutput.info("Timing life out");
+
+		ArrayList<Valuation> points = multiSample(formula,numSamples,radii.get(0));
+			for (int i=1;i<radii.size();i++)
+			{
+				points=clusterSampleBase(formula,points,numSamples,radii.get(i),radii.get(i-1),parallelize_flag,timeout);
+			}
+		
+		
+		return points;
+	}
 	/*
 	 * else{
 			ExecutorService executor=Executors.newFixedThreadPool(points.size());
@@ -117,14 +129,65 @@ public abstract class LogicSolverInterface {
 			
 		}
 	 */
+	
+	protected ArrayList<Valuation> clusterSampleBase(final dLFormula formula, final ArrayList<Valuation> center_points,final int numSamples, final double SR, final double BR,int parallelize_flag,long timeout) throws Exception{
+		ArrayList<Future<ArrayList<Valuation>>> futures = new ArrayList<Future<ArrayList<Valuation>>>();
+		ArrayList<Valuation> points= new ArrayList<Valuation>();
+		ExecutorService executor=Executors.newFixedThreadPool(1);
+
+		if(parallelize_flag==1){
+			if(center_points.size()>0)
+			{
+			executor=Executors.newFixedThreadPool(center_points.size());
+			}
+			}
+			else
+			{
+			executor=Executors.newFixedThreadPool(1);
+
+			}
+		for (int i=0;i<center_points.size();i++)
+		{	final int j=i;
+			
+			Callable<ArrayList<Valuation>> task = new Callable<ArrayList<Valuation>>() {
+					public ArrayList<Valuation> call() throws Exception {
+						// TODO Auto-generated method stub
+
+						    try {
+						    	
+						        ArrayList<Valuation> newpoints=(multiSample(new AndFormula(formula,createBallExclusionFormula(center_points.get(j),new Real(BR)).negate()),numSamples,SR));
+						        return newpoints;
+						    }
+						    catch (InterruptedException e) {
+						        throw new IllegalStateException("task interrupted", e);
+						    }						
+					}
+			
+			};
+			Future<ArrayList<Valuation>> future = executor.submit(task);
+			futures.add(future);
+		}
+		
+		for (Future<ArrayList<Valuation>> future: futures)
+		{
+			points.addAll(future.get(timeout,TimeUnit.SECONDS));
+		}
+		return points;
+	}
+
+	
+	
+	
 	protected ArrayList<Valuation> clusterSampleBase(final dLFormula formula, final ArrayList<Valuation> center_points,final int numSamples, final double SR, final double BR,int parallelize_flag) throws Exception{
 			ArrayList<Future<ArrayList<Valuation>>> futures = new ArrayList<Future<ArrayList<Valuation>>>();
 			ArrayList<Valuation> points= new ArrayList<Valuation>();
 			ExecutorService executor=Executors.newFixedThreadPool(1);
 
 			if(parallelize_flag==1){
-
+				if(center_points.size()>0)
+				{
 				executor=Executors.newFixedThreadPool(center_points.size());
+				}
 				}
 				else
 				{
@@ -230,6 +293,14 @@ public abstract class LogicSolverInterface {
 	public abstract String commentLine( String comment );
 	public abstract String decorateFilename( String base );
 	public abstract String generateFilename();
+	public String decorateFilename( String workSpaceName, String base, String fileExtension ) {
+		double randomID = Math.round(Math.random());
+		Date date = new Date();
+		String formatted_date = date.toString();
+		formatted_date=formatted_date.replace(" ","_");
+		String filename= workSpaceName + "/" + base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + "." + fileExtension;
+		return filename;
+	}
 
 // Convenience functions for auto-commenting
 	protected abstract String generateFindInstanceComment( List<dLFormula> theseFormulas );
@@ -280,4 +351,8 @@ public abstract class LogicSolverInterface {
 
 		return ballFormula;
 	}
+	
+
 }
+
+

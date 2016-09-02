@@ -213,14 +213,9 @@ public class z3Interface extends LogicSolverInterface {
 	}
 	
 	public String decorateFilename( String base ) {
-		//createDirectory();
-		double randomID = Math.round(Math.random());
-		Date date = new Date();
-		String formatted_date = date.toString();
-		formatted_date=formatted_date.replace(" ","_");
-		String filename= "z3workspace/" + base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + ".smt2";
-		return filename;
+		return decorateFilename( "z3workspace", base, "smt2" );
 	}
+
 	
 //	public void createDirectory()
 //	{

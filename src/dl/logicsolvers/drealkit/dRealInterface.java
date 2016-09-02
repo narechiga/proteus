@@ -24,18 +24,6 @@ import dl.parser.PrettyPrinter;
 
 public class dRealInterface extends LogicSolverInterface {
 
-	// COLORS! OMG COLORS!
-	public final String ANSI_RESET = "\u001B[0m";
-	public final String ANSI_BLACK = "\u001B[30m";
-	public final String ANSI_RED = "\u001B[31m";
-	public final String ANSI_GREEN = "\u001B[32m";
-	public final String ANSI_YELLOW = "\u001B[33m";
-	public final String ANSI_BLUE = "\u001B[34m";
-	public final String ANSI_PURPLE = "\u001B[35m";
-	public final String ANSI_CYAN = "\u001B[36m";
-	public final String ANSI_WHITE = "\u001B[37m";
-	public final String ANSI_BOLD = "\u001B[1m";
-
 	public double precision = 0.00001;
 	public boolean debug = false;
 
@@ -266,20 +254,15 @@ public class dRealInterface extends LogicSolverInterface {
 	}
 //
 	public String decorateFilename( String base ) {
-		//createDirectory();
-		double randomID = Math.round(Math.random());
-		Date date = new Date();
-		String formatted_date = date.toString();
-		formatted_date=formatted_date.replace(" ","_");
-		String filename= "drealworkspace/" + base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + ".smt2";
-		return filename;
+		return decorateFilename( "drealworkspace", base, "smt2" );
 	}
 
 //
 	public String generateFilename() {
 		double randomID = Math.round(Math.random());
 		Date date = new Date();
-		return "drealworkspace/query." +UUID.randomUUID().toString().replaceAll("-", "")+ "_"+ date.getTime() + "." + randomID + ".smt2";
+		//return "drealworkspace/query." +UUID.randomUUID().toString().replaceAll("-", "")+ "_"+ date.getTime() + "." + randomID + ".smt2";
+		return decorateFilename( "query" + date.getTime() + "." + randomID );
 	}
 
 // Writes a query file for a logical formula.  Note that it does not negate the formula, it just writes out
