@@ -76,11 +76,6 @@ public class Valuation {
 		return this.valuation.containsKey( var );
 	}
 
-	public String toString() {
-		//return valuation.toString();
-		return toMathematicaString();
-	}
-
 	public String todRealString() {
 		String returnString = "";
 
@@ -97,7 +92,7 @@ public class Valuation {
 		return returnString;
 	}
 
-	public String toMathematicaString() {
+	public String toString() {
 		String returnString = "{ ";
 
 		Set<RealVariable> variables = valuation.keySet();
@@ -120,6 +115,21 @@ public class Valuation {
 		}
 		returnString = returnString + " }";
 		return returnString;
+	}
+	
+	public static Valuation parse( String valuationString ) {
+		// returns the dLStructure that exists in the string
+		StringReader thisReader = new StringReader( valuationString );
+		dLLexer thisdLLexer = new dLLexer( thisReader );
+		dLParser thisParser = new dLParser( thisdLLexer );
+
+		try {
+			thisParser.parse();
+		} catch (Exception e) {
+			//e.printStackTrace();
+			throw new dLStructureFormatException("Problem parsing: " + valuationString );
+		}
+		return thisParser.valuation;
 	}
 
 	public Valuation clone() {

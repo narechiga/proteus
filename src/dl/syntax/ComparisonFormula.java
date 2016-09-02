@@ -202,8 +202,7 @@ public class ComparisonFormula extends dLFormula {
 														this.getRHS().clone() );
 
 		} else {
-			throw new UnknownInequalityException( ANSI_BOLD + ANSI_RED 
-																			+ operator.toString() + ANSI_RESET );
+			throw new UnknownInequalityException( operator.toString() );
 		}
 
 		return returnFormula;
