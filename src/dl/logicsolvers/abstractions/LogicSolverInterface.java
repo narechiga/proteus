@@ -22,6 +22,18 @@ import dl.semantics.*;
 import dl.syntax.*;
 
 public abstract class LogicSolverInterface {
+	
+	static dLFormula bounds = new TrueFormula();
+	
+	public void Assign_Bounds(dLFormula boundsFormula)
+	{
+		this.bounds=boundsFormula;
+	}
+	
+	public dLFormula get_Bounds(dLFormula boundsFormula)
+	{
+		return this.bounds;
+	}
 
 // Basic ways to do "quantifier elimination"
 	public abstract LogicSolverResult checkValidity( String filename, dLFormula thisFormula, String comment ) 
@@ -78,7 +90,7 @@ public abstract class LogicSolverInterface {
 
 	}
 	
-	public ArrayList<Valuation> clusterSample(final dLFormula formula, final int numSamples, final ArrayList<Double> radii,int parallelize_flag ) throws Exception {
+	public ArrayList<Valuation> clusterSample(final dLFormula formula, final int numSamples, final ArrayList<Double> radii,boolean parallelize_flag ) throws Exception {
 
 
 		ArrayList<Valuation> points = multiSample(formula,numSamples,radii.get(0));
@@ -92,7 +104,7 @@ public abstract class LogicSolverInterface {
 		return points;
 	}
 	
-	public ArrayList<Valuation> clusterSample(final dLFormula formula, final int numSamples, final ArrayList<Double> radii,int parallelize_flag,long timeout ) throws Exception {
+	public ArrayList<Valuation> clusterSample(final dLFormula formula, final int numSamples, final ArrayList<Double> radii,boolean parallelize_flag,long timeout ) throws Exception {
 		ArrayList<Valuation> points=new ArrayList<Valuation>();
 		ExecutorService executor=Executors.newFixedThreadPool(1);
 		Callable<ArrayList<Valuation>> task1 = new Callable<ArrayList<Valuation>>() {
@@ -149,12 +161,12 @@ public abstract class LogicSolverInterface {
 		}
 	 */
 	
-	protected ArrayList<Valuation> clusterSampleBase(final dLFormula formula, final ArrayList<Valuation> center_points,final int numSamples, final double SR, final double BR,int parallelize_flag,long timeout) throws Exception{
+	protected ArrayList<Valuation> clusterSampleBase(final dLFormula formula, final ArrayList<Valuation> center_points,final int numSamples, final double SR, final double BR,boolean parallelize_flag,long timeout) throws Exception{
 		ArrayList<Future<ArrayList<Valuation>>> futures = new ArrayList<Future<ArrayList<Valuation>>>();
 		ArrayList<Valuation> points= new ArrayList<Valuation>();
 		ExecutorService executor=Executors.newFixedThreadPool(1);
 
-		if(parallelize_flag==1){
+		if(parallelize_flag==true){
 			if(center_points.size()>0)
 			{
 			executor=Executors.newFixedThreadPool(center_points.size());
@@ -206,12 +218,12 @@ public abstract class LogicSolverInterface {
 	
 	
 	
-	protected ArrayList<Valuation> clusterSampleBase(final dLFormula formula, final ArrayList<Valuation> center_points,final int numSamples, final double SR, final double BR,int parallelize_flag) throws Exception{
+	protected ArrayList<Valuation> clusterSampleBase(final dLFormula formula, final ArrayList<Valuation> center_points,final int numSamples, final double SR, final double BR,boolean parallelize_flag) throws Exception{
 			ArrayList<Future<ArrayList<Valuation>>> futures = new ArrayList<Future<ArrayList<Valuation>>>();
 			ArrayList<Valuation> points= new ArrayList<Valuation>();
 			ExecutorService executor=Executors.newFixedThreadPool(1);
 
-			if(parallelize_flag==1){
+			if(parallelize_flag==true){
 				if(center_points.size()>0)
 				{
 				executor=Executors.newFixedThreadPool(center_points.size());
