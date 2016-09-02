@@ -306,13 +306,14 @@ public class dRealInterface extends LogicSolverInterface {
 						+ PrettyPrinter.print(thisFormula) );
 				}
 			}
-			thisFormula=new AndFormula(thisFormula,this.get_Bounds());
+		//	thisFormula=new AndFormula(thisFormula,this.get_Bounds());
 
 			queryString = queryString + "\n;; Formula is (" + PrettyPrinter.print(thisFormula) +")\n";
 			queryString = queryString + "(assert " + thisFormula.todRealString() + " )\n";
 
 		}
-
+		queryString = queryString + "\n;; Formula is (" + PrettyPrinter.print(this.get_Bounds()) +")\n";
+		queryString = queryString + "(assert " + this.get_Bounds().todRealString() + " )\n";
 		// Print the little thing that needs to go at the end
 		queryString = queryString + "\n(check-sat)\n(exit)\n";
 
