@@ -253,6 +253,7 @@ public class z3Interface extends LogicSolverInterface {
 		while ( formulaIterator.hasNext() ) {
 			variables.addAll( formulaIterator.next().getFreeVariables() );
 		}
+		variables.addAll(this.get_Bounds().getFreeVariables());
 
 		// Now print the variable declarations
 		queryString = queryString + "\n;; Variable declarations\n";
@@ -273,8 +274,10 @@ public class z3Interface extends LogicSolverInterface {
 				} else {
 					//TextOutput.debug("Currently printing out formula: " 
 					//	+ PrettyPrinter.print( thisFormula ) );
+
 				}
 			}
+			thisFormula=new AndFormula(thisFormula,this.get_Bounds());
 
 			queryString = queryString + "\n;; Formula is (" + PrettyPrinter.print( thisFormula ) +")\n";
 			queryString = queryString + "(assert " + thisFormula.todRealString() + " )\n";

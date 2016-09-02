@@ -278,7 +278,7 @@ public class dRealInterface extends LogicSolverInterface {
 		while ( formulaIterator.hasNext() ) {
 			variables.addAll( formulaIterator.next().getFreeVariables() );
 		}
-
+			variables.addAll(this.get_Bounds().getFreeVariables());
 		// Now print the variable declarations
 		queryString = queryString + "\n;; Variable declarations\n";
 		//RealVariable thisVariable;
@@ -306,6 +306,7 @@ public class dRealInterface extends LogicSolverInterface {
 						+ PrettyPrinter.print(thisFormula) );
 				}
 			}
+			thisFormula=new AndFormula(thisFormula,this.get_Bounds());
 
 			queryString = queryString + "\n;; Formula is (" + PrettyPrinter.print(thisFormula) +")\n";
 			queryString = queryString + "(assert " + thisFormula.todRealString() + " )\n";

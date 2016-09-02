@@ -24,13 +24,13 @@ import dl.syntax.*;
 public abstract class LogicSolverInterface {
 	
 	static dLFormula bounds = new TrueFormula();
-	
+
 	public void Assign_Bounds(dLFormula boundsFormula)
 	{
 		this.bounds=boundsFormula;
 	}
 	
-	public dLFormula get_Bounds(dLFormula boundsFormula)
+	public dLFormula get_Bounds()
 	{
 		return this.bounds;
 	}
