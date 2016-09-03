@@ -15,7 +15,7 @@ import dl.syntax.*;
 
 public class Valuation {
 
-	HashMap<RealVariable,Real> valuation;
+	public HashMap<RealVariable,Real> valuation;
 
 	public Valuation () {
 		this.valuation = new HashMap<RealVariable,Real>();

@@ -127,7 +127,10 @@ public abstract class LogicSolverInterface {
 		}
 			for (int i=1;i<radii.size();i++)
 			{
+				if(points.size()>0)
+				{
 				points=clusterSampleBase(formula,points,numSamples,radii.get(i),radii.get(i-1),parallelize_flag,timeout);
+				}
 			}
 		
 		
