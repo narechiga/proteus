@@ -254,7 +254,7 @@ public class dRealInterface extends LogicSolverInterface {
 	}
 //
 	public String decorateFilename( String base ) {
-		return decorateFilename( "drealworkspace", base, "smt2" );
+		return decorateFilename( "dRealWorkspace", base, "smt2" );
 	}
 
 //

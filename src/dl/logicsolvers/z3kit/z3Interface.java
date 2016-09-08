@@ -213,7 +213,7 @@ public class z3Interface extends LogicSolverInterface {
 	}
 	
 	public String decorateFilename( String base ) {
-		return decorateFilename( "z3workspace", base, "smt2" );
+		return decorateFilename( "z3Workspace", base, "smt2" );
 	}
 
 	

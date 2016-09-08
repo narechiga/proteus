@@ -10,14 +10,8 @@ package dl.logicsolvers.abstractions;
 import interfaces.text.*;
 
 import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import java.util.List;
-//import java.io.*;
+import java.util.concurrent.*;
+import java.io.*;
 
 import dl.semantics.*;
 import dl.syntax.*;
@@ -267,76 +261,76 @@ public abstract class LogicSolverInterface {
 	
 	
 	protected ArrayList<Valuation> clusterSampleBase(final dLFormula formula, final ArrayList<Valuation> center_points,final int numSamples, final double SR, final double BR,boolean parallelize_flag) throws Exception{
-			ArrayList<Future<ArrayList<Valuation>>> futures = new ArrayList<Future<ArrayList<Valuation>>>();
-			ArrayList<Valuation> points= new ArrayList<Valuation>();
-			ExecutorService executor=Executors.newFixedThreadPool(1);
+		ArrayList<Future<ArrayList<Valuation>>> futures = new ArrayList<Future<ArrayList<Valuation>>>();
+		ArrayList<Valuation> points= new ArrayList<Valuation>();
+		ExecutorService executor=Executors.newFixedThreadPool(1);
 
-			if(parallelize_flag==true){
-				if(center_points.size()>0)
-				{
-				executor=Executors.newFixedThreadPool(center_points.size());
-				}
-				}
-				else
-				{
-				executor=Executors.newFixedThreadPool(1);
-
-				}
-			for (int i=0;i<center_points.size();i++)
-			{	final int j=i;
-				
-				Callable<ArrayList<Valuation>> task = new Callable<ArrayList<Valuation>>() {
-						public ArrayList<Valuation> call() throws Exception {
-							// TODO Auto-generated method stub
-	
-							    try {
-							    	
-							        ArrayList<Valuation> newpoints=(multiSample(new AndFormula(formula,createBallExclusionFormula(center_points.get(j),new Real(BR)).negate()),numSamples,SR));
-							        return newpoints;
-							    }
-							    catch (InterruptedException e) {
-							        throw new IllegalStateException("task interrupted", e);
-							    }						
-						}
-				
-				};
-				Future<ArrayList<Valuation>> future = executor.submit(task);
-				futures.add(future);
-			}
-			
-			for (Future<ArrayList<Valuation>> future: futures)
+		if(parallelize_flag==true){
+			if(center_points.size()>0)
 			{
-				points.addAll(future.get());
+				executor=Executors.newFixedThreadPool(center_points.size());
 			}
-			return points;
 		}
+		else
+		{
+			executor=Executors.newFixedThreadPool(1);
+
+		}
+		for (int i=0;i<center_points.size();i++)
+		{	final int j=i;
+
+		Callable<ArrayList<Valuation>> task = new Callable<ArrayList<Valuation>>() {
+			public ArrayList<Valuation> call() throws Exception {
+				// TODO Auto-generated method stub
+
+				try {
+
+					ArrayList<Valuation> newpoints=(multiSample(new AndFormula(formula,createBallExclusionFormula(center_points.get(j),new Real(BR)).negate()),numSamples,SR));
+					return newpoints;
+				}
+				catch (InterruptedException e) {
+					throw new IllegalStateException("task interrupted", e);
+				}						
+			}
+
+		};
+		Future<ArrayList<Valuation>> future = executor.submit(task);
+		futures.add(future);
+		}
+
+		for (Future<ArrayList<Valuation>> future: futures)
+		{
+			points.addAll(future.get());
+		}
+		return points;
+	}
 	
 
 	public ArrayList<Valuation> multiSample( List<dLFormula> thisSet, int numberOfPoints, double suggestedRadius ) {
-                ArrayList<dLFormula> queryFormulas = new ArrayList<dLFormula>();
-                ArrayList<Valuation> samplePoints = new ArrayList<Valuation>();
-                Valuation thisPoint;
+		ArrayList<dLFormula> queryFormulas = new ArrayList<dLFormula>();
+		ArrayList<Valuation> samplePoints = new ArrayList<Valuation>();
+		Valuation thisPoint;
 
-                queryFormulas.addAll( thisSet );
+		queryFormulas.addAll( thisSet );
 
-                for ( int i = 0; i < numberOfPoints; i++ ) { 
-                        thisPoint = sample( queryFormulas );
-                        if ( thisPoint != null && !thisPoint.isEmpty() ) { 
-                                samplePoints.add( thisPoint );
-                                try {
-                                	queryFormulas.add( createBallExclusionFormula( thisPoint, new Real(suggestedRadius) ) );
-                                } catch ( Exception e ) {
-                                	e.printStackTrace();
+		for ( int i = 0; i < numberOfPoints; i++ ) { 
+			thisPoint = sample( queryFormulas );
+			if ( thisPoint != null && !thisPoint.isEmpty() ) { 
+				samplePoints.add( thisPoint );
+				try {
+					queryFormulas.add( createBallExclusionFormula( thisPoint, new Real(suggestedRadius) ) );
+				} catch ( Exception e ) {
+					e.printStackTrace();
 				}
-                                //System.out.println("Iteration: " + i + ";  Ball Exclusion Formula: " +
-                                //                      createBallExclusionFormula( thisPoint, new Real(suggestedRadius) ).toMathematicaString() );
+				//System.out.println("Iteration: " + i + ";  Ball Exclusion Formula: " +
+						//                      createBallExclusionFormula( thisPoint, new Real(suggestedRadius) ).toMathematicaString() );
 
-                        } else {
-                                break;
-                        }
-                }
+			} else {
+				break;
+			}
+		}
 
-                return samplePoints;
+		return samplePoints;
 	}
 
 
@@ -356,17 +350,17 @@ public abstract class LogicSolverInterface {
 		dLFormula negatedFormula = thisFormula.negate();
 
 		for(dLFormula bound:bounds.splitOnAnds()){
-			
+
 			for(RealVariable var:bound.getFreeVariables()){
-			
-			if(variables.contains(var)){
-				negatedFormula=new AndFormula(negatedFormula,bound);
-			}
+
+				if(variables.contains(var)){
+					negatedFormula=new AndFormula(negatedFormula,bound);
+				}
 			}
 		}
 		TextOutput.info("final formula is"+negatedFormula);
-	    String comment = generateCheckValidityComment( thisFormula );
-	    String filename = decorateFilename( "checkValidity" );
+		String comment = generateCheckValidityComment( thisFormula );
+		String filename = decorateFilename( "checkValidity" );
 
 		TextOutput.debug("Entering checkValidity( string, dlformula, string) ");
 		ArrayList<dLFormula> theseFormulas = negatedFormula.splitOnAnds();
@@ -388,14 +382,14 @@ public abstract class LogicSolverInterface {
 		}
 		TextOutput.debug("Returning.");
 		return result;
-		
+
 	}
-	
+
 	public LogicSolverResult checkValidity ( String filename, dLFormula thisFormula ) throws Exception {
 		TextOutput.debug("Entering checkValidity ( dLformula )");
-	    String comment = generateCheckValidityComment( thisFormula );
-	    filename=decorateFilename(filename);
-	    return checkValidity( filename, thisFormula, comment );
+		String comment = generateCheckValidityComment( thisFormula );
+		filename = decorateFilename(filename);
+		return checkValidity( filename, thisFormula, comment );
 	}
 
 // Even more convenient use of checkValidity
@@ -426,8 +420,10 @@ public abstract class LogicSolverInterface {
 		double randomID = Math.round(Math.random());
 		Date date = new Date();
 		String formatted_date = date.toString();
-		formatted_date=formatted_date.replace(" ","_");
-		String filename= workSpaceName + "/" + base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + "." + fileExtension;
+		formatted_date = formatted_date.replace(" ","_");
+		String filename = workSpaceName + "/tmp/" + base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + "." + fileExtension;
+		File targetFile = new File( filename );
+		targetFile.getParentFile().mkdirs();
 		return filename;
 	}
 
