@@ -8,6 +8,7 @@
 package dl.logicsolvers.abstractions;
 
 import interfaces.text.*;
+
 import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -24,7 +25,7 @@ import dl.syntax.*;
 public abstract class LogicSolverInterface {
 	
 	static dLFormula bounds = new TrueFormula();
-
+	static Replacement bounds_normalize=null;
 	public void Assign_Bounds(dLFormula boundsFormula)
 	{
 		this.bounds=boundsFormula;
@@ -43,6 +44,11 @@ public abstract class LogicSolverInterface {
 	public abstract LogicSolverResult findInstance( String filename, List<dLFormula> theseFormulas, String comment ) 
 				throws Exception;
 
+	//public abstract LogicSolverResult boundedfindInstance( String filename, List<dLFormula> theseFormulas, String comment ) 
+		//	throws Exception;
+	
+//	public abstract LogicSolverResult boundedcheckValidity( String filename, List<dLFormula> theseFormulas, String comment ) 
+	//		throws Exception;
 // Convenient aliases for findInstance
 	public LogicSolverResult findInstance( dLFormula thisFormula ) throws Exception {
 		ArrayList<dLFormula> theseFormulas = new ArrayList<dLFormula>();
@@ -50,6 +56,25 @@ public abstract class LogicSolverInterface {
 
 		return findInstance( theseFormulas );
 	}
+	public LogicSolverResult boundedfindInstance( dLFormula thisFormula ) throws Exception {
+		
+		ArrayList<dLFormula> theseFormulas = new ArrayList<dLFormula>();
+		Set<RealVariable> variables=thisFormula.getFreeVariables();
+		TextOutput.info(bounds);
+		for(dLFormula bound:bounds.splitOnAnds()){
+		
+			for(RealVariable var:bound.getFreeVariables()){
+			
+			if(variables.contains(var)){
+				thisFormula=new AndFormula(thisFormula,bound);
+			}
+			}
+		}
+		theseFormulas.add( thisFormula );
+		TextOutput.info("final formula is"+thisFormula);
+
+		return findInstance( theseFormulas );	
+		}
 
 	public LogicSolverResult findInstance( List<dLFormula> theseFormulas ) throws Exception {
 		String filename = decorateFilename("findInstance");
@@ -90,9 +115,18 @@ public abstract class LogicSolverInterface {
 
 	}
 	
-	public ArrayList<Valuation> clusterSample(final dLFormula formula, final int numSamples, final ArrayList<Double> radii,boolean parallelize_flag ) throws Exception {
+	public ArrayList<Valuation> clusterSample(dLFormula formula, final int numSamples, final ArrayList<Double> radii,boolean parallelize_flag ) throws Exception {
 
-
+		Set<RealVariable> variables=formula.getFreeVariables();
+		for(dLFormula bound:bounds.splitOnAnds()){
+		
+			for(RealVariable var:bound.getFreeVariables()){
+				
+				if(variables.contains(var)){
+					formula=new AndFormula(formula,bound);
+				}
+				}
+		}
 		ArrayList<Valuation> points = multiSample(formula,numSamples,radii.get(0));
 		
 			for (int i=1;i<radii.size();i++)
@@ -104,13 +138,24 @@ public abstract class LogicSolverInterface {
 		return points;
 	}
 	
-	public ArrayList<Valuation> clusterSample(final dLFormula formula, final int numSamples, final ArrayList<Double> radii,boolean parallelize_flag,long timeout ) throws Exception {
+	public ArrayList<Valuation> clusterSample(dLFormula formula, final int numSamples, final ArrayList<Double> radii,boolean parallelize_flag,long timeout ) throws Exception {
 		ArrayList<Valuation> points=new ArrayList<Valuation>();
+		Set<RealVariable> variables=formula.getFreeVariables();
+		for(dLFormula bound:bounds.splitOnAnds()){
+		
+			for(RealVariable var:bound.getFreeVariables()){
+				
+				if(variables.contains(var)){
+					formula=new AndFormula(formula,bound);
+				}
+				}
+		}
+		final dLFormula formula_bounded=formula;
 		ExecutorService executor=Executors.newFixedThreadPool(1);
 		Callable<ArrayList<Valuation>> task1 = new Callable<ArrayList<Valuation>>() {
 			public ArrayList<Valuation> call()
 			{
-				ArrayList<Valuation> points = multiSample(formula,numSamples,radii.get(0));
+				ArrayList<Valuation> points = multiSample(formula_bounded,numSamples,radii.get(0));
 
 				return points;
 
@@ -125,13 +170,13 @@ public abstract class LogicSolverInterface {
 			future.cancel(true);
 			TextOutput.info("thread cancelled");
 		}
-			for (int i=1;i<radii.size();i++)
-			{
-				if(points.size()>0)
+				for (int i=1;i<radii.size();i++)
 				{
-				points=clusterSampleBase(formula,points,numSamples,radii.get(i),radii.get(i-1),parallelize_flag,timeout);
+					if(points.size()>0)
+					{
+					points=clusterSampleBase(formula,points,numSamples,radii.get(i),radii.get(i-1),parallelize_flag,timeout);
+					}
 				}
-			}
 		
 		
 		return points;
@@ -303,6 +348,47 @@ public abstract class LogicSolverInterface {
 	    String filename = decorateFilename( "checkValidity" );
 
 	    return checkValidity( filename, thisFormula, comment );
+	}
+	
+	public LogicSolverResult boundedcheckValidity ( dLFormula thisFormula ) throws Exception {
+		TextOutput.debug("Entering checkValidity ( dLformula )");
+		Set<RealVariable> variables=thisFormula.getFreeVariables();
+		dLFormula negatedFormula = thisFormula.negate();
+
+		for(dLFormula bound:bounds.splitOnAnds()){
+			
+			for(RealVariable var:bound.getFreeVariables()){
+			
+			if(variables.contains(var)){
+				negatedFormula=new AndFormula(negatedFormula,bound);
+			}
+			}
+		}
+		TextOutput.info("final formula is"+negatedFormula);
+	    String comment = generateCheckValidityComment( thisFormula );
+	    String filename = decorateFilename( "checkValidity" );
+
+		TextOutput.debug("Entering checkValidity( string, dlformula, string) ");
+		ArrayList<dLFormula> theseFormulas = negatedFormula.splitOnAnds();
+
+		// Try to find a counterexample
+		//LogicSolverResult subResult = findInstance( filename, theseFormulas, comment );
+		LogicSolverResult subResult = findInstance( filename, theseFormulas, comment);
+		// We queried the negation, so invert the result
+		LogicSolverResult result;
+		if ( subResult.satisfiability.equals("unsat") ) {
+			result = new LogicSolverResult("sat", "valid", new Valuation() );
+			TextOutput.debug("Your formula is valid");
+		} else if ( subResult.satisfiability.equals("sat") ) { 
+			// The valuation is then a counterexamplei.
+			result = new LogicSolverResult("unknown", "notvalid", subResult.valuation );
+		} else {
+			//gibberish, I guess
+			result = new LogicSolverResult("unknown", "unknown", new Valuation() );
+		}
+		TextOutput.debug("Returning.");
+		return result;
+		
 	}
 	
 	public LogicSolverResult checkValidity ( String filename, dLFormula thisFormula ) throws Exception {
