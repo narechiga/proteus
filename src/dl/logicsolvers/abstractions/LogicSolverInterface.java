@@ -9,6 +9,7 @@ package dl.logicsolvers.abstractions;
 
 import interfaces.text.*;
 
+import java.io.File;
 import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -454,7 +455,9 @@ public abstract class LogicSolverInterface {
 		Date date = new Date();
 		String formatted_date = date.toString();
 		formatted_date=formatted_date.replace(" ","_");
-		String filename= workSpaceName + "/tmp/" + base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + "." + fileExtension;
+		String filename = "/tmp/" + workSpaceName + base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + "." + fileExtension;
+		File targetFile = new File( filename );
+		targetFile.getParentFile().mkdirs();
 		return filename;
 	}
 
