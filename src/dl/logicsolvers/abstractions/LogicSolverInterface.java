@@ -454,7 +454,7 @@ public abstract class LogicSolverInterface {
 		Date date = new Date();
 		String formatted_date = date.toString();
 		formatted_date=formatted_date.replace(" ","_");
-		String filename= workSpaceName + "/" + base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + "." + fileExtension;
+		String filename= workSpaceName + "/tmp/" + base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + "." + fileExtension;
 		return filename;
 	}
 

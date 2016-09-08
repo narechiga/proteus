@@ -37,7 +37,7 @@ public class dRealInterface extends LogicSolverInterface {
 		this.precision = precision;
 		
 		// Generate the workspace
-		File drealworkspacedir = new File("drealworkspace");
+		File drealworkspacedir = new File("dRealWorkspace");
                 if (!drealworkspacedir.exists()) {
                         drealworkspacedir.mkdir();
                 }
