@@ -26,18 +26,18 @@ import dl.syntax.*;
 public abstract class LogicSolverInterface {
 
 	static dLFormula bounds = new TrueFormula();
-	static Replacement bounds_normalize=null;
+	static Replacement boundsNormalize=null;
 	public void assign_normalize(Replacement normalizer)
 	{
-		this.bounds_normalize=normalizer;
+		this.boundsNormalize=normalizer;
 	}
 
-	public void Assign_Bounds(dLFormula boundsFormula)
+	public void setBounds(dLFormula boundsFormula)
 	{
 		this.bounds=boundsFormula;
 	}
 
-	public dLFormula get_Bounds()
+	public dLFormula getBounds()
 	{
 		return this.bounds;
 	}
@@ -66,21 +66,21 @@ public abstract class LogicSolverInterface {
 
 		ArrayList<dLFormula> theseFormulas = new ArrayList<dLFormula>();
 		Set<RealVariable> variables=thisFormula.getFreeVariables();
-//		TextOutput.info(bounds);
+		//		TextOutput.info(bounds);
 		for(dLFormula bound:bounds.splitOnAnds()){
 
 			for(RealVariable var:bound.getFreeVariables()){
 
-			if(variables.contains(var)){
-				thisFormula=new AndFormula(thisFormula,bound);
-			}
+				if(variables.contains(var)){
+					thisFormula=new AndFormula(thisFormula,bound);
+				}
 			}
 		}
 		theseFormulas.add( thisFormula );
-	//	TextOutput.info("final formula is"+thisFormula);
+		//	TextOutput.info("final formula is"+thisFormula);
 
 		return findInstance( theseFormulas );
-		}
+	}
 
 	public LogicSolverResult findInstance( List<dLFormula> theseFormulas ) throws Exception {
 		String filename = decorateFilename("findInstance");
@@ -243,7 +243,7 @@ public abstract class LogicSolverInterface {
 						// TODO Auto-generated method stub
 						ArrayList<Valuation> newpoints=null;
 						    try {
-						    	if(bounds_normalize==null){
+						    	if(boundsNormalize==null){
 						    		newpoints=(multiSample(new AndFormula(formula,createBallExclusionFormula(center_points.get(j),new Real(BR)).negate()),numSamples,SR));
 						    	}
 						    	else{
@@ -307,7 +307,7 @@ public abstract class LogicSolverInterface {
 
 							ArrayList<Valuation> newpoints=null;
 						    try {
-						    	if(bounds_normalize==null){
+						    	if(boundsNormalize==null){
 						    		newpoints=(multiSample(new AndFormula(formula,createBallExclusionFormula(center_points.get(j),new Real(BR)).negate()),numSamples,SR));
 						    	}
 						    	else{
@@ -347,7 +347,7 @@ public abstract class LogicSolverInterface {
                                 samplePoints.add( thisPoint );
 
                                 try {
-                                	if(this.bounds_normalize==null){
+                                	if(this.boundsNormalize==null){
                                 		queryFormulas.add( createBallExclusionFormula( thisPoint, new Real(suggestedRadius) ) );
                                 	}
                                 	else{
@@ -523,11 +523,11 @@ public abstract class LogicSolverInterface {
 		RealVariable thisVar;
 		while ( varIterator.hasNext() ) {
 			thisVar = varIterator.next();
-			thisVar.replace(bounds_normalize);
+			thisVar.replace(boundsNormalize);
 			if ( varIterator.hasNext() ) {
 				String create_center=thisVar.toMathematicaString()+" - " +  String.format("%.12f",center.get(thisVar).toDouble());
 				ballString = ballString
-						+ "( " +bounds_normalize.get(thisVar).toMathematicaString()
+						+ "( " +boundsNormalize.get(thisVar).toMathematicaString()
 					//	+ " - " +  String.format("%.12f",center.get(thisVar).toDouble())
 
 						+  " )^2 + ";
@@ -537,7 +537,7 @@ public abstract class LogicSolverInterface {
 				String create_center=thisVar.toMathematicaString()+" - " +  String.format("%.12f",center.get(thisVar).toDouble());
 
 				ballString = ballString
-						+ "( " +bounds_normalize.get(thisVar).toMathematicaString()
+						+ "( " +boundsNormalize.get(thisVar).toMathematicaString()
 						//+ " - "  +  String.format("%.12f",center.get(thisVar).toDouble())
 						+  " )^2";
 				ballString=ballString.replace(thisVar.toString(), create_center);
