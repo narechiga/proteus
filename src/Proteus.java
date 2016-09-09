@@ -86,6 +86,11 @@ public class Proteus {
 			//dLStructure structure = dLStructure.parseStructure( input );
 			dLFormula formula = dLFormula.parseNNF( input );
 			returnString = (formula.getClass() + ": " + PrettyPrinter.print(formula));//structure.toString() );
+			if ( formula instanceof ComparisonFormula ) {
+				ComparisonFormula inequality = (ComparisonFormula)formula;
+				TextOutput.info("expanded lhs: " + inequality.getLHS().distributeMultiplication() );
+				TextOutput.info("expanded rhs: " + inequality.getRHS().distributeMultiplication() );
+			}
 		} catch ( Exception e ) {
 			//TextOutput.info("Input does not contain a dLFormula: " + input);
 		}

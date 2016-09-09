@@ -254,7 +254,7 @@ public class dRealInterface extends LogicSolverInterface {
 	}
 //
 	public String decorateFilename( String base ) {
-		return decorateFilename( "drealworkspace", base, "smt2" );
+		return decorateFilename( "dRealWorkspace", base, "smt2" );
 	}
 
 //
@@ -278,7 +278,7 @@ public class dRealInterface extends LogicSolverInterface {
 		while ( formulaIterator.hasNext() ) {
 			variables.addAll( formulaIterator.next().getFreeVariables() );
 		}
-			variables.addAll(this.get_Bounds().getFreeVariables());
+			//variables.addAll(this.get_Bounds().getFreeVariables());
 		// Now print the variable declarations
 		queryString = queryString + "\n;; Variable declarations\n";
 		//RealVariable thisVariable;

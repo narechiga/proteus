@@ -8,6 +8,7 @@ package dl.syntax;
 
 import dl.semantics.*;
 
+
 import java.util.*;
 
 public class Term extends GeneralizedTerm {
@@ -15,7 +16,7 @@ public class Term extends GeneralizedTerm {
 	public Term () {
 	}
 	
-	protected Term ( Operator operator, ArrayList<Term> subTerms ) {
+	public Term ( Operator operator, ArrayList<Term> subTerms ) {
 		this.operator = operator;
 		this.arguments = new ArrayList<dLStructure>();
 		this.arguments.addAll( subTerms );
@@ -161,6 +162,10 @@ public class Term extends GeneralizedTerm {
 		return returnString;
 	}
 
+//	public String prettyPrint() {
+//		return dL.prettyPrint( this );
+//	}
+	
 	//public boolean equals( Object otherObject ) { // This is too restrictive, because does not allow for commutativity
 
 	//	if ( !(otherObject instanceof Term ) ) {

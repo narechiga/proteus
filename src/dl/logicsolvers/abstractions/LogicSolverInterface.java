@@ -138,9 +138,10 @@ public abstract class LogicSolverInterface {
 
 			for (int i=1;i<radii.size();i++)
 			{
-				if(points.size()>0)
+				ArrayList<Valuation> generated_points=clusterSampleBase(formula,points,numSamples,radii.get(i),radii.get(i-1),parallelize_flag);
+				if(generated_points.size()>points.size())
 				{
-				points=clusterSampleBase(formula,points,numSamples,radii.get(i),radii.get(i-1),parallelize_flag);
+					points=generated_points;
 				}
 			}
 
@@ -184,7 +185,11 @@ public abstract class LogicSolverInterface {
 				{
 					if(points.size()>0)
 					{
-					points=clusterSampleBase(formula,points,numSamples,radii.get(i),radii.get(i-1),parallelize_flag,timeout);
+						ArrayList<Valuation> generated_points=clusterSampleBase(formula,points,numSamples,radii.get(i),radii.get(i-1),parallelize_flag,timeout);
+						if(generated_points.size()>points.size())
+						{
+							points=generated_points;
+						}
 					}
 				}
 
@@ -455,7 +460,7 @@ public abstract class LogicSolverInterface {
 		Date date = new Date();
 		String formatted_date = date.toString();
 		formatted_date=formatted_date.replace(" ","_");
-		String filename = "/tmp/" + workSpaceName + base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + "." + fileExtension;
+		String filename = "/tmp/" + workSpaceName +"/"+ base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + "." + fileExtension;
 		File targetFile = new File( filename );
 		targetFile.getParentFile().mkdirs();
 		return filename;
@@ -527,7 +532,7 @@ public abstract class LogicSolverInterface {
 			if ( varIterator.hasNext() ) {
 				String create_center=thisVar.toMathematicaString()+" - " +  String.format("%.12f",center.get(thisVar).toDouble());
 				ballString = ballString
-						+ "( " +bounds_normalize.get(thisVar).toMathematicaString()
+						+ "( " +bounds_normalize.get(thisVar).toString()
 					//	+ " - " +  String.format("%.12f",center.get(thisVar).toDouble())
 
 						+  " )^2 + ";
@@ -537,7 +542,7 @@ public abstract class LogicSolverInterface {
 				String create_center=thisVar.toMathematicaString()+" - " +  String.format("%.12f",center.get(thisVar).toDouble());
 
 				ballString = ballString
-						+ "( " +bounds_normalize.get(thisVar).toMathematicaString()
+						+ "( " +bounds_normalize.get(thisVar).toString()
 						//+ " - "  +  String.format("%.12f",center.get(thisVar).toDouble())
 						+  " )^2";
 				ballString=ballString.replace(thisVar.toString(), create_center);
