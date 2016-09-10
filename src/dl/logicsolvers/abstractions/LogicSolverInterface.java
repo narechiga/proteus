@@ -532,7 +532,7 @@ public abstract class LogicSolverInterface {
 			if ( varIterator.hasNext() ) {
 				String create_center=thisVar.toMathematicaString()+" - " +  String.format("%.12f",center.get(thisVar).toDouble());
 				ballString = ballString
-						+ "( " +bounds_normalize.get(thisVar).toString()
+						+ "( " +boundsNormalize.get(thisVar).toString()
 					//	+ " - " +  String.format("%.12f",center.get(thisVar).toDouble())
 
 						+  " )^2 + ";
@@ -542,7 +542,7 @@ public abstract class LogicSolverInterface {
 				String create_center=thisVar.toMathematicaString()+" - " +  String.format("%.12f",center.get(thisVar).toDouble());
 
 				ballString = ballString
-						+ "( " +bounds_normalize.get(thisVar).toString()
+						+ "( " +boundsNormalize.get(thisVar).toString()
 						//+ " - "  +  String.format("%.12f",center.get(thisVar).toDouble())
 						+  " )^2";
 				ballString=ballString.replace(thisVar.toString(), create_center);
