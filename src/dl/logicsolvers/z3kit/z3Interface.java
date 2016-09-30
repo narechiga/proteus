@@ -279,7 +279,7 @@ public class z3Interface extends LogicSolverInterface {
 			}
 		//	thisFormula=new AndFormula(thisFormula,this.get_Bounds());
 
-			queryString = queryString + "\n;; Formula is (" + PrettyPrinter.print( thisFormula ) +")\n";
+			queryString = queryString + "\n;; Formula is (" + PrettyPrinter.print( thisFormula )+")\n";
 			queryString = queryString + "(assert " + thisFormula.todRealString() + " )\n";
 
 		}
