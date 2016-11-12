@@ -27,9 +27,9 @@ public abstract class LogicSolverInterface {
 
 	static dLFormula bounds = new TrueFormula();
 	static Replacement boundsNormalize=null;
-	public static void setNormalizer(Replacement normalizer)
+	public void setNormalizer(Replacement normalizer)
 	{
-		boundsNormalize=normalizer;
+		this.boundsNormalize=normalizer;
 	}
 
 	public static void setBounds(dLFormula boundsFormula)
