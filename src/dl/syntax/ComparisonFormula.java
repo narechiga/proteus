@@ -126,11 +126,19 @@ public class ComparisonFormula extends dLFormula {
 			OrFormula avoidPoint = new OrFormula( avoidLeft, avoidRight );
 
 			returnString = avoidPoint.todRealString();
+		} else if ( operator.equals( new Operator("=="))) {
+			returnString = "( =" 
+					+ " " +getLHS().todRealString()
+					+ " " +getRHS().todRealString() + ")";
+			
 		} else {
 			returnString =  "(" + this.getOperator().toString() 
 				+ " " +getLHS().todRealString()
 				+ " " +getRHS().todRealString() + ")";
 		}
+
+		// Doesn't know "==" either
+		returnString.replace("==", "=");
 
 		return returnString;
 

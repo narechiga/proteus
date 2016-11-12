@@ -4,8 +4,6 @@ import interfaces.text.*;
 import dl.logicsolvers.drealkit.*;
 import dl.logicsolvers.z3kit.*;
 import dl.logicsolvers.abstractions.*;
-import propositionallogic.*;
-import propositionallogic.syntax.*;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -72,15 +70,6 @@ public class Proteus {
 	
 	public static String parseHandler( String input ) {
 		String returnString = "syntax error";
-		//boolean success = false;
-		try {
-			Proposition structure = PropositionalLogic.parseProposition( input );
-			structure = PropositionalLogic.simplify( structure );
-			returnString = (structure.getClass() + ": " + structure.toString());
-		} catch ( Exception e ) {
-			//e.printStackTrace();
-			//TextOutput.info("Input does not contain a proposition: " + input );
-		}
 		
 		try {
 			//dLStructure structure = dLStructure.parseStructure( input );
