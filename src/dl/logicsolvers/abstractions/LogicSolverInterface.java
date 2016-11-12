@@ -32,9 +32,9 @@ public abstract class LogicSolverInterface {
 		this.boundsNormalize=normalizer;
 	}
 
-	public void setBounds(dLFormula boundsFormula)
+	public static void setBounds(dLFormula boundsFormula)
 	{
-		this.bounds=boundsFormula;
+		bounds=boundsFormula;
 	}
 
 	public dLFormula getBounds()
@@ -162,26 +162,8 @@ public abstract class LogicSolverInterface {
 				}
 		}
 		final dLFormula formula_bounded=formula;
-		ExecutorService executor=Executors.newFixedThreadPool(1);
-		Callable<ArrayList<Valuation>> task1 = new Callable<ArrayList<Valuation>>() {
-			public ArrayList<Valuation> call()
-			{
-				ArrayList<Valuation> points = multiSample(formula_bounded,numSamples,radii.get(0));
-
-				return points;
-
-			}
-		};
-		Future<ArrayList<Valuation>> future=executor.submit(task1);
-		try{
-			points = future.get(timeout,TimeUnit.SECONDS);
-		}
-		catch(TimeoutException e)
-		{
-			future.cancel(true);
-			TextOutput.info("thread cancelled");
-		}
-				for (int i=1;i<radii.size();i++)
+		points = multiSample(formula_bounded,numSamples,radii.get(0));
+		for (int i=1;i<radii.size();i++)
 				{
 					if(points.size()>0)
 					{
