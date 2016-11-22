@@ -21,7 +21,9 @@ public class AbstractSMT2Parser {
 	
 	public static void test() {
 		//TextOutput.setDebug(true);
-		boolean success = smtLibKissing_2_1();
+		boolean success = true;
+		
+		success = success & smtLibKissing_2_1();
 		if ( success ) {
 			TextOutput.info("All tests passed for AbstractSMT2Parser.");
 		} else {
@@ -31,7 +33,7 @@ public class AbstractSMT2Parser {
 	}
 
 	public static boolean smtLibKissing_2_1() {
-		int testCaseBounds = 0;
+		int testCaseBounds = 1; // Default true formula
 		int testCaseFormulas = 1;
 		int numFreeVariables = 2;
 		boolean success = true;
@@ -69,6 +71,7 @@ public class AbstractSMT2Parser {
 		
 		dLFormula f = p.getFormula(0);
 		TextOutput.setDebug(false);
+		TextOutput.debug( p.getBound(0) );
 		TextOutput.debug( f.toString() );
 		TextOutput.setDebug(false);
 		if (f.getFreeVariables().size() != numFreeVariables ) {
