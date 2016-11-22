@@ -57,7 +57,6 @@
 input: 
 	logicProblem {
 		try {
-			// No action needed; see logicProblem entry.
 
 		} catch ( Exception e ) {
 			System.err.println("Exception at location input:logicProblem");
@@ -93,6 +92,13 @@ logicProblem: formulalist {
 			parsingBounds = false;
 			parsedLogicProblem.addFormula( formula );
 		}
+	}
+
+	if ( parsedLogicProblem.getFormulas().isEmpty() ) {
+		parsedLogicProblem.addFormula( new TrueFormula() );
+	}
+	if ( parsedLogicProblem.getBounds().isEmpty() ) {
+		parsedLogicProblem.addBound( new TrueFormula() );
 	}
 }
 
