@@ -7,8 +7,12 @@
 package dl.syntax;
 
 import dl.dL;
+import dl.nnfParser.NNFdLLexer;
+import dl.nnfParser.NNFdLParser;
 import dl.parser.PrettyPrinter;
 import dl.semantics.*;
+import interfaces.text.TextInput;
+import dl.smt2parser.*;
 
 import java.io.*;
 import java.util.*;

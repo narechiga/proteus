@@ -20,6 +20,28 @@ public class OrFormula extends BinaryFormula {
 		arguments.add( leftArgument );
 		arguments.add( rightArgument );
 	}
+	
+	public OrFormula( ArrayList<dLFormula> formulas) {
+		this.operator = new Operator("or", 2, true);
+		spawnArguments();
+
+		if ( formulas.size() == 2 ) {
+			addArgument( formulas.get( 0 ) );
+			addArgument( formulas.get( 1 ) );
+
+		} else if ( formulas.size() > 2 ) {
+			addArgument( formulas.remove( 0 ) );
+			addArgument( new OrFormula( formulas ) );
+
+		} else if ( formulas.size() == 1 ) {
+			addArgument( new FalseFormula() );
+			addArgument( formulas.get( 0 ) );
+
+		} else if ( formulas.size() == 0 ) {
+			throw new RuntimeException("Refusing to create disjunction from empty list of formulas");
+		}
+	}
+
 
 	public dLFormula getLHS() {
 		//return ((dLFormula)(arguments.get(0))).clone();

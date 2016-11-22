@@ -29,6 +29,27 @@ public class AndFormula extends BinaryFormula {
 		arguments.add( rightArgument );
 		//TextOutput.debug("and built!");
 	}
+	
+	public AndFormula( ArrayList<dLFormula> formulas) {
+		this.operator = new Operator("and", 2, true);
+		spawnArguments();
+
+		if ( formulas.size() == 2 ) {
+			addArgument( formulas.get( 0 ) );
+			addArgument( formulas.get( 1 ) );
+
+		} else if ( formulas.size() > 2 ) {
+			addArgument( formulas.remove( 0 ) );
+			addArgument( new AndFormula( formulas ) );
+
+		} else if ( formulas.size() == 1 ) {
+			addArgument( new TrueFormula() );
+			addArgument( formulas.get( 0 ) );
+
+		} else if ( formulas.size() == 0 ) {
+			throw new RuntimeException("Refusing to create conjunction from empty list of formulas");
+		}
+	}
 
 	public dLFormula getLHS() {
 		//return ((dLFormula)(arguments.get(0))).clone();
