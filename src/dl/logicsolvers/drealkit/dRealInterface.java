@@ -26,6 +26,7 @@ public class dRealInterface extends LogicSolverInterface {
 
 	public double precision = 0.00001;
 	public boolean debug = false;
+	public String dRealPath = "dReal";
 
 	public void setPrecision( double precision ) {
 		this.precision = precision;
@@ -35,12 +36,14 @@ public class dRealInterface extends LogicSolverInterface {
 	// Constructor with specified precision
 	public dRealInterface( double precision ) {
 		this.precision = precision;
-		
+
 		// Generate the workspace
-		File drealworkspacedir = new File("dRealWorkspace");
-                if (!drealworkspacedir.exists()) {
-                        drealworkspacedir.mkdir();
-                }
+		File drealworkspacedir = new File("/tmp/dRealWorkspace");
+		if (!drealworkspacedir.exists()) {
+			drealworkspacedir.mkdir();
+		}
+
+		dRealPath = finddReal();
 	}
 
 	// Constructor with default precision
@@ -48,10 +51,51 @@ public class dRealInterface extends LogicSolverInterface {
 		this.precision = 0.00001;
 
 		// Generate the workspace
-		File drealworkspacedir = new File("drealworkspace");
-                if (!drealworkspacedir.exists()) {
-                        drealworkspacedir.mkdir();
-                }
+		File drealworkspacedir = new File("/tmp/dRealworkspace");
+		if (!drealworkspacedir.exists()) {
+			drealworkspacedir.mkdir();
+		}
+		
+		dRealPath = finddReal();
+	}
+	
+	public String finddReal() {
+		// Find dReal installation
+		try {
+			ProcessBuilder queryPB = new ProcessBuilder("which", "dReal" );
+			queryPB.redirectErrorStream( true );
+			Process queryProcess = queryPB.start();	
+			BufferedReader z3Says = new BufferedReader( new InputStreamReader(queryProcess.getInputStream()) );
+			String line = "";
+			if ( (line = z3Says.readLine()) != null ) {
+				TextOutput.info("Using automatically detected installation of dReal at: " + line );
+				return line;
+			}
+
+			queryPB = new ProcessBuilder("which", "/usr/local/bin/dReal" );
+			queryPB.redirectErrorStream( true );
+			queryProcess = queryPB.start();	
+			z3Says = new BufferedReader( new InputStreamReader(queryProcess.getInputStream()) );
+			line = "";
+			if ( (line = z3Says.readLine()) != null ) {
+				TextOutput.info("Using automatically detected installation of dReal at: " + line );
+				return line;
+			}
+
+			queryPB = new ProcessBuilder("which", "/usr/bin/dReal" );
+			queryPB.redirectErrorStream( true );
+			queryProcess = queryPB.start();	
+			z3Says = new BufferedReader( new InputStreamReader(queryProcess.getInputStream()) );
+			line = "";
+			if ( (line = z3Says.readLine()) != null ) {
+				TextOutput.info("Using automatically detected installation of dReal at: " + line );
+				return line;
+			}
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		TextOutput.error("Unable to find an installation of dReal.");
+		throw new RuntimeException("Unable to find dReal!");
 	}
 
 // "checkValidity" family of methods -- try to find a counterexample

@@ -26,8 +26,10 @@ import java.util.UUID;
 public class z3Interface extends LogicSolverInterface {
 
 	public boolean debug = false;
+	public String z3Path = "z3";
 
 	public void setPrecision( double precision ) {
+		TextOutput.warning("z3 does not support precision");
 	}
 
 //Constructors
@@ -35,10 +37,50 @@ public class z3Interface extends LogicSolverInterface {
 	public z3Interface() {
 
 		// Generate the workspace
-		File z3workspacedir = new File("z3Workspace");
-                if (!z3workspacedir.exists()) {
-                        z3workspacedir.mkdir();
-                }
+		File z3workspacedir = new File("/tmp/z3Workspace");
+		if (!z3workspacedir.exists()) {
+			z3workspacedir.mkdir();
+		}
+
+		// Find z3 installation
+		try {
+			ProcessBuilder queryPB = new ProcessBuilder("which", "z3" );
+			queryPB.redirectErrorStream( true );
+			Process queryProcess = queryPB.start();	
+			BufferedReader z3Says = new BufferedReader( new InputStreamReader(queryProcess.getInputStream()) );
+			String line = "";
+			if ( (line = z3Says.readLine()) != null ) {
+				TextOutput.info("Using automatically detected installation of z3 at: " + line );
+				z3Path = line;
+				return;
+			}
+			
+			queryPB = new ProcessBuilder("which", "/usr/local/bin/z3" );
+			queryPB.redirectErrorStream( true );
+			queryProcess = queryPB.start();	
+			z3Says = new BufferedReader( new InputStreamReader(queryProcess.getInputStream()) );
+			line = "";
+			if ( (line = z3Says.readLine()) != null ) {
+				TextOutput.info("Using automatically detected installation of z3 at: " + line );
+				z3Path = line;
+				return;
+			}
+			
+			queryPB = new ProcessBuilder("which", "/usr/bin/z3" );
+			queryPB.redirectErrorStream( true );
+			queryProcess = queryPB.start();	
+			z3Says = new BufferedReader( new InputStreamReader(queryProcess.getInputStream()) );
+			line = "";
+			if ( (line = z3Says.readLine()) != null ) {
+				TextOutput.info("Using automatically detected installation of z3 at: " + line );
+				z3Path = line;
+				return;
+			}
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		TextOutput.error("Unable to find an installation of z3.");
+		throw new RuntimeException("Unable to find z3!");
 	}
 
 // "checkValidity" family of methods -- try to find a counterexample
@@ -122,7 +164,7 @@ public class z3Interface extends LogicSolverInterface {
 		TextOutput.debug("Entering runQuery( File )");
 		LogicSolverResult result = null;
 
-		ProcessBuilder queryPB = new ProcessBuilder("z3", queryFile.getAbsolutePath() );
+		ProcessBuilder queryPB = new ProcessBuilder(z3Path, queryFile.getAbsolutePath() );
 		TextOutput.debug( "Commmand is: " + queryPB.command() );
 		queryPB.redirectErrorStream( true );
 		Process queryProcess = queryPB.start();
