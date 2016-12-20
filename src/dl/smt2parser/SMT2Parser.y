@@ -50,8 +50,8 @@
 %right INEQUALITY /* <, >, <=, >=, =, != */
 %left MINUS PLUS
 %left DIVIDE MULTIPLY
-%right POWER
 %left NEGATIVE
+%right POWER
 
 %%
 input: 

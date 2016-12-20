@@ -74,8 +74,8 @@
 %right INEQUALITY /* <, >, <=, >=, =, != */
 %left MINUS PLUS
 %left DIVIDE MULTIPLY
-%right POWER
 %left NEGATIVE
+%right POWER
 %left REALDECLARATION
 
 /*%type <String> input keymaerablock problemblock schemavarsblock rulesblock schematext varblock funblock functiondeclaration argumentdeclaration annotationblock valuation
