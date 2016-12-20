@@ -15,8 +15,6 @@ public class TextInput {
 		String returnString = "";
 		try {
 			returnString = in.readLine();
-			
-			
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
