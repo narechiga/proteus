@@ -186,7 +186,7 @@ public class dRealInterface extends LogicSolverInterface {
 		String precisionArgument = "--precision " + precision;
 //		ProcessBuilder queryPB = new ProcessBuilder("dReal", "--model", 
 //								precisionArgument, queryFile.getAbsolutePath() );
-		ProcessBuilder queryPB = new ProcessBuilder("dReal", "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
+		ProcessBuilder queryPB = new ProcessBuilder(dRealPath, "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
 		TextOutput.debug( "Commmand is: " + queryPB.command() );
 		queryPB.redirectErrorStream( true );
 		Process queryProcess = queryPB.start();
