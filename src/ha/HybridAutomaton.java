@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.sun.beans.finder.FieldFinder;
+//import com.sun.beans.finder.FieldFinder;
 
 import dl.syntax.*;
 import interfaces.text.TextOutput;
