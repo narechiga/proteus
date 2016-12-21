@@ -36,23 +36,23 @@ public class dRealInterface extends LogicSolverInterface {
 	// Constructor with specified precision
 	public dRealInterface( double precision ) {
 		this.precision = precision;
-		initializeWorkspace();
+		//initializeWorkspace();
 		dRealPath = finddReal();
 	}
 
 	// Constructor with default precision
 	public dRealInterface() {
 		this.precision = 0.00001;
-		initializeWorkspace();
+		//initializeWorkspace();
 		dRealPath = finddReal();
 	}
-	public void initializeWorkspace() {
-		// Generate the workspace
-		File drealworkspacedir = new File(workspacePrefix + "dRealWorkspace");
-		if (!drealworkspacedir.exists()) {
-			drealworkspacedir.mkdir();
-		}
-	}
+//	public void initializeWorkspace() {
+//		// Generate the workspace
+//		File drealworkspacedir = new File(workspacePrefix + "dRealWorkspace");
+//		if (!drealworkspacedir.exists()) {
+//			drealworkspacedir.mkdir();
+//		}
+//	}
 	
 	public String finddReal() {
 		// Find dReal installation

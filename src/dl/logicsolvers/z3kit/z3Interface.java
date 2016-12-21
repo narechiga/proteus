@@ -37,10 +37,10 @@ public class z3Interface extends LogicSolverInterface {
 	public z3Interface() {
 
 		// Generate the workspace
-		File z3workspacedir = new File(workspacePrefix + "z3Workspace");
-		if (!z3workspacedir.exists()) {
-			z3workspacedir.mkdir();
-		}
+//		File z3workspacedir = new File(workspacePrefix + "z3Workspace");
+//		if (!z3workspacedir.exists()) {
+//			z3workspacedir.mkdir();
+//		}
 
 		// Find z3 installation
 		try {
@@ -50,7 +50,7 @@ public class z3Interface extends LogicSolverInterface {
 			BufferedReader z3Says = new BufferedReader( new InputStreamReader(queryProcess.getInputStream()) );
 			String line = "";
 			if ( (line = z3Says.readLine()) != null ) {
-				TextOutput.info("Using automatically detected installation of z3 at: " + line );
+				//TextOutput.debug("Using automatically detected installation of z3 at: " + line );
 				z3Path = line;
 				return;
 			}
@@ -61,7 +61,7 @@ public class z3Interface extends LogicSolverInterface {
 			z3Says = new BufferedReader( new InputStreamReader(queryProcess.getInputStream()) );
 			line = "";
 			if ( (line = z3Says.readLine()) != null ) {
-				TextOutput.info("Using automatically detected installation of z3 at: " + line );
+				//TextOutput.debug("Using automatically detected installation of z3 at: " + line );
 				z3Path = line;
 				return;
 			}
@@ -255,7 +255,7 @@ public class z3Interface extends LogicSolverInterface {
 	}
 	
 	public String decorateFilename( String base ) {
-		return decorateFilename( "z3workspace", base, "smt2" );
+		return decorateFilename( "z3Workspace", base, "smt2" );
 	}
 
 	

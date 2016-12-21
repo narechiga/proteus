@@ -25,7 +25,7 @@ import dl.syntax.*;
 
 public abstract class LogicSolverInterface {
 
-	protected String workspacePrefix = "/tmp/" + System.getProperty("user.name" + "_");
+	//protected String workspacePrefix = "/tmp/" + System.getProperty("user.name" + "_");
 	
 	static dLFormula bounds = new TrueFormula();
 	static Replacement boundsNormalize=null;
@@ -444,7 +444,7 @@ public abstract class LogicSolverInterface {
 		Date date = new Date();
 		String formatted_date = date.toString();
 		formatted_date=formatted_date.replace(" ","_");
-		String filename = workspacePrefix + workSpaceName +"/"+ base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + "." + fileExtension;
+		String filename = "/tmp/" +  System.getProperty("user.name") + "_" + workSpaceName +"/"+ base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + "." + fileExtension;
 		File targetFile = new File( filename );
 		targetFile.getParentFile().mkdirs();
 		return filename;
