@@ -37,7 +37,7 @@ public class z3Interface extends LogicSolverInterface {
 	public z3Interface() {
 
 		// Generate the workspace
-		File z3workspacedir = new File("/tmp/z3Workspace");
+		File z3workspacedir = new File(workspacePrefix + "z3Workspace");
 		if (!z3workspacedir.exists()) {
 			z3workspacedir.mkdir();
 		}
