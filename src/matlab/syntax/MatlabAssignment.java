@@ -26,9 +26,9 @@ public class MatlabAssignment extends MatlabProgram {
 		variables.add(getLHS());
 		return variables;
 	}
-	
+
 	public MatlabAssignment replace( Replacement replacement ) {
-		return new MatlabAssignment( lhs, rhs.replace( replacement ));
+		return new MatlabAssignment( (RealVariable) lhs.replace(replacement), rhs.replace( replacement ));
 	}
 	
 	public String toString() {
