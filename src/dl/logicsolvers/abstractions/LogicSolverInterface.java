@@ -24,9 +24,11 @@ import dl.semantics.*;
 import dl.syntax.*;
 
 public abstract class LogicSolverInterface {
-
+	ExecutorService executor=Executors.newFixedThreadPool(10);
+	static ExecutorService executor1=Executors.newFixedThreadPool(1);
 	//protected String workspacePrefix = "/tmp/" + System.getProperty("user.name" + "_");
 	
+
 	static dLFormula bounds = new TrueFormula();
 	static Replacement boundsNormalize=null;
 	public void setNormalizer(Replacement normalizer)
@@ -152,6 +154,7 @@ public abstract class LogicSolverInterface {
 	}
 
 	public ArrayList<Valuation> clusterSample(dLFormula formula, final int numSamples, final ArrayList<Double> radii,boolean parallelize_flag,long timeout ) throws Exception {
+		ExecutorService executor=Executors.newFixedThreadPool(1);
 		ArrayList<Valuation> points=new ArrayList<Valuation>();
 		Set<RealVariable> variables=formula.getFreeVariables();
 		for(dLFormula bound:bounds.splitOnAnds()){
@@ -177,6 +180,7 @@ public abstract class LogicSolverInterface {
 					}
 				}
 
+		executor.shutdown();
 
 		return points;
 	}
@@ -211,17 +215,16 @@ public abstract class LogicSolverInterface {
 	protected ArrayList<Valuation> clusterSampleBase(final dLFormula formula, final ArrayList<Valuation> center_points,final int numSamples, final double SR, final double BR,boolean parallelize_flag,long timeout) throws Exception{
 		ArrayList<Future<ArrayList<Valuation>>> futures = new ArrayList<Future<ArrayList<Valuation>>>();
 		ArrayList<Valuation> points= new ArrayList<Valuation>();
-		ExecutorService executor=Executors.newFixedThreadPool(1);
 
 		if(parallelize_flag==true){
 			if(center_points.size()>0)
 			{
-			executor=Executors.newFixedThreadPool(center_points.size());
+			//executor=Executors.newFixedThreadPool(1);
 			}
 			}
 			else
 			{
-			executor=Executors.newFixedThreadPool(1);
+			//executor=Executors.newFixedThreadPool(1);
 
 			}
 		for (int i=0;i<center_points.size();i++)
@@ -263,7 +266,6 @@ public abstract class LogicSolverInterface {
 					TextOutput.info("ya, timed out");
 		        }
 		}
-		executor.shutdown();
 
 		return points;
 	}
@@ -279,7 +281,7 @@ public abstract class LogicSolverInterface {
 			if(parallelize_flag==true){
 				if(center_points.size()>0)
 				{
-				executor=Executors.newFixedThreadPool(center_points.size());
+				executor=Executors.newFixedThreadPool(1);
 				}
 				}
 				else
@@ -319,6 +321,7 @@ public abstract class LogicSolverInterface {
 			{
 				points.addAll(future.get());
 			}
+			executor.shutdown();
 			return points;
 		}
 
@@ -444,8 +447,7 @@ public abstract class LogicSolverInterface {
 		Date date = new Date();
 		String formatted_date = date.toString();
 		formatted_date=formatted_date.replace(" ","_");
-		String filename = "/tmp/" +  System.getProperty("user.name") + "_" + workSpaceName +"/"+ base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+  formatted_date + "." + randomID + "." + fileExtension;
-		File targetFile = new File( filename );
+		String filename = "/tmp/" + System.getProperty("user.name") + "_" + workSpaceName +"/"+ base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+ formatted_date + "." + randomID + "." + fileExtension;		File targetFile = new File( filename );
 		targetFile.getParentFile().mkdirs();
 		return filename;
 	}
