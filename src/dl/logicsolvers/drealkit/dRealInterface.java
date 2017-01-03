@@ -27,7 +27,7 @@ public class dRealInterface extends LogicSolverInterface {
 	public double precision = 0.00001;
 	public boolean debug = false;
 	public String dRealPath = "dReal";
-	public Object timeout=null;
+	static public Object timeout=null;
 	
 	public void setPrecision( double precision ) {
 		this.precision = precision;

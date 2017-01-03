@@ -27,7 +27,7 @@ public class z3Interface extends LogicSolverInterface {
 
 	public boolean debug = false;
 	public String z3Path = "z3";
-	public Object timeout=null;
+	static public Object timeout=null;
 
 
 	public void setPrecision( double precision ) {
