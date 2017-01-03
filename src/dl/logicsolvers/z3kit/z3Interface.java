@@ -27,11 +27,16 @@ public class z3Interface extends LogicSolverInterface {
 
 	public boolean debug = false;
 	public String z3Path = "z3";
+	public Object timeout=null;
+
 
 	public void setPrecision( double precision ) {
 		TextOutput.warning("z3 does not support precision");
 	}
-
+	
+	public void setTimeOut(double timeout){
+		this.timeout=timeout;
+	}
 //Constructors
 	// Constructor with default precision
 	public z3Interface() {
@@ -163,8 +168,15 @@ public class z3Interface extends LogicSolverInterface {
 	protected LogicSolverResult runQuery( File queryFile ) throws Exception {
 		TextOutput.debug("Entering runQuery( File )");
 		LogicSolverResult result = null;
-
-		ProcessBuilder queryPB = new ProcessBuilder(z3Path, queryFile.getAbsolutePath() );
+		ProcessBuilder queryPB=null;
+		if(this.timeout==null){
+		queryPB = new ProcessBuilder(z3Path, queryFile.getAbsolutePath() );
+	
+		}
+		else
+		{
+		queryPB = new ProcessBuilder("timeout",Double.toString((double) this.timeout), z3Path, queryFile.getAbsolutePath() );
+		}
 		TextOutput.debug( "Commmand is: " + queryPB.command() );
 		queryPB.redirectErrorStream( true );
 		Process queryProcess = queryPB.start();
