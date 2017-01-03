@@ -27,9 +27,14 @@ public class dRealInterface extends LogicSolverInterface {
 	public double precision = 0.00001;
 	public boolean debug = false;
 	public String dRealPath = "dReal";
-
+	public Object timeout=null;
+	
 	public void setPrecision( double precision ) {
 		this.precision = precision;
+	}
+	
+	public void setTimeOut(double timeout){
+		this.timeout=timeout;
 	}
 
 //Constructors
@@ -181,12 +186,20 @@ public class dRealInterface extends LogicSolverInterface {
 		String precisionArgument = "--precision " + precision;
 //		ProcessBuilder queryPB = new ProcessBuilder("dReal", "--model", 
 //								precisionArgument, queryFile.getAbsolutePath() );
-		ProcessBuilder queryPB = new ProcessBuilder(dRealPath, "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
+		ProcessBuilder queryPB=null;
+		if(this.timeout==null){
+		queryPB = new ProcessBuilder(dRealPath, "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
+	
+		}
+		else
+		{
+		queryPB = new ProcessBuilder("timeout",Double.toString((double) this.timeout), dRealPath, "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
+		}
 		TextOutput.debug( "Commmand is: " + queryPB.command() );
 		queryPB.redirectErrorStream( true );
 		Process queryProcess = queryPB.start();
 		BufferedReader dRealSays = new BufferedReader( new InputStreamReader(queryProcess.getInputStream()) );
-
+		
 		String line;
 		String totalOutput = "";
 		while ( (line = dRealSays.readLine()) != null ) {
@@ -200,6 +213,8 @@ public class dRealInterface extends LogicSolverInterface {
 			} else if ( line.equals("unknown") ) {
 				result = new LogicSolverResult( "unknown", "unknown", new Valuation() );
 			}
+			
+	  TextOutput.info(result);
 //			} else {
 //				throw new Exception( line );
 //			}
