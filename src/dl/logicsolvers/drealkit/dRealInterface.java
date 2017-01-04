@@ -214,7 +214,7 @@ public class dRealInterface extends LogicSolverInterface {
 				result = new LogicSolverResult( "unknown", "unknown", new Valuation() );
 			}
 			
-	  TextOutput.info(result);
+//	  TextOutput.info(result);
 //			} else {
 //				throw new Exception( line );
 //			}
