@@ -187,13 +187,10 @@ public class dRealInterface extends LogicSolverInterface {
 //		ProcessBuilder queryPB = new ProcessBuilder("dReal", "--model", 
 //								precisionArgument, queryFile.getAbsolutePath() );
 		ProcessBuilder queryPB=null;
-		if(this.timeout==null){
-		queryPB = new ProcessBuilder(dRealPath, "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
-	
-		}
-		else
-		{
-		queryPB = new ProcessBuilder("timeout",Double.toString((double) this.timeout), dRealPath, "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
+		if ( this.timeout==null ) {
+			queryPB = new ProcessBuilder(dRealPath, "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
+		} else {
+			queryPB = new ProcessBuilder("timeout",Double.toString((double) this.timeout), dRealPath, "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
 		}
 		TextOutput.debug( "Commmand is: " + queryPB.command() );
 		queryPB.redirectErrorStream( true );
