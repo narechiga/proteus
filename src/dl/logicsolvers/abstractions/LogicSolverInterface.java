@@ -7,6 +7,11 @@
  */
 package dl.logicsolvers.abstractions;
 
+// Used only for testing the subinterfaces
+import dl.logicsolvers.drealkit.*;
+import dl.logicsolvers.z3kit.*;
+
+
 import interfaces.text.*;
 
 import java.io.File;
@@ -542,6 +547,62 @@ public abstract class LogicSolverInterface {
 		//ballFormula=ballFormula.replace(this.bounds_normalize);
 		return ballFormula;
 	}
+	
+	public static void main (String args[]) {
+		test();
+	}
+	
+	public static void test() {
+		boolean testsSucceeded = true;
+		
+		testsSucceeded &= dRealTest1();
+		testsSucceeded &= z3Test1();
+		
+		if ( testsSucceeded ) {
+			TextOutput.info("All tests passed");
+		} else {
+			TextOutput.error("Some tests failed");
+		}
+		
+	}
 
+	public static boolean dRealTest1() {
+		LogicSolverInterface dReal = new dRealInterface();
+		dLFormula testFormula = dLFormula.parse("x^2 < 1");
+		Interpretation interpretation = new NativeInterpretation();
+		try {
+			LogicSolverResult r = dReal.findInstance( testFormula );
+			if (r.valuation.isEmpty() ) {
+				return false;
+			} else if ( interpretation.evaluateFormula(testFormula, r.valuation)) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch ( Exception e ) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
+	public static boolean z3Test1() {
+		LogicSolverInterface dReal = new z3Interface();
+		dLFormula testFormula = dLFormula.parse("x^2 < 1");
+		Interpretation interpretation = new NativeInterpretation();
+		try {
+			LogicSolverResult r = dReal.findInstance( testFormula );
+			if (r.valuation.isEmpty() ) {
+				return false;
+			} else if ( interpretation.evaluateFormula(testFormula, r.valuation)) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch ( Exception e ) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }
