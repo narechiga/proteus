@@ -9,9 +9,11 @@ package dl.syntax;
 import dl.semantics.*;
 
 
+import interfaces.text.TextOutput;
+
 import java.util.*;
 
-public class Term extends GeneralizedTerm {
+public abstract class Term extends GeneralizedTerm {
 
 	public Term () {
 	}
@@ -45,23 +47,25 @@ public class Term extends GeneralizedTerm {
 
 // Substitution method
 	public Term substituteConcreteValuation( Valuation substitution ) {
-		ArrayList<Term> subTermsSubstituted = new ArrayList<Term>();
-		Iterator<Term> subTermIterator = getSubTerms().iterator();
-		while ( subTermIterator.hasNext() ) {
-			subTermsSubstituted.add( subTermIterator.next().substituteConcreteValuation( substitution ) );
-		}
-		
-		return new Term( getOperator().clone(), subTermsSubstituted );
+		throw new RuntimeException("Generic substitution method is deprecated.");
+//		ArrayList<Term> subTermsSubstituted = new ArrayList<Term>();
+//		Iterator<Term> subTermIterator = getSubTerms().iterator();
+//		while ( subTermIterator.hasNext() ) {
+//			subTermsSubstituted.add( subTermIterator.next().substituteConcreteValuation( substitution ) );
+//		}
+//		
+//		return new Term( getOperator().clone(), subTermsSubstituted );
 	}
 
 	public Term replace( Replacement replacement ) {
-		ArrayList<Term> subTermsSubstituted = new ArrayList<Term>();
-
-		for ( Term subTerm : getSubTerms() ) {
-			subTermsSubstituted.add( subTerm.replace( replacement ) );
-		}
-		
-		return new Term( getOperator().clone(), subTermsSubstituted );
+		throw new RuntimeException("Deprecated.");
+//		ArrayList<Term> subTermsSubstituted = new ArrayList<Term>();
+//
+//		for ( Term subTerm : getSubTerms() ) {
+//			subTermsSubstituted.add( subTerm.replace( replacement ) );
+//		}
+//		
+//		return new Term( getOperator().clone(), subTermsSubstituted );
 	}
 	
 //	public Term replace( Term replacement){
@@ -76,13 +80,14 @@ public class Term extends GeneralizedTerm {
 
 // Clone method
 	public Term clone() {
-		ArrayList<Term> subTermClones = new ArrayList<Term>();
-		Iterator<Term> subTermIterator = getSubTerms().iterator();
-		while ( subTermIterator.hasNext() ) {
-			subTermClones.add( subTermIterator.next().clone() );
-		}
-
-		return new Term( getOperator().clone(), subTermClones );
+		throw new RuntimeException("Deprecated.");
+//		ArrayList<Term> subTermClones = new ArrayList<Term>();
+//		Iterator<Term> subTermIterator = getSubTerms().iterator();
+//		while ( subTermIterator.hasNext() ) {
+//			subTermClones.add( subTermIterator.next().clone() );
+//		}
+//
+//		return new Term( getOperator().clone(), subTermClones );
 	}
 
 // Manipulating subTerms

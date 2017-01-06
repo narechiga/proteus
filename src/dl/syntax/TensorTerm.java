@@ -38,8 +38,7 @@ public class TensorTerm extends GeneralizedTerm {
 		return thisTerm;
 	}	
 	public dLStructure clone() {
-	// TODO Auto-generated method stub
-		return null;
+		throw new RuntimeException("Undefined.");
 	}
 
 }

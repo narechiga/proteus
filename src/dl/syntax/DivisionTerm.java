@@ -116,5 +116,9 @@ public class DivisionTerm extends Term {
 	
 		return affinity;
 	}
+	public DivisionTerm substituteConcreteValuation( Valuation substitution ) {
+		return new DivisionTerm( getLHS().substituteConcreteValuation( substitution ),
+										getRHS().substituteConcreteValuation( substitution ) );
+	}
 }
 
