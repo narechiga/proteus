@@ -64,6 +64,23 @@ public class Real extends Term {
 			return false;
 		}
 	}
+	
+	public boolean approximatelyEquals( Real otherReal ) {
+		return approximatelyEquals( otherReal, 0.001 );
+	}
+	
+	public boolean approximatelyEquals( Real otherReal, double tolerance ) {
+		double thisReal = this.toDouble();
+		double thatReal = otherReal.toDouble();
+		
+		double delta = Math.abs( thisReal - thatReal );
+		if ( delta < tolerance ) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
 
 // hashCode
 	public int hashCode() {
@@ -93,12 +110,8 @@ public class Real extends Term {
 	}
 
 // toDouble
-	public Double toDouble() throws Exception {
-		if ( this.operator.toString().equals("*") ) {
-			throw new Exception("Cannot convert arbitrary assignment to double");
-		} else {
-			return new Double( this.operator.toString() );
-		}
+	public Double toDouble() {
+		return new Double( this.operator.toString() );
 	}
 
 // Basic arithmetic
