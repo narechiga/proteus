@@ -15,20 +15,20 @@ import java.util.*;
 
 public abstract class Term extends GeneralizedTerm {
 
-	public Term () {
-	}
-	
-	public Term ( Operator operator, ArrayList<Term> subTerms ) {
-		this.operator = operator;
-		this.arguments = new ArrayList<dLStructure>();
-		this.arguments.addAll( subTerms );
-	}
-
-	protected Term ( String operator, ArrayList<Term> subTerms ) {
-		this.operator = new Operator( operator );
-		this.arguments = new ArrayList<dLStructure>();
-		this.arguments.addAll( subTerms );
-	}
+//	public Term () {
+//	}
+//	
+//	public Term ( Operator operator, ArrayList<Term> subTerms ) {
+//		this.operator = operator;
+//		this.arguments = new ArrayList<dLStructure>();
+//		this.arguments.addAll( subTerms );
+//	}
+//
+//	protected Term ( String operator, ArrayList<Term> subTerms ) {
+//		this.operator = new Operator( operator );
+//		this.arguments = new ArrayList<dLStructure>();
+//		this.arguments.addAll( subTerms );
+//	}
 
 	// Redundant, already provided by dLStructure
 	//public Operator getOperator() {
