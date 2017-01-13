@@ -7,6 +7,8 @@
 package dl.syntax;
 
 import dl.semantics.*;
+import interfaces.text.TextOutput;
+
 import java.util.*;
 
 public class AdditionTerm extends Term {
@@ -102,4 +104,12 @@ public class AdditionTerm extends Term {
 
 		}
 	}
+	public AdditionTerm substituteConcreteValuation( Valuation substitution ) {
+		return new AdditionTerm( getLHS().substituteConcreteValuation( substitution ),
+										getRHS().substituteConcreteValuation( substitution ) );
+	}
+	public AdditionTerm replace( Replacement replacement ) {
+		return new AdditionTerm( getLHS().replace(replacement), getRHS().replace(replacement) );
+	}
+	
 }

@@ -5,16 +5,18 @@ import java.util.*;
 
 public class Arithmetic {
 	
+
+	public MultiplicationTerm simplify( MultiplicationTerm product ) { 
+		return new MultiplicationTerm( simplifyBase( product.getLHS() ), simplifyBase( product.getRHS() ) );
+	}	
+	public AdditionTerm simplify( AdditionTerm sum ) {
+		return new AdditionTerm( simplifyBase( sum.getLHS()), simplifyBase(sum.getRHS()));
+	}	
+	public NegativeTerm simplify( NegativeTerm negative ) {
+		return new NegativeTerm( simplifyBase(negative.getNegatedTerm() ));
+	}
 	public Term simplify( Term term ) {
-		Operator operator = term.getOperator();
-		List<Term> subTerms = term.getSubTerms();
-		
-		ArrayList<Term> simplifiedSubTerms = new ArrayList<>();
-		for ( Term subTerm : subTerms ) {
-			simplifiedSubTerms.add( simplify(subTerm) );
-		}
-		Term simplifiedTerm = simplifyBase( new Term(operator, simplifiedSubTerms ));
-		return simplifiedTerm;
+		return term;
 	}
 
 	public Term simplifyBase( Term term ) {

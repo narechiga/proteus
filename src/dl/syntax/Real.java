@@ -45,10 +45,10 @@ public class Real extends Term {
 
 // Substitution method
 	public Real substituteConcreteValuation( Valuation substitution ) {
-		return this.clone();
+		return new Real( this.toString() );
 	}
 	public Real replace( Replacement replacement ) {
-		return this.clone();
+		return new Real( this.toString() );
 	}
 
 // Equality

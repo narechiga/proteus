@@ -7,6 +7,7 @@
 package dl.syntax;
 
 import java.util.*;
+import dl.semantics.*;
 
 public class FunctionApplicationTerm extends Term {
 
@@ -44,6 +45,15 @@ public class FunctionApplicationTerm extends Term {
 
 	public boolean isAffineIn( ArrayList<RealVariable> variables ) {
 		return false;
+	}
+	public FunctionApplicationTerm substituteConcreteValuation( Valuation substitution ) {
+		ArrayList<Term> subTermsSubstituted = new ArrayList<Term>();
+		Iterator<Term> subTermIterator = getSubTerms().iterator();
+		while ( subTermIterator.hasNext() ) {
+			subTermsSubstituted.add( subTermIterator.next().substituteConcreteValuation( substitution ) );
+		}
+		
+		return new FunctionApplicationTerm( getOperator().clone(), subTermsSubstituted );
 	}
 
 }

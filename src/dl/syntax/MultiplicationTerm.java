@@ -7,6 +7,8 @@
 package dl.syntax;
 
 import dl.semantics.*;
+import interfaces.text.TextOutput;
+
 import java.util.*;
 
 public class MultiplicationTerm extends Term {
@@ -327,6 +329,7 @@ public class MultiplicationTerm extends Term {
 		}
 	}
 
+	@Override
 	public boolean isAffineIn( ArrayList<RealVariable> variables ) {
 		// If exactly one factor is affine in the given variables
 		// and the other contains none of those variables, 
@@ -344,7 +347,13 @@ public class MultiplicationTerm extends Term {
 			return false;
 
 		}
-
+	}
+	public MultiplicationTerm substituteConcreteValuation( Valuation substitution ) {
+		return new MultiplicationTerm( getLHS().substituteConcreteValuation( substitution ),
+										getRHS().substituteConcreteValuation( substitution ) );
+	}
+	public MultiplicationTerm replace( Replacement replacement ) {
+		return new MultiplicationTerm( getLHS().replace(replacement), getRHS().replace(replacement) );
 	}
 
 }
