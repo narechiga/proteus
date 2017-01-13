@@ -74,5 +74,17 @@ public class SubtractionTerm extends Term {
 		}
 	}
 	
+	public SubtractionTerm substituteConcreteValuation( Valuation substitution ) {
+		return new SubtractionTerm( getLHS().substituteConcreteValuation( substitution ),
+										getRHS().substituteConcreteValuation( substitution ) );
+	}
+	
+	public SubtractionTerm replace( Replacement replacement ) {
+		return new SubtractionTerm(
+				getLHS().replace( replacement ),
+				getRHS().replace( replacement )
+				);
+	}
+	
 }
 

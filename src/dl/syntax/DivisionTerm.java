@@ -120,5 +120,12 @@ public class DivisionTerm extends Term {
 		return new DivisionTerm( getLHS().substituteConcreteValuation( substitution ),
 										getRHS().substituteConcreteValuation( substitution ) );
 	}
+	
+	public DivisionTerm replace( Replacement replacement ) {
+		return new DivisionTerm(
+				getLHS().replace( replacement ),
+				getRHS().replace( replacement )
+				);
+	}
 }
 

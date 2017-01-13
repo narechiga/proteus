@@ -46,8 +46,8 @@ public abstract class Term extends GeneralizedTerm {
 	}
 
 // Substitution method
-	public Term substituteConcreteValuation( Valuation substitution ) {
-		throw new RuntimeException("Generic substitution method is deprecated.");
+	public abstract Term substituteConcreteValuation( Valuation substitution );// {
+//		throw new RuntimeException("Generic substitution method is deprecated.");
 //		ArrayList<Term> subTermsSubstituted = new ArrayList<Term>();
 //		Iterator<Term> subTermIterator = getSubTerms().iterator();
 //		while ( subTermIterator.hasNext() ) {
@@ -55,10 +55,10 @@ public abstract class Term extends GeneralizedTerm {
 //		}
 //		
 //		return new Term( getOperator().clone(), subTermsSubstituted );
-	}
+//	}
 
-	public Term replace( Replacement replacement ) {
-		throw new RuntimeException("Deprecated.");
+	public abstract Term replace( Replacement replacement );// {
+//		throw new RuntimeException("Deprecated.");
 //		ArrayList<Term> subTermsSubstituted = new ArrayList<Term>();
 //
 //		for ( Term subTerm : getSubTerms() ) {
@@ -66,7 +66,7 @@ public abstract class Term extends GeneralizedTerm {
 //		}
 //		
 //		return new Term( getOperator().clone(), subTermsSubstituted );
-	}
+//	}
 	
 //	public Term replace( Term replacement){
 //		ArrayList<Term> subTermsSubstituted = new ArrayList<Term>();
@@ -79,8 +79,8 @@ public abstract class Term extends GeneralizedTerm {
 //	}
 
 // Clone method
-	public Term clone() {
-		throw new RuntimeException("Deprecated.");
+	public abstract Term clone();// {
+//		throw new RuntimeException("Deprecated.");
 //		ArrayList<Term> subTermClones = new ArrayList<Term>();
 //		Iterator<Term> subTermIterator = getSubTerms().iterator();
 //		while ( subTermIterator.hasNext() ) {
@@ -88,7 +88,7 @@ public abstract class Term extends GeneralizedTerm {
 //		}
 //
 //		return new Term( getOperator().clone(), subTermClones );
-	}
+//	}
 
 // Manipulating subTerms
 	public ArrayList<Term> getSubTerms() {

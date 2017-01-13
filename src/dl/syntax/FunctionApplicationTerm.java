@@ -55,5 +55,15 @@ public class FunctionApplicationTerm extends Term {
 		
 		return new FunctionApplicationTerm( getOperator().clone(), subTermsSubstituted );
 	}
+	
+	public FunctionApplicationTerm replace( Replacement replacement ) {
+		ArrayList<Term> subTermsSubstituted = new ArrayList<Term>();
+		Iterator<Term> subTermIterator = getSubTerms().iterator();
+		while ( subTermIterator.hasNext() ) {
+			subTermsSubstituted.add( subTermIterator.next().replace( replacement ) );
+		}
+		
+		return new FunctionApplicationTerm( getOperator().clone(), subTermsSubstituted );
+	}
 
 }
