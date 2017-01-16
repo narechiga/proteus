@@ -6,10 +6,10 @@
  */
 package firstOrderLogic.parser;
 
-import firstOrderLogic.syntax.*;
+//import firstOrderLogic.syntax.*;
 
 public class AbstractFOLParser {
-	public FirstOrderFormula parsedFormula;;
+	//public FirstOrderFormula parsedFormula;;
 
 }
 
