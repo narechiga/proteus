@@ -42,14 +42,14 @@ public class dRealInterface extends LogicSolverInterface {
 	public dRealInterface( double precision ) {
 		this.precision = precision;
 		//initializeWorkspace();
-		dRealPath = finddReal();
+		//dRealPath = finddReal();
 	}
 
 	// Constructor with default precision
 	public dRealInterface() {
 		this.precision = 0.00001;
 		//initializeWorkspace();
-		dRealPath = finddReal();
+		//dRealPath = finddReal();
 	}
 //	public void initializeWorkspace() {
 //		// Generate the workspace

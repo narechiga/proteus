@@ -46,7 +46,12 @@ public class z3Interface extends LogicSolverInterface {
 //		if (!z3workspacedir.exists()) {
 //			z3workspacedir.mkdir();
 //		}
+		//z3Path = findZ3();
 
+
+	}
+	
+	public static String findZ3() {
 		// Find z3 installation
 		try {
 			ProcessBuilder queryPB = new ProcessBuilder("which", "z3" );
@@ -56,8 +61,7 @@ public class z3Interface extends LogicSolverInterface {
 			String line = "";
 			if ( (line = z3Says.readLine()) != null ) {
 				//TextOutput.debug("Using automatically detected installation of z3 at: " + line );
-				z3Path = line;
-				return;
+				return line;
 			}
 			
 			queryPB = new ProcessBuilder("which", "/usr/local/bin/z3" );
@@ -67,8 +71,7 @@ public class z3Interface extends LogicSolverInterface {
 			line = "";
 			if ( (line = z3Says.readLine()) != null ) {
 				//TextOutput.debug("Using automatically detected installation of z3 at: " + line );
-				z3Path = line;
-				return;
+				return line;
 			}
 			
 			queryPB = new ProcessBuilder("which", "/usr/bin/z3" );
@@ -78,8 +81,7 @@ public class z3Interface extends LogicSolverInterface {
 			line = "";
 			if ( (line = z3Says.readLine()) != null ) {
 				TextOutput.info("Using automatically detected installation of z3 at: " + line );
-				z3Path = line;
-				return;
+				return line;
 			}
 		} catch ( Exception e ) {
 			e.printStackTrace();
