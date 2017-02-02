@@ -25,6 +25,7 @@ public class Replacement {
 		this.replacement = replacement;
 	}
 
+
 	public Set<RealVariable> keySet() {
 		return replacement.keySet();
 	}
@@ -116,6 +117,10 @@ public class Replacement {
 		}
 
 		return newReplacement;
+	}
+	
+	public Replacement shallowClone() {
+		return new Replacement ( (HashMap<RealVariable,Term>)(replacement.clone()) );
 	}
 
 	public boolean equals( Object otherObject ) {

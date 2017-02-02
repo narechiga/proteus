@@ -52,7 +52,7 @@ public class NativeInterpretation implements Interpretation {
 	public NativeInterpretation () {
 	}
 
-	public Real evaluateTerm( Term thisTerm, Valuation valuation) throws Exception {
+	public Real evaluateTerm( Term thisTerm, Valuation valuation) {
 
 		Double doubleResult = null;
 		Real result = null;
@@ -288,13 +288,13 @@ public class NativeInterpretation implements Interpretation {
 				e.printStackTrace();
 			}
 		} else {
-			throw new Exception("This arithemtic operator is not implemented in the native interpretation: " + thisTerm.getOperator().toString() );
+			throw new RuntimeException("This arithemtic operator is not implemented in the native interpretation: " + thisTerm.getOperator().toString() );
 		}
 
 		return result;
 	}
 
-	public Boolean evaluateFormula( dLFormula thisFormula, Valuation valuation ) throws Exception {
+	public Boolean evaluateFormula( dLFormula thisFormula, Valuation valuation ) {
 
 		if ( thisFormula instanceof TrueFormula ) {
 			return true;
@@ -321,7 +321,7 @@ public class NativeInterpretation implements Interpretation {
 		/**/		return ( (evaluateTerm( ((ComparisonFormula)thisFormula).getLHS(), valuation )).equals(
 		/**/			 (evaluateTerm( ((ComparisonFormula)thisFormula).getRHS(), valuation ) )));
 		/**/	} else {
-		/**/		throw new Exception("This comparison operator is not implemented in the native interpretation: "
+		/**/		throw new RuntimeException("This comparison operator is not implemented in the native interpretation: "
 		/**/			+ thisFormula.getOperator().toString());
 		/**/	}
 
@@ -343,7 +343,7 @@ public class NativeInterpretation implements Interpretation {
 			&& ( (! evaluateFormula( ((IffFormula)thisFormula).getSuccedent(), valuation )) 
 				|| evaluateFormula( ((IffFormula)thisFormula).getAntecedent(), valuation ) ) );
 		} else {
-			throw new Exception("This logical operator is not implemented in the native interpretation: :: "
+			throw new RuntimeException("This logical operator is not implemented in the native interpretation: :: "
 				+ thisFormula.getOperator() + " ::");
 			}
 		}
