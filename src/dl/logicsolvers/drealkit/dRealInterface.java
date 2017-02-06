@@ -229,7 +229,7 @@ public class dRealInterface extends LogicSolverInterface {
 			//TextOutput.debug( line );
 			if ( line.contains("unsat")) {
 				result = new LogicSolverResult( "unsat", "notvalid", new Valuation() );
-				TextOutput.info(result);
+				TextOutput.debug(result);
 			} else if ( line.contains("delta-sat") ) {
 				Valuation cex = extractModel( new File( queryFile.getAbsolutePath() + ".model") );
 				result = new LogicSolverResult( "delta-sat", "unknown", cex );
