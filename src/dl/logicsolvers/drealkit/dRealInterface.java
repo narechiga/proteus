@@ -29,15 +29,16 @@ public class dRealInterface extends LogicSolverInterface {
 	public double precision = 0.00001;
 	public boolean debug = false;
 	public String dRealPath = "dReal";
-	static public Object timeout=null;
-	public Object gettimeout()
-	{
-		return this.timeout;
-	}
+	public Long timeout=null;
+	
+
 	public void setPrecision( double precision ) {
 		this.precision = precision;
 	}
 	
+	public Long getTimeout() {
+		return this.timeout;
+	}
 	public void setTimeOut(long timeout){
 		this.timeout=timeout;
 	}
@@ -188,50 +189,55 @@ public class dRealInterface extends LogicSolverInterface {
 		TextOutput.debug("Entering runQuery( File )");
 		LogicSolverResult result = null;
 
-		String precisionArgument = "--precision " + precision;
+//		String precisionArgument = "--precision " + precision;
 //		ProcessBuilder queryPB = new ProcessBuilder("dReal", "--model", 
 //								precisionArgument, queryFile.getAbsolutePath() );
 		ProcessBuilder queryPB=null;
 		long timeout=200;
-		String lol= queryFile.getAbsolutePath() ;
-		if ( this.timeout==null ) {
+
+		Process queryProcess;
+		if ( this.timeout == null ) { // Run without timeout
 			queryPB = new ProcessBuilder(dRealPath, "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
-		} else {
+			queryPB.redirectErrorStream( true );
+			queryProcess = queryPB.start();
+			
+		} else { // Run with timeout
 			queryPB = new ProcessBuilder("timeout",Long.toString(((long) this.timeout)), dRealPath, "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
+			queryPB.redirectErrorStream( true );
+			queryProcess = queryPB.start();
+			
+			boolean finished=queryProcess.waitFor(timeout, TimeUnit.SECONDS);
+			int finFlag=1;
+			if(!finished){
+				queryProcess.destroy();
+				queryProcess.waitFor();
+				finFlag=0;
+			}
+			
+			if(finFlag == 0) { // If timed out, return "unknown"
+				return new LogicSolverResult( "unknown", "unknown", new Valuation() );
+			}
 		}
 		TextOutput.debug( "Commmand is: " + queryPB.command() );
-		queryPB.redirectErrorStream( true );
-		Process queryProcess = queryPB.start();
-		boolean finished=queryProcess.waitFor(timeout, TimeUnit.SECONDS);
-		int finFlag=1;
-		if(!finished){
-			queryProcess.destroy();
-			queryProcess.waitFor();
-			finFlag=0;
-		}
+
 		BufferedReader dRealSays = new BufferedReader( new InputStreamReader(queryProcess.getInputStream()) );
 		
 		String line;
 		String totalOutput = "";
-		if(finFlag==1){
-			while ( (line = dRealSays.readLine()) != null) {
-				totalOutput += line;
-				//TextOutput.debug( line );
-				if ( line.contains("unsat")) {
-					result = new LogicSolverResult( "unsat", "notvalid", new Valuation() );
-					TextOutput.info(result);
-				} else if ( line.contains("delta-sat") ) {
-					Valuation cex = extractModel( new File( queryFile.getAbsolutePath() + ".model") );
-					result = new LogicSolverResult( "delta-sat", "unknown", cex );
-				} else if ( line.equals("unknown") ) {
-					result = new LogicSolverResult( "unknown", "unknown", new Valuation() );
-				}
+		while ( (line = dRealSays.readLine()) != null) {
+			totalOutput += line;
+			//TextOutput.debug( line );
+			if ( line.contains("unsat")) {
+				result = new LogicSolverResult( "unsat", "notvalid", new Valuation() );
+				TextOutput.info(result);
+			} else if ( line.contains("delta-sat") ) {
+				Valuation cex = extractModel( new File( queryFile.getAbsolutePath() + ".model") );
+				result = new LogicSolverResult( "delta-sat", "unknown", cex );
+			} else if ( line.equals("unknown") ) {
+				result = new LogicSolverResult( "unknown", "unknown", new Valuation() );
 			}
 			
-		if(finFlag==0){
-			result=null;
-				
-			}
+
 //	  TextOutput.info(result);
 //			} else {
 //				throw new Exception( line );
