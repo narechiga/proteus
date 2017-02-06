@@ -70,6 +70,11 @@ public abstract class dLFormula extends dLStructure {
 	public dLFormula plugIn( Valuation substitution ) {
 		return this.clone().substituteConcreteValuation( substitution );
 	}
+	
+	public Boolean evaluate( Valuation valuation ) {
+		Interpretation interpretation = new NativeInterpretation();
+		return interpretation.evaluateFormula(this, valuation);
+	}
 
 // Logic
 	public abstract dLFormula negate();

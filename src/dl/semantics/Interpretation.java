@@ -12,7 +12,7 @@ import dl.syntax.*;
 
 public interface Interpretation {
 
-	public Term evaluateTerm( Term thisTerm, Valuation valuation ) throws Exception;
-	public Boolean evaluateFormula( dLFormula thisFormula, Valuation valuation ) throws Exception;
+	public Term evaluateTerm( Term thisTerm, Valuation valuation );
+	public Boolean evaluateFormula( dLFormula thisFormula, Valuation valuation );
 
 }

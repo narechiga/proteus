@@ -146,6 +146,10 @@ public class Valuation {
 
 		return newValuation;
 	}
+	
+	public Valuation shallowClone() {
+		return new Valuation( (HashMap<RealVariable,Real>)(valuation.clone()) );
+	}
 
 	public boolean equals( Object otherObject ) {
 		if ( otherObject instanceof Valuation ) {
