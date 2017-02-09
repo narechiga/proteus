@@ -30,24 +30,19 @@ import dl.syntax.*;
 
 public abstract class LogicSolverInterface {
 	ExecutorService executor=Executors.newFixedThreadPool(10);
-	static ExecutorService executor1=Executors.newFixedThreadPool(1);
-	//protected String workspacePrefix = "/tmp/" + System.getProperty("user.name" + "_");
-	
+	static ExecutorService executor1=Executors.newFixedThreadPool(1);	
 
-	static dLFormula bounds = new TrueFormula();
-	static Replacement boundsNormalize=null;
-	public void setNormalizer(Replacement normalizer)
-	{
+	dLFormula bounds = new TrueFormula();
+	Replacement boundsNormalize = null;
+	public void setNormalizer(Replacement normalizer) {
 		this.boundsNormalize=normalizer;
 	}
 
-	public static void setBounds(dLFormula boundsFormula)
-	{
-		bounds=boundsFormula;
+	public void setBounds(dLFormula boundsFormula) {
+		bounds = boundsFormula;
 	}
 
-	public dLFormula getBounds()
-	{
+	public dLFormula getBounds() {
 		return this.bounds;
 	}
 
@@ -71,7 +66,7 @@ public abstract class LogicSolverInterface {
 
 		return findInstance( theseFormulas );
 	}
-	public LogicSolverResult boundedfindInstance( dLFormula thisFormula ) throws Exception {
+	public LogicSolverResult boundedFindInstance( dLFormula thisFormula ) throws Exception {
 
 		ArrayList<dLFormula> theseFormulas = new ArrayList<dLFormula>();
 		Set<RealVariable> variables=thisFormula.getFreeVariables();
@@ -104,6 +99,7 @@ public abstract class LogicSolverInterface {
 
 		return findInstance( filename, theseFormulas, comment );
 	}
+	
 // Even more convenient!
 	public Valuation sample( dLFormula formula ) {
 		ArrayList<dLFormula> formulas = new ArrayList<>();
@@ -130,30 +126,26 @@ public abstract class LogicSolverInterface {
 
 	}
 
-	public ArrayList<Valuation> clusterSample(dLFormula formula, final int numSamples, final ArrayList<Double> radii,boolean parallelize_flag ) throws Exception {
+	public ArrayList<Valuation> clusterSample(dLFormula formula, final int numSamples, final ArrayList<Double> radii, boolean parallelize_flag ) throws Exception {
 
 		Set<RealVariable> variables=formula.getFreeVariables();
-		for(dLFormula bound:bounds.splitOnAnds()){
-
-			for(RealVariable var:bound.getFreeVariables()){
-
-				if(variables.contains(var)){
+		for(dLFormula bound:bounds.splitOnAnds()) {
+			for(RealVariable var:bound.getFreeVariables()) {
+ 
+				if(variables.contains(var)) {
 					formula=new AndFormula(formula,bound);
 				}
-				}
+			}
 		}
 		
 		ArrayList<Valuation> points = multiSample(formula,numSamples,radii.get(0));
 
-			for (int i=1;i<radii.size();i++)
-			{
-				ArrayList<Valuation> generated_points=clusterSampleBase(formula,points,numSamples,radii.get(i),radii.get(i-1),parallelize_flag);
-				if(generated_points.size()>points.size())
-				{
-					points=generated_points;
-				}
+		for (int i=1; i<radii.size(); i++) {
+			ArrayList<Valuation> generated_points=clusterSampleBase(formula,points,numSamples,radii.get(i),radii.get(i-1),parallelize_flag);
+			if(generated_points.size()>points.size()) {
+				points=generated_points;
 			}
-
+		}
 
 		return points;
 	}
