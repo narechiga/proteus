@@ -35,4 +35,12 @@ public class MatlabAssignment extends MatlabProgram {
 		return lhs.toString() + " = " + rhs.toString() + ";\n";
 	}
 	
+//	public boolean equals( Object otherObject ) {
+//		if ( !(otherObject instanceof MatlabAssignment) ) {
+//			return false;
+//		}
+//		MatlabAssignment other = (MatlabAssignment)otherObject;
+//		return lhs.equals(other.getLHS()) && (rhs.equals(other.getRHS()));
+//	}
+	
 }

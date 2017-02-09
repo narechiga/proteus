@@ -171,38 +171,39 @@ public abstract class Term extends GeneralizedTerm {
 //		return dL.prettyPrint( this );
 //	}
 	
-	//public boolean equals( Object otherObject ) { // This is too restrictive, because does not allow for commutativity
-
-	//	if ( !(otherObject instanceof Term ) ) {
-	//		return false;
-	//	}
-
-	//	Term otherTerm = (Term)otherObject;
-	//	if ( !(this.operator.equals( otherTerm.operator ) ) ) {
-	//		return false;
-	//	}
-
-	//	Iterator<dLStructure> myArgumentIterator = this.arguments.iterator();
-	//	Iterator<dLStructure> otherArgumentIterator = otherTerm.arguments.iterator();
-
-	//	boolean result = true; //will be anded with the condition that each child must be equal, then returned
-	//	Term myArgument; Term otherArgument;
-	//	// Look at the constructor, and note that all the arguments of terms are terms.
-	//	// Then all the typecasts below should succeed.
-	//	while ( myArgumentIterator.hasNext() ) {
-
-	//		if ( otherArgumentIterator.hasNext() ) {
-
-	//			myArgument = (Term)(myArgumentIterator.next());
-	//			otherArgument = (Term)(otherArgumentIterator.next());
-	//			
-	//			result = result && myArgument.equals( otherArgument );
-
-	//		} else {
-	//			return false; // because then they are not the same size, cannot be equal!
-	//		}
-	//	}
-	//}
+//	public boolean equals( Object otherObject ) { // This is too restrictive, because does not allow for commutativity
+//
+//		if ( !(otherObject instanceof Term ) ) {
+//			return false;
+//		}
+//
+//		Term otherTerm = (Term)otherObject;
+//		if ( !(this.operator.equals( otherTerm.operator ) ) ) {
+//			return false;
+//		}
+//
+//		Iterator<dLStructure> myArgumentIterator = this.arguments.iterator();
+//		Iterator<dLStructure> otherArgumentIterator = otherTerm.arguments.iterator();
+//
+//		boolean result = true; //will be anded with the condition that each child must be equal, then returned
+//		Term myArgument; Term otherArgument;
+//		// Look at the constructor, and note that all the arguments of terms are terms.
+//		// Then all the typecasts below should succeed.
+//		while ( myArgumentIterator.hasNext() ) {
+//
+//			if ( otherArgumentIterator.hasNext() ) {
+//
+//				myArgument = (Term)(myArgumentIterator.next());
+//				otherArgument = (Term)(otherArgumentIterator.next());
+//				
+//				result = result && myArgument.equals( otherArgument );
+//
+//			} else {
+//				return false; // because then they are not the same size, cannot be equal!
+//			}
+//		}
+//		return result;
+//	}
 
 //
 	public Set<RealVariable> getFreeVariables() {
