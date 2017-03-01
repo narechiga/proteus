@@ -5,19 +5,28 @@ import java.util.*;
 
 public class Arithmetic {
 	
+	public Term simplify( Term term ) {
+		if ( term instanceof MultiplicationTerm ) {
+			return simplifyProduct( (MultiplicationTerm)term );
+		} else if ( term instanceof AdditionTerm ) {
+			return simplifySum( (AdditionTerm)term );
+		} else if ( term instanceof NegativeTerm ) {
+			return simplifyNegative( (NegativeTerm)term );
+		} else {
+			return term;
+		}
+	}
 
-	public MultiplicationTerm simplify( MultiplicationTerm product ) { 
+	public MultiplicationTerm simplifyProduct( MultiplicationTerm product ) { 
 		return new MultiplicationTerm( simplifyBase( product.getLHS() ), simplifyBase( product.getRHS() ) );
 	}	
-	public AdditionTerm simplify( AdditionTerm sum ) {
+	public AdditionTerm simplifySum( AdditionTerm sum ) {
 		return new AdditionTerm( simplifyBase( sum.getLHS()), simplifyBase(sum.getRHS()));
 	}	
-	public NegativeTerm simplify( NegativeTerm negative ) {
+	public NegativeTerm simplifyNegative( NegativeTerm negative ) {
 		return new NegativeTerm( simplifyBase(negative.getNegatedTerm() ));
 	}
-	public Term simplify( Term term ) {
-		return term;
-	}
+
 
 	public Term simplifyBase( Term term ) {
 		if ( term instanceof MultiplicationTerm ) {
