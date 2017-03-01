@@ -5,7 +5,10 @@ import java.util.*;
 
 public class Arithmetic {
 	
-	
+	// Lagrange interpolation
+	public Term lagrangeInterpolation( ) {
+		return null;
+	}
 	
 	// Lightweight simplification functions
 	public Term simplify( Term term ) {
