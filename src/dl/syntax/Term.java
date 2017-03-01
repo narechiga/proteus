@@ -112,6 +112,11 @@ public abstract class Term extends GeneralizedTerm {
 		arguments.addAll( subTermList );
 	}
 
+	public Term evaluate( Valuation inputValuation ) {
+		Interpretation interpretation = new NativeInterpretation();
+		return interpretation.evaluateTerm( this, inputValuation );
+	}
+	
 	public String toString() {
 
 		String returnString = "";
@@ -143,17 +148,11 @@ public abstract class Term extends GeneralizedTerm {
 		return returnString;
 	}
 
-	public String toMathematicaString() {
-		return toString();
-	}
 
 	public String toMatlabString() {
 		return toString();
 	}
 
-	public String toManticoreString() {
-		return toString();
-	}
 
 	public String todRealString() {
 		String returnString = "(" + this.operator.todRealString() ;
@@ -317,7 +316,7 @@ public abstract class Term extends GeneralizedTerm {
 	public MatrixTerm extractLinearCoefficients( ArrayList<RealVariable> variables ) {
 
                 if ( !isLinearIn( variables ) ){
-                        throw new RuntimeException( "Term is not linear: " + this.toMathematicaString() );
+                        throw new RuntimeException( "Term is not linear: " + this.toString() );
                 }
 
                 ArrayList<Term> additiveTerms = this.splitSummands();

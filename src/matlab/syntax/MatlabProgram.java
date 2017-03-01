@@ -12,7 +12,9 @@ import java.io.*;
 import java.util.*;
 
 import dl.syntax.*;
+import dl.semantics.*;
 import matlab.parser.*;
+import matlab.semantics.*;
 
 
 public abstract class MatlabProgram {
@@ -49,6 +51,10 @@ public abstract class MatlabProgram {
 			e.printStackTrace();
 		}
 		return parsedProgram;
+	}
+	
+	public Valuation execute( Valuation initialState ) {
+		return MatlabExecutionEngine.execute( this, initialState );
 	}
 	
 	public abstract String toString();

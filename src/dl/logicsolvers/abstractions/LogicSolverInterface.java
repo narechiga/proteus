@@ -29,8 +29,8 @@ import dl.semantics.*;
 import dl.syntax.*;
 
 public abstract class LogicSolverInterface {
-	ExecutorService executor=Executors.newFixedThreadPool(10);
-	static ExecutorService executor1=Executors.newFixedThreadPool(1);	
+	ExecutorService executor = Executors.newFixedThreadPool(10);
+	static ExecutorService executor1 = Executors.newFixedThreadPool(1);	
 
 	dLFormula bounds = new TrueFormula();
 	Replacement boundsNormalize = null;
@@ -118,13 +118,7 @@ public abstract class LogicSolverInterface {
 		return point;
 	}
 
-	public ArrayList<Valuation> multiSample( dLFormula formula, int numSamples, double resolution ) {
-		ArrayList<dLFormula> formulas = new ArrayList<>();
-		formulas.add( formula );
 
-		return multiSample( formulas, numSamples, resolution );
-
-	}
 
 	public ArrayList<Valuation> clusterSample(dLFormula formula, final int numSamples, final ArrayList<Double> radii, boolean parallelize_flag ) throws Exception {
 
@@ -322,7 +316,14 @@ public abstract class LogicSolverInterface {
 			return points;
 		}
 
+	public ArrayList<Valuation> multiSample( dLFormula formula, int numSamples, double resolution ) {
+		ArrayList<dLFormula> formulas = new ArrayList<>();
+		formulas.add( formula );
 
+		return multiSample( formulas, numSamples, resolution );
+
+	}
+	
 	public ArrayList<Valuation> multiSample( List<dLFormula> thisSet, int numberOfPoints, double suggestedRadius ) {
                 ArrayList<dLFormula> queryFormulas = new ArrayList<dLFormula>();
                 ArrayList<Valuation> samplePoints = new ArrayList<Valuation>();
