@@ -19,6 +19,8 @@ import dl.syntax.*;
 
 import java.io.*;
 
+import sun.java2d.loops.ProcessPath.ProcessHandler;
+
 import dl.logicsolvers.abstractions.LogicSolverInterface;
 import dl.logicsolvers.abstractions.LogicSolverResult;
 import dl.parser.PrettyPrinter;
@@ -77,7 +79,7 @@ public class dRealInterface extends LogicSolverInterface {
 				TextOutput.info("Using automatically detected installation of dReal at: " + line );
 				return line;
 			}
-
+			
 			queryPB = new ProcessBuilder("which", "/usr/local/bin/dReal" );
 			queryPB.redirectErrorStream( true );
 			queryProcess = queryPB.start();	
@@ -193,19 +195,21 @@ public class dRealInterface extends LogicSolverInterface {
 //		ProcessBuilder queryPB = new ProcessBuilder("dReal", "--model", 
 //								precisionArgument, queryFile.getAbsolutePath() );
 		ProcessBuilder queryPB=null;
-		long timeout=200;
-
+		this.timeout=(long) 200;
+		long timeout=this.timeout;
 		Process queryProcess;
-		if ( this.timeout == null ) { // Run without timeout
+		if ( this.timeout == null) { // Run without timeout
 			queryPB = new ProcessBuilder(dRealPath, "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
 			queryPB.redirectErrorStream( true );
 			queryProcess = queryPB.start();
 			
 		} else { // Run with timeout
-			queryPB = new ProcessBuilder("timeout",Long.toString(((long) this.timeout)), dRealPath, "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
-			queryPB.redirectErrorStream( true );
-			queryProcess = queryPB.start();
+			String command="timeout3"+" "+"-t"+" "+timeout+" "+ dRealPath+ " --precision"+" "+precision+" "+ "--model"+" "+queryFile.getAbsolutePath();
+
+			//queryPB = new ProcessBuilder(command);
+			//queryPB.redirectErrorStream( true );
 			
+			queryProcess =Runtime.getRuntime().exec(command);
 			boolean finished=queryProcess.waitFor(timeout, TimeUnit.SECONDS);
 			int finFlag=1;
 			if(!finished){
