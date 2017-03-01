@@ -5,6 +5,9 @@ import java.util.*;
 
 public class Arithmetic {
 	
+	
+	
+	// Lightweight simplification functions
 	public Term simplify( Term term ) {
 		Term lightlySimplified;
 		if ( term instanceof MultiplicationTerm ) {
@@ -18,17 +21,16 @@ public class Arithmetic {
 		}
 		return simplifyBase( lightlySimplified );
 	}
-
-	public MultiplicationTerm simplifyProduct( MultiplicationTerm product ) { 
+	protected MultiplicationTerm simplifyProduct( MultiplicationTerm product ) { 
 		return new MultiplicationTerm( simplify( product.getLHS() ), simplify( product.getRHS() ) );
 	}	
-	public AdditionTerm simplifySum( AdditionTerm sum ) {
+	protected AdditionTerm simplifySum( AdditionTerm sum ) {
 		return new AdditionTerm( simplify( sum.getLHS()), simplify(sum.getRHS()));
 	}	
-	public NegativeTerm simplifyNegative( NegativeTerm negative ) {
+	protected NegativeTerm simplifyNegative( NegativeTerm negative ) {
 		return new NegativeTerm( simplify(negative.getNegatedTerm() ));
 	}
-	public Term simplifyBase( Term term ) {
+	protected Term simplifyBase( Term term ) {
 		if ( term instanceof MultiplicationTerm ) {
 			MultiplicationTerm product = (MultiplicationTerm)term;
 			if ( product.getLHS().equals( new Real(1) ) ) {
