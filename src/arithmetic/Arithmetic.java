@@ -6,28 +6,28 @@ import java.util.*;
 public class Arithmetic {
 	
 	public Term simplify( Term term ) {
+		Term lightlySimplified;
 		if ( term instanceof MultiplicationTerm ) {
-			return simplifyProduct( (MultiplicationTerm)term );
+			lightlySimplified = simplifyProduct( (MultiplicationTerm)term );
 		} else if ( term instanceof AdditionTerm ) {
-			return simplifySum( (AdditionTerm)term );
+			lightlySimplified = simplifySum( (AdditionTerm)term );
 		} else if ( term instanceof NegativeTerm ) {
-			return simplifyNegative( (NegativeTerm)term );
+			lightlySimplified = simplifyNegative( (NegativeTerm)term );
 		} else {
-			return term;
+			lightlySimplified = term;
 		}
+		return simplifyBase( lightlySimplified );
 	}
 
 	public MultiplicationTerm simplifyProduct( MultiplicationTerm product ) { 
-		return new MultiplicationTerm( simplifyBase( product.getLHS() ), simplifyBase( product.getRHS() ) );
+		return new MultiplicationTerm( simplify( product.getLHS() ), simplify( product.getRHS() ) );
 	}	
 	public AdditionTerm simplifySum( AdditionTerm sum ) {
-		return new AdditionTerm( simplifyBase( sum.getLHS()), simplifyBase(sum.getRHS()));
+		return new AdditionTerm( simplify( sum.getLHS()), simplify(sum.getRHS()));
 	}	
 	public NegativeTerm simplifyNegative( NegativeTerm negative ) {
-		return new NegativeTerm( simplifyBase(negative.getNegatedTerm() ));
+		return new NegativeTerm( simplify(negative.getNegatedTerm() ));
 	}
-
-
 	public Term simplifyBase( Term term ) {
 		if ( term instanceof MultiplicationTerm ) {
 			MultiplicationTerm product = (MultiplicationTerm)term;
