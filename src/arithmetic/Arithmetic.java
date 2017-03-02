@@ -1,12 +1,13 @@
 package arithmetic;
 
 import dl.syntax.*;
+import dl.semantics.*;
 import java.util.*;
 
 public class Arithmetic {
 	
 	// Lagrange interpolation
-	public Term lagrangeInterpolation( ) {
+	public Term lagrangeInterpolation( List<Valuation> inputValuations, List<Valuation> outputValuations  ) {
 		return null;
 	}
 	
