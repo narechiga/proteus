@@ -64,13 +64,7 @@ public class ConcreteAssignmentProgram extends DiscreteProgram {
 		return "( " + getLHS().toString() + " := " + getRHS().toString() +" )";
 	}
 
-	public String toManticoreString() {
-		return "( " + getLHS().toManticoreString() + " := " + getRHS().toManticoreString() +" )";
-	}
 
-	public String toMathematicaString() {
-		return "( " + getLHS().toMathematicaString() + " = " + getRHS().toMathematicaString() +" )";
-	}
 
 	public String todRealString() {
 		return "(= " + getLHS().todRealString() + " " + getRHS().todRealString() +" )";

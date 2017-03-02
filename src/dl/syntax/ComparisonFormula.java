@@ -68,7 +68,7 @@ public class ComparisonFormula extends dLFormula {
 						getLHS().substituteConcreteValuation( substitution ),
 						getRHS().substituteConcreteValuation( substitution ) );
 		if( debug ) {
-			System.out.println("Returning ComparisonFormula: " + substitutedFormula.toManticoreString() );
+			System.out.println("Returning ComparisonFormula: " + substitutedFormula.toString() );
 		}
 		return substitutedFormula;
 	}
@@ -94,21 +94,6 @@ public class ComparisonFormula extends dLFormula {
 				+ getRHS().toString() + " )";
 	}
 
-	public String toManticoreString () {
-		return "( " + getLHS().toManticoreString() + getInequality().toManticoreString() 
-				+ getRHS().toManticoreString() + " )";
-	}
-
-	public String toMathematicaString () {
-		if ( getInequality().equals( new Operator("=") ) ) {
-			return "( " + getLHS().toMathematicaString() + " == "
-					+ getRHS().toMathematicaString() + " )";
-		} else {
-			return "( " + getLHS().toMathematicaString() 
-					+ " " + getInequality().toMathematicaString() + " "
-					+ getRHS().toMathematicaString() + " )";
-		}
-	}
 
 	public String todRealString () {
 		String returnString;
