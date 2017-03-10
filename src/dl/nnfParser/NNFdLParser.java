@@ -993,10 +993,23 @@ public class NNFdLParser extends AbstractNNFdLParser
     /* "NNFdLParser.y":514  */ /* lalr1.java:489  */
     { 
 		try {
-			yyval = new Real( (String)((yystack.valueAt (1-(1)))) );
+			String numberString = (String)((yystack.valueAt (1-(1))));
+			if ( numberString.contains("e") ) {
+				String[] numberParts = numberString.split("e");
+				Real base = new Real( numberParts[0] );
+				Real exponent = new Real( numberParts[1] );
+				yyval = new MultiplicationTerm( base, new PowerTerm( new Real(10), exponent ) );
+			} else if ( numberString.contains("E") ) {
+				String[] numberParts = numberString.split("E");
+				Real base = new Real( numberParts[0] );
+				Real exponent = new Real( numberParts[1] );
+				yyval = new MultiplicationTerm( base, new PowerTerm( new Real(10), exponent ) );
+			} else {
+				yyval = new Real( (String)((yystack.valueAt (1-(1)))) );
+			}
 		} catch ( Exception e ) {
 			System.err.println("Exception at location term:NUMBER");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	};
   break;
@@ -1004,7 +1017,7 @@ public class NNFdLParser extends AbstractNNFdLParser
 
   case 44:
   if (yyn == 44)
-    /* "NNFdLParser.y":522  */ /* lalr1.java:489  */
+    /* "NNFdLParser.y":535  */ /* lalr1.java:489  */
     {
 		try {
 			yyval = new FunctionApplicationTerm( new Operator( (String)((yystack.valueAt (4-(1)))), ((ArrayList<Term>)((yystack.valueAt (4-(3))))).size(), false ), (ArrayList<Term>)((yystack.valueAt (4-(3)))) );
@@ -1018,7 +1031,7 @@ public class NNFdLParser extends AbstractNNFdLParser
 
   case 45:
   if (yyn == 45)
-    /* "NNFdLParser.y":530  */ /* lalr1.java:489  */
+    /* "NNFdLParser.y":543  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new RealVariable( (String)((yystack.valueAt (1-(1)))) );
@@ -1032,7 +1045,7 @@ public class NNFdLParser extends AbstractNNFdLParser
 
   case 46:
   if (yyn == 46)
-    /* "NNFdLParser.y":538  */ /* lalr1.java:489  */
+    /* "NNFdLParser.y":551  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (Term)((yystack.valueAt (3-(2))));
@@ -1046,7 +1059,7 @@ public class NNFdLParser extends AbstractNNFdLParser
 
   case 47:
   if (yyn == 47)
-    /* "NNFdLParser.y":546  */ /* lalr1.java:489  */
+    /* "NNFdLParser.y":559  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1064,7 +1077,7 @@ public class NNFdLParser extends AbstractNNFdLParser
 
   case 48:
   if (yyn == 48)
-    /* "NNFdLParser.y":558  */ /* lalr1.java:489  */
+    /* "NNFdLParser.y":571  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1082,7 +1095,7 @@ public class NNFdLParser extends AbstractNNFdLParser
 
   case 49:
   if (yyn == 49)
-    /* "NNFdLParser.y":570  */ /* lalr1.java:489  */
+    /* "NNFdLParser.y":583  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1100,7 +1113,7 @@ public class NNFdLParser extends AbstractNNFdLParser
 
   case 50:
   if (yyn == 50)
-    /* "NNFdLParser.y":582  */ /* lalr1.java:489  */
+    /* "NNFdLParser.y":595  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1118,7 +1131,7 @@ public class NNFdLParser extends AbstractNNFdLParser
 
   case 51:
   if (yyn == 51)
-    /* "NNFdLParser.y":594  */ /* lalr1.java:489  */
+    /* "NNFdLParser.y":607  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1136,7 +1149,7 @@ public class NNFdLParser extends AbstractNNFdLParser
 
   case 52:
   if (yyn == 52)
-    /* "NNFdLParser.y":606  */ /* lalr1.java:489  */
+    /* "NNFdLParser.y":619  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1155,7 +1168,7 @@ public class NNFdLParser extends AbstractNNFdLParser
 
   case 53:
   if (yyn == 53)
-    /* "NNFdLParser.y":622  */ /* lalr1.java:489  */
+    /* "NNFdLParser.y":635  */ /* lalr1.java:489  */
     {
 		yyval = null;
 	};
@@ -1164,7 +1177,7 @@ public class NNFdLParser extends AbstractNNFdLParser
 
   case 54:
   if (yyn == 54)
-    /* "NNFdLParser.y":625  */ /* lalr1.java:489  */
+    /* "NNFdLParser.y":638  */ /* lalr1.java:489  */
     { 
 		try {
 			ArrayList<Term> args = new ArrayList<Term>();
@@ -1180,7 +1193,7 @@ public class NNFdLParser extends AbstractNNFdLParser
 
   case 55:
   if (yyn == 55)
-    /* "NNFdLParser.y":635  */ /* lalr1.java:489  */
+    /* "NNFdLParser.y":648  */ /* lalr1.java:489  */
     { 
 		try {
 			ArrayList<Term> args = new ArrayList<Term>();
@@ -1196,7 +1209,7 @@ public class NNFdLParser extends AbstractNNFdLParser
     
 
 
-/* "NNFdLParser.java":1200  */ /* lalr1.java:489  */
+/* "NNFdLParser.java":1213  */ /* lalr1.java:489  */
         default: break;
       }
 
@@ -1727,8 +1740,8 @@ private static final byte yycheck_[] = yycheck_init();
      178,   190,   207,   215,   223,   231,   239,   247,   255,   263,
      273,   297,   305,   313,   321,   332,   340,   348,   356,   364,
      372,   380,   388,   399,   410,   421,   432,   440,   451,   465,
-     480,   494,   502,   514,   522,   530,   538,   546,   558,   570,
-     582,   594,   606,   622,   625,   635
+     480,   494,   502,   514,   535,   543,   551,   559,   571,   583,
+     595,   607,   619,   635,   638,   648
     };
   }
 
@@ -1814,7 +1827,7 @@ private static final byte yycheck_[] = yycheck_init();
 
 }
 
-/* "NNFdLParser.y":649  */ /* lalr1.java:1070  */
+/* "NNFdLParser.y":662  */ /* lalr1.java:1070  */
 
 
 

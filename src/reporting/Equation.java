@@ -7,5 +7,9 @@ class Equation extends ReportElement {
 	public Equation( String equation ) {
 		this.equation = equation;
 	}
+	
+	public String toLaTeXString() {
+		return "\\begin{equation}\n" + equation + "\n\\end{equation}";
+	}
 
 }

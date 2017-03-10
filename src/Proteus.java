@@ -73,7 +73,7 @@ public class Proteus {
 		
 		try {
 			//dLStructure structure = dLStructure.parseStructure( input );
-			dLFormula formula = dLFormula.parseNNF( input );
+			dLFormula formula = dLFormula.parse( input );
 			returnString = (formula.getClass() + ": " + PrettyPrinter.print(formula));//structure.toString() );
 			if ( formula instanceof ComparisonFormula ) {
 				ComparisonFormula inequality = (ComparisonFormula)formula;

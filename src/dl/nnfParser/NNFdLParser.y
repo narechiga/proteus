@@ -513,10 +513,23 @@ comparison:
 term:
 	NUMBER { 
 		try {
-			$$ = new Real( (String)$1 );
+			String numberString = (String)$1;
+			if ( numberString.contains("e") ) {
+				String[] numberParts = numberString.split("e");
+				Real base = new Real( numberParts[0] );
+				Real exponent = new Real( numberParts[1] );
+				$$ = new MultiplicationTerm( base, new PowerTerm( new Real(10), exponent ) );
+			} else if ( numberString.contains("E") ) {
+				String[] numberParts = numberString.split("E");
+				Real base = new Real( numberParts[0] );
+				Real exponent = new Real( numberParts[1] );
+				$$ = new MultiplicationTerm( base, new PowerTerm( new Real(10), exponent ) );
+			} else {
+				$$ = new Real( (String)$1 );
+			}
 		} catch ( Exception e ) {
 			System.err.println("Exception at location term:NUMBER");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| IDENTIFIER LPAREN argumentlist RPAREN {

@@ -15,4 +15,8 @@ class Section extends ReportElement{
 		this.title = title;
 	}
 	
+	public String toLaTeXString() {
+		return "\\section{" + title + "}\n";
+	}
+	
 }
