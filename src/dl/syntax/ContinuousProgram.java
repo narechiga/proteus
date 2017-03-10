@@ -14,6 +14,7 @@ public class ContinuousProgram extends HybridProgram {
 
 // Constructors and field getters
 	// constructor with DOE
+	
 	public ContinuousProgram ( ArrayList<ExplicitODE> odeList, dLFormula doe ) {
 		this.operator = new Operator("continuous-evolution");
 
@@ -70,7 +71,7 @@ public class ContinuousProgram extends HybridProgram {
 		return (ExplicitODE)arguments.get( index );
 	}
 
-	public void addODE( dLStructure ode ) {
+	public void addODE( ExplicitODE ode ) {
 		int doeIndex = arguments.size() - 1;
 		
 		arguments.add( doeIndex, ode );
