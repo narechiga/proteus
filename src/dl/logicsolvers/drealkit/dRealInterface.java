@@ -41,7 +41,7 @@ public class dRealInterface extends LogicSolverInterface {
 	public Long getTimeout() {
 		return this.timeout;
 	}
-	public void setTimeOut(long timeout){
+	public void setTimeout(long timeout){
 		this.timeout=timeout;
 	}
 
@@ -191,12 +191,12 @@ public class dRealInterface extends LogicSolverInterface {
 		TextOutput.debug("Entering runQuery( File )");
 		LogicSolverResult result = null;
 
-//		String precisionArgument = "--precision " + precision;
-//		ProcessBuilder queryPB = new ProcessBuilder("dReal", "--model", 
-//								precisionArgument, queryFile.getAbsolutePath() );
-		ProcessBuilder queryPB=null;
+		ProcessBuilder queryPB = null;
+		/*
+		Do not uncomment this; it completely defeats the purpose of having a modifiable timeout
+		Use the setTimeout( long timeout ) method from your application code.
 		this.timeout=(long) 200;
-		long timeout=this.timeout;
+		long timeout=this.timeout; */
 		Process queryProcess;
 		if ( this.timeout == null) { // Run without timeout
 			queryPB = new ProcessBuilder(dRealPath, "--precision", ""+precision+"", "--model", queryFile.getAbsolutePath() );
@@ -206,21 +206,16 @@ public class dRealInterface extends LogicSolverInterface {
 		} else { // Run with timeout
 			String command="timeout3"+" "+"-t"+" "+timeout+" "+ dRealPath+ " --precision"+" "+precision+" "+ "--model"+" "+queryFile.getAbsolutePath();
 
-			//queryPB = new ProcessBuilder(command);
-			//queryPB.redirectErrorStream( true );
 			
-			queryProcess =Runtime.getRuntime().exec(command);
-			boolean finished=queryProcess.waitFor(timeout, TimeUnit.SECONDS);
-			int finFlag=1;
-			if(!finished){
+			queryProcess = Runtime.getRuntime().exec(command);
+			boolean finished = queryProcess.waitFor(timeout, TimeUnit.SECONDS);
+
+			if ( !finished ) {
 				queryProcess.destroy();
 				queryProcess.waitFor();
-				finFlag=0;
-			}
-			
-			if(finFlag == 0) { // If timed out, return "unknown"
 				return new LogicSolverResult( "unknown", "unknown", new Valuation() );
 			}
+			
 		}
 		TextOutput.debug( "Commmand is: " + queryPB.command() );
 
@@ -231,7 +226,7 @@ public class dRealInterface extends LogicSolverInterface {
 		while ( (line = dRealSays.readLine()) != null) {
 			totalOutput += line;
 			//TextOutput.debug( line );
-			if ( line.contains("unsat")) {
+			if ( line.contains("unsat") ) {
 				result = new LogicSolverResult( "unsat", "notvalid", new Valuation() );
 				TextOutput.debug(result);
 			} else if ( line.contains("delta-sat") ) {
@@ -240,7 +235,6 @@ public class dRealInterface extends LogicSolverInterface {
 			} else if ( line.equals("unknown") ) {
 				result = new LogicSolverResult( "unknown", "unknown", new Valuation() );
 			}
-			
 
 //	  TextOutput.info(result);
 //			} else {

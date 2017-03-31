@@ -3,12 +3,13 @@ package arithmetic;
 import dl.syntax.*;
 import dl.semantics.*;
 import java.util.*;
+import interfaces.text.*;
 
 public class Arithmetic {
 	
 	// Lagrange interpolation
 	public Term lagrangeInterpolation( List<Valuation> inputValuations, List<Valuation> outputValuations  ) {
-		return null;
+		throw new RuntimeException("Not yet implemented");
 	}
 	
 	// Lightweight simplification functions
@@ -54,5 +55,41 @@ public class Arithmetic {
 		}
 		return term;
 	}
+
+	public static void main ( String [] args ) {
+		boolean allTestsSucceeded = true;
+		
+		if ( allTestsSucceeded ) { 
+			TextOutput.info("All tests succeeded.");
+		} else {
+			TextOutput.error("Some tests failed; see above.");
+		}
+	}
+	
+	public static boolean lagrangeInterpolationTest1() {
+		boolean success = false;
+		
+		// Create list of data
+		List<Valuation> inputValuations = new ArrayList<>();
+		
+		Valuation inputValuation = new Valuation();
+		Valuation outputValuation = new Valuation();
+		RealVariable x = new RealVariable("x"); RealVariable y = new RealVariable("y");
+		inputValuation.put( x, new Real (-300));
+		outputValuation.put( y, new Real(300));
+		
+		
+		// Interpolate
+		
+		// Check data
+		
+		if ( success ) {
+			TextOutput.info( "lagranteInterpolationTest1 succeeded." );
+		} else {
+			TextOutput.error( "lagrangeInterpolationTest1 failed." );
+		}
+		return success;
+	}
+	
 	
 }

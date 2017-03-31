@@ -6,4 +6,8 @@ class SubSection extends Section {
 		this.title = title;
 	}
 
+	
+	public String toLaTeXString() {
+		return "\\subsection{" + title + "}\n";
+	}
 }

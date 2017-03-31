@@ -3,6 +3,7 @@
 	import java.util.*;
 	import dl.syntax.*;
 	import dl.semantics.*;
+	import interfaces.text.*;
 
 	@SuppressWarnings({"unchecked"})
 %}
@@ -80,24 +81,6 @@
 %right POWER
 %left REALDECLARATION
 
-/*%type <String> input keymaerablock problemblock schemavarsblock rulesblock schematext varblock funblock functiondeclaration argumentdeclaration annotationblock valuation
-%type <ArrayList<String>> varinitlist
-%type <ArrayList<RealVariable>> varlist vardeclaration
-%type <ExplicitODE> ode
-%type <dLFormula> dLformula 
-%type <ConcreteAssignmentProgram> concreteassignment 
-%type <ArbitraryAssignmentProgram> arbitraryassignment 
-%type <TestProgram> test
-%type <ComparisonFormula> comparison
-%type <Term> term
-%type <HybridProgram> hybridprogram
-%type <ContinuousProgram> odesystem
-%type <ArrayList<dLStructure>> odelist 
-%type <ArrayList<dLFormula>> annotationlist
-%type <ArrayList<Term>> argumentlist
-
-%type <String> EXTERNAL FUNCTIONS RULES SCHEMAVARIABLES SCHEMATEXT PROBLEM ASSIGN PRIME OPENBRACE CLOSEBRACE EQUALS TEST CUP ASTERISK REALDECLARATION OPENBOX CLOSEBOX OPENDIAMOND CLOSEDIAMOND NUMBER IDENTIFIER PLUS MINUS ASTERISK DIVIDE POWER NEWLINE INEQUALITY LPAREN RPAREN SEMICOLON COMMA AND OR NOT IMPLIES IFF FORALL EXISTS TRUE FALSE 
-*/
 
 %%
 input: 
@@ -106,7 +89,7 @@ input:
 			$$ = (String)$2;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location input:valuation");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| dLformula { 
@@ -115,7 +98,7 @@ input:
 			parsedStructure = (dLFormula)$1;	
 		} catch ( Exception e ) {
 			System.err.println("Exception at location input:dLformula");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| hybridprogram {
@@ -124,7 +107,7 @@ input:
 			parsedStructure = (HybridProgram)$1;	
 		} catch ( Exception e ) {
 			System.err.println("Exception at location input:hybridprogram");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| term {
@@ -133,7 +116,7 @@ input:
 			parsedStructure = (Term)$1;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location input:term");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| error {
@@ -159,7 +142,7 @@ valuation:
 
 		} catch ( Exception e ) {
 			System.err.println("Exception at location valuation:IDENTIFIER IMPLIES NUMBER");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 		
 	}
@@ -174,7 +157,7 @@ valuation:
 
 		} catch ( Exception e ) {
 			System.err.println("Exception at location valuation:IDENTIFIER IMPLIES MINUS NUMBER");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 		
 	}
@@ -187,7 +170,7 @@ valuation:
 			$$ = (String)$1 + "\n" + "(valuation " +  (String)$3 + "->" + (String)$5 + ")";
 		} catch ( Exception e ) {
 			System.err.println("Exception at location valuation:valuation COMMA IDENTIFIER IMPLIES NUMBER");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| valuation COMMA IDENTIFIER IMPLIES MINUS NUMBER {
@@ -199,7 +182,7 @@ valuation:
 			$$ = (String)$1 + "\n" + "(valuation " +  (String)$3 + "->" + "-" + (String)$5 + ")";
 		} catch ( Exception e ) {
 			System.err.println("Exception at location valuation:valuation COMMA IDENTIFIER IMPLIES MINUS NUMBER");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 ;
@@ -212,7 +195,7 @@ dLformula:
 			$$ = new TrueFormula();
 		} catch ( Exception e ) {
 			System.err.println("Exception at location dLformula:TRUE");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| FALSE	{ 
@@ -220,7 +203,7 @@ dLformula:
 			$$ = new FalseFormula();
 		} catch ( Exception e ) {
 			System.err.println("Exception at location dLformula:FALSE");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| comparison { 
@@ -228,7 +211,7 @@ dLformula:
 			$$ = (ComparisonFormula)$1;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location dLformula:comparison");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| dLformula AND dLformula { 
@@ -236,7 +219,7 @@ dLformula:
 			$$ = new AndFormula( (dLFormula)$1, (dLFormula)$3 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location dLformula:dLformula AND dLformula");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| dLformula OR dLformula { 
@@ -244,7 +227,7 @@ dLformula:
 			$$ = new OrFormula( (dLFormula)$1, (dLFormula)$3 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location dLformula:dLformula OR dLformula");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| NOT dLformula	{ 
@@ -252,7 +235,7 @@ dLformula:
 			$$ = new NotFormula( (dLFormula)$2 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location dLformula:NOT dLformula");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| LPAREN dLformula RPAREN { 
@@ -260,7 +243,7 @@ dLformula:
 			$$ = (dLFormula)$2;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location dLformula:LPAREN dLformula RPAREN");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| dLformula IMPLIES dLformula { 
@@ -268,7 +251,7 @@ dLformula:
 			$$ = new ImpliesFormula( (dLFormula)$1, (dLFormula)$3 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location dLformula:dLformula IMPLIES dLformula");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| dLformula IFF dLformula { 
@@ -276,7 +259,7 @@ dLformula:
 			$$ = new IffFormula( (dLFormula)$1, (dLFormula)$3 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location dLformula:dLformula IFF dLformula");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	//| IDENTIFIER LPAREN formulalist RPAREN {
@@ -286,7 +269,7 @@ dLformula:
 	//					(List<dLFormula>)$3 );
 	//	} catch ( Exception e ) {
 	//		System.err.println("Exception at location dLformula:IDENTIFIER LPAREN formulalist RPAREN");
-	//		System.err.println( e );
+	//		e.printStackTrace();
 	//	}
 	//}
 	| FORALL IDENTIFIER SEMICOLON dLformula %prec QUANTIFIER { 
@@ -294,7 +277,7 @@ dLformula:
 			$$ = new ForAllFormula( new RealVariable( (String)$2), (dLFormula)$4 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location dLformula:FORALL IDENTIFIER SEMICOLON dLformula");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| EXISTS IDENTIFIER SEMICOLON dLformula %prec QUANTIFIER { 
@@ -302,7 +285,7 @@ dLformula:
 			$$ = new ExistsFormula( new RealVariable( (String)$2 ), (dLFormula)$4 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location dLformula:EXISTS IDENTIFIER SEMICOLON dLformula");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| OPENBOX hybridprogram CLOSEBOX dLformula { 
@@ -310,7 +293,7 @@ dLformula:
 			$$ = new BoxModalityFormula( (HybridProgram)$2, (dLFormula)$4 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location OPENBOX:hybridprogram CLOSEBOX dLformula");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| OPENDIAMOND hybridprogram CLOSEDIAMOND dLformula { 
@@ -318,7 +301,7 @@ dLformula:
 			$$ = new BoxModalityFormula( (HybridProgram)$2, (dLFormula)$4 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location OPENDIAMOND hybridprogram CLOSEDIAMOND dLformula");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 ;
@@ -331,7 +314,7 @@ dLformula:
 //			$$ = formulas;
 //		} catch ( Exception e ) {
 //			System.err.println("Exception at location formulalist:dLformula");
-//			System.err.println( e );
+//			e.printStackTrace();
 //		}
 //	}
 //	| formulalist COMMA dLformula {
@@ -341,7 +324,7 @@ dLformula:
 //			$$ = formulas;
 //		} catch ( Exception e ) {
 //			System.err.println("Exception at location formulalist:formulalist COMMA dLformula");
-//			System.err.println( e );
+//			e.printStackTrace();
 //		}
 //	}
 //;
@@ -352,7 +335,7 @@ hybridprogram:
 			$$ = (ContinuousProgram)$1;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location hybridprogram:odesystem");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| test { 
@@ -360,7 +343,7 @@ hybridprogram:
 			$$ = (TestProgram)$1;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location hybridprogram:test");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| concreteassignment { 
@@ -368,7 +351,7 @@ hybridprogram:
 			$$ = (ConcreteAssignmentProgram)$1;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location hybridprogram:concreteassignment");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| arbitraryassignment { 
@@ -376,7 +359,7 @@ hybridprogram:
 			$$ = (ArbitraryAssignmentProgram)$1;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location hybridprogram:arbitraryassignment");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| hybridprogram SEMICOLON hybridprogram { 
@@ -384,7 +367,7 @@ hybridprogram:
 			$$ = new SequenceProgram( (HybridProgram)$1, (HybridProgram)$3 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location hybridprogram:hybridprogram SEMICOLON hybridprogram");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| hybridprogram CUP hybridprogram { 
@@ -392,7 +375,7 @@ hybridprogram:
 			$$ = new ChoiceProgram( (HybridProgram)$1, (HybridProgram)$3 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location hybridprogram:hybridprogram CUP hybridprogram");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| hybridprogram ASTERISK %prec KLEENESTAR {
@@ -400,7 +383,7 @@ hybridprogram:
 			$$ = new RepetitionProgram( (HybridProgram)$1 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location hybridprogram:hybridprogram ASTERISK");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| LPAREN hybridprogram RPAREN { 
@@ -408,7 +391,7 @@ hybridprogram:
 			$$ = (HybridProgram)$2;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location hybridprogram:LPAREN hybridprogram RPAREN");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 ;
@@ -419,7 +402,7 @@ concreteassignment:
 			$$ = new ConcreteAssignmentProgram( new RealVariable( (String)$1 ), (Term)$3 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location concreteassignment:IDENTIFIER ASSIGN term");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 ;
@@ -430,7 +413,7 @@ arbitraryassignment:
 			$$ = new ArbitraryAssignmentProgram( new RealVariable( (String)$1 ) );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location arbitraryassignment:IDENTIFIER ASSIGN ASTERISK");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 
@@ -441,7 +424,7 @@ test:
 			$$ = new TestProgram( (dLStructure)$2 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location test:TEST dLformula");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 ;
@@ -452,7 +435,7 @@ odesystem:
 			$$ = new ContinuousProgram( (ArrayList<ExplicitODE>)$2 ); // Constructor appends "true" doe automaticaly
 		} catch ( Exception e ) {
 			System.err.println("Exception at location odesystem:OPENBRACE odelist CLOSEBRACE");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| OPENBRACE odelist AND dLformula CLOSEBRACE { 
@@ -460,7 +443,7 @@ odesystem:
 			$$ = new ContinuousProgram( (ArrayList<ExplicitODE>)$2, (dLFormula)$4 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location odesystem:OPENBRACE odelist AND dLformula CLOSEBRACE");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 ;
@@ -476,7 +459,7 @@ odelist:
 
 		} catch ( Exception e ) {
 			System.err.println("Exception at location odelist:ode");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 
 	}
@@ -489,7 +472,7 @@ odelist:
 			$$ = args;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location odelist:odelist COMMA ode");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 
 	}
@@ -500,7 +483,7 @@ ode:
 			$$ = new ExplicitODE( new RealVariable( (String)$1 ), (Term)$4 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location ode:IDENTIFIER PRIME EQUALS term");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 
 	}
@@ -514,7 +497,7 @@ comparison:
 			$$ = new ComparisonFormula( new Operator( (String)$2, 2, true ), (Term)$1, (Term)$3 ) ;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location comparison:term INEQUALITY term");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| term EQUALS term {
@@ -522,7 +505,7 @@ comparison:
 			$$ = new ComparisonFormula( new Operator( (String)$2, 2, true ), (Term)$1, (Term)$3 ) ;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location comparison:term EQUALS term");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 ;
@@ -531,10 +514,33 @@ comparison:
 term:
 	NUMBER { 
 		try {
-			$$ = new Real( (String)$1 );
+			//TextOutput.setDebug( true );
+			String numberString = (String)$1;
+			//TextOutput.debug("From number string: " + numberString );
+			if ( numberString.contains("e") ) {
+				//TextOutput.debug("Found e-notation");
+				String[] numberParts = numberString.split("e");
+				Real base = new Real( numberParts[0] );
+				Real exponent = new Real( numberParts[1] );
+				//TextOutput.debug("Base: " + base.toString() + " exponent: " + exponent.toString() );
+				$$ = new MultiplicationTerm( base, new PowerTerm( new Real(10), exponent ) );
+				//TextOutput.debug("Parsed: " + $$.toString() );
+			} else if ( numberString.contains("E") ) {
+				//TextOutput.debug("Found E-notation");
+				String[] numberParts = numberString.split("E");
+				Real base = new Real( numberParts[0] );
+				Real exponent = new Real( numberParts[1] );
+				//TextOutput.debug("Base: " + base.toString() + " exponent: " + exponent.toString() );
+				$$ = new MultiplicationTerm( base, new PowerTerm( new Real(10), exponent ) );
+				//TextOutput.debug("Parsed: " + $$.toString() );
+			} else {
+				$$ = new Real( (String)$1 );
+				//TextOutput.debug( "Found non-scientific notation number: " + $$.toString() );
+			}
+			//TextOutput.setDebug( false );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location term:NUMBER");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| IDENTIFIER LPAREN argumentlist RPAREN {
@@ -542,7 +548,7 @@ term:
 			$$ = new FunctionApplicationTerm( new Operator( (String)$1, ((ArrayList<Term>)$3).size(), false ), (ArrayList<Term>)$3 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location term:IDENTIFIER LPAREN argumentlist RPAREN");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| IDENTIFIER { 
@@ -550,7 +556,7 @@ term:
 			$$ = new RealVariable( (String)$1 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location term:IDENTIFIER");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| LPAREN term RPAREN { 
@@ -558,7 +564,7 @@ term:
 			$$ = (Term)$2;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location term:LPAREN term RPAREN");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| term PLUS term { 
@@ -570,7 +576,7 @@ term:
 			$$ = new AdditionTerm( (Term)$1, (Term)$3 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location term:term PLUS term");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| term MINUS term { 
@@ -582,7 +588,7 @@ term:
 			$$ = new SubtractionTerm( (Term)$1, (Term)$3 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location term:term MINUS term");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| term ASTERISK term %prec MULTIPLY { 
@@ -594,7 +600,7 @@ term:
 			$$ = new MultiplicationTerm( (Term)$1, (Term)$3 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location term:term ASTERISK term");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| term DIVIDE term { 
@@ -606,7 +612,7 @@ term:
 			$$ = new DivisionTerm( (Term)$1, (Term)$3 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location term:term DIVIDE term");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| term POWER term { 
@@ -618,7 +624,7 @@ term:
 			$$ = new PowerTerm( (Term)$1, (Term)$3 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location term:term POWER tterm:term POWER term");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| MINUS term %prec NEGATIVE { 
@@ -631,7 +637,7 @@ term:
 			$$ = new SubtractionTerm( new Real(0), (Term)$2 );
 		} catch ( Exception e ) {
 			System.err.println("Exception at location term:MINUS term");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 ;
@@ -647,7 +653,7 @@ argumentlist:
 			$$ = args;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location argumentlist:term");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 	| argumentlist COMMA term { 
@@ -658,7 +664,7 @@ argumentlist:
 			$$ = args;
 		} catch ( Exception e ) {
 			System.err.println("Exception at location argumentlist:argumentlist COMMA term");
-			System.err.println( e );
+			e.printStackTrace();
 		}
 	}
 ;

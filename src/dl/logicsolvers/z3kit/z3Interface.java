@@ -199,7 +199,7 @@ public class z3Interface extends LogicSolverInterface {
 				result = new LogicSolverResult( "sat", "unknown", cex );
 			} else {
 				result = new LogicSolverResult( "unknown", "unknown", new Valuation() );
-				throw new RuntimeException("z3 returned unexpected output:" + totalOutput );
+				throw new RuntimeException("z3 returned unexpected output:" + totalOutput + " on file: " + queryFile.getAbsolutePath());
 			}
 			break;
 

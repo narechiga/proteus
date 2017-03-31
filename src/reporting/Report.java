@@ -1,7 +1,9 @@
 package reporting;
 
+import java.io.*;
 import java.util.*;
-import reporting.*;
+import dl.syntax.*;
+//import reporting.*;
 
 public class Report {
 	
@@ -54,8 +56,45 @@ public class Report {
 		reportElements.add( equation );
 	}
 	
-	public void addPlot2D( ) {
+	public void addPlot2D( List<Real> xData, List<Real> yData ) {
 		throw new RuntimeException("To do!");
+	}
+	
+	public String toLaTeXString() {
+		String string = "\\documentclass[12pt,letterpaper]{article}\n\n";
+		string += "\\title{" + title + "}\n";
+		string += "\\author{" + author + "}\n\n";
+		
+		string += "\\begin{document}\n";
+		string += "\\maketitle\n";
+		
+		for ( ReportElement element : reportElements ) {
+			string += element.toLaTeXString();
+		}
+		
+		string += "\\end{document}";
+		
+		return string;
+	}
+
+	public String generateFileName() {
+		double randomID = Math.round(Math.random());
+		Date date = new Date();
+		String formatted_date = date.toString();
+		formatted_date=formatted_date.replace(" ","_");
+		String filename = "";// "/tmp/" + title + "_" + author +"/" + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+ formatted_date + "." + randomID + "." + fileExtension;		File targetFile = new File( filename );
+		//targetFile.getParentFile().mkdirs();
+		throw new RuntimeException("Unfinished");
+		//return filename;
+	}
+	
+	public boolean writeToFile( ) {
+		return false;
+	}
+	
+	public String generateLaTeXPDF() {
+		String fileName = "";
+		return fileName;
 	}
 	
 	

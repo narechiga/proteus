@@ -14,5 +14,9 @@ public class Text extends ReportElement{
 	public void addText( String text ) {
 		this.text += text;
 	}
+	
+	public String toLaTeXString() {
+		return text;
+	}
 
 }
