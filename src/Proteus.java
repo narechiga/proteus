@@ -10,6 +10,8 @@ import java.util.*;
 
 public class Proteus {
 	
+	static String workspaceDirectory;
+	
 	protected static LogicSolverInterface solver = new dRealInterface();
 
 	
@@ -66,6 +68,11 @@ public class Proteus {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public static void setupEnvironment() {
+		workspaceDirectory = System.getProperty("java.io.tmpdir");
+		TextOutput.info("Set workspace at: " + workspaceDirectory );
 	}
 	
 	public static String parseHandler( String input ) {

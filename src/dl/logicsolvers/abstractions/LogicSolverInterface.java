@@ -444,8 +444,11 @@ public abstract class LogicSolverInterface {
 		double randomID = Math.round(Math.random());
 		Date date = new Date();
 		String formatted_date = date.toString();
-		formatted_date=formatted_date.replace(" ","_");
-		String filename = "/tmp/" + System.getProperty("user.name") + "_" + workSpaceName +"/"+ base + UUID.randomUUID().toString().replaceAll("-", "")+ "_"+ formatted_date + "." + randomID + "." + fileExtension;		File targetFile = new File( filename );
+		formatted_date = formatted_date.replace(" ","_");
+		String filename = System.getProperty("java.io.tmpdir") + File.separator 
+							+ System.getProperty("user.name") + "_" + workSpaceName 
+							+ File.separator + base + UUID.randomUUID().toString().replaceAll("-", "") + "_"+ formatted_date + "." + randomID + "." + fileExtension;		
+		File targetFile = new File( filename );
 		targetFile.getParentFile().mkdirs();
 		return filename;
 	}
