@@ -82,7 +82,7 @@ public class TextOutput {
 				}
 			} else {
 				for ( String m : messages ) {
-					printNumber(); out.print("[debug] " + m + "\n" );
+					printNumber(); out.print("[debug] " + m.replace("\n","") + "\n" );
 				}
 			}
 		} else {
@@ -96,7 +96,7 @@ public class TextOutput {
 		if ( color ) {
 			for ( String m : messages ) {
 				printNumber();
-				printBoldGreen("[info] " + m.replace("\n", "") + "\n" );
+				printBoldCyan("[info] " + m.replace("\n", "") + "\n" );
 			}
 		} else {
 			for ( String m : messages ) {
@@ -110,11 +110,11 @@ public class TextOutput {
 		if ( color ) {
 			for ( String m : messages ) {
 				printNumber();
-				printBoldYellow("[Warning] " + m  + "\n");
+				printBoldYellow("[warning] " + m  + "\n");
 			}
 		} else {
 			for ( String m : messages ) {
-				printNumber(); out.println("[Warning] " + m  + "\n");
+				printNumber(); out.println("[warning] " + m.replace("\n",  "")  + "\n");
 			}
 		}
 	}
