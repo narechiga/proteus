@@ -61,7 +61,7 @@ public abstract class dLFormula extends dLStructure {
 	public abstract dLFormula replace( Replacement replacement );
 	public dLFormula replace( String variableName, String termString ) {
 		RealVariable variable = new RealVariable( variableName );
-		Term term = Term.parseTerm( termString );
+		Term term = Term.parse( termString );
 		Replacement r = new Replacement( variable, term );
 		return this.replace( r );
 	}

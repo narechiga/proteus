@@ -35,7 +35,7 @@ public abstract class Term extends GeneralizedTerm {
 	//	return this.operator;
 	//}
 
-	public static Term parseTerm( String termString ) {
+	public static Term parse( String termString ) {
 		dLStructure termStructure = dLStructure.parseStructure( termString );
 		
 		if ( termStructure instanceof Term ) {

@@ -49,10 +49,12 @@ public class Operator {
 	public Operator clone() {
 		return new Operator( this.operator, this.arity, this.infix );
 	}
-
+	
 	public boolean equals( Object otherObject ) {
 		if ( otherObject instanceof Operator ) {
 			return operator.equals( ((Operator)otherObject).operator );
+//		} else if ( otherObject instanceof String ) {
+//			return operator.equals( (String)otherObject );
 		} else {
 			return false;
 		}

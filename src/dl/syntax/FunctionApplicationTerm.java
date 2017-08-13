@@ -7,6 +7,7 @@
 package dl.syntax;
 
 import java.util.*;
+
 import dl.semantics.*;
 
 public class FunctionApplicationTerm extends Term {
@@ -64,6 +65,18 @@ public class FunctionApplicationTerm extends Term {
 		}
 		
 		return new FunctionApplicationTerm( getOperator().clone(), subTermsSubstituted );
+	}
+	
+	public String toString() {
+		String returnString = "(" + this.operator.todRealString() ;
+
+		Iterator<Term> subTermIterator = getSubTerms().iterator();
+		while ( subTermIterator.hasNext() ) {
+			returnString = returnString + " " + subTermIterator.next().todRealString();
+		}
+		returnString = returnString + " )";
+
+		return returnString;
 	}
 
 }

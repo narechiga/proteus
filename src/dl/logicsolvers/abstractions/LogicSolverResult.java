@@ -16,11 +16,11 @@ public class LogicSolverResult {
 
     public LogicSolverResult( String satisfiability, String validity, Valuation valuation ) 
     		throws LogicSolverResultIntegrityException {
-	this.satisfiability = satisfiability;
-	this.validity = validity;
-	this.valuation = valuation;
+    	this.satisfiability = satisfiability;
+    	this.validity = validity;
+    	this.valuation = valuation;
 
-	checkIntegrity();
+    	checkIntegrity();
     }
 
     public String toString() {

@@ -51,6 +51,8 @@
 %token POWER
 %token NEWLINE
 %token INEQUALITY
+/*Special aliased functions*/
+%token SIGMOID
 
 /* Punctuation */
 %token LPAREN
@@ -640,7 +642,31 @@ term:
 			e.printStackTrace();
 		}
 	}
+	| aliasedterm {
+		try {
+			$$ = $1;
+		} catch ( Exception e ) {
+			System.err.println("Exception at location term:aliasedterm");
+			e.printStackTrace();
+		}
+	}
 ;
+
+/* function aliases that get expanded */
+aliasedterm:
+	SIGMOID LPAREN term RPAREN {
+		try {
+			Term argument = (Term)$3;
+			SubtractionTerm negativeArgument = new SubtractionTerm( new Real(0), argument );
+			FunctionApplicationTerm exp = new FunctionApplicationTerm("exp", negativeArgument );
+			AdditionTerm onePlusExp = new AdditionTerm( new Real(1), exp );
+			$$ = new DivisionTerm( new Real(1), onePlusExp );
+		} catch ( Exception e ) {
+			System.err.println("Exception at location aliasedterm:SIGMOID LPAREN term RPAREN");
+			e.printStackTrace();
+		}
+	}
+  
 
 argumentlist:
 	%empty {

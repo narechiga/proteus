@@ -18,8 +18,8 @@ public class ComparisonFormula extends dLFormula {
 		this.operator = new Operator( inequality );
 		
 		arguments = new ArrayList<>();
-		arguments.add( Term.parseTerm( lhs ) );
-		arguments.add( Term.parseTerm(rhs));
+		arguments.add( Term.parse( lhs ) );
+		arguments.add( Term.parse(rhs));
 	}
 	
 	public ComparisonFormula ( Operator inequality, Term lhs, Term rhs ) {

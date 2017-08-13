@@ -343,6 +343,13 @@ Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
 		}
 		return EXISTS;
 	}
+	"sigmoid" {
+		if ( debug ) {
+			TextOutput.debug("Lexer: SIGMOID");
+			TextOutput.debug("Lexer @ " + yytext() );
+		}
+		return SIGMOID;
+	}
 	{IdentifierName} { 
 		if ( debug ) {
 			TextOutput.debug("Lexer: IDENTIFIER");

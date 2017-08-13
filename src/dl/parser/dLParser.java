@@ -122,35 +122,37 @@ public class dLParser extends AbstractdLParser
     /** Token number,to be returned by the scanner.  */
     static final int INEQUALITY = 281;
     /** Token number,to be returned by the scanner.  */
-    static final int LPAREN = 282;
+    static final int SIGMOID = 282;
     /** Token number,to be returned by the scanner.  */
-    static final int RPAREN = 283;
+    static final int LPAREN = 283;
     /** Token number,to be returned by the scanner.  */
-    static final int COMMA = 284;
+    static final int RPAREN = 284;
     /** Token number,to be returned by the scanner.  */
-    static final int AND = 285;
+    static final int COMMA = 285;
     /** Token number,to be returned by the scanner.  */
-    static final int OR = 286;
+    static final int AND = 286;
     /** Token number,to be returned by the scanner.  */
-    static final int NOT = 287;
+    static final int OR = 287;
     /** Token number,to be returned by the scanner.  */
-    static final int IMPLIES = 288;
+    static final int NOT = 288;
     /** Token number,to be returned by the scanner.  */
-    static final int IFF = 289;
+    static final int IMPLIES = 289;
     /** Token number,to be returned by the scanner.  */
-    static final int FORALL = 290;
+    static final int IFF = 290;
     /** Token number,to be returned by the scanner.  */
-    static final int EXISTS = 291;
+    static final int FORALL = 291;
     /** Token number,to be returned by the scanner.  */
-    static final int TRUE = 292;
+    static final int EXISTS = 292;
     /** Token number,to be returned by the scanner.  */
-    static final int FALSE = 293;
+    static final int TRUE = 293;
     /** Token number,to be returned by the scanner.  */
-    static final int QUANTIFIER = 294;
+    static final int FALSE = 294;
     /** Token number,to be returned by the scanner.  */
-    static final int MULTIPLY = 295;
+    static final int QUANTIFIER = 295;
     /** Token number,to be returned by the scanner.  */
-    static final int NEGATIVE = 296;
+    static final int MULTIPLY = 296;
+    /** Token number,to be returned by the scanner.  */
+    static final int NEGATIVE = 297;
 
 
     
@@ -388,7 +390,7 @@ public class dLParser extends AbstractdLParser
       {
           case 2:
   if (yyn == 2)
-    /* "dLParser.y":87  */ /* lalr1.java:489  */
+    /* "dLParser.y":89  */ /* lalr1.java:489  */
     {
 		try {
 			yyval = (String)((yystack.valueAt (3-(2))));
@@ -402,7 +404,7 @@ public class dLParser extends AbstractdLParser
 
   case 3:
   if (yyn == 3)
-    /* "dLParser.y":95  */ /* lalr1.java:489  */
+    /* "dLParser.y":97  */ /* lalr1.java:489  */
     { 
 		try {
 			//TextOutput.debug("Found: dLformula"); 
@@ -417,7 +419,7 @@ public class dLParser extends AbstractdLParser
 
   case 4:
   if (yyn == 4)
-    /* "dLParser.y":104  */ /* lalr1.java:489  */
+    /* "dLParser.y":106  */ /* lalr1.java:489  */
     {
 		try {
 			yyval = "hybrid program"; 
@@ -432,7 +434,7 @@ public class dLParser extends AbstractdLParser
 
   case 5:
   if (yyn == 5)
-    /* "dLParser.y":113  */ /* lalr1.java:489  */
+    /* "dLParser.y":115  */ /* lalr1.java:489  */
     {
 		try {
 			yyval = ((Term)((yystack.valueAt (1-(1))))).toString();
@@ -447,7 +449,7 @@ public class dLParser extends AbstractdLParser
 
   case 6:
   if (yyn == 6)
-    /* "dLParser.y":122  */ /* lalr1.java:489  */
+    /* "dLParser.y":124  */ /* lalr1.java:489  */
     {
 		//System.err.println("Parser: I'm confused, throwing error");
 		//System.err.println( (String)$1 );
@@ -459,7 +461,7 @@ public class dLParser extends AbstractdLParser
 
   case 8:
   if (yyn == 8)
-    /* "dLParser.y":134  */ /* lalr1.java:489  */
+    /* "dLParser.y":136  */ /* lalr1.java:489  */
     {
 		try {
 			if ( this.valuation == null ) {
@@ -480,7 +482,7 @@ public class dLParser extends AbstractdLParser
 
   case 9:
   if (yyn == 9)
-    /* "dLParser.y":149  */ /* lalr1.java:489  */
+    /* "dLParser.y":151  */ /* lalr1.java:489  */
     {
 		try {
 			if ( this.valuation == null ) {
@@ -501,7 +503,7 @@ public class dLParser extends AbstractdLParser
 
   case 10:
   if (yyn == 10)
-    /* "dLParser.y":164  */ /* lalr1.java:489  */
+    /* "dLParser.y":166  */ /* lalr1.java:489  */
     {
 		try{
 			if ( this.valuation == null ) {
@@ -519,7 +521,7 @@ public class dLParser extends AbstractdLParser
 
   case 11:
   if (yyn == 11)
-    /* "dLParser.y":176  */ /* lalr1.java:489  */
+    /* "dLParser.y":178  */ /* lalr1.java:489  */
     {
 		try{
 			if ( this.valuation == null ) {
@@ -537,7 +539,7 @@ public class dLParser extends AbstractdLParser
 
   case 12:
   if (yyn == 12)
-    /* "dLParser.y":193  */ /* lalr1.java:489  */
+    /* "dLParser.y":195  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new TrueFormula();
@@ -551,7 +553,7 @@ public class dLParser extends AbstractdLParser
 
   case 13:
   if (yyn == 13)
-    /* "dLParser.y":201  */ /* lalr1.java:489  */
+    /* "dLParser.y":203  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new FalseFormula();
@@ -565,7 +567,7 @@ public class dLParser extends AbstractdLParser
 
   case 14:
   if (yyn == 14)
-    /* "dLParser.y":209  */ /* lalr1.java:489  */
+    /* "dLParser.y":211  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (ComparisonFormula)((yystack.valueAt (1-(1))));
@@ -579,7 +581,7 @@ public class dLParser extends AbstractdLParser
 
   case 15:
   if (yyn == 15)
-    /* "dLParser.y":217  */ /* lalr1.java:489  */
+    /* "dLParser.y":219  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new AndFormula( (dLFormula)((yystack.valueAt (3-(1)))), (dLFormula)((yystack.valueAt (3-(3)))) );
@@ -593,7 +595,7 @@ public class dLParser extends AbstractdLParser
 
   case 16:
   if (yyn == 16)
-    /* "dLParser.y":225  */ /* lalr1.java:489  */
+    /* "dLParser.y":227  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new OrFormula( (dLFormula)((yystack.valueAt (3-(1)))), (dLFormula)((yystack.valueAt (3-(3)))) );
@@ -607,7 +609,7 @@ public class dLParser extends AbstractdLParser
 
   case 17:
   if (yyn == 17)
-    /* "dLParser.y":233  */ /* lalr1.java:489  */
+    /* "dLParser.y":235  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new NotFormula( (dLFormula)((yystack.valueAt (2-(2)))) );
@@ -621,7 +623,7 @@ public class dLParser extends AbstractdLParser
 
   case 18:
   if (yyn == 18)
-    /* "dLParser.y":241  */ /* lalr1.java:489  */
+    /* "dLParser.y":243  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (dLFormula)((yystack.valueAt (3-(2))));
@@ -635,7 +637,7 @@ public class dLParser extends AbstractdLParser
 
   case 19:
   if (yyn == 19)
-    /* "dLParser.y":249  */ /* lalr1.java:489  */
+    /* "dLParser.y":251  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ImpliesFormula( (dLFormula)((yystack.valueAt (3-(1)))), (dLFormula)((yystack.valueAt (3-(3)))) );
@@ -649,7 +651,7 @@ public class dLParser extends AbstractdLParser
 
   case 20:
   if (yyn == 20)
-    /* "dLParser.y":257  */ /* lalr1.java:489  */
+    /* "dLParser.y":259  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new IffFormula( (dLFormula)((yystack.valueAt (3-(1)))), (dLFormula)((yystack.valueAt (3-(3)))) );
@@ -663,7 +665,7 @@ public class dLParser extends AbstractdLParser
 
   case 21:
   if (yyn == 21)
-    /* "dLParser.y":275  */ /* lalr1.java:489  */
+    /* "dLParser.y":277  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ForAllFormula( new RealVariable( (String)((yystack.valueAt (4-(2))))), (dLFormula)((yystack.valueAt (4-(4)))) );
@@ -677,7 +679,7 @@ public class dLParser extends AbstractdLParser
 
   case 22:
   if (yyn == 22)
-    /* "dLParser.y":283  */ /* lalr1.java:489  */
+    /* "dLParser.y":285  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ExistsFormula( new RealVariable( (String)((yystack.valueAt (4-(2)))) ), (dLFormula)((yystack.valueAt (4-(4)))) );
@@ -691,7 +693,7 @@ public class dLParser extends AbstractdLParser
 
   case 23:
   if (yyn == 23)
-    /* "dLParser.y":291  */ /* lalr1.java:489  */
+    /* "dLParser.y":293  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new BoxModalityFormula( (HybridProgram)((yystack.valueAt (4-(2)))), (dLFormula)((yystack.valueAt (4-(4)))) );
@@ -705,7 +707,7 @@ public class dLParser extends AbstractdLParser
 
   case 24:
   if (yyn == 24)
-    /* "dLParser.y":299  */ /* lalr1.java:489  */
+    /* "dLParser.y":301  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new BoxModalityFormula( (HybridProgram)((yystack.valueAt (4-(2)))), (dLFormula)((yystack.valueAt (4-(4)))) );
@@ -719,7 +721,7 @@ public class dLParser extends AbstractdLParser
 
   case 25:
   if (yyn == 25)
-    /* "dLParser.y":333  */ /* lalr1.java:489  */
+    /* "dLParser.y":335  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (ContinuousProgram)((yystack.valueAt (1-(1))));
@@ -733,7 +735,7 @@ public class dLParser extends AbstractdLParser
 
   case 26:
   if (yyn == 26)
-    /* "dLParser.y":341  */ /* lalr1.java:489  */
+    /* "dLParser.y":343  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (TestProgram)((yystack.valueAt (1-(1))));
@@ -747,7 +749,7 @@ public class dLParser extends AbstractdLParser
 
   case 27:
   if (yyn == 27)
-    /* "dLParser.y":349  */ /* lalr1.java:489  */
+    /* "dLParser.y":351  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (ConcreteAssignmentProgram)((yystack.valueAt (1-(1))));
@@ -761,7 +763,7 @@ public class dLParser extends AbstractdLParser
 
   case 28:
   if (yyn == 28)
-    /* "dLParser.y":357  */ /* lalr1.java:489  */
+    /* "dLParser.y":359  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (ArbitraryAssignmentProgram)((yystack.valueAt (1-(1))));
@@ -775,7 +777,7 @@ public class dLParser extends AbstractdLParser
 
   case 29:
   if (yyn == 29)
-    /* "dLParser.y":365  */ /* lalr1.java:489  */
+    /* "dLParser.y":367  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new SequenceProgram( (HybridProgram)((yystack.valueAt (3-(1)))), (HybridProgram)((yystack.valueAt (3-(3)))) );
@@ -789,7 +791,7 @@ public class dLParser extends AbstractdLParser
 
   case 30:
   if (yyn == 30)
-    /* "dLParser.y":373  */ /* lalr1.java:489  */
+    /* "dLParser.y":375  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ChoiceProgram( (HybridProgram)((yystack.valueAt (3-(1)))), (HybridProgram)((yystack.valueAt (3-(3)))) );
@@ -803,7 +805,7 @@ public class dLParser extends AbstractdLParser
 
   case 31:
   if (yyn == 31)
-    /* "dLParser.y":381  */ /* lalr1.java:489  */
+    /* "dLParser.y":383  */ /* lalr1.java:489  */
     {
 		try {
 			yyval = new RepetitionProgram( (HybridProgram)((yystack.valueAt (2-(1)))) );
@@ -817,7 +819,7 @@ public class dLParser extends AbstractdLParser
 
   case 32:
   if (yyn == 32)
-    /* "dLParser.y":389  */ /* lalr1.java:489  */
+    /* "dLParser.y":391  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (HybridProgram)((yystack.valueAt (3-(2))));
@@ -831,7 +833,7 @@ public class dLParser extends AbstractdLParser
 
   case 33:
   if (yyn == 33)
-    /* "dLParser.y":400  */ /* lalr1.java:489  */
+    /* "dLParser.y":402  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ConcreteAssignmentProgram( new RealVariable( (String)((yystack.valueAt (3-(1)))) ), (Term)((yystack.valueAt (3-(3)))) );
@@ -845,7 +847,7 @@ public class dLParser extends AbstractdLParser
 
   case 34:
   if (yyn == 34)
-    /* "dLParser.y":411  */ /* lalr1.java:489  */
+    /* "dLParser.y":413  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ArbitraryAssignmentProgram( new RealVariable( (String)((yystack.valueAt (3-(1)))) ) );
@@ -859,7 +861,7 @@ public class dLParser extends AbstractdLParser
 
   case 35:
   if (yyn == 35)
-    /* "dLParser.y":422  */ /* lalr1.java:489  */
+    /* "dLParser.y":424  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new TestProgram( (dLStructure)((yystack.valueAt (2-(2)))) );
@@ -873,7 +875,7 @@ public class dLParser extends AbstractdLParser
 
   case 36:
   if (yyn == 36)
-    /* "dLParser.y":433  */ /* lalr1.java:489  */
+    /* "dLParser.y":435  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ContinuousProgram( (ArrayList<ExplicitODE>)((yystack.valueAt (3-(2)))) ); // Constructor appends "true" doe automaticaly
@@ -887,7 +889,7 @@ public class dLParser extends AbstractdLParser
 
   case 37:
   if (yyn == 37)
-    /* "dLParser.y":441  */ /* lalr1.java:489  */
+    /* "dLParser.y":443  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ContinuousProgram( (ArrayList<ExplicitODE>)((yystack.valueAt (5-(2)))), (dLFormula)((yystack.valueAt (5-(4)))) );
@@ -901,7 +903,7 @@ public class dLParser extends AbstractdLParser
 
   case 38:
   if (yyn == 38)
-    /* "dLParser.y":452  */ /* lalr1.java:489  */
+    /* "dLParser.y":454  */ /* lalr1.java:489  */
     { 
 		//$$ = (String)$1;
 		try {
@@ -921,7 +923,7 @@ public class dLParser extends AbstractdLParser
 
   case 39:
   if (yyn == 39)
-    /* "dLParser.y":466  */ /* lalr1.java:489  */
+    /* "dLParser.y":468  */ /* lalr1.java:489  */
     { 
 		//$$ = (String)$1 + ", " + (String)$3;
 		try {
@@ -940,7 +942,7 @@ public class dLParser extends AbstractdLParser
 
   case 40:
   if (yyn == 40)
-    /* "dLParser.y":481  */ /* lalr1.java:489  */
+    /* "dLParser.y":483  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ExplicitODE( new RealVariable( (String)((yystack.valueAt (4-(1)))) ), (Term)((yystack.valueAt (4-(4)))) );
@@ -955,7 +957,7 @@ public class dLParser extends AbstractdLParser
 
   case 41:
   if (yyn == 41)
-    /* "dLParser.y":495  */ /* lalr1.java:489  */
+    /* "dLParser.y":497  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new ComparisonFormula( new Operator( (String)((yystack.valueAt (3-(2)))), 2, true ), (Term)((yystack.valueAt (3-(1)))), (Term)((yystack.valueAt (3-(3)))) ) ;
@@ -969,7 +971,7 @@ public class dLParser extends AbstractdLParser
 
   case 42:
   if (yyn == 42)
-    /* "dLParser.y":503  */ /* lalr1.java:489  */
+    /* "dLParser.y":505  */ /* lalr1.java:489  */
     {
 		try {
 			yyval = new ComparisonFormula( new Operator( (String)((yystack.valueAt (3-(2)))), 2, true ), (Term)((yystack.valueAt (3-(1)))), (Term)((yystack.valueAt (3-(3)))) ) ;
@@ -983,7 +985,7 @@ public class dLParser extends AbstractdLParser
 
   case 43:
   if (yyn == 43)
-    /* "dLParser.y":515  */ /* lalr1.java:489  */
+    /* "dLParser.y":517  */ /* lalr1.java:489  */
     { 
 		try {
 			//TextOutput.setDebug( true );
@@ -1020,7 +1022,7 @@ public class dLParser extends AbstractdLParser
 
   case 44:
   if (yyn == 44)
-    /* "dLParser.y":546  */ /* lalr1.java:489  */
+    /* "dLParser.y":548  */ /* lalr1.java:489  */
     {
 		try {
 			yyval = new FunctionApplicationTerm( new Operator( (String)((yystack.valueAt (4-(1)))), ((ArrayList<Term>)((yystack.valueAt (4-(3))))).size(), false ), (ArrayList<Term>)((yystack.valueAt (4-(3)))) );
@@ -1034,7 +1036,7 @@ public class dLParser extends AbstractdLParser
 
   case 45:
   if (yyn == 45)
-    /* "dLParser.y":554  */ /* lalr1.java:489  */
+    /* "dLParser.y":556  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = new RealVariable( (String)((yystack.valueAt (1-(1)))) );
@@ -1048,7 +1050,7 @@ public class dLParser extends AbstractdLParser
 
   case 46:
   if (yyn == 46)
-    /* "dLParser.y":562  */ /* lalr1.java:489  */
+    /* "dLParser.y":564  */ /* lalr1.java:489  */
     { 
 		try {
 			yyval = (Term)((yystack.valueAt (3-(2))));
@@ -1062,7 +1064,7 @@ public class dLParser extends AbstractdLParser
 
   case 47:
   if (yyn == 47)
-    /* "dLParser.y":570  */ /* lalr1.java:489  */
+    /* "dLParser.y":572  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1080,7 +1082,7 @@ public class dLParser extends AbstractdLParser
 
   case 48:
   if (yyn == 48)
-    /* "dLParser.y":582  */ /* lalr1.java:489  */
+    /* "dLParser.y":584  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1098,7 +1100,7 @@ public class dLParser extends AbstractdLParser
 
   case 49:
   if (yyn == 49)
-    /* "dLParser.y":594  */ /* lalr1.java:489  */
+    /* "dLParser.y":596  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1116,7 +1118,7 @@ public class dLParser extends AbstractdLParser
 
   case 50:
   if (yyn == 50)
-    /* "dLParser.y":606  */ /* lalr1.java:489  */
+    /* "dLParser.y":608  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1134,7 +1136,7 @@ public class dLParser extends AbstractdLParser
 
   case 51:
   if (yyn == 51)
-    /* "dLParser.y":618  */ /* lalr1.java:489  */
+    /* "dLParser.y":620  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1152,7 +1154,7 @@ public class dLParser extends AbstractdLParser
 
   case 52:
   if (yyn == 52)
-    /* "dLParser.y":630  */ /* lalr1.java:489  */
+    /* "dLParser.y":632  */ /* lalr1.java:489  */
     { 
 		try {
 			//ArrayList<Term> args = new ArrayList<Term>();
@@ -1171,16 +1173,48 @@ public class dLParser extends AbstractdLParser
 
   case 53:
   if (yyn == 53)
-    /* "dLParser.y":646  */ /* lalr1.java:489  */
+    /* "dLParser.y":645  */ /* lalr1.java:489  */
     {
-		yyval = null;
+		try {
+			yyval = ((yystack.valueAt (1-(1))));
+		} catch ( Exception e ) {
+			System.err.println("Exception at location term:aliasedterm");
+			e.printStackTrace();
+		}
 	};
   break;
     
 
   case 54:
   if (yyn == 54)
-    /* "dLParser.y":649  */ /* lalr1.java:489  */
+    /* "dLParser.y":657  */ /* lalr1.java:489  */
+    {
+		try {
+			Term argument = (Term)((yystack.valueAt (4-(3))));
+			SubtractionTerm negativeArgument = new SubtractionTerm( new Real(0), argument );
+			FunctionApplicationTerm exp = new FunctionApplicationTerm("exp", negativeArgument );
+			AdditionTerm onePlusExp = new AdditionTerm( new Real(1), exp );
+			yyval = new DivisionTerm( new Real(1), onePlusExp );
+		} catch ( Exception e ) {
+			System.err.println("Exception at location aliasedterm:SIGMOID LPAREN term RPAREN");
+			e.printStackTrace();
+		}
+	};
+  break;
+    
+
+  case 55:
+  if (yyn == 55)
+    /* "dLParser.y":672  */ /* lalr1.java:489  */
+    {
+		yyval = null;
+	};
+  break;
+    
+
+  case 56:
+  if (yyn == 56)
+    /* "dLParser.y":675  */ /* lalr1.java:489  */
     { 
 		try {
 			ArrayList<Term> args = new ArrayList<Term>();
@@ -1194,9 +1228,9 @@ public class dLParser extends AbstractdLParser
   break;
     
 
-  case 55:
-  if (yyn == 55)
-    /* "dLParser.y":659  */ /* lalr1.java:489  */
+  case 57:
+  if (yyn == 57)
+    /* "dLParser.y":685  */ /* lalr1.java:489  */
     { 
 		try {
 			ArrayList<Term> args = new ArrayList<Term>();
@@ -1212,7 +1246,7 @@ public class dLParser extends AbstractdLParser
     
 
 
-/* "dLParser.java":1216  */ /* lalr1.java:489  */
+/* "dLParser.java":1250  */ /* lalr1.java:489  */
         default: break;
       }
 
@@ -1519,7 +1553,7 @@ public class dLParser extends AbstractdLParser
     return yyvalue == yytable_ninf_;
   }
 
-  private static final short yypact_ninf_ = -18;
+  private static final short yypact_ninf_ = -25;
   private static final byte yytable_ninf_ = -1;
 
   /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
@@ -1529,18 +1563,18 @@ public class dLParser extends AbstractdLParser
   {
     return new short[]
     {
-      74,   -18,   -17,   127,   149,   149,   -18,     9,   159,    99,
-     127,   -15,    28,   -18,   -18,    21,   154,    75,   -18,   -18,
-     -18,   -18,   -18,    76,    -3,     5,    36,   -18,    35,   127,
-     154,    76,    48,    72,   149,   158,   157,    13,   159,   159,
-       4,   -11,    64,   117,   -18,    73,    94,   -18,   127,   127,
-     127,   127,   -18,   149,   149,   159,   159,   159,   159,   159,
-     159,   159,   105,    51,   -18,    95,   -18,    48,   127,   112,
-     127,   127,   -18,   129,   129,    18,     3,   -18,   -18,   -18,
-     127,   127,    23,    23,   154,   154,    75,    75,     4,   129,
-     100,   100,     4,     4,   129,   159,   -18,   103,    96,   -18,
-      11,   -18,   -18,   -18,   159,   -18,   -18,   129,   -18,    68,
-     -18,   129,   -18,   108,   -18
+      78,   -25,   -13,   146,    74,    74,   -25,    17,   175,   -17,
+     103,   146,    -3,     2,   -25,   -25,    24,   181,    79,   -25,
+     -25,   -25,   -25,   -25,   154,   -25,    -2,     8,    16,   -25,
+       5,   146,   181,   154,    36,    45,    74,   183,   116,   132,
+     175,   175,    64,   175,   176,    15,   124,   -25,    60,    68,
+     -25,   146,   146,   146,   146,   -25,    74,    74,   175,   175,
+     175,   175,   175,   175,   175,    83,    29,   -25,    70,   -25,
+      36,   146,    91,   146,   146,   -25,   166,   166,   -24,    13,
+      47,   -25,   -25,   -25,   146,   146,   -12,   -12,   181,   181,
+      79,    79,    64,   166,    54,    54,    64,    64,   166,   175,
+     -25,    84,    73,   -25,    -5,   -25,   -25,   -25,   175,   -25,
+     -25,   -25,   166,   -25,    82,   -25,   166,   -25,    94,   -25
     };
   }
 
@@ -1553,17 +1587,17 @@ public class dLParser extends AbstractdLParser
     return new byte[]
     {
        0,     6,     7,     0,     0,     0,    43,    45,     0,     0,
-       0,     0,     0,    12,    13,     0,     3,     4,    27,    28,
-      26,    25,    14,     5,     0,     0,     0,    38,    45,     0,
-      35,     0,     0,     0,     0,     0,     0,     0,    53,     0,
-      52,     0,     0,     0,    17,     0,     0,     1,     0,     0,
-       0,     0,    31,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     2,     0,    36,     0,     0,     0,
-       0,     0,    34,    33,    54,     0,     0,    18,    32,    46,
-       0,     0,    15,    16,    19,    20,    30,    29,    49,    42,
-      47,    48,    50,    51,    41,     0,     8,     0,     0,    39,
-       0,    23,    24,    44,     0,    21,    22,    40,     9,     0,
-      37,    55,    10,     0,    11
+       0,     0,     0,     0,    12,    13,     0,     3,     4,    27,
+      28,    26,    25,    14,     5,    53,     0,     0,     0,    38,
+      45,     0,    35,     0,     0,     0,     0,     0,     0,     0,
+      55,     0,    52,     0,     0,     0,     0,    17,     0,     0,
+       1,     0,     0,     0,     0,    31,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     2,     0,    36,
+       0,     0,     0,     0,     0,    34,    33,    56,     0,     0,
+       0,    18,    32,    46,     0,     0,    15,    16,    19,    20,
+      30,    29,    49,    42,    47,    48,    50,    51,    41,     0,
+       8,     0,     0,    39,     0,    23,    24,    44,     0,    54,
+      21,    22,    40,     9,     0,    37,    57,    10,     0,    11
     };
   }
 
@@ -1573,8 +1607,8 @@ public class dLParser extends AbstractdLParser
   {
     return new byte[]
     {
-     -18,   -18,   -18,     1,    10,   -18,   -18,   -18,   -18,   -18,
-      61,   -18,     0,   -18
+     -25,   -25,   -25,     1,     9,   -25,   -25,   -25,   -25,   -25,
+      40,   -25,     0,   -25,   -25
     };
   }
 
@@ -1584,8 +1618,8 @@ public class dLParser extends AbstractdLParser
   {
     return new byte[]
     {
-      -1,    15,    25,    41,    42,    18,    19,    20,    21,    26,
-      27,    22,    31,    75
+      -1,    16,    27,    44,    45,    19,    20,    21,    22,    28,
+      29,    23,    33,    25,    78
     };
   }
 
@@ -1597,25 +1631,28 @@ public class dLParser extends AbstractdLParser
   {
     return new byte[]
     {
-      23,    16,    62,    24,    30,    45,    55,    55,    40,    43,
-      17,    44,    64,    37,    35,    36,    72,    77,   110,    48,
-      49,    47,    50,    51,    57,    58,    59,    60,    60,    43,
-      63,    79,     6,    28,    65,     8,    38,    73,    74,    76,
-      39,    48,    49,    66,    50,    51,   103,   104,    46,    82,
-      83,    84,    85,    48,    49,    88,    89,    90,    91,    92,
-      93,    94,    38,    86,    87,    67,    68,    52,    69,   100,
-      96,   101,   102,    97,    53,     1,    37,    54,    52,    55,
-       2,   105,   106,     3,    56,    53,    80,   112,    54,     4,
-     113,     5,    78,     6,     7,   107,     8,    57,    58,    59,
-      60,     9,    61,    55,   111,    32,    10,    81,     3,    11,
-      12,    13,    14,    95,     4,    98,     5,    62,     6,     7,
-      55,     8,   108,    59,    60,    56,     9,   114,    99,   109,
-       0,    10,    55,     0,    11,    12,    13,    14,    57,    58,
-      59,    60,     4,    61,     5,    79,     6,    28,     0,     8,
-      57,    58,    59,    60,    29,    32,     0,     0,     3,    10,
-      52,    52,    11,    12,    13,    14,     0,    53,    53,    33,
-      54,    54,     0,     0,    70,    71,    34,     0,     6,    28,
-       0,     8,     0,     0,    48,    49,    39,    50,    51
+      24,    17,   115,    65,    32,   107,   108,    26,    42,    18,
+      46,    43,    47,    37,    38,    67,    58,    48,    55,    51,
+      52,    39,    49,    69,    50,    56,    51,    52,    57,    53,
+      54,    46,    66,    40,    60,    61,    62,    63,    68,    76,
+      77,    79,    83,    80,    82,    40,    70,    71,   100,    39,
+      58,   101,    86,    87,    88,    89,    72,    58,    92,    93,
+      94,    95,    96,    97,    98,    90,    91,    58,    60,    61,
+      62,    63,   104,    84,   105,   106,   109,    62,    63,     1,
+      34,    85,    55,     3,     2,   110,   111,     3,    63,    56,
+     102,    99,    57,     4,    35,     5,    65,     6,     7,   112,
+       8,   117,    36,   113,   118,     9,    10,   114,   116,    34,
+     103,    11,     3,   119,    12,    13,    14,    15,     4,    55,
+       5,     0,     6,     7,     0,     8,    56,    58,     0,    57,
+       9,    10,    59,     0,    74,    75,    11,     0,     0,    12,
+      13,    14,    15,     0,     0,    60,    61,    62,    63,     0,
+      64,     6,    30,    83,     8,     0,     0,    58,     0,     9,
+      41,     4,    59,     5,     0,     6,    30,     0,     8,    58,
+       0,     0,     0,     9,    31,    60,    61,    62,    63,    11,
+      64,     0,    12,    13,    14,    15,    55,    60,    61,    62,
+      63,     0,     0,    56,     6,    30,    57,     8,     0,    73,
+       0,     0,     9,    41,     0,    81,     0,    51,    52,     0,
+      53,    54,    51,    52,     0,    53,    54
     };
   }
 
@@ -1624,25 +1661,28 @@ private static final byte yycheck_[] = yycheck_init();
   {
     return new byte[]
     {
-       0,     0,     5,    20,     3,    20,     3,     3,     8,     9,
-       0,    10,     7,     4,     4,     5,     3,    28,     7,    30,
-      31,     0,    33,    34,    21,    22,    23,    24,    24,    29,
-      33,    28,    19,    20,    29,    22,    27,    37,    38,    39,
-      27,    30,    31,     7,    33,    34,    28,    29,    20,    48,
-      49,    50,    51,    30,    31,    55,    56,    57,    58,    59,
-      60,    61,    27,    53,    54,    29,    30,     3,    20,    68,
-      19,    70,    71,    22,    10,     1,     4,    13,     3,     3,
-       6,    80,    81,     9,     8,    10,    13,    19,    13,    15,
-      22,    17,    28,    19,    20,    95,    22,    21,    22,    23,
-      24,    27,    26,     3,   104,     6,    32,    13,     9,    35,
-      36,    37,    38,     8,    15,    20,    17,     5,    19,    20,
-       3,    22,    19,    23,    24,     8,    27,    19,    67,    33,
-      -1,    32,     3,    -1,    35,    36,    37,    38,    21,    22,
-      23,    24,    15,    26,    17,    28,    19,    20,    -1,    22,
-      21,    22,    23,    24,    27,     6,    -1,    -1,     9,    32,
-       3,     3,    35,    36,    37,    38,    -1,    10,    10,    20,
-      13,    13,    -1,    -1,    16,    18,    27,    -1,    19,    20,
-      -1,    22,    -1,    -1,    30,    31,    27,    33,    34
+       0,     0,     7,     5,     3,    29,    30,    20,     8,     0,
+      10,    28,    11,     4,     5,     7,     3,    20,     3,    31,
+      32,     4,    20,     7,     0,    10,    31,    32,    13,    34,
+      35,    31,    34,    28,    21,    22,    23,    24,    30,    39,
+      40,    41,    29,    43,    29,    28,    30,    31,    19,     4,
+       3,    22,    51,    52,    53,    54,    20,     3,    58,    59,
+      60,    61,    62,    63,    64,    56,    57,     3,    21,    22,
+      23,    24,    71,    13,    73,    74,    29,    23,    24,     1,
+       6,    13,     3,     9,     6,    84,    85,     9,    24,    10,
+      20,     8,    13,    15,    20,    17,     5,    19,    20,    99,
+      22,    19,    28,    19,    22,    27,    28,    34,   108,     6,
+      70,    33,     9,    19,    36,    37,    38,    39,    15,     3,
+      17,    -1,    19,    20,    -1,    22,    10,     3,    -1,    13,
+      27,    28,     8,    -1,    18,     3,    33,    -1,    -1,    36,
+      37,    38,    39,    -1,    -1,    21,    22,    23,    24,    -1,
+      26,    19,    20,    29,    22,    -1,    -1,     3,    -1,    27,
+      28,    15,     8,    17,    -1,    19,    20,    -1,    22,     3,
+      -1,    -1,    -1,    27,    28,    21,    22,    23,    24,    33,
+      26,    -1,    36,    37,    38,    39,     3,    21,    22,    23,
+      24,    -1,    -1,    10,    19,    20,    13,    22,    -1,    16,
+      -1,    -1,    27,    28,    -1,    29,    -1,    31,    32,    -1,
+      34,    35,    31,    32,    -1,    34,    35
     };
   }
 
@@ -1654,17 +1694,17 @@ private static final byte yycheck_[] = yycheck_init();
     return new byte[]
     {
        0,     1,     6,     9,    15,    17,    19,    20,    22,    27,
-      32,    35,    36,    37,    38,    43,    45,    46,    47,    48,
-      49,    50,    53,    54,    20,    44,    51,    52,    20,    27,
-      45,    54,     6,    20,    27,    46,    46,     4,    27,    27,
-      54,    45,    46,    54,    45,    20,    20,     0,    30,    31,
-      33,    34,     3,    10,    13,     3,     8,    21,    22,    23,
-      24,    26,     5,    33,     7,    29,     7,    29,    30,    20,
-      16,    18,     3,    54,    54,    55,    54,    28,    28,    28,
-      13,    13,    45,    45,    45,    45,    46,    46,    54,    54,
-      54,    54,    54,    54,    54,     8,    19,    22,    20,    52,
-      45,    45,    45,    28,    29,    45,    45,    54,    19,    33,
-       7,    54,    19,    22,    19
+      28,    33,    36,    37,    38,    39,    44,    46,    47,    48,
+      49,    50,    51,    54,    55,    56,    20,    45,    52,    53,
+      20,    28,    46,    55,     6,    20,    28,    47,    47,     4,
+      28,    28,    55,    28,    46,    47,    55,    46,    20,    20,
+       0,    31,    32,    34,    35,     3,    10,    13,     3,     8,
+      21,    22,    23,    24,    26,     5,    34,     7,    30,     7,
+      30,    31,    20,    16,    18,     3,    55,    55,    57,    55,
+      55,    29,    29,    29,    13,    13,    46,    46,    46,    46,
+      47,    47,    55,    55,    55,    55,    55,    55,    55,     8,
+      19,    22,    20,    53,    46,    46,    46,    29,    30,    29,
+      46,    46,    55,    19,    34,     7,    55,    19,    22,    19
     };
   }
 
@@ -1674,12 +1714,12 @@ private static final byte yycheck_[] = yycheck_init();
   {
     return new byte[]
     {
-       0,    42,    43,    43,    43,    43,    43,    44,    44,    44,
-      44,    44,    45,    45,    45,    45,    45,    45,    45,    45,
-      45,    45,    45,    45,    45,    46,    46,    46,    46,    46,
-      46,    46,    46,    47,    48,    49,    50,    50,    51,    51,
-      52,    53,    53,    54,    54,    54,    54,    54,    54,    54,
-      54,    54,    54,    55,    55,    55
+       0,    43,    44,    44,    44,    44,    44,    45,    45,    45,
+      45,    45,    46,    46,    46,    46,    46,    46,    46,    46,
+      46,    46,    46,    46,    46,    47,    47,    47,    47,    47,
+      47,    47,    47,    48,    49,    50,    51,    51,    52,    52,
+      53,    54,    54,    55,    55,    55,    55,    55,    55,    55,
+      55,    55,    55,    55,    56,    57,    57,    57
     };
   }
 
@@ -1694,7 +1734,7 @@ private static final byte yycheck_[] = yycheck_init();
        3,     4,     4,     4,     4,     1,     1,     1,     1,     3,
        3,     2,     3,     3,     3,     2,     3,     5,     1,     3,
        4,     3,     3,     1,     4,     1,     3,     3,     3,     3,
-       3,     3,     2,     0,     1,     3
+       3,     3,     2,     1,     4,     0,     1,     3
     };
   }
 
@@ -1709,7 +1749,7 @@ private static final byte yycheck_[] = yycheck_init();
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
      285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
-     295,   296
+     295,   296,   297
     };
   }
 
@@ -1724,12 +1764,12 @@ private static final byte yycheck_[] = yycheck_init();
   "OPENBRACE", "CLOSEBRACE", "EQUALS", "TEST", "CUP", "REALDECLARATION",
   "KLEENESTAR", "SEMICOLON", "RANDOM", "OPENBOX", "CLOSEBOX",
   "OPENDIAMOND", "CLOSEDIAMOND", "NUMBER", "IDENTIFIER", "PLUS", "MINUS",
-  "DIVIDE", "POWER", "NEWLINE", "INEQUALITY", "LPAREN", "RPAREN", "COMMA",
-  "AND", "OR", "NOT", "IMPLIES", "IFF", "FORALL", "EXISTS", "TRUE",
-  "FALSE", "QUANTIFIER", "MULTIPLY", "NEGATIVE", "$accept", "input",
-  "valuation", "dLformula", "hybridprogram", "concreteassignment",
-  "arbitraryassignment", "test", "odesystem", "odelist", "ode",
-  "comparison", "term", "argumentlist", null
+  "DIVIDE", "POWER", "NEWLINE", "INEQUALITY", "SIGMOID", "LPAREN",
+  "RPAREN", "COMMA", "AND", "OR", "NOT", "IMPLIES", "IFF", "FORALL",
+  "EXISTS", "TRUE", "FALSE", "QUANTIFIER", "MULTIPLY", "NEGATIVE",
+  "$accept", "input", "valuation", "dLformula", "hybridprogram",
+  "concreteassignment", "arbitraryassignment", "test", "odesystem",
+  "odelist", "ode", "comparison", "term", "aliasedterm", "argumentlist", null
     };
   }
 
@@ -1739,12 +1779,12 @@ private static final byte yycheck_[] = yycheck_init();
   {
     return new short[]
     {
-       0,    87,    87,    95,   104,   113,   122,   133,   134,   149,
-     164,   176,   193,   201,   209,   217,   225,   233,   241,   249,
-     257,   275,   283,   291,   299,   333,   341,   349,   357,   365,
-     373,   381,   389,   400,   411,   422,   433,   441,   452,   466,
-     481,   495,   503,   515,   546,   554,   562,   570,   582,   594,
-     606,   618,   630,   646,   649,   659
+       0,    89,    89,    97,   106,   115,   124,   135,   136,   151,
+     166,   178,   195,   203,   211,   219,   227,   235,   243,   251,
+     259,   277,   285,   293,   301,   335,   343,   351,   359,   367,
+     375,   383,   391,   402,   413,   424,   435,   443,   454,   468,
+     483,   497,   505,   517,   548,   556,   564,   572,   584,   596,
+     608,   620,   632,   645,   657,   672,   675,   685
     };
   }
 
@@ -1803,7 +1843,7 @@ private static final byte yycheck_[] = yycheck_init();
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    36,    37,    38,    39,    40,    41
+      35,    36,    37,    38,    39,    40,    41,    42
     };
   }
 
@@ -1815,22 +1855,22 @@ private static final byte yycheck_[] = yycheck_init();
       return yyundef_token_;
   }
 
-  private static final int yylast_ = 188;
-  private static final int yynnts_ = 14;
+  private static final int yylast_ = 216;
+  private static final int yynnts_ = 15;
   private static final int yyempty_ = -2;
-  private static final int yyfinal_ = 47;
+  private static final int yyfinal_ = 50;
   private static final int yyterror_ = 1;
   private static final int yyerrcode_ = 256;
-  private static final int yyntokens_ = 42;
+  private static final int yyntokens_ = 43;
 
-  private static final int yyuser_token_number_max_ = 296;
+  private static final int yyuser_token_number_max_ = 297;
   private static final int yyundef_token_ = 2;
 
 /* User implementation code.  */
 
 }
 
-/* "dLParser.y":673  */ /* lalr1.java:1070  */
+/* "dLParser.y":699  */ /* lalr1.java:1070  */
 
 
 
