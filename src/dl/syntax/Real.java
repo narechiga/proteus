@@ -37,6 +37,18 @@ public class Real extends Term {
 		operator = new Operator( value.toString(), 0 );
 		arguments = null;
 	}
+	
+	public Real( int value ) {
+		Integer val = new Integer(value);
+		operator = new Operator( val.toString(), 0 );
+		arguments = null;
+	}
+	
+	public Real( double value ) {
+		Double val = new Double( value );
+		operator = new Operator( val.toString(), 0 );
+		arguments = null;
+	}
 
 // Convenience function
 	public boolean isANumber() {

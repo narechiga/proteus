@@ -25,7 +25,7 @@ public class MatrixTerm extends NonScalarTerm {
 		numColumns = columns;
 		numRows = rows;
 
-		// Correct type of chiildren will be enforced when adding elements
+		// Correct type of children will be enforced when adding elements
 		// to it -- only terms may be added.
 
 		fillWithZeros();

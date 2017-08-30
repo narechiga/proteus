@@ -15,21 +15,6 @@ import java.util.*;
 
 public abstract class Term extends GeneralizedTerm {
 
-//	public Term () {
-//	}
-//	
-//	public Term ( Operator operator, ArrayList<Term> subTerms ) {
-//		this.operator = operator;
-//		this.arguments = new ArrayList<dLStructure>();
-//		this.arguments.addAll( subTerms );
-//	}
-//
-//	protected Term ( String operator, ArrayList<Term> subTerms ) {
-//		this.operator = new Operator( operator );
-//		this.arguments = new ArrayList<dLStructure>();
-//		this.arguments.addAll( subTerms );
-//	}
-
 	// Redundant, already provided by dLStructure
 	//public Operator getOperator() {
 	//	return this.operator;
@@ -112,6 +97,12 @@ public abstract class Term extends GeneralizedTerm {
 		arguments.addAll( subTermList );
 	}
 
+	public Term evaluate() {
+		Interpretation interpretation = new NativeInterpretation();
+		Valuation emptyValuation = new Valuation();
+		return this.evaluate( emptyValuation );
+	}
+	
 	public Term evaluate( Valuation inputValuation ) {
 		Interpretation interpretation = new NativeInterpretation();
 		return interpretation.evaluateTerm( this, inputValuation );
