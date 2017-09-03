@@ -68,11 +68,11 @@ public class FunctionApplicationTerm extends Term {
 	}
 	
 	public String toString() {
-		String returnString = "(" + this.operator.todRealString() ;
+		String returnString = "(" + this.operator.toString() ;
 
 		Iterator<Term> subTermIterator = getSubTerms().iterator();
 		while ( subTermIterator.hasNext() ) {
-			returnString = returnString + " " + subTermIterator.next().todRealString();
+			returnString = returnString + " " + subTermIterator.next().toString();
 		}
 		returnString = returnString + " )";
 
