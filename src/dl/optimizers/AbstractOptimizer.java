@@ -21,7 +21,7 @@ public abstract class AbstractOptimizer extends FileBasedInterface {
 	protected abstract String commentLine( String commentLine );
 	// 5/6 Generates a script as a string:
 	protected abstract String generateScript( OptimizationProblem problem );
-	// 6/6 Parses the output produced by the string:
+	// 6/6 Parses the output produced by the script:
 	protected abstract OptimizationResult parseOutput( String output);
 	
 	/* Shared code across different types of optimizers */

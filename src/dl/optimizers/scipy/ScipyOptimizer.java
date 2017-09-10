@@ -126,12 +126,22 @@ public class ScipyOptimizer extends AbstractOptimizer {
 
 
 	public static void main(String[] args) {
-		test1();
+		boolean allTestsPassed = true;
+		
+		allTestsPassed &= test1();
+		
+		if ( allTestsPassed ) {
+			TextOutput.info("All tests passed.");
+		} else {
+			TextOutput.error("Some tests failed.");
+		}
 	}
 	
 	public static boolean test1() {
-		boolean success = false;
+		boolean success = true;
 		
+		RealVariable x1 = new RealVariable("x1");
+		RealVariable x2 = new RealVariable("x2");
 		Term objective = Term.parse("x1^2 + x2^2");
 		dLFormula c1 = dLFormula.parse("x1 > 3");
 		dLFormula c2 = dLFormula.parse("x2 > 2");
@@ -141,7 +151,10 @@ public class ScipyOptimizer extends AbstractOptimizer {
 		OptimizationProblem p = new OptimizationProblem( objective, constraints );
 		ScipyOptimizer s = new ScipyOptimizer();
 		
-		TextOutput.say( s.optimize(p).getOptimum() );
+		//TextOutput.say( s.optimize(p).getOptimum() );
+		Valuation optimum = s.optimize(p).getOptimum();
+		success &= optimum.get(x1).equals(new Real("3.0"));
+		success &= optimum.get(x2).equals(new Real("2.0"));
 			
 		return success;
 	}
