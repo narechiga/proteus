@@ -33,10 +33,14 @@ public class ScipyOptimizer extends AbstractOptimizer {
 	protected String generateScript( OptimizationProblem problem ) {
 		String script = "";
 		script += timeStampComment() + "\n";
-		script += problemDescriptionComment( problem ) + "\n\n";
+		script += problemDescriptionComment( problem ) + "\n";
 		
-		script += objectiveDeclaration( problem.getObjective() );
-		script += constraintDeclaration( problem.getConstraints() );
+		Replacement variableAliases = generateVariableAliases( problem.getVariables() );
+		script += comment("Variable aliases are " + variableAliases.toString()) + "\n\n";
+		
+		script += "import scipy.optimize\n\n";
+		script += objectiveDeclaration( problem.getObjective(), variableAliases );
+		script += constraintDeclaration( problem.getConstraints(), variableAliases );
 		
 		script += problemStatement( problem );
 		script += formatSolution( problem );
@@ -45,17 +49,19 @@ public class ScipyOptimizer extends AbstractOptimizer {
 	}
 	
 	/* Helper functions for generateScript */
-	protected String objectiveDeclaration( Term objective ) {
-		return "def objective(X):\n\t" + pythonizeString(objective.toString()) + "\n\n";
+	protected String objectiveDeclaration( Term objective, Replacement variableAliases ) {
+		Term aliasedObjective = objective.replace( variableAliases );
+		return "def objective(X):\n\treturn " + pythonizeString(aliasedObjective.toString()) + "\n\n";
 	}
 	
-	protected String constraintDeclaration( List<dLFormula> constraints ) {
+	protected String constraintDeclaration( List<ComparisonFormula> list, Replacement variableAliases ) {
 		String declarations = "";
-		String constraintsObject = "constraints = (";
+		String constraintsObject = "cons = (";
 		int constraintCount = 0;
-		for ( dLFormula constraint : constraints ) {
+		for ( dLFormula constraint : list ) {
+			ComparisonFormula aliasedConstraint = (ComparisonFormula)(constraint.replace(variableAliases));
 			declarations += "def c" + constraintCount + "(X):\n";
-			declarations += "\t" + pythonizeString(constraint.toString()) + "\n\n";
+			declarations += "\treturn " + pythonizeString(aliasedConstraint.getLHS().toString()) + "\n\n";
 			
 			if ( constraint.getOperator().equals(new Operator("="))
 					|| constraint.getOperator().equals(new Operator("=="))) {
@@ -75,7 +81,7 @@ public class ScipyOptimizer extends AbstractOptimizer {
 		String problemStatement = "";
 				
 		problemStatement += "x0 = scipy.zeros((" + problem.getVariables().size() + ",1))\n";
-		problemStatement += "solution = scipy.optimize.minimize( f, x0, method='SLSQP', constraints=cons )\n";
+		problemStatement += "solution = scipy.optimize.minimize( objective, x0, method='SLSQP', constraints=cons )\n";
 		
 		return problemStatement;
 	}
@@ -88,9 +94,9 @@ public class ScipyOptimizer extends AbstractOptimizer {
 		List<RealVariable> variables = problem.getVariables();
 		for ( int k = 0; k < variables.size(); k++ ) {
 			if ( k == 0 ) {
-				formatString += variables.get(k).toString() + "->\"" + "+ str(xopt[" + k + "])";
+				formatString += variables.get(k).toString() + "->\"" + " + str(xopt[" + k + "])";
 			} else {
-				formatString += "\", " + variables.get(k).toString() + "->\"" + "+strxopt([" + k +"])";
+				formatString += " + \", " + variables.get(k).toString() + "->\"" + "+str(xopt[" + k +"])";
 			}
 		}
 		formatString += "+ \"}\")\n";
@@ -108,6 +114,14 @@ public class ScipyOptimizer extends AbstractOptimizer {
 		// Takes care of idiosyncratic aspects of python, such as
 		// the fact that exponentiation is denoted by **
 		return string.replace("^", "**");
+	}
+	
+	protected Replacement generateVariableAliases( List<RealVariable> variables ) {
+		Replacement variableAliases = new Replacement();
+		for ( int k = 0; k < variables.size(); k++ ) {
+			variableAliases.put( variables.get(k), new RealVariable("X["+k+"]"));
+		}
+		return variableAliases;
 	}
 
 
@@ -127,7 +141,7 @@ public class ScipyOptimizer extends AbstractOptimizer {
 		OptimizationProblem p = new OptimizationProblem( objective, constraints );
 		ScipyOptimizer s = new ScipyOptimizer();
 		
-		TextOutput.say( s.generateScript(p) );
+		TextOutput.say( s.optimize(p).getOptimum() );
 			
 		return success;
 	}

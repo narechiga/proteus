@@ -9,7 +9,7 @@ import java.util.*;
 public class OptimizationProblem {
 
 	protected Term objective; // The quantity that we want to minimize
-	protected List<dLFormula> constraints;
+	protected List<ComparisonFormula> constraints;
 	protected List<RealVariable> variables; // stored so we can always return them in the same order
 	// TODO(nikos) supprot this: //protected HashMap<String,String> options; // Used to send special options to the optimizer
 	
@@ -54,7 +54,7 @@ public class OptimizationProblem {
 		return objective;
 	}
 	
-	public List<dLFormula> getConstraints() {
+	public List<ComparisonFormula> getConstraints() {
 		return constraints;
 	}
 	
@@ -66,12 +66,12 @@ public class OptimizationProblem {
 		return variables;
 	}
 	
-	protected List<dLFormula> makeConstraintsPrimitive( List<dLFormula> constraints ) {
+	protected List<ComparisonFormula> makeConstraintsPrimitive( List<dLFormula> constraints ) {
 		
-		List<dLFormula> primitiveConstraints = new ArrayList<>();
+		List<ComparisonFormula> primitiveConstraints = new ArrayList<>();
 		for ( dLFormula constraint : constraints ) {
 			if ( constraint instanceof ComparisonFormula ) {
-				primitiveConstraints.add( constraint );
+				primitiveConstraints.add( makePrimitive((ComparisonFormula)constraint) );
 				
 			} else if ( constraint instanceof AndFormula ) {
 				List<dLFormula> conjuncts = ((AndFormula)constraint).splitOnAnds();

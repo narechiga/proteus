@@ -95,7 +95,7 @@ public class Replacement {
 					+ ", ";
 			} else {
 				returnString = returnString + thisVariable 
-					+ " -> " +  get( thisVariable );
+					+ " |=> " +  get( thisVariable );
 			}
 
 

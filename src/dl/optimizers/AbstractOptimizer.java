@@ -3,6 +3,7 @@ package dl.optimizers;
 import java.io.File;
 import java.util.*;
 import dl.syntax.*;
+import dl.parser.*;
 
 import dl.filebasedinterface.*;
 
@@ -39,10 +40,10 @@ public abstract class AbstractOptimizer extends FileBasedInterface {
 	
 	protected String problemDescriptionComment( OptimizationProblem problem ) {
 		// Create a comment that documents the OptimizationProblem we are solving
-		String description = commentLine("Cost: " + problem.getObjective().toString()) + "\n";
+		String description = commentLine("Cost: " + PrettyPrinter.print(problem.getObjective())) + "\n";
 		description += commentLine("Number of constraints: " + problem.getConstraints().size()) + "\n";
 		for ( int k = 0; k < problem.getConstraints().size(); k++ ) {
-			description += commentLine("Constraint " + k + ": " + problem.getConstraint( k )) + "\n";
+			description += commentLine("Constraint " + k + ": " + PrettyPrinter.print(problem.getConstraint( k ))) + "\n";
 		}
 		return description;
 	}
