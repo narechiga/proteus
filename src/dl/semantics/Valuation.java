@@ -30,7 +30,7 @@ public class Valuation {
 		valuation.put( variable, number );
 	}
 
-	public static Valuation parseValuation( String string ) {
+	public static Valuation parse( String string ) {
 		StringReader thisReader = new StringReader( string );
 		dLLexer thisdLLexer = new dLLexer( thisReader );
 		dLParser thisParser = new dLParser( thisdLLexer );
@@ -117,20 +117,20 @@ public class Valuation {
 		return returnString;
 	}
 	
-	public static Valuation parse( String valuationString ) {
-		// returns the dLStructure that exists in the string
-		StringReader thisReader = new StringReader( valuationString );
-		dLLexer thisdLLexer = new dLLexer( thisReader );
-		dLParser thisParser = new dLParser( thisdLLexer );
-
-		try {
-			thisParser.parse();
-		} catch (Exception e) {
-			//e.printStackTrace();
-			throw new dLStructureFormatException("Problem parsing: " + valuationString );
-		}
-		return thisParser.valuation;
-	}
+//	public static Valuation parse( String valuationString ) {
+//		// returns the dLStructure that exists in the string
+//		StringReader thisReader = new StringReader( valuationString );
+//		dLLexer thisdLLexer = new dLLexer( thisReader );
+//		dLParser thisParser = new dLParser( thisdLLexer );
+//
+//		try {
+//			thisParser.parse();
+//		} catch (Exception e) {
+//			//e.printStackTrace();
+//			throw new dLStructureFormatException("Problem parsing: " + valuationString );
+//		}
+//		return thisParser.valuation;
+//	}
 
 	public Valuation clone() {
 		Valuation newValuation = new Valuation();

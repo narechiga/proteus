@@ -436,7 +436,7 @@ public abstract class LogicSolverInterface {
 
 
 // Automatically generate comments and filenames, in accordance with what the solver likes
-// this is so I can keep track of what each query does
+// this is so we can keep track of what each query does
 	public abstract String commentLine( String comment );
 	public abstract String decorateFilename( String base );
 	public abstract String generateFilename();

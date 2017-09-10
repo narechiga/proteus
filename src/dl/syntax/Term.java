@@ -121,7 +121,7 @@ public abstract class Term extends GeneralizedTerm {
 				}
 			}
 			returnString = returnString + " )";
-		} else {
+		} else {			
 			returnString = returnString + "( ";
 			if ( arguments != null ) {
 				Iterator<dLStructure> childIterator = arguments.iterator();
