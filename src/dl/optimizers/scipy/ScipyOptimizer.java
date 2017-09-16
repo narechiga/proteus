@@ -17,7 +17,7 @@ public class ScipyOptimizer extends AbstractOptimizer {
 	
 	@Override
 	public String getCommand() {
-		return "python3";
+		return "python";
 	}
 	
 	@Override
