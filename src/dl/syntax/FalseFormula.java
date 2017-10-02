@@ -19,7 +19,7 @@ public class FalseFormula extends dLFormula {
 	}
 
 // Substitution method
-	public FalseFormula substituteConcreteValuation( Valuation substitution ) {
+	public FalseFormula substitute( Valuation substitution ) {
 		return new FalseFormula();
 	}
 

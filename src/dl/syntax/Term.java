@@ -31,7 +31,7 @@ public abstract class Term extends GeneralizedTerm {
 	}
 
 // Substitution method
-	public abstract Term substituteConcreteValuation( Valuation substitution );// {
+	public abstract Term substitute( Valuation substitution );// {
 //		throw new RuntimeException("Generic substitution method is deprecated.");
 //		ArrayList<Term> subTermsSubstituted = new ArrayList<Term>();
 //		Iterator<Term> subTermIterator = getSubTerms().iterator();

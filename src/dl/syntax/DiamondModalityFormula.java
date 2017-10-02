@@ -41,9 +41,9 @@ public class DiamondModalityFormula extends dLFormula {
 //	}
 
 // Substitution method
-	public DiamondModalityFormula substituteConcreteValuation( Valuation substitution ) {
+	public DiamondModalityFormula substitute( Valuation substitution ) {
 		return new DiamondModalityFormula( getProgram().substituteConcreteValuation( substitution ),
-							getFormula().substituteConcreteValuation( substitution ) );
+							getFormula().substitute( substitution ) );
 	}
 
 	public DiamondModalityFormula replace( Replacement replacement ) {

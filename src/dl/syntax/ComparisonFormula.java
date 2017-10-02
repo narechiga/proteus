@@ -63,10 +63,10 @@ public class ComparisonFormula extends dLFormula {
 	//	operator = new Operator( inequality );
 	//}
 // Substitution method
-	public ComparisonFormula substituteConcreteValuation( Valuation substitution ) {
+	public ComparisonFormula substitute( Valuation substitution ) {
 		ComparisonFormula substitutedFormula  = new ComparisonFormula( getInequality().clone(),
-						getLHS().substituteConcreteValuation( substitution ),
-						getRHS().substituteConcreteValuation( substitution ) );
+						getLHS().substitute( substitution ),
+						getRHS().substitute( substitution ) );
 		if( debug ) {
 			System.out.println("Returning ComparisonFormula: " + substitutedFormula.toString() );
 		}

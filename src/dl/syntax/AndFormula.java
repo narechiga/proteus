@@ -62,9 +62,9 @@ public class AndFormula extends BinaryFormula {
 	}
 
 // Substitution method
-	public AndFormula substituteConcreteValuation( Valuation substitution ) {
-		AndFormula substitutedFormula =  new AndFormula( getLHS().substituteConcreteValuation( substitution ), 
-							getRHS().substituteConcreteValuation( substitution ) );
+	public AndFormula substitute( Valuation substitution ) {
+		AndFormula substitutedFormula =  new AndFormula( getLHS().substitute( substitution ), 
+							getRHS().substitute( substitution ) );
 //		if( debug ) {
 //			System.out.println("Returning AndFormula: " + substitutedFormula.toString() );
 //		}

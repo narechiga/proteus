@@ -41,9 +41,9 @@ public class IffFormula extends BinaryFormula {
 
 
 // Substitution method
-	public IffFormula substituteConcreteValuation( Valuation substitution ) {
-		return new IffFormula( getAntecedent().substituteConcreteValuation( substitution ),
-					getSuccedent().substituteConcreteValuation( substitution ) );
+	public IffFormula substitute( Valuation substitution ) {
+		return new IffFormula( getAntecedent().substitute( substitution ),
+					getSuccedent().substitute( substitution ) );
 	}
 
 	public IffFormula replace( Replacement replacement ) {

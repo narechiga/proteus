@@ -47,11 +47,11 @@ public class FunctionApplicationTerm extends Term {
 	public boolean isAffineIn( ArrayList<RealVariable> variables ) {
 		return false;
 	}
-	public FunctionApplicationTerm substituteConcreteValuation( Valuation substitution ) {
+	public FunctionApplicationTerm substitute( Valuation substitution ) {
 		ArrayList<Term> subTermsSubstituted = new ArrayList<Term>();
 		Iterator<Term> subTermIterator = getSubTerms().iterator();
 		while ( subTermIterator.hasNext() ) {
-			subTermsSubstituted.add( subTermIterator.next().substituteConcreteValuation( substitution ) );
+			subTermsSubstituted.add( subTermIterator.next().substitute( substitution ) );
 		}
 		
 		return new FunctionApplicationTerm( getOperator().clone(), subTermsSubstituted );

@@ -348,9 +348,9 @@ public class MultiplicationTerm extends Term {
 
 		}
 	}
-	public MultiplicationTerm substituteConcreteValuation( Valuation substitution ) {
-		return new MultiplicationTerm( getLHS().substituteConcreteValuation( substitution ),
-										getRHS().substituteConcreteValuation( substitution ) );
+	public MultiplicationTerm substitute( Valuation substitution ) {
+		return new MultiplicationTerm( getLHS().substitute( substitution ),
+										getRHS().substitute( substitution ) );
 	}
 	public MultiplicationTerm replace( Replacement replacement ) {
 		return new MultiplicationTerm( getLHS().replace(replacement), getRHS().replace(replacement) );

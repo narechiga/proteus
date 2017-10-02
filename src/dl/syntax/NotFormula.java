@@ -28,8 +28,8 @@ public class NotFormula extends dLFormula {
 	}
 
 // Substition method
-	public NotFormula substituteConcreteValuation( Valuation substitution ) {
-		NotFormula substitutedFormula = new NotFormula( getFormula().substituteConcreteValuation( substitution ) );
+	public NotFormula substitute( Valuation substitution ) {
+		NotFormula substitutedFormula = new NotFormula( getFormula().substitute( substitution ) );
 		if( debug ) {
 			System.out.println("Returning NotFormula: " + substitutedFormula.toString() );
 		}

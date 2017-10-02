@@ -23,6 +23,11 @@ public class LogicProblem {
 		formulas = new ArrayList<>();
 	}
 	
+	public LogicProblem( List<dLFormula> bounds, List<dLFormula> formulas ) {
+		this.bounds = bounds;
+		this.formulas = formulas;
+	}
+	
 	public void setBounds( List<dLFormula> bounds ) {
 		this.bounds = bounds;
 	}

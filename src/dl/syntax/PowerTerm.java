@@ -72,9 +72,9 @@ public class PowerTerm extends Term {
 
 		}
 	}
-	public PowerTerm substituteConcreteValuation( Valuation substitution ) {
-		return new PowerTerm( getLHS().substituteConcreteValuation( substitution ),
-										getRHS().substituteConcreteValuation( substitution ) );
+	public PowerTerm substitute( Valuation substitution ) {
+		return new PowerTerm( getLHS().substitute( substitution ),
+										getRHS().substitute( substitution ) );
 	}
 	public PowerTerm replace( Replacement replacement ) {
 		return new PowerTerm( getLHS().replace(replacement), getRHS().replace(replacement) );

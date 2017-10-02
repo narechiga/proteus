@@ -18,7 +18,7 @@ public class TrueFormula extends dLFormula {
 	}
 
 // Substitution method
-	public TrueFormula substituteConcreteValuation( Valuation substitution ) {
+	public TrueFormula substitute( Valuation substitution ) {
 		return this.clone();
 	}
 

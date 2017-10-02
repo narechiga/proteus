@@ -104,9 +104,9 @@ public class AdditionTerm extends Term {
 
 		}
 	}
-	public AdditionTerm substituteConcreteValuation( Valuation substitution ) {
-		return new AdditionTerm( getLHS().substituteConcreteValuation( substitution ),
-										getRHS().substituteConcreteValuation( substitution ) );
+	public AdditionTerm substitute( Valuation substitution ) {
+		return new AdditionTerm( getLHS().substitute( substitution ),
+										getRHS().substitute( substitution ) );
 	}
 	public AdditionTerm replace( Replacement replacement ) {
 		return new AdditionTerm( getLHS().replace(replacement), getRHS().replace(replacement) );

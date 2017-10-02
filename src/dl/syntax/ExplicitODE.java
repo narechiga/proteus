@@ -42,7 +42,7 @@ public class ExplicitODE extends dLStructure {
 // Substitution method
 	public ExplicitODE substituteConcreteValuation( Valuation substitution ) {
 		return new ExplicitODE( getLHS().clone(),
-					getRHS().substituteConcreteValuation( substitution ) );
+					getRHS().substitute( substitution ) );
 	}
 	public ExplicitODE replace( Replacement replacement ) {
 		return new ExplicitODE( getLHS().clone(),

@@ -31,12 +31,12 @@ public class ForAllFormula extends dLFormula {
 		return (dLFormula)(getArgument(1));
 	}
 
-	public ForAllFormula substituteConcreteValuation( Valuation substitution ) {
+	public ForAllFormula substitute( Valuation substitution ) {
 		if ( substitution.containsVariable( getVariable() ) ) {
 			return this.clone();
 		} else {
 			return new ForAllFormula( getVariable().clone(),
-						getFormula().substituteConcreteValuation( substitution ) );
+						getFormula().substitute( substitution ) );
 		}
 	}
 

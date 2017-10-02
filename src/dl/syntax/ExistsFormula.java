@@ -31,13 +31,13 @@ public class ExistsFormula extends dLFormula {
 		return (dLFormula)(getArgument(1));
 	}
 // Substitution method
-	public ExistsFormula substituteConcreteValuation( Valuation substitution ) {
+	public ExistsFormula substitute( Valuation substitution ) {
 		if ( substitution.containsVariable( getVariable() ) ) {
 			// It's not actually the same variable, because of the scope of the quantifier
 			return this.clone();
 		} else {
 			return new ExistsFormula( getVariable().clone(),
-						getFormula().substituteConcreteValuation( substitution ) );
+						getFormula().substitute( substitution ) );
 		}
 	}
 

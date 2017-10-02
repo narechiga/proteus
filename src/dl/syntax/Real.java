@@ -56,7 +56,7 @@ public class Real extends Term {
 	}
 
 // Substitution method
-	public Real substituteConcreteValuation( Valuation substitution ) {
+	public Real substitute( Valuation substitution ) {
 		return new Real( this.toString() );
 	}
 	public Real replace( Replacement replacement ) {

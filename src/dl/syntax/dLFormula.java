@@ -57,7 +57,7 @@ public abstract class dLFormula extends dLStructure {
 // All subclasses need to implement this guy
 	public abstract dLFormula clone();
 
-	public abstract dLFormula substituteConcreteValuation( Valuation substitution );
+	public abstract dLFormula substitute( Valuation substitution );
 	public abstract dLFormula replace( Replacement replacement );
 	public dLFormula replace( String variableName, String termString ) {
 		RealVariable variable = new RealVariable( variableName );
@@ -68,7 +68,7 @@ public abstract class dLFormula extends dLStructure {
 
 	// Because it's super obnoxious to always be typing substituteConcreteValuation
 	public dLFormula plugIn( Valuation substitution ) {
-		return this.clone().substituteConcreteValuation( substitution );
+		return this.clone().substitute( substitution );
 	}
 	
 	public Boolean evaluate( Valuation valuation ) {

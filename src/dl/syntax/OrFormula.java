@@ -54,9 +54,9 @@ public class OrFormula extends BinaryFormula {
 	}
 
 // Substitution method
-	public OrFormula substituteConcreteValuation( Valuation substitution ) {
-		return new OrFormula( getLHS().substituteConcreteValuation( substitution ), 
-					getRHS().substituteConcreteValuation( substitution ) );
+	public OrFormula substitute( Valuation substitution ) {
+		return new OrFormula( getLHS().substitute( substitution ), 
+					getRHS().substitute( substitution ) );
 	}
 
 	public OrFormula replace( Replacement replacement ) {

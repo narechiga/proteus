@@ -42,9 +42,9 @@ public class ImpliesFormula extends BinaryFormula {
 	}
 
 // Substitution method
-	public ImpliesFormula substituteConcreteValuation( Valuation substitution ) {
-		return new ImpliesFormula( getAntecedent().substituteConcreteValuation( substitution ),
-						getSuccedent().substituteConcreteValuation( substitution ) );
+	public ImpliesFormula substitute( Valuation substitution ) {
+		return new ImpliesFormula( getAntecedent().substitute( substitution ),
+						getSuccedent().substitute( substitution ) );
 	}
 
 	public ImpliesFormula replace( Replacement replacement ) {

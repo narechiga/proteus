@@ -41,9 +41,9 @@ public class BoxModalityFormula extends dLFormula {
 
 
 // Substitution method
-	public BoxModalityFormula substituteConcreteValuation( Valuation substitution ) {
+	public BoxModalityFormula substitute( Valuation substitution ) {
 		return new BoxModalityFormula( getProgram().substituteConcreteValuation( substitution ), 
-					getFormula().substituteConcreteValuation( substitution ) );
+					getFormula().substitute( substitution ) );
 	}
 
 	public BoxModalityFormula replace( Replacement replacement ) {

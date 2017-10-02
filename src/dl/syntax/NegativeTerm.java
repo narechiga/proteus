@@ -46,8 +46,8 @@ public class NegativeTerm extends Term {
 		return getNegatedTerm().isAffineIn( variables );
 	}
 	
-	public NegativeTerm substituteConcreteValuation( Valuation substitution ) {
-		return new NegativeTerm( getNegatedTerm().substituteConcreteValuation( substitution ) );
+	public NegativeTerm substitute( Valuation substitution ) {
+		return new NegativeTerm( getNegatedTerm().substitute( substitution ) );
 	}
 	public NegativeTerm replace( Replacement replacement ) {
 		return new NegativeTerm( getNegatedTerm().replace(replacement) );

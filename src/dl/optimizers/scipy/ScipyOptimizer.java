@@ -94,12 +94,12 @@ public class ScipyOptimizer extends AbstractOptimizer {
 		List<RealVariable> variables = problem.getVariables();
 		for ( int k = 0; k < variables.size(); k++ ) {
 			if ( k == 0 ) {
-				formatString += variables.get(k).toString() + "->\"" + " + str(xopt[" + k + "])";
+				formatString += variables.get(k).toString() + " -> \"" + " + str(xopt[" + k + "])";
 			} else {
-				formatString += " + \", " + variables.get(k).toString() + "->\"" + "+str(xopt[" + k +"])";
+				formatString += " + \", " + variables.get(k).toString() + " -> \"" + "+str(xopt[" + k +"])";
 			}
 		}
-		formatString += "+ \"}\")\n";
+		formatString += "+ \" }\")\n";
 		
 		return formatString;
 	}
